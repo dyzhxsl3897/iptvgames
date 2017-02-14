@@ -3,8 +3,8 @@ package com.zhongdan.games.paopaolong;
 public class MyGameConstants extends Constants {
 
 	public static class GameSettings {
-		public static int GAMEBOARD_LEFT = 7;//游戏版左侧坐标
-		public static int GAMEBOARD_RIGHT = 506;//游戏版右侧坐标
+		public static int GAMEBOARD_LEFT = 7;// 游戏版左侧坐标
+		public static int GAMEBOARD_RIGHT = 506;// 游戏版右侧坐标
 		public static int SINGLE_MOVE_STEP = 10;// 小球每动一次的位移量
 		public static int SINGLE_MOVE_INTERVAL = 20;// 小球每次移动的间隔时间，毫秒
 		public static int TOP_LEFT_BALL_X = 7;// 左上角小球的X坐标
@@ -17,6 +17,13 @@ public class MyGameConstants extends Constants {
 		public static int COL_WIDTH = 38;// 列宽
 		public static int ANGLE_MAX = 75;// 箭头旋转最大角度
 		public static int ANGLE_SINGLE_MOVE = 3;// 箭头每次旋转的角度
+	}
+
+	public static class Score {
+		public static int X = 580;// 分数中心点横坐标
+		public static int Y = 300;// 分数中心点纵坐标
+		public static int WIDTH = 30;// 分数每个数字宽度
+		public static int HEIGHT = 62;// 分数每个数字高度
 	}
 
 	public static class Ball {

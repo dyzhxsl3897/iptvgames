@@ -20,7 +20,7 @@ public class MyGameCanvas extends GameCanvas {
 	private BallSprite movingBall = null;
 	private ArrowSprite arrow = null;
 	private boolean isMoving = false;
-	private int score = 0;
+	private ScoreSprite score = null;
 
 	protected MyGameCanvas(MIDlet midlet) {
 		super(false);
@@ -30,15 +30,7 @@ public class MyGameCanvas extends GameCanvas {
 		initCanvas();
 	}
 
-	protected MyGameCanvas(boolean suppressKeyEvents) {
-		super(suppressKeyEvents);
-		graphics = this.getGraphics();
-		this.setFullScreenMode(true);
-		initCanvas();
-	}
-
 	public void paint(Graphics g) {
-		graphics.drawString(String.valueOf(score), 50, 20, Graphics.TOP | Graphics.HCENTER);
 		super.paint(g);
 	}
 
@@ -113,10 +105,14 @@ public class MyGameCanvas extends GameCanvas {
 		TiledLayer backgroundLayer = new TiledLayer(1, 1, backgroundImg, backgroundImg.getWidth(), backgroundImg.getHeight());
 		backgroundLayer.setCell(0, 0, 1);
 		layerManager.insert(backgroundLayer, 0);
+
 		// Initialize arrow
 		arrow = new ArrowSprite().createArrow();
 		arrow.getSprite().setPosition(MyGameConstants.Arrow.LEFT, MyGameConstants.Arrow.TOP);
 		layerManager.insert(arrow.getSprite(), 0);
+
+		// Initialize score
+		score = new ScoreSprite(0, this, graphics);
 
 		// Initialize waiting ball
 		waitingBall = new BallSprite().createBigRandomBall();
@@ -202,11 +198,11 @@ public class MyGameCanvas extends GameCanvas {
 	}
 
 	public int getScore() {
-		return score;
+		return score.getScore();
 	}
 
 	public void setScore(int score) {
-		this.score = score;
+		this.score.setScore(score);
 	}
 
 }

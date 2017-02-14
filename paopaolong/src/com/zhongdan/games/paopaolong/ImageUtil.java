@@ -1,8 +1,20 @@
 package com.zhongdan.games.paopaolong;
 
+import java.io.IOException;
+
 import javax.microedition.lcdui.Image;
 
 public class ImageUtil {
+
+	public static Image createImage(String imagePath) {
+		Image img = null;
+		try {
+			img = Image.createImage(imagePath);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return img;
+	}
 
 	public static Image resizeImage(Image src, int destW, int destH) {
 		int srcW = src.getWidth();
