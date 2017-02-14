@@ -6,15 +6,11 @@ import javax.microedition.midlet.MIDletStateChangeException;
 
 public class MainMidlet extends MIDlet {
 
-	private MyGameCanvas canvas = new MyGameCanvas(this);
-	private Display dis = null;
-
 	public MainMidlet() {
 	}
-	
+
 	protected void startApp() throws MIDletStateChangeException {
-		dis = Display.getDisplay(this);
-		dis.setCurrent(canvas);
+		Display.getDisplay(this).setCurrent(new MyGameCanvas(this));
 	}
 
 	protected void destroyApp(boolean arg0) throws MIDletStateChangeException {
