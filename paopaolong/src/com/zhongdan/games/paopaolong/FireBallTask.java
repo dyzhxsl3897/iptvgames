@@ -261,7 +261,6 @@ public class FireBallTask extends TimerTask {
 						BallSprite ballForRemove = balls[i][j];
 						layerManager.remove(ballForRemove.getSprite());
 						balls[i][j] = null;
-						removedBallNo++;
 					}
 				}
 			}
