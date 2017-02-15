@@ -21,9 +21,9 @@ public class MyGameConstants extends Constants {
 
 	public static class Score {
 		public static int X = 580;// 分数中心点横坐标
-		public static int Y = 300;// 分数中心点纵坐标
-		public static int WIDTH = 30;// 分数每个数字宽度
-		public static int HEIGHT = 62;// 分数每个数字高度
+		public static int Y = 313;// 分数中心点纵坐标
+		public static int WIDTH = 13;// 分数每个数字宽度
+		public static int HEIGHT = 20;// 分数每个数字高度
 	}
 
 	public static class Ball {
