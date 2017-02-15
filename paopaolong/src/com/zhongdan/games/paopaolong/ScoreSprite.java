@@ -49,7 +49,6 @@ public class ScoreSprite {
 			Sprite s = (Sprite) sprites.elementAt(i);
 			int posX = MyGameConstants.Score.X - (digitNo / 2 * MyGameConstants.Score.WIDTH) + ((digitNo - i) * MyGameConstants.Score.WIDTH);
 			int posY = MyGameConstants.Score.Y;
-			System.out.println(posX + ", " + posY);
 			s.setPosition(posX, posY);
 		}
 		for (int i = 0; i < sprites.size(); i++) {
