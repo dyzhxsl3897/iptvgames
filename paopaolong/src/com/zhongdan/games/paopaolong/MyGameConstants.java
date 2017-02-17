@@ -15,8 +15,8 @@ public class MyGameConstants extends Constants {
 		public static int COL_NO = 13;// 列数
 		public static int ROW_HEIGHT = 33;// 行高
 		public static int COL_WIDTH = 38;// 列宽
-		public static int ANGLE_MAX = 75;// 箭头旋转最大角度
-		public static int ANGLE_SINGLE_MOVE = 3;// 箭头每次旋转的角度
+		public static int ANGLE_MAX = 72;// 箭头旋转最大角度
+		public static int ANGLE_SINGLE_MOVE = 6;// 箭头每次旋转的角度
 	}
 
 	public static class Score {
