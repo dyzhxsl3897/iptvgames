@@ -9,6 +9,10 @@ public class GameConstants {
 		public static int CELL_H = 36;
 		public static int TOP_LEFT_CELL_X = 282;
 		public static int TOP_LEFT_CELL_Y = 170;
+		public static int STEP_NUMBER_X = 110;
+		public static int STEP_NUMBER_Y = 15;
+		public static int LEVEL_NUMBER_X = 320;
+		public static int LEVEL_NUMBER_Y = 35;
 	}
 
 	/**

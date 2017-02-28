@@ -1,12 +1,17 @@
 package com.zhongdan.games.sokoban;
 
+import java.util.Vector;
+
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.GameCanvas;
 import javax.microedition.lcdui.game.LayerManager;
+import javax.microedition.lcdui.game.Sprite;
+import javax.microedition.lcdui.game.TiledLayer;
 
 import com.zhongdan.games.framework.utils.Constants;
 import com.zhongdan.games.framework.utils.ImageUtil;
+import com.zhongdan.games.framework.utils.NumberImgUtil;
 
 public class MainGameCanvas extends GameCanvas implements Runnable {
 
@@ -21,6 +26,8 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	public final static int PAUSE = 5;
 	public int gameState = LEVELINFO;
 	private Image backgroundImg;
+	private Image stepImg;
+	private Image levelImg;
 	private Image boxImg;
 	private Image boxTargetImg;
 	private Image playerUpImg;
@@ -36,8 +43,10 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	private boolean isPlaying;
 	private MapSprite[][] mapSprites = new MapSprite[GameConstants.GameSettings.ROW_NO][GameConstants.GameSettings.COL_NO];
 	private int[][] map = new int[GameConstants.GameSettings.ROW_NO][GameConstants.GameSettings.COL_NO];
+	private Vector levelNumberSprite;
 	private int level;
-	public static int step;
+	private Vector stepNumberSprite;
+	public int step;
 
 	protected MainGameCanvas(MainMIDlet midlet) {
 		super(false);
@@ -49,6 +58,8 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	private void initCanvas() {
 		// Load images
 		backgroundImg = ImageUtil.createImage("/background.png");
+		stepImg = ImageUtil.createImage("/step_number.png");
+		levelImg = ImageUtil.createImage("/level_number.png");
 		wallImg = ImageUtil.createImage("/wall.png");
 		boxImg = ImageUtil.createImage("/box.png");
 		boxTargetImg = ImageUtil.createImage("/box_target.png");
@@ -62,10 +73,15 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		playerLeftTargetImg = ImageUtil.createImage("/player_left.png");
 		playerRightTargetImg = ImageUtil.createImage("/player_right.png");
 
+		// Draw background
+		TiledLayer backgroundLayer = new TiledLayer(1, 1, backgroundImg, backgroundImg.getWidth(), backgroundImg.getHeight());
+		backgroundLayer.setCell(0, 0, 1);
+		layerManager.append(backgroundLayer);
+
 		// Initialize level
 		level = 2;
+		step = 0;
 		initLevel(level);
-		drawBack();
 		isPlaying = true;
 
 		// Paint map
@@ -79,6 +95,8 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 
 	private void initLevel(int newLevel) {
 		this.level = newLevel;
+		updateStep();
+		updateLevel();
 		for (int i = 0; i < GameConstants.GameSettings.ROW_NO; i++) {
 			for (int j = 0; j < GameConstants.GameSettings.COL_NO; j++) {
 				switch (GameConstants.START_MAP[level - 1][i][j]) {
@@ -195,6 +213,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 				}
 				map[row + rowInc][col + colInc] = playerNewDir;
 				map[row + 2 * rowInc][col + 2 * colInc] = GameConstants.MapInfo.BOX;
+				step++;
 			} else if (map[row + 2 * rowInc][col + 2 * colInc] == GameConstants.MapInfo.TARGET) {
 				if (isPlayerStandOnTarget) {
 					map[row][col] = GameConstants.MapInfo.TARGET;
@@ -203,6 +222,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 				}
 				map[row + rowInc][col + colInc] = playerNewDir;
 				map[row + 2 * rowInc][col + 2 * colInc] = GameConstants.MapInfo.BOX_TARGET;
+				step++;
 			}
 		} else if (map[row + rowInc][col + colInc] == GameConstants.MapInfo.BOX_TARGET) {
 			if (map[row + 2 * rowInc][col + 2 * colInc] == GameConstants.MapInfo.BLANK) {
@@ -213,6 +233,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 				}
 				map[row + rowInc][col + colInc] = playerOnTargetNewDir;
 				map[row + 2 * rowInc][col + 2 * colInc] = GameConstants.MapInfo.BOX;
+				step++;
 			} else if (map[row + 2 * rowInc][col + 2 * colInc] == GameConstants.MapInfo.TARGET) {
 				if (isPlayerStandOnTarget) {
 					map[row][col] = GameConstants.MapInfo.TARGET;
@@ -221,6 +242,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 				}
 				map[row + rowInc][col + colInc] = playerOnTargetNewDir;
 				map[row + 2 * rowInc][col + 2 * colInc] = GameConstants.MapInfo.BOX_TARGET;
+				step++;
 			}
 		} else if (map[row + rowInc][col + colInc] == GameConstants.MapInfo.BLANK) {
 			if (isPlayerStandOnTarget) {
@@ -229,6 +251,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 				map[row][col] = GameConstants.MapInfo.BLANK;
 			}
 			map[row + rowInc][col + colInc] = playerNewDir;
+			step++;
 		} else if (map[row + rowInc][col + colInc] == GameConstants.MapInfo.TARGET) {
 			if (isPlayerStandOnTarget) {
 				map[row][col] = GameConstants.MapInfo.TARGET;
@@ -236,8 +259,10 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 				map[row][col] = GameConstants.MapInfo.BLANK;
 			}
 			map[row + rowInc][col + colInc] = playerOnTargetNewDir;
+			step++;
 		}
 
+		updateStep();
 		resetLayer();
 	}
 
@@ -317,9 +342,56 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 				}
 			}
 		}
-		drawBack();
 		layerManager.paint(graphics, 0, 0);
 		this.flushGraphics();
+	}
+
+	private void updateStep() {
+		try {
+			if (step > 9999) {
+				step = 9999;
+			}
+			if (null != stepNumberSprite && 0 < stepNumberSprite.size()) {
+				for (int i = 0; i < stepNumberSprite.size(); i++) {
+					layerManager.remove((Sprite) stepNumberSprite.elementAt(i));
+				}
+			}
+			stepNumberSprite = NumberImgUtil.UpdateNumber(step, stepImg, GameConstants.GameSettings.STEP_NUMBER_X,
+					GameConstants.GameSettings.STEP_NUMBER_Y, Graphics.TOP | Graphics.HCENTER);
+			if (null != stepNumberSprite && 0 < stepNumberSprite.size()) {
+				for (int i = 0; i < stepNumberSprite.size(); i++) {
+					layerManager.insert((Sprite) stepNumberSprite.elementAt(i), 0);
+				}
+			}
+			layerManager.paint(graphics, 0, 0);
+			this.flushGraphics();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void updateLevel() {
+		try {
+			if (level > 9999) {
+				level = 9999;
+			}
+			if (null != levelNumberSprite && 0 < levelNumberSprite.size()) {
+				for (int i = 0; i < levelNumberSprite.size(); i++) {
+					layerManager.remove((Sprite) levelNumberSprite.elementAt(i));
+				}
+			}
+			levelNumberSprite = NumberImgUtil.UpdateNumber(level, levelImg, GameConstants.GameSettings.LEVEL_NUMBER_X,
+					GameConstants.GameSettings.LEVEL_NUMBER_Y, Graphics.TOP | Graphics.HCENTER);
+			if (null != levelNumberSprite && 0 < levelNumberSprite.size()) {
+				for (int i = 0; i < levelNumberSprite.size(); i++) {
+					layerManager.insert((Sprite) levelNumberSprite.elementAt(i), 0);
+				}
+			}
+			layerManager.paint(graphics, 0, 0);
+			this.flushGraphics();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void run() {
@@ -335,11 +407,6 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			} catch (Exception exception) {
 			}
 		}
-	}
-
-	private void drawBack() {
-		graphics.drawImage(backgroundImg, 0, 0, 0);
-		graphics.setColor(0Xffff00);
 	}
 
 }
