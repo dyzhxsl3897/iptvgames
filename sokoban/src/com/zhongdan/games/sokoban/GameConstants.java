@@ -25,88 +25,129 @@ public class GameConstants {
 	 * 8：代表小人右<br/>
 	 * 9：代表压住目标地点的小人
 	 */
+	public static class MapInfo {
+		public final static int OUT_BOARD = -1;
+		public final static int BLANK = 0;
+		public final static int WALL = 1;
+		public final static int TARGET = 2;
+		public final static int BOX = 3;
+		public final static int BOX_TARGET = 4;
+		public final static int PLAYER_UP = 5;
+		public final static int PLAYER_DOWN = 6;
+		public final static int PLAYER_LEFT = 7;
+		public final static int PLAYER_RIGHT = 8;
+		public final static int PLAYER_UP_TARGET = 9;
+		public final static int PLAYER_DOWN_TARGET = 10;
+		public final static int PLAYER_LEFT_TARGET = 11;
+		public final static int PLAYER_RIGHT_TARGET = 12;
+	}
+
 	public static int[][][] START_MAP = {
-	// 第一关(1)
-			{ { -1, -1, 1, 1, 1, -1, -1, -1 },//
-					{ -1, -1, 1, 2, 1, -1, -1, -1 },//
-					{ -1, -1, 1, 0, 1, 1, 1, 1 }, //
-					{ 1, 1, 1, 3, 0, 3, 2, 1 },//
-					{ 1, 2, 0, 3, 6, 1, 1, 1 },//
-					{ 1, 1, 1, 1, 3, 1, -1, -1 },//
-					{ -1, -1, -1, 1, 2, 1, -1, -1 },//
-					{ -1, -1, -1, 1, 1, 1, -1, -1 } },
-			// 第二关(4)
-			{ { -1, -1, 1, 1, 1, 1, -1, -1 },//
-					{ -1, 1, 1, 0, 0, 1, -1, -1 },//
-					{ -1, 1, 0, 0, 3, 1, -1, -1 },//
-					{ -1, 1, 1, 0, 0, 1, 1, -1 },//
-					{ -1, 1, 1, 3, 6, 0, 1, -1 },//
-					{ -1, 1, 2, 3, 3, 0, 1, -1 },//
-					{ -1, 1, 2, 2, 4, 2, 1, -1 },//
-					{ -1, 1, 1, 1, 1, 1, 1, -1 } }, //
-			// 第三关(5)
-			{ { -1, 1, 1, 1, 1, 1, -1, -1 },//
-					{ -1, 1, 0, 6, 1, 1, 1, -1 },//
-					{ -1, 1, 0, 3, 0, 0, 1, -1 },//
-					{ 1, 1, 1, 0, 1, 0, 1, 1 },//
-					{ 1, 2, 1, 0, 1, 0, 0, 1 },//
-					{ 1, 2, 3, 0, 0, 1, 0, 1 },//
-					{ 1, 2, 0, 0, 0, 3, 0, 1 },//
-					{ 1, 1, 1, 1, 1, 1, 1, 1 } }, //
-			// 第四关(10)
-			{ { -1, -1, 1, 1, 1, 1, 1, 1 },//
-					{ -1, -1, 1, 0, 0, 0, 0, 1 },//
-					{ 1, 1, 1, 3, 3, 3, 0, 1 },//
-					{ 1, 6, 0, 3, 2, 2, 0, 1 },//
-					{ 1, 0, 3, 2, 2, 2, 1, 1 },//
-					{ 1, 1, 1, 1, 0, 0, 1, -1 },//
-					{ -1, -1, -1, 1, 1, 1, 1, -1 },//
-					{ -1, -1, -1, -1, -1, -1, -1, -1 } }, //
-			// 第五关(12)
-			{ { -1, -1, 1, 1, 1, 1, 1, -1 },//
-					{ 1, 1, 1, 0, 0, 6, 1, -1 },//
-					{ 1, 0, 0, 3, 2, 0, 1, 1 },//
-					{ 1, 0, 0, 2, 3, 2, 0, 1 },//
-					{ 1, 1, 1, 0, 4, 3, 0, 1 },//
-					{ -1, -1, 1, 0, 0, 0, 1, 1 },//
-					{ -1, -1, 1, 1, 1, 1, 1, -1 },//
-					{ -1, -1, -1, -1, -1, -1, -1, -1 } }, //
-			// 第六关(13)
-			{ { -1, -1, 1, 1, 1, 1, -1, -1 },//
-					{ -1, -1, 1, 2, 2, 1, -1, -1 },//
-					{ -1, 1, 1, 0, 2, 1, 1, -1 },//
-					{ -1, 1, 0, 0, 3, 2, 1, -1 },//
-					{ 1, 1, 0, 3, 0, 0, 1, 1 },//
-					{ 1, 0, 0, 1, 3, 3, 0, 1 },//
-					{ 1, 0, 0, 6, 0, 0, 0, 1 },//
-					{ 1, 1, 1, 1, 1, 1, 1, 1 } }, //
-			// 第七关(14)
-			{ { 1, 1, 1, 1, 1, 1, 1, 1 },//
-					{ 1, 0, 0, 1, 0, 0, 0, 1 },//
-					{ 1, 0, 3, 2, 2, 3, 0, 1 },//
-					{ 1, 6, 3, 2, 4, 0, 1, 1 },//
-					{ 1, 0, 3, 2, 2, 3, 0, 1 },//
-					{ 1, 0, 0, 1, 0, 0, 0, 1 },//
-					{ 1, 1, 1, 1, 1, 1, 1, 1 }, //
-					{ -1, -1, -1, -1, -1, -1, -1, -1 } }, //
-			// 第八关(15)
-			{ { -1, 1, 1, 1, 1, 1, 1, -1 },//
-					{ 1, 1, 0, 0, 0, 0, 1, 1 },//
-					{ 1, 0, 3, 0, 3, 3, 0, 1 },//
-					{ 1, 2, 2, 2, 2, 2, 2, 1 },//
-					{ 1, 0, 3, 3, 0, 3, 0, 1 },//
-					{ 1, 1, 1, 0, 6, 1, 1, 1 },//
-					{ -1, -1, 1, 1, 1, 1, -1, -1 }, //
-					{ -1, -1, -1, -1, -1, -1, -1, -1 } }, //
-			// 第九关(20)
-			{ { 1, 1, 1, 1, 1, 1, 1, -1 },//
-					{ 1, 2, 2, 3, 2, 2, 1, -1 },//
-					{ 1, 2, 2, 1, 2, 2, 1, -1 },//
-					{ 1, 0, 3, 3, 3, 0, 1, -1 },//
-					{ 1, 0, 0, 3, 0, 0, 1, -1 },//
-					{ 1, 0, 3, 3, 3, 0, 1, -1 },//
-					{ 1, 0, 0, 1, 6, 0, 1, -1 }, //
-					{ 1, 1, 1, 1, 1, 1, 1, -1 } } //
+	// 第一关(一)
+			{
+					{ MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD,
+							MapInfo.OUT_BOARD },//
+					{ MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.TARGET, MapInfo.WALL, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD,
+							MapInfo.OUT_BOARD },//
+					{ MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.BLANK, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL }, //
+					{ MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.BOX, MapInfo.BLANK, MapInfo.BOX, MapInfo.TARGET, MapInfo.WALL },//
+					{ MapInfo.WALL, MapInfo.TARGET, MapInfo.BLANK, MapInfo.BOX, MapInfo.PLAYER_DOWN, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL },//
+					{ MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.BOX, MapInfo.WALL, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD },//
+					{ MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.TARGET, MapInfo.WALL, MapInfo.OUT_BOARD,
+							MapInfo.OUT_BOARD },//
+					{ MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.OUT_BOARD,
+							MapInfo.OUT_BOARD } },
+			// 第二关(四)
+			{
+					{ MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.OUT_BOARD,
+							MapInfo.OUT_BOARD },//
+					{ MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.WALL, MapInfo.BLANK, MapInfo.BLANK, MapInfo.WALL, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD },//
+					{ MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.BLANK, MapInfo.BLANK, MapInfo.BOX, MapInfo.WALL, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD },//
+					{ MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.WALL, MapInfo.BLANK, MapInfo.BLANK, MapInfo.WALL, MapInfo.WALL, MapInfo.OUT_BOARD },//
+					{ MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.WALL, MapInfo.BOX, MapInfo.PLAYER_DOWN, MapInfo.BLANK, MapInfo.WALL, MapInfo.OUT_BOARD },//
+					{ MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.TARGET, MapInfo.BOX, MapInfo.BOX, MapInfo.BLANK, MapInfo.WALL, MapInfo.OUT_BOARD },//
+					{ MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.TARGET, MapInfo.TARGET, MapInfo.BOX_TARGET, MapInfo.TARGET, MapInfo.WALL,
+							MapInfo.OUT_BOARD },//
+					{ MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.OUT_BOARD } }, //
+			// 第三关(五)
+			{
+					{ MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD },//
+					{ MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.BLANK, MapInfo.PLAYER_DOWN, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL,
+							MapInfo.OUT_BOARD },//
+					{ MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.BLANK, MapInfo.BOX, MapInfo.BLANK, MapInfo.BLANK, MapInfo.WALL, MapInfo.OUT_BOARD },//
+					{ MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.BLANK, MapInfo.WALL, MapInfo.BLANK, MapInfo.WALL, MapInfo.WALL },//
+					{ MapInfo.WALL, MapInfo.TARGET, MapInfo.WALL, MapInfo.BLANK, MapInfo.WALL, MapInfo.BLANK, MapInfo.BLANK, MapInfo.WALL },//
+					{ MapInfo.WALL, MapInfo.TARGET, MapInfo.BOX, MapInfo.BLANK, MapInfo.BLANK, MapInfo.WALL, MapInfo.BLANK, MapInfo.WALL },//
+					{ MapInfo.WALL, MapInfo.TARGET, MapInfo.BLANK, MapInfo.BLANK, MapInfo.BLANK, MapInfo.BOX, MapInfo.BLANK, MapInfo.WALL },//
+					{ MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL } }, //
+			// 第四关(十)
+			{
+					{ MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL },//
+					{ MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.BLANK, MapInfo.BLANK, MapInfo.BLANK, MapInfo.BLANK, MapInfo.WALL },//
+					{ MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.BOX, MapInfo.BOX, MapInfo.BOX, MapInfo.BLANK, MapInfo.WALL },//
+					{ MapInfo.WALL, MapInfo.PLAYER_DOWN, MapInfo.BLANK, MapInfo.BOX, MapInfo.TARGET, MapInfo.TARGET, MapInfo.BLANK, MapInfo.WALL },//
+					{ MapInfo.WALL, MapInfo.BLANK, MapInfo.BOX, MapInfo.TARGET, MapInfo.TARGET, MapInfo.TARGET, MapInfo.WALL, MapInfo.WALL },//
+					{ MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.BLANK, MapInfo.BLANK, MapInfo.WALL, MapInfo.OUT_BOARD },//
+					{ MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL,
+							MapInfo.OUT_BOARD },//
+					{ MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD,
+							MapInfo.OUT_BOARD, MapInfo.OUT_BOARD } }, //
+			// 第五关(十二)
+			{
+					{ MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.OUT_BOARD },//
+					{ MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.BLANK, MapInfo.BLANK, MapInfo.PLAYER_DOWN, MapInfo.WALL, MapInfo.OUT_BOARD },//
+					{ MapInfo.WALL, MapInfo.BLANK, MapInfo.BLANK, MapInfo.BOX, MapInfo.TARGET, MapInfo.BLANK, MapInfo.WALL, MapInfo.WALL },//
+					{ MapInfo.WALL, MapInfo.BLANK, MapInfo.BLANK, MapInfo.TARGET, MapInfo.BOX, MapInfo.TARGET, MapInfo.BLANK, MapInfo.WALL },//
+					{ MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.BLANK, MapInfo.BOX_TARGET, MapInfo.BOX, MapInfo.BLANK, MapInfo.WALL },//
+					{ MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.BLANK, MapInfo.BLANK, MapInfo.BLANK, MapInfo.WALL, MapInfo.WALL },//
+					{ MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.OUT_BOARD },//
+					{ MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD,
+							MapInfo.OUT_BOARD, MapInfo.OUT_BOARD } }, //
+			// 第六关(十三)
+			{
+					{ MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.OUT_BOARD,
+							MapInfo.OUT_BOARD },//
+					{ MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.TARGET, MapInfo.TARGET, MapInfo.WALL, MapInfo.OUT_BOARD,
+							MapInfo.OUT_BOARD },//
+					{ MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.WALL, MapInfo.BLANK, MapInfo.TARGET, MapInfo.WALL, MapInfo.WALL, MapInfo.OUT_BOARD },//
+					{ MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.BLANK, MapInfo.BLANK, MapInfo.BOX, MapInfo.TARGET, MapInfo.WALL, MapInfo.OUT_BOARD },//
+					{ MapInfo.WALL, MapInfo.WALL, MapInfo.BLANK, MapInfo.BOX, MapInfo.BLANK, MapInfo.BLANK, MapInfo.WALL, MapInfo.WALL },//
+					{ MapInfo.WALL, MapInfo.BLANK, MapInfo.BLANK, MapInfo.WALL, MapInfo.BOX, MapInfo.BOX, MapInfo.BLANK, MapInfo.WALL },//
+					{ MapInfo.WALL, MapInfo.BLANK, MapInfo.BLANK, MapInfo.PLAYER_DOWN, MapInfo.BLANK, MapInfo.BLANK, MapInfo.BLANK, MapInfo.WALL },//
+					{ MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL } }, //
+			// 第七关(十四)
+			{
+					{ MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL },//
+					{ MapInfo.WALL, MapInfo.BLANK, MapInfo.BLANK, MapInfo.WALL, MapInfo.BLANK, MapInfo.BLANK, MapInfo.BLANK, MapInfo.WALL },//
+					{ MapInfo.WALL, MapInfo.BLANK, MapInfo.BOX, MapInfo.TARGET, MapInfo.TARGET, MapInfo.BOX, MapInfo.BLANK, MapInfo.WALL },//
+					{ MapInfo.WALL, MapInfo.PLAYER_DOWN, MapInfo.BOX, MapInfo.TARGET, MapInfo.BOX_TARGET, MapInfo.BLANK, MapInfo.WALL, MapInfo.WALL },//
+					{ MapInfo.WALL, MapInfo.BLANK, MapInfo.BOX, MapInfo.TARGET, MapInfo.TARGET, MapInfo.BOX, MapInfo.BLANK, MapInfo.WALL },//
+					{ MapInfo.WALL, MapInfo.BLANK, MapInfo.BLANK, MapInfo.WALL, MapInfo.BLANK, MapInfo.BLANK, MapInfo.BLANK, MapInfo.WALL },//
+					{ MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL }, //
+					{ MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD,
+							MapInfo.OUT_BOARD, MapInfo.OUT_BOARD } }, //
+			// 第八关(十五)
+			{
+					{ MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.OUT_BOARD },//
+					{ MapInfo.WALL, MapInfo.WALL, MapInfo.BLANK, MapInfo.BLANK, MapInfo.BLANK, MapInfo.BLANK, MapInfo.WALL, MapInfo.WALL },//
+					{ MapInfo.WALL, MapInfo.BLANK, MapInfo.BOX, MapInfo.BLANK, MapInfo.BOX, MapInfo.BOX, MapInfo.BLANK, MapInfo.WALL },//
+					{ MapInfo.WALL, MapInfo.TARGET, MapInfo.TARGET, MapInfo.TARGET, MapInfo.TARGET, MapInfo.TARGET, MapInfo.TARGET, MapInfo.WALL },//
+					{ MapInfo.WALL, MapInfo.BLANK, MapInfo.BOX, MapInfo.BOX, MapInfo.BLANK, MapInfo.BOX, MapInfo.BLANK, MapInfo.WALL },//
+					{ MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.BLANK, MapInfo.PLAYER_DOWN, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL },//
+					{ MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.OUT_BOARD,
+							MapInfo.OUT_BOARD }, //
+					{ MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD,
+							MapInfo.OUT_BOARD, MapInfo.OUT_BOARD } }, //
+			// 第九关(二十)
+			{
+					{ MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.OUT_BOARD },//
+					{ MapInfo.WALL, MapInfo.TARGET, MapInfo.TARGET, MapInfo.BOX, MapInfo.TARGET, MapInfo.TARGET, MapInfo.WALL, MapInfo.OUT_BOARD },//
+					{ MapInfo.WALL, MapInfo.TARGET, MapInfo.TARGET, MapInfo.WALL, MapInfo.TARGET, 2, MapInfo.WALL, MapInfo.OUT_BOARD },//
+					{ MapInfo.WALL, MapInfo.BLANK, MapInfo.BOX, MapInfo.BOX, MapInfo.BOX, MapInfo.BLANK, MapInfo.WALL, MapInfo.OUT_BOARD },//
+					{ MapInfo.WALL, MapInfo.BLANK, MapInfo.BLANK, MapInfo.BOX, MapInfo.BLANK, MapInfo.BLANK, MapInfo.WALL, MapInfo.OUT_BOARD },//
+					{ MapInfo.WALL, MapInfo.BLANK, MapInfo.BOX, MapInfo.BOX, MapInfo.BOX, MapInfo.BLANK, MapInfo.WALL, MapInfo.OUT_BOARD },//
+					{ MapInfo.WALL, MapInfo.BLANK, MapInfo.BLANK, MapInfo.WALL, MapInfo.PLAYER_DOWN, MapInfo.BLANK, MapInfo.WALL, MapInfo.OUT_BOARD }, //
+					{ MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.OUT_BOARD } } //
 	};
 
 }
