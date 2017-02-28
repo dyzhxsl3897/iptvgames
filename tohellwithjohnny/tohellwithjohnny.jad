@@ -1,0 +1,8 @@
+MIDlet-1: MainMIDlet,,com.zhongdan.games.tohellwithjohnny.MainMIDlet
+MIDlet-2: Man,,com.zhongdan.games.tohellwithjohnny.Man
+MIDlet-Jar-URL: tohellwithjohnny.jar
+MIDlet-Name: tohellwithjohnny Midlet Suite
+MIDlet-Vendor: Midlet Suite Vendor
+MIDlet-Version: 1.0.0
+MicroEdition-Configuration: CLDC-1.1
+MicroEdition-Profile: MIDP-2.0
