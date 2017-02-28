@@ -9,6 +9,13 @@ public class MyGameConstants {
 		public static int COL_NO = 10;
 	}
 
+	public static class Score {
+		public static int WIDTH = 25;
+		public static int HEIGHT = 27;
+		public static int X = 25;
+		public static int Y = 27;
+	}
+
 	public static class ButtonIcon {
 		public static int ddown_X = 50;
 		public static int ddown_Y = 360;

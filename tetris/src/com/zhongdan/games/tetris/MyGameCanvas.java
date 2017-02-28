@@ -25,14 +25,10 @@ public class MyGameCanvas extends GameCanvas {
 	private BrickItem nextBrick;
 	private boolean isPlaying = true;
 	private int currentLevel = 0;
-	private int score = 0;
 	private ButtonSprite btnDown;
 	private ButtonSprite btnLeft;
 	private ButtonSprite btnRight;
-
-	// private ButtonSprite btnDdown;
-	// private ButtonSprite btnPause;
-	// private ButtonSprite btnReturns;
+	private ScoreSprite score = null;
 
 	protected MyGameCanvas(MIDlet midlet) {
 		super(false);
@@ -108,6 +104,9 @@ public class MyGameCanvas extends GameCanvas {
 		new ButtonSprite("pause", this, graphics, MyGameConstants.ButtonIcon.pause_X, MyGameConstants.ButtonIcon.pause_Y);
 		new ButtonSprite("returns", this, graphics, MyGameConstants.ButtonIcon.returns_X, MyGameConstants.ButtonIcon.returns_Y);
 
+		// Initialize score
+		score = new ScoreSprite(0, this, graphics);
+
 		// Initialize moving brick
 		Random rnd = new Random();
 		int type = (rnd.nextInt() >>> 1) % 7;
@@ -151,14 +150,6 @@ public class MyGameCanvas extends GameCanvas {
 		this.nextBrick = nextBrick;
 	}
 
-	public int getScore() {
-		return score;
-	}
-
-	public void setScore(int score) {
-		this.score = score;
-	}
-
 	public int getCurrentLevel() {
 		return currentLevel;
 	}
@@ -175,4 +166,11 @@ public class MyGameCanvas extends GameCanvas {
 		this.isPlaying = isPlaying;
 	}
 
+	public int getScore() {
+		return score.getScore();
+	}
+
+	public void setScore(int score) {
+		this.score.setScore(score);
+	}
 }
