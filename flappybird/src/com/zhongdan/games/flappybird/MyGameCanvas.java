@@ -177,8 +177,6 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 					e.printStackTrace();
 				}
 			}
-			graphics.drawString(String.valueOf(isPlaying), 50, 20, 20);
-			this.flushGraphics();
 		}
 	}
 
