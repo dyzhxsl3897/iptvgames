@@ -1,4 +1,4 @@
-MIDlet-1: MainMIDlet,,com.zhongdan.games.tohellwithjohnny.MainMIDlet
+MIDlet-1: MainMIDlet,,com.zhongdan.games.tohellwithjohnny.MyMIDlet
 MIDlet-2: Man,,com.zhongdan.games.tohellwithjohnny.Man
 MIDlet-Jar-URL: tohellwithjohnny.jar
 MIDlet-Name: tohellwithjohnny Midlet Suite
