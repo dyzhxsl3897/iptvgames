@@ -177,6 +177,7 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 					e.printStackTrace();
 				}
 			}
+			this.flushGraphics();
 		}
 	}
 
