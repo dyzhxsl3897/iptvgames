@@ -159,6 +159,15 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			key();
 			hookSprite.upData(allOre);
 			break;
+		case WIN:
+//			drawWin();
+			count++;
+			if (count >= 30) {
+				count = 0;
+				initOre(level + 1);
+				this.gameState = LEVELINFO;
+			}
+			break;
 		}
 		this.flushGraphics();
 	}
