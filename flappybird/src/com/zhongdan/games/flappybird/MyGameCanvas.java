@@ -11,6 +11,7 @@ import javax.microedition.lcdui.game.Sprite;
 import javax.microedition.lcdui.game.TiledLayer;
 
 import com.zhongdan.games.flappybird.GameConstants.Bird;
+import com.zhongdan.games.flappybird.GameConstants.GameSettings;
 import com.zhongdan.games.flappybird.GameConstants.GameStatus;
 import com.zhongdan.games.flappybird.GameConstants.Pipe;
 import com.zhongdan.games.utils.Constants;
@@ -31,8 +32,8 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 	private Sprite birdSprite;
 	private int birdFrameSeqNo;
 	private int birdSpeedV = 0;
-	private int gravity = 2;
 	private int gameStatus;
+	private int count = 0;
 	private Thread t;
 
 	protected MyGameCanvas(MyMIDlet midlet) {
@@ -89,25 +90,25 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 			Sprite pipeBody = null;
 			for (int j = 0; j < height; j++) {
 				pipeBody = new Sprite(pipeImg, 45, 25);
-				pipeBody.setPosition(640 + i * GameConstants.Pipe.DISTANCE, j * 25);
+				pipeBody.setPosition(Pipe.START_POS_X + i * GameConstants.Pipe.DISTANCE, j * 25);
 				pipeBody.setFrame(2);
 				pipeSpriteList.addElement(pipeBody);
 				layerManager.insert(pipeBody, 0);
 			}
 			pipeBody = new Sprite(pipeImg, 45, 25);
-			pipeBody.setPosition(640 + i * GameConstants.Pipe.DISTANCE, height * 25);
+			pipeBody.setPosition(Pipe.START_POS_X + i * GameConstants.Pipe.DISTANCE, height * 25);
 			pipeBody.setFrame(3);
 			pipeSpriteList.addElement(pipeBody);
 			layerManager.insert(pipeBody, 0);
 			for (int j = 0; j < GameConstants.Pipe.TOTAL - height; j++) {
 				pipeBody = new Sprite(pipeImg, 45, 25);
-				pipeBody.setPosition(640 + i * GameConstants.Pipe.DISTANCE, 417 - j * 25);
+				pipeBody.setPosition(Pipe.START_POS_X + i * GameConstants.Pipe.DISTANCE, 417 - j * 25);
 				pipeBody.setFrame(1);
 				pipeSpriteList.addElement(pipeBody);
 				layerManager.insert(pipeBody, 0);
 			}
 			pipeBody = new Sprite(pipeImg, 45, 25);
-			pipeBody.setPosition(640 + i * GameConstants.Pipe.DISTANCE, 417 - (GameConstants.Pipe.TOTAL - height) * 25);
+			pipeBody.setPosition(Pipe.START_POS_X + i * GameConstants.Pipe.DISTANCE, 417 - (GameConstants.Pipe.TOTAL - height) * 25);
 			pipeBody.setFrame(0);
 			pipeSpriteList.addElement(pipeBody);
 			layerManager.insert(pipeBody, 0);
@@ -119,7 +120,7 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 			if (keyCode == Constants.KeyCode.OK) {
 				birdSpeedV = -16;
 			}
-		} else {
+		} else if (this.gameStatus == GameStatus.START) {
 			if (keyCode == Constants.KeyCode.OK) {
 				initGame();
 				this.gameStatus = GameStatus.PLAYING;
@@ -143,26 +144,28 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 		case GameStatus.PLAYING:
 			long start = System.currentTimeMillis();
 
-			birdSpeedV += gravity;
+			birdSpeedV += GameSettings.GRAVITY;
+			if (birdSpeedV > Bird.MAX_V_SPEED) {
+				birdSpeedV = Bird.MAX_V_SPEED;
+			}
 			birdSprite.move(0, birdSpeedV);
 			birdSprite.setFrame((birdSprite.getFrame() + 1) % birdFrameSeqNo);
 
 			int length = pipeSpriteList.size();
 			for (int i = 0; i < length; i++) {
 				Sprite pipe = (Sprite) pipeSpriteList.elementAt(i);
-				if (pipe.getX() + 8 + GameConstants.Pipe.WIDTH < 0) {
+				if (pipe.getX() + Pipe.SPEED + GameConstants.Pipe.WIDTH < 0) {
 					pipe.move(Pipe.DISTANCE * 10, 0);
 				}
-				pipe.move(-4, 0);
+				pipe.move(-Pipe.SPEED, 0);
 			}
 
-			if (birdSprite.getY() > 420) {
+			if (birdSprite.getY() > 420 || birdSprite.getY() <= 0 || birdCollidesWithPipe()) {
 				this.gameStatus = GameStatus.LOST;
-				birdSprite.setPosition(birdSprite.getX(), 422);
-			} else if (birdSprite.getY() <= 0) {
-				this.gameStatus = GameStatus.LOST;
-			} else if (birdCollidesWithPipe()) {
-				this.gameStatus = GameStatus.LOST;
+				if (birdSprite.getY() > 420) {
+					birdSprite.setPosition(birdSprite.getX(), 422);
+				}
+				count = 0;
 			}
 
 			layerManager.paint(graphics, 0, 0);
@@ -171,6 +174,42 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 			long end = System.currentTimeMillis();
 			long usedTime = end - start;
 			long sleepTime = GameConstants.GameSettings.TIMER;
+			if (usedTime < GameConstants.GameSettings.TIMER) {
+				sleepTime = GameConstants.GameSettings.TIMER - usedTime;
+			} else {
+				sleepTime = 0;
+			}
+			try {
+				Thread.sleep(sleepTime);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
+		case GameStatus.LOST:
+			start = System.currentTimeMillis();
+			if (count < 10) {
+				count++;
+			} else if (count == 10) {
+				birdSpeedV = 0;
+				count++;
+			} else {
+				birdSpeedV += GameSettings.GRAVITY;
+				if (birdSpeedV > Bird.MAX_V_SPEED) {
+					birdSpeedV = Bird.MAX_V_SPEED;
+				}
+				birdSprite.move(0, birdSpeedV);
+
+				if (birdSprite.getY() > 420) {
+					birdSprite.setPosition(birdSprite.getX(), 422);
+					this.gameStatus = GameStatus.START;
+					count = 0;
+				}
+
+				layerManager.paint(graphics, 0, 0);
+				this.flushGraphics();
+			}
+			end = System.currentTimeMillis();
+			usedTime = end - start;
 			if (usedTime < GameConstants.GameSettings.TIMER) {
 				sleepTime = GameConstants.GameSettings.TIMER - usedTime;
 			} else {
