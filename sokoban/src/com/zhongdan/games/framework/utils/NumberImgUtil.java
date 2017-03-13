@@ -8,7 +8,7 @@ import javax.microedition.lcdui.game.Sprite;
 
 public class NumberImgUtil {
 
-	public static Vector UpdateNumber(int number, Image numberImg, int x, int y, int pos) throws Exception {
+	public static Vector updateNumber(int number, Image numberImg, int x, int y, int pos) throws Exception {
 		Vector numberSprites = new Vector();
 
 		int width = numberImg.getWidth();

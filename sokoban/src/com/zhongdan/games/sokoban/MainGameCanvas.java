@@ -356,7 +356,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 					layerManager.remove((Sprite) stepNumberSprite.elementAt(i));
 				}
 			}
-			stepNumberSprite = NumberImgUtil.UpdateNumber(step, stepImg, GameConstants.GameSettings.STEP_NUMBER_X,
+			stepNumberSprite = NumberImgUtil.updateNumber(step, stepImg, GameConstants.GameSettings.STEP_NUMBER_X,
 					GameConstants.GameSettings.STEP_NUMBER_Y, Graphics.TOP | Graphics.HCENTER);
 			if (null != stepNumberSprite && 0 < stepNumberSprite.size()) {
 				for (int i = 0; i < stepNumberSprite.size(); i++) {
@@ -380,7 +380,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 					layerManager.remove((Sprite) levelNumberSprite.elementAt(i));
 				}
 			}
-			levelNumberSprite = NumberImgUtil.UpdateNumber(level, levelImg, GameConstants.GameSettings.LEVEL_NUMBER_X,
+			levelNumberSprite = NumberImgUtil.updateNumber(level, levelImg, GameConstants.GameSettings.LEVEL_NUMBER_X,
 					GameConstants.GameSettings.LEVEL_NUMBER_Y, Graphics.TOP | Graphics.HCENTER);
 			if (null != levelNumberSprite && 0 < levelNumberSprite.size()) {
 				for (int i = 0; i < levelNumberSprite.size(); i++) {
