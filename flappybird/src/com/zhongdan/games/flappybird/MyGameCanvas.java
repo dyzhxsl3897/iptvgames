@@ -16,6 +16,7 @@ import com.zhongdan.games.flappybird.GameConstants.GameStatus;
 import com.zhongdan.games.flappybird.GameConstants.Pipe;
 import com.zhongdan.games.utils.Constants;
 import com.zhongdan.games.utils.ImageUtil;
+import com.zhongdan.games.utils.NumberImgUtil;
 
 public class MyGameCanvas extends GameCanvas implements Runnable {
 
@@ -24,15 +25,18 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 	private LayerManager layerManager = new LayerManager();
 	private Random random;
 	private Image backgroundImg;
+	private Image numbersImg;
 	private Image pipeImg;
 	private Image birdImg;
 	TiledLayer backgroundLayer;
 	TiledLayer welcomeLayer;
+	private Vector scoreSprite;
 	private Vector pipeSpriteList;
 	private Sprite birdSprite;
 	private int birdFrameSeqNo;
 	private int birdSpeedV = 0;
 	private int gameStatus;
+	private int score = 0;
 	private int count = 0;
 	private Thread t;
 
@@ -48,6 +52,7 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 	private void initCanvas() {
 		// Load images
 		backgroundImg = ImageUtil.createImage("/background.png");
+		numbersImg = ImageUtil.createImage("/numbers.png");
 		pipeImg = ImageUtil.createImage("/pipe.png");
 		birdImg = ImageUtil.createImage("/bird.png");
 
@@ -74,7 +79,7 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 
 	private void initGame() {
 		birdSprite.setFrame(0);
-		birdSprite.setPosition(150, 150);
+		birdSprite.setPosition(Bird.START_POS_X, Bird.START_POS_Y);
 		birdSpeedV = 0;
 
 		// Draw pipe
@@ -124,6 +129,7 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 			if (keyCode == Constants.KeyCode.OK) {
 				initGame();
 				this.gameStatus = GameStatus.PLAYING;
+				this.score = 0;
 			}
 		}
 	}
@@ -139,6 +145,25 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 		return false;
 	}
 
+	private void updateScore(int score) {
+		if (null != scoreSprite && 0 < scoreSprite.size()) {
+			for (int i = 0; i < scoreSprite.size(); i++) {
+				layerManager.remove((Sprite) scoreSprite.elementAt(i));
+			}
+		}
+		try {
+			scoreSprite = NumberImgUtil.updateNumber(score, numbersImg, GameConstants.GameSettings.SCORE_NUMBER_X,
+					GameConstants.GameSettings.SCORE_NUMBER_Y, Graphics.TOP | Graphics.LEFT);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (null != scoreSprite && 0 < scoreSprite.size()) {
+			for (int i = 0; i < scoreSprite.size(); i++) {
+				layerManager.insert((Sprite) scoreSprite.elementAt(i), 0);
+			}
+		}
+	}
+
 	private void game(int gameStatus) {
 		switch (gameStatus) {
 		case GameStatus.PLAYING:
@@ -152,12 +177,17 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 			birdSprite.setFrame((birdSprite.getFrame() + 1) % birdFrameSeqNo);
 
 			int length = pipeSpriteList.size();
+			boolean scoreChecked = false;
 			for (int i = 0; i < length; i++) {
 				Sprite pipe = (Sprite) pipeSpriteList.elementAt(i);
 				if (pipe.getX() + Pipe.SPEED + GameConstants.Pipe.WIDTH < 0) {
 					pipe.move(Pipe.DISTANCE * 10, 0);
 				}
 				pipe.move(-Pipe.SPEED, 0);
+				if (!scoreChecked && Math.abs(((Sprite) pipeSpriteList.elementAt(i)).getX() - Bird.START_POS_X + Pipe.WIDTH) < Pipe.SPEED / 2) {
+					score++;
+					scoreChecked = true;
+				}
 			}
 
 			if (birdSprite.getY() > 420 || birdSprite.getY() <= 0 || birdCollidesWithPipe()) {
@@ -167,6 +197,8 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 				}
 				count = 0;
 			}
+
+			updateScore(this.score);
 
 			layerManager.paint(graphics, 0, 0);
 			this.flushGraphics();
