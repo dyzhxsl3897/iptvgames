@@ -11,6 +11,7 @@ import javax.microedition.lcdui.game.Sprite;
 import javax.microedition.lcdui.game.TiledLayer;
 
 import com.zhongdan.games.flappybird.GameConstants.Bird;
+import com.zhongdan.games.flappybird.GameConstants.GameStatus;
 import com.zhongdan.games.flappybird.GameConstants.Pipe;
 import com.zhongdan.games.utils.Constants;
 import com.zhongdan.games.utils.ImageUtil;
@@ -24,12 +25,14 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 	private Image backgroundImg;
 	private Image pipeImg;
 	private Image birdImg;
+	TiledLayer backgroundLayer;
+	TiledLayer welcomeLayer;
 	private Vector pipeSpriteList;
 	private Sprite birdSprite;
 	private int birdFrameSeqNo;
 	private int birdSpeedV = 0;
-	private int gravity = 4;
-	private boolean isPlaying;
+	private int gravity = 2;
+	private int gameStatus;
 	private Thread t;
 
 	protected MyGameCanvas(MyMIDlet midlet) {
@@ -48,7 +51,7 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 		birdImg = ImageUtil.createImage("/bird.png");
 
 		// Draw background
-		TiledLayer backgroundLayer = new TiledLayer(1, 1, backgroundImg, backgroundImg.getWidth(), backgroundImg.getHeight());
+		backgroundLayer = new TiledLayer(1, 1, backgroundImg, backgroundImg.getWidth(), backgroundImg.getHeight());
 		backgroundLayer.setCell(0, 0, 1);
 		layerManager.append(backgroundLayer);
 
@@ -62,7 +65,7 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 		this.flushGraphics();
 
 		// Start game
-		isPlaying = false;
+		gameStatus = GameStatus.START;
 		initGame();
 		t = new Thread(this);
 		t.start();
@@ -82,29 +85,29 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 		}
 		pipeSpriteList = new Vector(10, 10);
 		for (int i = 0; i < 10; i++) {
-			int height = (random.nextInt() >>> 1) % 7 + 4;
+			int height = (random.nextInt() >>> 1) % 5 + 4;
 			Sprite pipeBody = null;
 			for (int j = 0; j < height; j++) {
 				pipeBody = new Sprite(pipeImg, 45, 25);
-				pipeBody.setPosition(320 + i * GameConstants.Pipe.DISTANCE, j * 25);
+				pipeBody.setPosition(640 + i * GameConstants.Pipe.DISTANCE, j * 25);
 				pipeBody.setFrame(2);
 				pipeSpriteList.addElement(pipeBody);
 				layerManager.insert(pipeBody, 0);
 			}
 			pipeBody = new Sprite(pipeImg, 45, 25);
-			pipeBody.setPosition(320 + i * GameConstants.Pipe.DISTANCE, height * 25);
+			pipeBody.setPosition(640 + i * GameConstants.Pipe.DISTANCE, height * 25);
 			pipeBody.setFrame(3);
 			pipeSpriteList.addElement(pipeBody);
 			layerManager.insert(pipeBody, 0);
 			for (int j = 0; j < GameConstants.Pipe.TOTAL - height; j++) {
 				pipeBody = new Sprite(pipeImg, 45, 25);
-				pipeBody.setPosition(320 + i * GameConstants.Pipe.DISTANCE, 417 - j * 25);
+				pipeBody.setPosition(640 + i * GameConstants.Pipe.DISTANCE, 417 - j * 25);
 				pipeBody.setFrame(1);
 				pipeSpriteList.addElement(pipeBody);
 				layerManager.insert(pipeBody, 0);
 			}
 			pipeBody = new Sprite(pipeImg, 45, 25);
-			pipeBody.setPosition(320 + i * GameConstants.Pipe.DISTANCE, 417 - (GameConstants.Pipe.TOTAL - height) * 25);
+			pipeBody.setPosition(640 + i * GameConstants.Pipe.DISTANCE, 417 - (GameConstants.Pipe.TOTAL - height) * 25);
 			pipeBody.setFrame(0);
 			pipeSpriteList.addElement(pipeBody);
 			layerManager.insert(pipeBody, 0);
@@ -112,12 +115,14 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 	}
 
 	protected void keyPressed(int keyCode) {
-		if (keyCode == Constants.KeyCode.OK) {
-			if (isPlaying) {
-				birdSpeedV = -20;
-			} else {
+		if (this.gameStatus == GameStatus.PLAYING) {
+			if (keyCode == Constants.KeyCode.OK) {
+				birdSpeedV = -16;
+			}
+		} else {
+			if (keyCode == Constants.KeyCode.OK) {
 				initGame();
-				isPlaying = true;
+				this.gameStatus = GameStatus.PLAYING;
 			}
 		}
 	}
@@ -133,52 +138,57 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 		return false;
 	}
 
-	public void run() {
-		while (true) {
-			if (isPlaying) {
-				long start = System.currentTimeMillis();
+	private void game(int gameStatus) {
+		switch (gameStatus) {
+		case GameStatus.PLAYING:
+			long start = System.currentTimeMillis();
 
-				birdSpeedV += gravity;
-				birdSprite.move(0, birdSpeedV);
-				birdSprite.setFrame((birdSprite.getFrame() + 1) % birdFrameSeqNo);
+			birdSpeedV += gravity;
+			birdSprite.move(0, birdSpeedV);
+			birdSprite.setFrame((birdSprite.getFrame() + 1) % birdFrameSeqNo);
 
-				int length = pipeSpriteList.size();
-				for (int i = 0; i < length; i++) {
-					Sprite pipe = (Sprite) pipeSpriteList.elementAt(i);
-					if (pipe.getX() + 8 + GameConstants.Pipe.WIDTH < 0) {
-						pipe.move(Pipe.DISTANCE * 10, 0);
-					}
-					pipe.move(-8, 0);
+			int length = pipeSpriteList.size();
+			for (int i = 0; i < length; i++) {
+				Sprite pipe = (Sprite) pipeSpriteList.elementAt(i);
+				if (pipe.getX() + 8 + GameConstants.Pipe.WIDTH < 0) {
+					pipe.move(Pipe.DISTANCE * 10, 0);
 				}
-
-				if (birdSprite.getY() > 420) {
-					isPlaying = false;
-					birdSprite.setPosition(birdSprite.getX(), 422);
-				} else if (birdSprite.getY() <= 0) {
-					isPlaying = false;
-				} else if (birdCollidesWithPipe()) {
-					isPlaying = false;
-				}
-
-				layerManager.paint(graphics, 0, 0);
-				this.flushGraphics();
-
-				long end = System.currentTimeMillis();
-				long usedTime = end - start;
-				long sleepTime = GameConstants.GameSettings.TIMER;
-				if (usedTime < GameConstants.GameSettings.TIMER) {
-					sleepTime = GameConstants.GameSettings.TIMER - usedTime;
-				} else {
-					sleepTime = 0;
-				}
-				try {
-					Thread.sleep(sleepTime);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				pipe.move(-4, 0);
 			}
+
+			if (birdSprite.getY() > 420) {
+				this.gameStatus = GameStatus.LOST;
+				birdSprite.setPosition(birdSprite.getX(), 422);
+			} else if (birdSprite.getY() <= 0) {
+				this.gameStatus = GameStatus.LOST;
+			} else if (birdCollidesWithPipe()) {
+				this.gameStatus = GameStatus.LOST;
+			}
+
+			layerManager.paint(graphics, 0, 0);
 			this.flushGraphics();
+
+			long end = System.currentTimeMillis();
+			long usedTime = end - start;
+			long sleepTime = GameConstants.GameSettings.TIMER;
+			if (usedTime < GameConstants.GameSettings.TIMER) {
+				sleepTime = GameConstants.GameSettings.TIMER - usedTime;
+			} else {
+				sleepTime = 0;
+			}
+			try {
+				Thread.sleep(sleepTime);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
 		}
 	}
 
+	public void run() {
+		while (true) {
+			game(this.gameStatus);
+			this.flushGraphics(0, 0, 0, 0);
+		}
+	}
 }
