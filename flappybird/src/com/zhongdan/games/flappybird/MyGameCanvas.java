@@ -9,6 +9,7 @@ import javax.microedition.lcdui.game.GameCanvas;
 import javax.microedition.lcdui.game.LayerManager;
 import javax.microedition.lcdui.game.Sprite;
 import javax.microedition.lcdui.game.TiledLayer;
+import javax.microedition.media.Player;
 
 import com.zhongdan.games.flappybird.GameConstants.Bird;
 import com.zhongdan.games.flappybird.GameConstants.GameSettings;
@@ -16,15 +17,21 @@ import com.zhongdan.games.flappybird.GameConstants.GameStatus;
 import com.zhongdan.games.flappybird.GameConstants.Pipe;
 import com.zhongdan.games.utils.Constants;
 import com.zhongdan.games.utils.ImageUtil;
+import com.zhongdan.games.utils.MusicUtil;
 import com.zhongdan.games.utils.NumberImgUtil;
 
 public class MyGameCanvas extends GameCanvas implements Runnable {
 
-	// private MyMIDlet midlet;
 	private Graphics graphics;
 	private LayerManager layerManager = new LayerManager();
 	private Random random;
+	private MusicUtil musicUtil = new MusicUtil();
+	private Player diePlayer;
+	private Player hitPlayer;
+	private Player flyUpPlayer;
+	private Player scorePlayer;
 	private Image backgroundImg;
+	private Image welcomeImg;
 	private Image numberImg;
 	private Image pipeImg;
 	private Image birdImg;
@@ -42,7 +49,6 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 
 	protected MyGameCanvas(MyMIDlet midlet) {
 		super(false);
-		// this.midlet = midlet;
 		graphics = this.getGraphics();
 		this.setFullScreenMode(true);
 		random = new Random();
@@ -50,8 +56,15 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 	}
 
 	private void initCanvas() {
+		// Load musics
+		diePlayer = musicUtil.createMusic("/die.wav");
+		hitPlayer = musicUtil.createMusic("/hit.wav");
+		flyUpPlayer = musicUtil.createMusic("/fly_up.wav");
+		scorePlayer = musicUtil.createMusic("/score.wav");
+
 		// Load images
 		backgroundImg = ImageUtil.createImage("/background.png");
+		welcomeImg = ImageUtil.createImage("/welcome.png");
 		numberImg = ImageUtil.createImage("/number.png");
 		pipeImg = ImageUtil.createImage("/pipe.png");
 		birdImg = ImageUtil.createImage("/bird.png");
@@ -61,18 +74,21 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 		backgroundLayer.setCell(0, 0, 1);
 		layerManager.append(backgroundLayer);
 
+		// Draw welcome
+		welcomeLayer = new TiledLayer(1, 1, welcomeImg, welcomeImg.getWidth(), welcomeImg.getHeight());
+		welcomeLayer.setCell(0, 0, 1);
+		layerManager.append(welcomeLayer);
+
 		// Initialize bird
 		birdSprite = new Sprite(birdImg, Bird.WIDTH, Bird.HEIGHT);
 		birdFrameSeqNo = birdSprite.getFrameSequenceLength();
 		layerManager.insert(birdSprite, 0);
 
-		// Paint map
-		layerManager.paint(graphics, 0, 0);
-		this.flushGraphics();
+		// Initialize game elements
+		initGame();
 
 		// Start game
 		gameStatus = GameStatus.START;
-		initGame();
 		t = new Thread(this);
 		t.start();
 	}
@@ -124,11 +140,14 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 		if (this.gameStatus == GameStatus.PLAYING) {
 			if (keyCode == Constants.KeyCode.OK) {
 				birdSpeedV = -16;
+				musicUtil.musicStart(flyUpPlayer);
 			}
 		} else if (this.gameStatus == GameStatus.START) {
 			if (keyCode == Constants.KeyCode.OK) {
 				initGame();
 				this.gameStatus = GameStatus.PLAYING;
+				welcomeLayer.setVisible(false);
+				backgroundLayer.setVisible(true);
 				this.score = 0;
 			}
 		}
@@ -165,10 +184,19 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 	}
 
 	private void game(int gameStatus) {
-		switch (gameStatus) {
-		case GameStatus.PLAYING:
-			long start = System.currentTimeMillis();
+		long start = System.currentTimeMillis();
 
+		switch (gameStatus) {
+		case GameStatus.START:
+			layerManager.remove(welcomeLayer);
+			layerManager.insert(welcomeLayer, 0);
+			welcomeLayer.setVisible(true);
+			backgroundLayer.setVisible(false);
+			layerManager.paint(graphics, 0, 0);
+			this.flushGraphics();
+
+			break;
+		case GameStatus.PLAYING:
 			birdSpeedV += GameSettings.GRAVITY;
 			if (birdSpeedV > Bird.MAX_V_SPEED) {
 				birdSpeedV = Bird.MAX_V_SPEED;
@@ -186,6 +214,7 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 				pipe.move(-Pipe.SPEED, 0);
 				if (!scoreChecked && Math.abs(((Sprite) pipeSpriteList.elementAt(i)).getX() - Bird.START_POS_X + Pipe.WIDTH) < Pipe.SPEED / 2) {
 					score++;
+					musicUtil.musicStart(scorePlayer);
 					scoreChecked = true;
 				}
 			}
@@ -197,6 +226,7 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 				if (birdSprite.getY() > 420) {
 					birdSprite.setPosition(birdSprite.getX(), 422);
 				}
+				musicUtil.musicStart(hitPlayer);
 				count = 0;
 			}
 
@@ -205,25 +235,14 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 			layerManager.paint(graphics, 0, 0);
 			this.flushGraphics();
 
-			long end = System.currentTimeMillis();
-			long usedTime = end - start;
-			long sleepTime = GameConstants.GameSettings.TIMER;
-			if (usedTime < GameConstants.GameSettings.TIMER) {
-				sleepTime = GameConstants.GameSettings.TIMER - usedTime;
-			} else {
-				sleepTime = 0;
-			}
-			try {
-				Thread.sleep(sleepTime);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 			break;
 		case GameStatus.LOST:
-			start = System.currentTimeMillis();
 			if (count < 10) {
 				count++;
 			} else if (count == 10) {
+				if (birdSprite.getY() < 420) {
+					musicUtil.musicStart(diePlayer);
+				}
 				birdSpeedV = 0;
 				count++;
 			} else {
@@ -242,19 +261,21 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 				layerManager.paint(graphics, 0, 0);
 				this.flushGraphics();
 			}
-			end = System.currentTimeMillis();
-			usedTime = end - start;
-			if (usedTime < GameConstants.GameSettings.TIMER) {
-				sleepTime = GameConstants.GameSettings.TIMER - usedTime;
-			} else {
-				sleepTime = 0;
-			}
-			try {
-				Thread.sleep(sleepTime);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 			break;
+		}
+
+		long end = System.currentTimeMillis();
+		long usedTime = end - start;
+		long sleepTime = GameConstants.GameSettings.TIMER;
+		if (usedTime < GameConstants.GameSettings.TIMER) {
+			sleepTime = GameConstants.GameSettings.TIMER - usedTime;
+		} else {
+			sleepTime = 0;
+		}
+		try {
+			Thread.sleep(sleepTime);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
