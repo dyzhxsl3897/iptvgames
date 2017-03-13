@@ -25,7 +25,7 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 	private LayerManager layerManager = new LayerManager();
 	private Random random;
 	private Image backgroundImg;
-	private Image numbersImg;
+	private Image numberImg;
 	private Image pipeImg;
 	private Image birdImg;
 	TiledLayer backgroundLayer;
@@ -52,7 +52,7 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 	private void initCanvas() {
 		// Load images
 		backgroundImg = ImageUtil.createImage("/background.png");
-		numbersImg = ImageUtil.createImage("/numbers.png");
+		numberImg = ImageUtil.createImage("/number.png");
 		pipeImg = ImageUtil.createImage("/pipe.png");
 		birdImg = ImageUtil.createImage("/bird.png");
 
@@ -152,7 +152,7 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 			}
 		}
 		try {
-			scoreSprite = NumberImgUtil.updateNumber(score, numbersImg, GameConstants.GameSettings.SCORE_NUMBER_X,
+			scoreSprite = NumberImgUtil.updateNumber(score, numberImg, GameConstants.GameSettings.SCORE_NUMBER_X,
 					GameConstants.GameSettings.SCORE_NUMBER_Y, Graphics.TOP | Graphics.LEFT);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -192,6 +192,8 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 
 			if (birdSprite.getY() > 420 || birdSprite.getY() <= 0 || birdCollidesWithPipe()) {
 				this.gameStatus = GameStatus.LOST;
+				layerManager.remove(birdSprite);
+				layerManager.insert(birdSprite, 0);
 				if (birdSprite.getY() > 420) {
 					birdSprite.setPosition(birdSprite.getX(), 422);
 				}
