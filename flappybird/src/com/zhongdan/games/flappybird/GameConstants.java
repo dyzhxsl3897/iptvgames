@@ -10,7 +10,7 @@ public class GameConstants {
 	}
 
 	public static class GameSettings {
-		public static final int SCORE_NUMBER_X = 10;
+		public static final int SCORE_NUMBER_X = 300;
 		public static final int SCORE_NUMBER_Y = 10;
 		public static int TIMER = 60;// Refresh the screen every 20ms
 		public static int GRAVITY = 2;

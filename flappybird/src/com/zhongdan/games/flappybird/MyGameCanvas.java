@@ -9,6 +9,7 @@ import javax.microedition.lcdui.game.GameCanvas;
 import javax.microedition.lcdui.game.LayerManager;
 import javax.microedition.lcdui.game.Sprite;
 import javax.microedition.lcdui.game.TiledLayer;
+import javax.microedition.media.MediaException;
 import javax.microedition.media.Player;
 
 import com.zhongdan.games.flappybird.GameConstants.Bird;
@@ -61,6 +62,12 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 		hitPlayer = musicUtil.createMusic("/hit.wav");
 		flyUpPlayer = musicUtil.createMusic("/fly_up.wav");
 		scorePlayer = musicUtil.createMusic("/score.wav");
+		try {
+			flyUpPlayer.realize();
+			flyUpPlayer.prefetch();
+		} catch (MediaException e) {
+			e.printStackTrace();
+		}
 
 		// Load images
 		backgroundImg = ImageUtil.createImage("/background.png");
