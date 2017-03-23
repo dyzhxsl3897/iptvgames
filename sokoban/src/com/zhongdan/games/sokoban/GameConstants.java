@@ -60,6 +60,8 @@ public class GameConstants {
 		public final static int PLAYER_RIGHT_TARGET = 12;
 	}
 
+	public static int[] MAP_SUCC_STEP = { 4, 4, 3, 4, 3, 4, 5, 6, 7 };
+
 	public static int[][][] START_MAP = {
 	// 第一关(一)
 			{
