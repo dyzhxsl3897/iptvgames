@@ -2,6 +2,20 @@ package com.zhongdan.games.sokoban;
 
 public class GameConstants {
 
+	public static class GameStatus {
+		public final static int START = 0;
+		public final static int PLAYING = 1;
+	}
+
+	public static class Menu {
+		public static int BTN_TOP_X = 220;
+		public static int BTN_TOP_Y = 220;
+		public static int BTN_MID_X = 220;
+		public static int BTN_MID_Y = 280;
+		public static int BTN_BOT_X = 220;
+		public static int BTN_BOT_Y = 340;
+	}
+
 	public static class GameSettings {
 		public static int ROW_NO = 8;
 		public static int COL_NO = 8;
@@ -45,6 +59,8 @@ public class GameConstants {
 		public final static int PLAYER_LEFT_TARGET = 11;
 		public final static int PLAYER_RIGHT_TARGET = 12;
 	}
+
+	public static int[] MAP_SUCC_STEP = { 4, 4, 3, 4, 3, 4, 5, 6, 7 };
 
 	public static int[][][] START_MAP = {
 	// 第一关(一)

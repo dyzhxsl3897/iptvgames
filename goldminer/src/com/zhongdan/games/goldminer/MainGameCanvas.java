@@ -123,8 +123,8 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		while (true) {
 			long currTime = System.currentTimeMillis();
 			game(this.gameState);
-			long lastTime = currTime;
-			long delay = 100 - (currTime - lastTime);
+			long lastTime = System.currentTimeMillis();
+			long delay = 80 - (lastTime - currTime);
 			try {
 				if (delay <= 0)
 					delay = 1;
@@ -158,6 +158,15 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			}
 			key();
 			hookSprite.upData(allOre);
+			break;
+		case WIN:
+//			drawWin();
+			count++;
+			if (count >= 30) {
+				count = 0;
+				initOre(level + 1);
+				this.gameState = LEVELINFO;
+			}
 			break;
 		}
 		this.flushGraphics();
