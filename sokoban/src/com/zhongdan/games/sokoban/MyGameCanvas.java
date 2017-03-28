@@ -12,6 +12,7 @@ import javax.microedition.lcdui.game.TiledLayer;
 import com.zhongdan.games.framework.utils.Constants;
 import com.zhongdan.games.framework.utils.ImageUtil;
 import com.zhongdan.games.framework.utils.NumberImgUtil;
+import com.zhongdan.games.sokoban.GameConstants.MapInfo;
 
 public class MyGameCanvas extends GameCanvas implements Runnable {
 
@@ -201,6 +202,10 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 					initCanvas(level + 1);
 				}
 			}
+		} else if (keyCode == Constants.KeyCode.NUM_0) {
+			if (isPlaying) {
+				initCanvas(level);
+			}
 		} else if (keyCode == Constants.KeyCode.BACK) {
 			this.midlet.getDisplay().setCurrent(this.midlet.getMenuCanvas());
 		}
@@ -303,15 +308,9 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 		if (goal == GameConstants.MAP_SUCC_STEP[level - 1]) {
 			isPlaying = false;
 			if (level == GameConstants.MAP_SUCC_STEP.length + 1) {
-				for (int i = layerManager.getSize() - 1; i >= 0; i--) {
-					layerManager.remove(layerManager.getLayerAt(i));
-				}
-				layerManager.append(finalLevelLayer);
+				layerManager.insert(finalLevelLayer, 0);
 			} else {
-				for (int i = layerManager.getSize() - 1; i >= 0; i--) {
-					layerManager.remove(layerManager.getLayerAt(i));
-				}
-				layerManager.append(nextLevelLayer);
+				layerManager.insert(nextLevelLayer, 0);
 			}
 			layerManager.paint(graphics, 0, 0);
 			this.flushGraphics();
@@ -322,7 +321,9 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 		int[] playerPos = new int[2];
 		for (int i = 0; i < GameConstants.GameSettings.ROW_NO; i++) {
 			for (int j = 0; j < GameConstants.GameSettings.COL_NO; j++) {
-				if (map[i][j] > 4) {
+				if (map[i][j] == MapInfo.PLAYER_DOWN || map[i][j] == MapInfo.PLAYER_DOWN_TARGET || map[i][j] == MapInfo.PLAYER_LEFT
+						|| map[i][j] == MapInfo.PLAYER_LEFT_TARGET || map[i][j] == MapInfo.PLAYER_RIGHT || map[i][j] == MapInfo.PLAYER_RIGHT_TARGET
+						|| map[i][j] == MapInfo.PLAYER_UP || map[i][j] == MapInfo.PLAYER_UP_TARGET) {
 					playerPos[0] = i;
 					playerPos[1] = j;
 					break;
