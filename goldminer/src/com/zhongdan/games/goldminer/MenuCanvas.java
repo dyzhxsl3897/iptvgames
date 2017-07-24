@@ -110,8 +110,10 @@ public class MenuCanvas extends GameCanvas {
 			}
 		} else if (keyCode == Constants.KeyCode.OK) {
 			if (selectedItem == 1) {
-				MainGameCanvas mainGameCanvas = new MainGameCanvas(this.midlet);
-				this.midlet.setMainGameCanvas(mainGameCanvas);
+				// Initialize level
+				this.midlet.getMainGameCanvas().level = 1;
+				this.midlet.getMainGameCanvas().initOre(this.midlet.getMainGameCanvas().level);
+				this.midlet.getMainGameCanvas().gameState = MainGameCanvas.GAME;
 				this.midlet.getDisplay().setCurrent(this.midlet.getMainGameCanvas());
 			} else if (selectedItem == 2) {
 				this.midlet.notifyDestroyed();
