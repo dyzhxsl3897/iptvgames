@@ -4,7 +4,9 @@ import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.GameCanvas;
 
+import com.zhongdan.games.framework.utils.Constants;
 import com.zhongdan.games.framework.utils.ImageUtil;
+import com.zhongdan.games.framework.utils.NumberImgUtil;
 
 public class MainGameCanvas extends GameCanvas implements Runnable {
 
@@ -17,6 +19,9 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	public final static int GAMEEND = 4;
 	public final static int PAUSE = 5;
 	public int gameState = LEVELINFO;
+	private Image numbersGreenImg;
+	private Image numbersOrangeImg;
+	private Image numbersWhiteImg;
 	private Image backgroundImg;
 	private Image workerUpImg;
 	private Image workerDownImg;
@@ -48,6 +53,9 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 
 	private void initCanvas() {
 		// Load images
+		numbersGreenImg = ImageUtil.createImage("/numbers_green.png");
+		numbersWhiteImg = ImageUtil.createImage("/numbers_white.png");
+		numbersOrangeImg = ImageUtil.createImage("/numbers_orange.png");
 		backgroundImg = ImageUtil.createImage("/background.png");
 		hookImg = ImageUtil.createImage("/hook.png");
 		coinBagImg = ImageUtil.createImage("/coinbag.png");
@@ -113,6 +121,9 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	}
 
 	protected void keyPressed(int keyCode) {
+		if (keyCode == Constants.KeyCode.BACK) {
+			this.midlet.getDisplay().setCurrent(this.midlet.getMenuCanvas());
+		}
 	}
 
 	public MainMidlet getMidlet() {
@@ -122,7 +133,12 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	public void run() {
 		while (true) {
 			long currTime = System.currentTimeMillis();
-			game(this.gameState);
+			try {
+				game(this.gameState);
+			} catch (Exception e) {
+				e.printStackTrace();
+				break;
+			}
 			long lastTime = System.currentTimeMillis();
 			long delay = 80 - (lastTime - currTime);
 			try {
@@ -134,7 +150,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		}
 	}
 
-	private void game(int gameState) {
+	private void game(int gameState) throws Exception {
 		switch (gameState) {
 		case LEVELINFO:
 		case GAME:
@@ -160,7 +176,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			hookSprite.upData(allOre);
 			break;
 		case WIN:
-//			drawWin();
+			// drawWin();
 			count++;
 			if (count >= 30) {
 				count = 0;
@@ -198,13 +214,17 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		graphics.drawImage(workerImg[nowFrame], 310, 48, 0);
 	}
 
-	private void drawBack() {
+	private void drawBack() throws Exception {
 		graphics.drawImage(backgroundImg, 0, 0, 0);
 		graphics.setColor(0Xffff00);
-		graphics.drawString(String.valueOf(score), 30, -2, 0);
-		graphics.drawString(String.valueOf(levelScore[level]), 45, 22, 0);
-		graphics.drawString(String.valueOf(nowTime), 220, 0, 0);
-		graphics.drawString(String.valueOf(level), 212, 22, 0);
+		NumberImgUtil.updateNumber(graphics, score, numbersOrangeImg, 10, 10, Graphics.TOP | Graphics.LEFT);
+		NumberImgUtil.updateNumber(graphics, levelScore[level], numbersOrangeImg, 10, 50, Graphics.TOP | Graphics.LEFT);
+		NumberImgUtil.updateNumber(graphics, nowTime, numbersWhiteImg, 620, 10, Graphics.TOP | Graphics.RIGHT);
+		NumberImgUtil.updateNumber(graphics, level, numbersGreenImg, 620, 50, Graphics.TOP | Graphics.RIGHT);
+		// graphics.drawString(String.valueOf(score), 30, -2, 0);
+		// graphics.drawString(String.valueOf(levelScore[level]), 45, 22, 0);
+		// graphics.drawString(String.valueOf(nowTime), 220, 0, 0);
+		// graphics.drawString(String.valueOf(level), 212, 22, 0);
 	}
 
 }
