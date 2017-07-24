@@ -39,4 +39,8 @@ public class MainMidlet extends MIDlet {
 		return mainGameCanvas;
 	}
 
+	public void setMainGameCanvas(MainGameCanvas mainGameCanvas) {
+		this.mainGameCanvas = mainGameCanvas;
+	}
+
 }
