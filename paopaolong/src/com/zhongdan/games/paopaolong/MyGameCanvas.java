@@ -7,11 +7,10 @@ import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.GameCanvas;
 import javax.microedition.lcdui.game.LayerManager;
 import javax.microedition.lcdui.game.TiledLayer;
-import javax.microedition.midlet.MIDlet;
 
 public class MyGameCanvas extends GameCanvas {
 
-	private MIDlet midlet;
+	private MainMidlet midlet;
 	private Graphics graphics;
 	private LayerManager layerManager = new LayerManager();
 	private BallSprite[][] balls = new BallSprite[MyGameConstants.GameSettings.ROW_NO][MyGameConstants.GameSettings.COL_NO];
@@ -22,12 +21,44 @@ public class MyGameCanvas extends GameCanvas {
 	private boolean isMoving = false;
 	private ScoreSprite score = null;
 
-	protected MyGameCanvas(MIDlet midlet) {
+	protected MyGameCanvas(MainMidlet midlet) {
 		super(false);
 		this.midlet = midlet;
 		graphics = this.getGraphics();
 		this.setFullScreenMode(true);
 		initCanvas();
+	}
+
+	public void initCanvas() {
+		// Initialize layerManager
+		for (int i = layerManager.getSize() - 1; i >= 0; i--) {
+			layerManager.remove(layerManager.getLayerAt(i));
+		}
+
+		// Initialize background
+		Image backgroundImg = Images.getBackground();
+		TiledLayer backgroundLayer = new TiledLayer(1, 1, backgroundImg, backgroundImg.getWidth(), backgroundImg.getHeight());
+		backgroundLayer.setCell(0, 0, 1);
+		layerManager.insert(backgroundLayer, 0);
+
+		// Initialize arrow
+		arrow = new ArrowSprite().createArrow();
+		arrow.getSprite().setPosition(MyGameConstants.Arrow.LEFT, MyGameConstants.Arrow.TOP);
+		layerManager.insert(arrow.getSprite(), 0);
+
+		// Initialize score
+		score = new ScoreSprite(0, this, graphics);
+
+		balls = new BallSprite[MyGameConstants.GameSettings.ROW_NO][MyGameConstants.GameSettings.COL_NO];
+		movingBall = null;
+		isMoving = false;
+
+		initializeBalls();
+
+		// Paint all
+		layerManager.setViewWindow(0, 0, this.getWidth(), this.getHeight());
+		layerManager.paint(graphics, 0, 0);
+		this.flushGraphics();
 	}
 
 	public void paint(Graphics g) {
@@ -50,7 +81,7 @@ public class MyGameCanvas extends GameCanvas {
 		} else if (keyCode == Constants.KeyCode.OK) {
 			fireBall();
 		} else if (keyCode == Constants.KeyCode.BACK) {
-			this.midlet.notifyDestroyed();
+			this.midlet.getDisplay().setCurrent(this.midlet.getMenuCanvas());
 		}
 	}
 
@@ -99,21 +130,7 @@ public class MyGameCanvas extends GameCanvas {
 		}
 	}
 
-	private void initCanvas() {
-		// Initialize background
-		Image backgroundImg = Images.getBackground();
-		TiledLayer backgroundLayer = new TiledLayer(1, 1, backgroundImg, backgroundImg.getWidth(), backgroundImg.getHeight());
-		backgroundLayer.setCell(0, 0, 1);
-		layerManager.insert(backgroundLayer, 0);
-
-		// Initialize arrow
-		arrow = new ArrowSprite().createArrow();
-		arrow.getSprite().setPosition(MyGameConstants.Arrow.LEFT, MyGameConstants.Arrow.TOP);
-		layerManager.insert(arrow.getSprite(), 0);
-
-		// Initialize score
-		score = new ScoreSprite(0, this, graphics);
-
+	private void initializeBalls() {
 		// Initialize waiting ball
 		waitingBall = new BallSprite().createBigRandomBall();
 		nextBall = new BallSprite().createSmallRandomBall();
@@ -158,11 +175,6 @@ public class MyGameCanvas extends GameCanvas {
 				layerManager.insert(ball.getSprite(), 0);
 			}
 		}
-
-		// Paint all
-		layerManager.setViewWindow(0, 0, this.getWidth(), this.getHeight());
-		layerManager.paint(graphics, 0, 0);
-		this.flushGraphics();
 	}
 
 	public void setGraphics(Graphics graphics) {

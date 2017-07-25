@@ -19,6 +19,13 @@ public class MyGameConstants extends Constants {
 		public static int ANGLE_SINGLE_MOVE = 6;// 箭头每次旋转的角度
 	}
 
+	public static class Menu {
+		public static int BTN_TOP_X = 180;
+		public static int BTN_TOP_Y = 200;
+		public static int BTN_BOT_X = 180;
+		public static int BTN_BOT_Y = 300;
+	}
+
 	public static class Score {
 		public static int X = 580;// 分数中心点横坐标
 		public static int Y = 313;// 分数中心点纵坐标
