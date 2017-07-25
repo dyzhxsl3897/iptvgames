@@ -25,6 +25,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	private Image backgroundImg;
 	private Image timeRunsOutImg;
 	private Image nextLevelImg;
+	private Image levelClearImg;
 	private Image workerUpImg;
 	private Image workerDownImg;
 	private Image[] workerImg;
@@ -38,7 +39,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	private HookSprite hookSprite;
 	private OreSprite[] allOre;
 	private int levelScore[] = { 0, 650, 1000 };
-	private int levelTime[] = { 0, 60, 60 };
+	private int levelTime[] = { 0, 60, 5 };
 	public int level;
 	public static int score;
 	public static int nowFrame;
@@ -46,6 +47,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	private int count = 0;
 	private boolean isLostScreenDrawn = false;
 	private boolean isWinScreenDrawn = false;
+	private boolean isGameEndScreenDrawn = false;
 	public static boolean fire;
 
 	public MainGameCanvas(MainMidlet midlet) {
@@ -63,6 +65,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		backgroundImg = ImageUtil.createImage("/background.png");
 		timeRunsOutImg = ImageUtil.createImage("/time_runs_out.png");
 		nextLevelImg = ImageUtil.createImage("/next_level.png");
+		levelClearImg = ImageUtil.createImage("/level_clear.png");
 		hookImg = ImageUtil.createImage("/hook.png");
 		coinBagImg = ImageUtil.createImage("/coinbag.png");
 		goldBigImg = ImageUtil.createImage("/gold_big.png");
@@ -208,6 +211,19 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			if (count >= 30) {
 				count = 0;
 				isLostScreenDrawn = false;
+				this.gameState = LEVELINFO;
+				this.midlet.getDisplay().setCurrent(this.midlet.getMenuCanvas());
+			}
+			break;
+		case GAMEEND:
+			if (!isGameEndScreenDrawn) {
+				graphics.drawImage(levelClearImg, 0, 0, Graphics.TOP | Graphics.LEFT);
+				isGameEndScreenDrawn = true;
+			}
+			count++;
+			if (count >= 30) {
+				count = 0;
+				isGameEndScreenDrawn = false;
 				this.gameState = LEVELINFO;
 				this.midlet.getDisplay().setCurrent(this.midlet.getMenuCanvas());
 			}
