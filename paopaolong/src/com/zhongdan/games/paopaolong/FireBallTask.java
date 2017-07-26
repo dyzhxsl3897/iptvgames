@@ -1,5 +1,6 @@
 package com.zhongdan.games.paopaolong;
 
+import java.util.Date;
 import java.util.TimerTask;
 import java.util.Vector;
 
@@ -25,54 +26,63 @@ public class FireBallTask extends TimerTask {
 	}
 
 	public void run() {
-		if (null != movingBall) {
-			if (touchLeftBoundry() || touchRightBoundry()) {
-				this.angle = -this.angle;
-				int xStep = new Double(MyGameConstants.GameSettings.SINGLE_MOVE_STEP * Math.sin((new Integer(angle).doubleValue()) * Math.PI / 180))
-						.intValue();
-				int yStep = -(new Double(MyGameConstants.GameSettings.SINGLE_MOVE_STEP * Math.cos((new Integer(angle).doubleValue()) * Math.PI / 180))
-						.intValue());
-				movingBall.getSprite().move(xStep, yStep);
-				layerManager.paint(graphics, 0, 0);
-				this.canvas.flushGraphics();
-			} else if (!hasCollision() && !touchTopBoundry()) {// If not collides with other ball
-				int xStep = new Double(MyGameConstants.GameSettings.SINGLE_MOVE_STEP * Math.sin((new Integer(angle).doubleValue()) * Math.PI / 180))
-						.intValue();
-				int yStep = -(new Double(MyGameConstants.GameSettings.SINGLE_MOVE_STEP * Math.cos((new Integer(angle).doubleValue()) * Math.PI / 180))
-						.intValue());
-				movingBall.getSprite().move(xStep, yStep);
-				layerManager.paint(graphics, 0, 0);
-				this.canvas.flushGraphics();
-			} else {
-				int x = movingBall.getSprite().getX();
-				int y = movingBall.getSprite().getY();
-				int row = (y - MyGameConstants.GameSettings.TOP_LEFT_BALL_Y)
-						/ MyGameConstants.GameSettings.ROW_HEIGHT
-						+ ((y - MyGameConstants.GameSettings.TOP_LEFT_BALL_Y - (y - MyGameConstants.GameSettings.TOP_LEFT_BALL_Y)
-								/ MyGameConstants.GameSettings.ROW_HEIGHT * MyGameConstants.GameSettings.ROW_HEIGHT) > (MyGameConstants.Ball.HEIGHT / 2 + 1) ? 1
-								: 0);
-				int columnFix = row % 2 == 0 ? MyGameConstants.GameSettings.TOP_LEFT_BALL_X : MyGameConstants.GameSettings.SECOND_ROW_LEFT_BALL_X;
-				int column = (x - columnFix)
-						/ MyGameConstants.GameSettings.COL_WIDTH
-						+ ((x - columnFix - (x - columnFix) / MyGameConstants.GameSettings.COL_WIDTH * MyGameConstants.GameSettings.COL_WIDTH) > MyGameConstants.GameSettings.SECOND_ROW_LEFT_BALL_X ? 1
-								: 0);
-				int newX = (row % 2 == 0 ? MyGameConstants.GameSettings.TOP_LEFT_BALL_X : MyGameConstants.GameSettings.SECOND_ROW_LEFT_BALL_X)
-						+ column * MyGameConstants.GameSettings.COL_WIDTH;
-				int newY = MyGameConstants.GameSettings.TOP_LEFT_BALL_Y + row * MyGameConstants.GameSettings.ROW_HEIGHT;
-				movingBall.getSprite().setPosition(newX, newY);
-				int clearedBallNo = clearBall();
-				if (0 == clearedBallNo) {
-					balls[row][column] = movingBall;
+		try {
+			if (null != movingBall) {
+				if (touchLeftBoundry() || touchRightBoundry()) {
+					this.angle = -this.angle;
+					int xStep = new Double(MyGameConstants.GameSettings.SINGLE_MOVE_STEP
+							* Math.sin((new Integer(angle).doubleValue()) * Math.PI / 180)).intValue();
+					int yStep = -(new Double(MyGameConstants.GameSettings.SINGLE_MOVE_STEP
+							* Math.cos((new Integer(angle).doubleValue()) * Math.PI / 180)).intValue());
+					movingBall.getSprite().move(xStep, yStep);
+					layerManager.paint(graphics, 0, 0);
+					this.canvas.flushGraphics();
+				} else if (!hasCollision() && !touchTopBoundry()) {// If not collides with other ball
+					int xStep = new Double(MyGameConstants.GameSettings.SINGLE_MOVE_STEP
+							* Math.sin((new Integer(angle).doubleValue()) * Math.PI / 180)).intValue();
+					int yStep = -(new Double(MyGameConstants.GameSettings.SINGLE_MOVE_STEP
+							* Math.cos((new Integer(angle).doubleValue()) * Math.PI / 180)).intValue());
+					movingBall.getSprite().move(xStep, yStep);
+					layerManager.paint(graphics, 0, 0);
+					this.canvas.flushGraphics();
 				} else {
-					int incScore = clearedBallNo * clearedBallNo;
-					this.canvas.setScore(this.canvas.getScore() + incScore);
-					movingBall = null;
+					int x = movingBall.getSprite().getX();
+					int y = movingBall.getSprite().getY();
+					int row = (y - MyGameConstants.GameSettings.TOP_LEFT_BALL_Y)
+							/ MyGameConstants.GameSettings.ROW_HEIGHT
+							+ ((y - MyGameConstants.GameSettings.TOP_LEFT_BALL_Y - (y - MyGameConstants.GameSettings.TOP_LEFT_BALL_Y)
+									/ MyGameConstants.GameSettings.ROW_HEIGHT * MyGameConstants.GameSettings.ROW_HEIGHT) > (MyGameConstants.Ball.HEIGHT / 2 + 1) ? 1
+									: 0);
+					int columnFix = row % 2 == 0 ? MyGameConstants.GameSettings.TOP_LEFT_BALL_X : MyGameConstants.GameSettings.SECOND_ROW_LEFT_BALL_X;
+					int column = (x - columnFix)
+							/ MyGameConstants.GameSettings.COL_WIDTH
+							+ ((x - columnFix - (x - columnFix) / MyGameConstants.GameSettings.COL_WIDTH * MyGameConstants.GameSettings.COL_WIDTH) > MyGameConstants.GameSettings.SECOND_ROW_LEFT_BALL_X ? 1
+									: 0);
+					int newX = (row % 2 == 0 ? MyGameConstants.GameSettings.TOP_LEFT_BALL_X : MyGameConstants.GameSettings.SECOND_ROW_LEFT_BALL_X)
+							+ column * MyGameConstants.GameSettings.COL_WIDTH;
+					int newY = MyGameConstants.GameSettings.TOP_LEFT_BALL_Y + row * MyGameConstants.GameSettings.ROW_HEIGHT;
+					movingBall.getSprite().setPosition(newX, newY);
+					int clearedBallNo = clearBall();
+					if (0 == clearedBallNo) {
+						balls[row][column] = movingBall;
+					} else {
+						int incScore = clearedBallNo * clearedBallNo;
+						this.canvas.setScore(this.canvas.getScore() + incScore);
+						movingBall = null;
+					}
+					layerManager.paint(graphics, 0, 0);
+					this.canvas.flushGraphics();
+					this.canvas.setMoving(false);
+					Date currSysDate = new Date();
+					if (currSysDate.getTime() - canvas.systemDate.getTime() > 10000) {
+						canvas.dropDownTwoLines();
+						canvas.systemDate = currSysDate;
+					}
+					this.cancel();
 				}
-				layerManager.paint(graphics, 0, 0);
-				this.canvas.flushGraphics();
-				this.canvas.setMoving(false);
-				this.cancel();
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

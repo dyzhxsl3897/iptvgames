@@ -1,5 +1,6 @@
 package com.zhongdan.games.paopaolong;
 
+import java.util.Date;
 import java.util.Timer;
 
 import javax.microedition.lcdui.Graphics;
@@ -7,6 +8,8 @@ import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.GameCanvas;
 import javax.microedition.lcdui.game.LayerManager;
 import javax.microedition.lcdui.game.TiledLayer;
+
+import com.zhongdan.games.paopaolong.MyGameConstants.GameSettings;
 
 public class MyGameCanvas extends GameCanvas {
 
@@ -20,6 +23,7 @@ public class MyGameCanvas extends GameCanvas {
 	private ArrowSprite arrow = null;
 	private boolean isMoving = false;
 	private ScoreSprite score = null;
+	public Date systemDate = new Date();
 
 	protected MyGameCanvas(MainMidlet midlet) {
 		super(false);
@@ -48,7 +52,7 @@ public class MyGameCanvas extends GameCanvas {
 
 		// Initialize score
 		score = new ScoreSprite(0, this, graphics);
-
+		systemDate = new Date();
 		balls = new BallSprite[MyGameConstants.GameSettings.ROW_NO][MyGameConstants.GameSettings.COL_NO];
 		movingBall = null;
 		isMoving = false;
@@ -59,6 +63,50 @@ public class MyGameCanvas extends GameCanvas {
 		layerManager.setViewWindow(0, 0, this.getWidth(), this.getHeight());
 		layerManager.paint(graphics, 0, 0);
 		this.flushGraphics();
+	}
+
+	// TODO
+	public void dropDownTwoLines() {
+		if (!hasBallInBottomTwoRows()) {
+			for (int row = GameSettings.ROW_NO - 1; row > 1; row--) {
+				for (int col = 0; col < GameSettings.COL_NO; col++) {
+					balls[row][col] = balls[row - 2][col];
+					if (balls[row][col] != null) {
+						int posX = balls[row][col].getSprite().getX();
+						int posY = balls[row][col].getSprite().getY();
+						balls[row][col].getSprite().setPosition(posX, posY + 2 * GameSettings.ROW_HEIGHT);
+					}
+				}
+			}
+			for (int i = 0; i < 2; i++) {
+				for (int j = 0; j < (i % 2 == 0 ? MyGameConstants.GameSettings.COL_NO : MyGameConstants.GameSettings.COL_NO - 1); j++) {
+					int left = (i % 2 == 0 ? MyGameConstants.GameSettings.TOP_LEFT_BALL_X : MyGameConstants.GameSettings.SECOND_ROW_LEFT_BALL_X)
+							+ MyGameConstants.Ball.WIDTH * j;
+					int top = MyGameConstants.GameSettings.TOP_LEFT_BALL_Y + i * MyGameConstants.GameSettings.ROW_HEIGHT;
+					BallSprite ball = new BallSprite().createBigRandomBall();
+					balls[i][j] = ball;
+					ball.getSprite().setPosition(left, top);
+					layerManager.insert(ball.getSprite(), 0);
+				}
+			}
+		} else {
+			// TODO Failed
+		}
+		layerManager.paint(graphics, 0, 0);
+		this.flushGraphics();
+	}
+
+	public boolean hasBallInBottomTwoRows() {
+		boolean hasBallInBottomRow = false;
+		for (int i = 0; i < GameSettings.COL_NO; i++) {
+			if (balls[GameSettings.ROW_NO - 1][i] != null) {
+				hasBallInBottomRow = true;
+			}
+			if (balls[GameSettings.ROW_NO - 2][i] != null) {
+				hasBallInBottomRow = true;
+			}
+		}
+		return hasBallInBottomRow;
 	}
 
 	public void paint(Graphics g) {
