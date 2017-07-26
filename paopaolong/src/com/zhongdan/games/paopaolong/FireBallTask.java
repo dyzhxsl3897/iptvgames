@@ -64,7 +64,8 @@ public class FireBallTask extends TimerTask {
 				if (0 == clearedBallNo) {
 					balls[row][column] = movingBall;
 				} else {
-					this.canvas.setScore(this.canvas.getScore() + clearedBallNo);
+					int incScore = clearedBallNo * clearedBallNo;
+					this.canvas.setScore(this.canvas.getScore() + incScore);
 					movingBall = null;
 				}
 				layerManager.paint(graphics, 0, 0);
