@@ -20,6 +20,20 @@ public class MyGameConstants {
 		public static int WIDTH = 25;
 		public static int HEIGHT = 27;
 		public static int X = 60;
+		public static int Y = 282;
+	}
+	
+	public static class Line {
+		public static int WIDTH = 25;
+		public static int HEIGHT = 27;
+		public static int X = 60;
+		public static int Y = 177;
+	}
+	
+	public static class Level {
+		public static int WIDTH = 25;
+		public static int HEIGHT = 27;
+		public static int X = 60;
 		public static int Y = 72;
 	}
 

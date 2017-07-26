@@ -23,19 +23,19 @@ public class MyGameCanvas extends GameCanvas {
 	private BrickItem movingBrick;
 	private BrickItem nextBrick;
 	private boolean isPlaying = true;
-	public int currentLevel = 1;
 	private ButtonSprite btnDown;
 	private ButtonSprite btnLeft;
 	private ButtonSprite btnRight;
 	private ScoreSprite score = null;
+	private LevelSprite level = null;
+	private LineSprite line = null;
 
 	protected MyGameCanvas(MainMidlet midlet) {
 		super(false);
 		this.midlet = midlet;
 		graphics = this.getGraphics();
 		this.setFullScreenMode(true);
-		currentLevel = 1;
-		initCanvas(currentLevel);
+		initCanvas(1);
 	}
 
 	protected void keyRepeated(int keyCode) {
@@ -89,8 +89,6 @@ public class MyGameCanvas extends GameCanvas {
 			layerManager.remove(layerManager.getLayerAt(i));
 		}
 
-		currentLevel = level;
-
 		// Initialize background
 		if (backgroundImg == null) {
 			try {
@@ -111,8 +109,10 @@ public class MyGameCanvas extends GameCanvas {
 		new ButtonSprite("pause", this, graphics, MyGameConstants.ButtonIcon.pause_X, MyGameConstants.ButtonIcon.pause_Y);
 		new ButtonSprite("returns", this, graphics, MyGameConstants.ButtonIcon.returns_X, MyGameConstants.ButtonIcon.returns_Y);
 
-		// Initialize score
+		// Initialize score/level
 		score = new ScoreSprite(0, this, graphics);
+		line = new LineSprite(0, this, graphics);
+		this.level = new LevelSprite(level, this, graphics);
 
 		// Initialize moving brick
 		Random rnd = new Random();
@@ -131,7 +131,7 @@ public class MyGameCanvas extends GameCanvas {
 
 	public void startDropDown() {
 		Timer dropDownTimer = new Timer();
-		dropDownTimer.schedule(new DropdownTask(this, graphics), 0, MyGameConstants.GameSettings.DROPDOWN_INTERVAL[currentLevel]);
+		dropDownTimer.schedule(new DropdownTask(this, graphics), 0, MyGameConstants.GameSettings.DROPDOWN_INTERVAL[this.level.getLevel()]);
 	}
 
 	public LayerManager getLayerManager() {
@@ -159,11 +159,11 @@ public class MyGameCanvas extends GameCanvas {
 	}
 
 	public int getCurrentLevel() {
-		return currentLevel;
+		return this.level.getLevel();
 	}
 
 	public void setCurrentLevel(int currentLevel) {
-		this.currentLevel = currentLevel;
+		this.level.setLevel(currentLevel);
 	}
 
 	public boolean isPlaying() {
@@ -180,5 +180,13 @@ public class MyGameCanvas extends GameCanvas {
 
 	public void setScore(int score) {
 		this.score.setScore(score);
+	}
+
+	public int getLine() {
+		return line.getLine();
+	}
+
+	public void setLine(int line) {
+		this.line.setLine(line);
 	}
 }

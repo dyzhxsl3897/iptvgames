@@ -31,6 +31,7 @@ public class DropdownTask extends TimerTask {
 			int clearedLineNo = clearLines();
 			// Update score
 			canvas.setScore(canvas.getScore() + MyGameConstants.GameSettings.SCORE[clearedLineNo] * canvas.getCurrentLevel());
+			canvas.setLine(canvas.getLine() + clearedLineNo);
 			// Remove current nextBrick
 			for (int i = 0; i < canvas.getNextBrick().getSprites().size(); i++) {
 				Sprite sprite = (Sprite) canvas.getNextBrick().getSprites().elementAt(i);
