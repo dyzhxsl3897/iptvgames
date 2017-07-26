@@ -7,14 +7,13 @@ import javax.microedition.lcdui.game.Sprite;
 
 import com.zhongdan.games.framework.utils.ImageUtil;
 
-
 public class ScoreSprite {
-	
+
 	private int score;
 	private Vector sprites;
 	private MyGameCanvas canvas;
 	private Graphics graphics;
-	
+
 	public ScoreSprite(int score, MyGameCanvas canvas, Graphics graphics) {
 		super();
 		this.score = score;
@@ -22,7 +21,7 @@ public class ScoreSprite {
 		this.graphics = graphics;
 		createSprites();
 	}
-	
+
 	private void createSprites() {
 		if (sprites != null && sprites.size() > 0) {
 			for (int i = 0; i < sprites.size(); i++) {
@@ -77,6 +76,5 @@ public class ScoreSprite {
 	public void setSprites(Vector sprites) {
 		this.sprites = sprites;
 	}
-
 
 }

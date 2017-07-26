@@ -10,13 +10,12 @@ import javax.microedition.lcdui.game.GameCanvas;
 import javax.microedition.lcdui.game.LayerManager;
 import javax.microedition.lcdui.game.Sprite;
 import javax.microedition.lcdui.game.TiledLayer;
-import javax.microedition.midlet.MIDlet;
 
 import com.zhongdan.games.framework.utils.Constants;
 
 public class MyGameCanvas extends GameCanvas {
 
-	MIDlet midlet;
+	MainMidlet midlet;
 	private Graphics graphics;
 	private LayerManager layerManager = new LayerManager();
 	private Image backgroundImg;
@@ -24,18 +23,19 @@ public class MyGameCanvas extends GameCanvas {
 	private BrickItem movingBrick;
 	private BrickItem nextBrick;
 	private boolean isPlaying = true;
-	private int currentLevel = 0;
+	public int currentLevel = 1;
 	private ButtonSprite btnDown;
 	private ButtonSprite btnLeft;
 	private ButtonSprite btnRight;
 	private ScoreSprite score = null;
 
-	protected MyGameCanvas(MIDlet midlet) {
+	protected MyGameCanvas(MainMidlet midlet) {
 		super(false);
 		this.midlet = midlet;
 		graphics = this.getGraphics();
 		this.setFullScreenMode(true);
-		initCanvas();
+		currentLevel = 1;
+		initCanvas(currentLevel);
 	}
 
 	protected void keyRepeated(int keyCode) {
@@ -79,11 +79,18 @@ public class MyGameCanvas extends GameCanvas {
 				this.flushGraphics();
 			}
 		} else if (keyCode == Constants.KeyCode.BACK) {
-			midlet.notifyDestroyed();
+			this.midlet.getDisplay().setCurrent(this.midlet.getMenuCanvas());
 		}
 	}
 
-	private void initCanvas() {
+	public void initCanvas(int level) {
+		// Initialize layerManager
+		for (int i = layerManager.getSize() - 1; i >= 0; i--) {
+			layerManager.remove(layerManager.getLayerAt(i));
+		}
+
+		currentLevel = level;
+
 		// Initialize background
 		if (backgroundImg == null) {
 			try {
@@ -120,8 +127,9 @@ public class MyGameCanvas extends GameCanvas {
 		layerManager.setViewWindow(0, 0, this.getWidth(), this.getHeight());
 		layerManager.paint(graphics, 0, 0);
 		this.flushGraphics();
+	}
 
-		// Start drop down
+	public void startDropDown() {
 		Timer dropDownTimer = new Timer();
 		dropDownTimer.schedule(new DropdownTask(this, graphics), 0, MyGameConstants.GameSettings.DROPDOWN_INTERVAL[currentLevel]);
 	}
