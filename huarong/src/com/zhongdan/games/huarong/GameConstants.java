@@ -16,6 +16,8 @@ public class GameConstants {
 		public static int TOP_LEFT_CELL_Y = 114;
 		public static int CELL_W = 84;
 		public static int CELL_H = 62;
+		public static int STEP_NUMBER_X = 320;
+		public static int STEP_NUMBER_Y = 50;
 	}
 
 	public static class RoleName {

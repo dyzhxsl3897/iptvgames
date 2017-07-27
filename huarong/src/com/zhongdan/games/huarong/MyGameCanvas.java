@@ -1,13 +1,17 @@
 package com.zhongdan.games.huarong;
 
+import java.util.Vector;
+
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.GameCanvas;
 import javax.microedition.lcdui.game.LayerManager;
+import javax.microedition.lcdui.game.Sprite;
 import javax.microedition.lcdui.game.TiledLayer;
 
 import com.zhongdan.games.framework.utils.Constants;
 import com.zhongdan.games.framework.utils.ImageUtil;
+import com.zhongdan.games.framework.utils.NumberImgUtil;
 import com.zhongdan.games.framework.utils.Constants.KeyCode;
 import com.zhongdan.games.huarong.GameConstants.GameSettings;
 import com.zhongdan.games.huarong.GameConstants.RoleName;
@@ -18,6 +22,7 @@ public class MyGameCanvas extends GameCanvas {
 	private Graphics graphics = this.getGraphics();
 	private LayerManager layerManager = new LayerManager();
 	private Image backgroundImg;
+	private Image numberStepImg;
 	private Image zhangfeiImg;
 	private Image zhaoyunImg;
 	private Image huangzhongImg;
@@ -26,6 +31,7 @@ public class MyGameCanvas extends GameCanvas {
 	private Image caocaoImg;
 	private Image zuImg;
 	private TiledLayer backgroundLayer;
+	private Vector stepSprite;
 	private RoleSprite zhangfeiSprite;
 	private RoleSprite guanyuSprite;
 	private RoleSprite caocaoSprite;
@@ -50,6 +56,7 @@ public class MyGameCanvas extends GameCanvas {
 
 	private void loadImage() {
 		backgroundImg = ImageUtil.createImage("/background.jpg");
+		numberStepImg = ImageUtil.createImage("/number_step.png");
 		zhangfeiImg = ImageUtil.createImage("/zhangfei.png");
 		zhaoyunImg = ImageUtil.createImage("/zhaoyun.png");
 		huangzhongImg = ImageUtil.createImage("/huangzhong.png");
@@ -74,6 +81,7 @@ public class MyGameCanvas extends GameCanvas {
 		step = 0;
 		level = newLevel;
 		initLevel(level);
+		updateStep();
 		isPlaying = true;
 		isMoving = false;
 
@@ -232,6 +240,7 @@ public class MyGameCanvas extends GameCanvas {
 				maps[currentRow][currentCol] = null;
 				maps[currentRow][currentCol - 1] = selectedRoleSprite;
 				selectedRoleSprite.setCol(currentCol - 1);
+				step++;
 			}
 			break;
 		case KeyCode.RIGHT:
@@ -287,6 +296,7 @@ public class MyGameCanvas extends GameCanvas {
 				maps[currentRow][currentCol] = null;
 				maps[currentRow][currentCol + 1] = selectedRoleSprite;
 				selectedRoleSprite.setCol(currentCol + 1);
+				step++;
 			}
 			break;
 		case KeyCode.UP:
@@ -338,6 +348,7 @@ public class MyGameCanvas extends GameCanvas {
 				maps[currentRow][currentCol] = null;
 				maps[currentRow - 1][currentCol] = selectedRoleSprite;
 				selectedRoleSprite.setRow(currentRow - 1);
+				step++;
 			}
 			break;
 		case KeyCode.DOWN:
@@ -393,9 +404,11 @@ public class MyGameCanvas extends GameCanvas {
 				maps[currentRow][currentCol] = null;
 				maps[currentRow + 1][currentCol] = selectedRoleSprite;
 				selectedRoleSprite.setRow(currentRow + 1);
+				step++;
 			}
 			break;
 		}
+		updateStep();
 		layerManager.paint(graphics, 0, 0);
 		this.flushGraphics();
 	}
@@ -496,6 +509,30 @@ public class MyGameCanvas extends GameCanvas {
 		selectedRoleSprite.setSelected(true);
 		layerManager.paint(graphics, 0, 0);
 		this.flushGraphics();
+	}
+
+	private void updateStep() {
+		try {
+			if (step > 9999) {
+				step = 9999;
+			}
+			if (null != stepSprite && 0 < stepSprite.size()) {
+				for (int i = 0; i < stepSprite.size(); i++) {
+					layerManager.remove((Sprite) stepSprite.elementAt(i));
+				}
+			}
+			stepSprite = NumberImgUtil.updateNumber(step, numberStepImg, GameSettings.STEP_NUMBER_X, GameSettings.STEP_NUMBER_Y, Graphics.TOP
+					| Graphics.HCENTER);
+			if (null != stepSprite && 0 < stepSprite.size()) {
+				for (int i = 0; i < stepSprite.size(); i++) {
+					layerManager.insert((Sprite) stepSprite.elementAt(i), 0);
+				}
+			}
+			layerManager.paint(graphics, 0, 0);
+			this.flushGraphics();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
