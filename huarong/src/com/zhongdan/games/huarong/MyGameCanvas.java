@@ -23,6 +23,7 @@ public class MyGameCanvas extends GameCanvas {
 	private LayerManager layerManager = new LayerManager();
 	private Image backgroundImg;
 	private Image numberStepImg;
+	private Image numberGoalImg;
 	private Image zhangfeiImg;
 	private Image zhaoyunImg;
 	private Image huangzhongImg;
@@ -32,6 +33,7 @@ public class MyGameCanvas extends GameCanvas {
 	private Image zuImg;
 	private TiledLayer backgroundLayer;
 	private Vector stepSprite;
+	private Vector goalSprite;
 	private RoleSprite zhangfeiSprite;
 	private RoleSprite guanyuSprite;
 	private RoleSprite caocaoSprite;
@@ -45,6 +47,7 @@ public class MyGameCanvas extends GameCanvas {
 	private boolean isMoving;
 	private int level = 1;
 	public int step;
+	public int goal;
 
 	protected MyGameCanvas(MyMIDlet midlet) {
 		super(false);
@@ -57,6 +60,7 @@ public class MyGameCanvas extends GameCanvas {
 	private void loadImage() {
 		backgroundImg = ImageUtil.createImage("/background.jpg");
 		numberStepImg = ImageUtil.createImage("/number_step.png");
+		numberGoalImg = ImageUtil.createImage("/number_goal.png");
 		zhangfeiImg = ImageUtil.createImage("/zhangfei.png");
 		zhaoyunImg = ImageUtil.createImage("/zhaoyun.png");
 		huangzhongImg = ImageUtil.createImage("/huangzhong.png");
@@ -79,9 +83,11 @@ public class MyGameCanvas extends GameCanvas {
 
 		// Initialize level
 		step = 0;
+		goal = 81;
 		level = newLevel;
 		initLevel(level);
 		updateStep();
+		updateGoal();
 		isPlaying = true;
 		isMoving = false;
 
@@ -526,6 +532,30 @@ public class MyGameCanvas extends GameCanvas {
 			if (null != stepSprite && 0 < stepSprite.size()) {
 				for (int i = 0; i < stepSprite.size(); i++) {
 					layerManager.insert((Sprite) stepSprite.elementAt(i), 0);
+				}
+			}
+			layerManager.paint(graphics, 0, 0);
+			this.flushGraphics();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void updateGoal() {
+		try {
+			if (goal > 9999) {
+				goal = 9999;
+			}
+			if (null != goalSprite && 0 < goalSprite.size()) {
+				for (int i = 0; i < goalSprite.size(); i++) {
+					layerManager.remove((Sprite) goalSprite.elementAt(i));
+				}
+			}
+			goalSprite = NumberImgUtil.updateNumber(goal, numberGoalImg, GameSettings.GOAL_NUMBER_X, GameSettings.GOAL_NUMBER_Y, Graphics.TOP
+					| Graphics.HCENTER);
+			if (null != goalSprite && 0 < goalSprite.size()) {
+				for (int i = 0; i < goalSprite.size(); i++) {
+					layerManager.insert((Sprite) goalSprite.elementAt(i), 0);
 				}
 			}
 			layerManager.paint(graphics, 0, 0);

@@ -85,6 +85,7 @@ public class MenuCanvas extends GameCanvas {
 			}
 		} else if (keyCode == Constants.KeyCode.OK) {
 			if (selectedItem == 1) {
+				this.midlet.getMyGameCanvas().initCanvas(1);
 				this.midlet.getDisplay().setCurrent(this.midlet.getMyGameCanvas());
 			} else if (selectedItem == 2) {
 				this.midlet.notifyDestroyed();
