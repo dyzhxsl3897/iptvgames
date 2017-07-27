@@ -4,7 +4,9 @@ import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.GameCanvas;
 
+import com.zhongdan.games.framework.utils.Constants;
 import com.zhongdan.games.framework.utils.ImageUtil;
+import com.zhongdan.games.framework.utils.NumberImgUtil;
 
 public class MainGameCanvas extends GameCanvas implements Runnable {
 
@@ -17,7 +19,13 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	public final static int GAMEEND = 4;
 	public final static int PAUSE = 5;
 	public int gameState = LEVELINFO;
+	private Image numbersGreenImg;
+	private Image numbersOrangeImg;
+	private Image numbersWhiteImg;
 	private Image backgroundImg;
+	private Image timeRunsOutImg;
+	private Image nextLevelImg;
+	private Image levelClearImg;
 	private Image workerUpImg;
 	private Image workerDownImg;
 	private Image[] workerImg;
@@ -31,12 +39,15 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	private HookSprite hookSprite;
 	private OreSprite[] allOre;
 	private int levelScore[] = { 0, 650, 1000 };
-	private int levelTime[] = { 0, 60, 60 };
-	private int level;
+	private int levelTime[] = { 0, 60, 5 };
+	public int level;
 	public static int score;
 	public static int nowFrame;
 	public int nowTime;
 	private int count = 0;
+	private boolean isLostScreenDrawn = false;
+	private boolean isWinScreenDrawn = false;
+	private boolean isGameEndScreenDrawn = false;
 	public static boolean fire;
 
 	public MainGameCanvas(MainMidlet midlet) {
@@ -48,7 +59,13 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 
 	private void initCanvas() {
 		// Load images
+		numbersGreenImg = ImageUtil.createImage("/numbers_green.png");
+		numbersWhiteImg = ImageUtil.createImage("/numbers_white.png");
+		numbersOrangeImg = ImageUtil.createImage("/numbers_orange.png");
 		backgroundImg = ImageUtil.createImage("/background.png");
+		timeRunsOutImg = ImageUtil.createImage("/time_runs_out.png");
+		nextLevelImg = ImageUtil.createImage("/next_level.png");
+		levelClearImg = ImageUtil.createImage("/level_clear.png");
 		hookImg = ImageUtil.createImage("/hook.png");
 		coinBagImg = ImageUtil.createImage("/coinbag.png");
 		goldBigImg = ImageUtil.createImage("/gold_big.png");
@@ -71,7 +88,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		t.start();
 	}
 
-	private void initOre(int newLevel) {
+	public void initOre(int newLevel) {
 		fire = false;
 		level = newLevel;
 		nowTime = levelTime[level];
@@ -95,24 +112,30 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			allOre[11] = new OreSprite(stoneSmallImg, 2, 20, 347, 343);
 			allOre[12] = new OreSprite(stoneSmallImg, 2, 20, 177, 455);
 			allOre[13] = new OreSprite(coinBagImg, 1, 600, 553, 386);
-
 		}
 		if (level == 2) {
 			allOre = new OreSprite[14];
-			allOre[0] = new OreSprite(stoneSmallImg, 2, 20, 25, 105);
-			allOre[1] = new OreSprite(stoneBigImg, 1, 50, 110, 125);
-			allOre[2] = new OreSprite(stoneBigImg, 1, 50, 145, 85);
-			allOre[3] = new OreSprite(stoneSmallImg, 2, 20, 45, 155);
-			allOre[4] = new OreSprite(goldSmallImg, 3, 50, 15, 200);
-			allOre[5] = new OreSprite(goldMidImg, 2, 250, 185, 185);
-			allOre[6] = new OreSprite(goldMidImg, 2, 250, 110, 215);
-			allOre[7] = new OreSprite(goldSmallImg, 3, 50, 35, 255);
-			allOre[8] = new OreSprite(goldSmallImg, 3, 50, 180, 255);
-
+			allOre[0] = new OreSprite(goldBigImg, 1, 400, 528, 202);
+			allOre[1] = new OreSprite(goldBigImg, 1, 400, 83, 296);
+			allOre[2] = new OreSprite(goldMidImg, 2, 250, 76, 157);
+			allOre[3] = new OreSprite(goldMidImg, 2, 250, 397, 199);
+			allOre[4] = new OreSprite(goldSmallImg, 3, 50, 15, 235);
+			allOre[5] = new OreSprite(goldSmallImg, 3, 50, 52, 260);
+			allOre[6] = new OreSprite(goldSmallImg, 3, 50, 367, 438);
+			allOre[7] = new OreSprite(goldSmallImg, 3, 50, 362, 400);
+			allOre[8] = new OreSprite(goldSmallImg, 3, 50, 588, 485);
+			allOre[9] = new OreSprite(stoneBigImg, 1, 50, 192, 331);
+			allOre[10] = new OreSprite(stoneBigImg, 1, 50, 23, 407);
+			allOre[11] = new OreSprite(stoneSmallImg, 2, 20, 16, 290);
+			allOre[12] = new OreSprite(stoneSmallImg, 2, 20, 497, 409);
+			allOre[13] = new OreSprite(coinBagImg, 1, 600, 455, 298);
 		}
 	}
 
 	protected void keyPressed(int keyCode) {
+		if (keyCode == Constants.KeyCode.BACK) {
+			this.midlet.getDisplay().setCurrent(this.midlet.getMenuCanvas());
+		}
 	}
 
 	public MainMidlet getMidlet() {
@@ -122,7 +145,12 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	public void run() {
 		while (true) {
 			long currTime = System.currentTimeMillis();
-			game(this.gameState);
+			try {
+				game(this.gameState);
+			} catch (Exception e) {
+				e.printStackTrace();
+				break;
+			}
 			long lastTime = System.currentTimeMillis();
 			long delay = 80 - (lastTime - currTime);
 			try {
@@ -134,9 +162,10 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		}
 	}
 
-	private void game(int gameState) {
+	private void game(int gameState) throws Exception {
 		switch (gameState) {
 		case LEVELINFO:
+			break;
 		case GAME:
 			drawBack();
 			drawMan();
@@ -160,12 +189,43 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			hookSprite.upData(allOre);
 			break;
 		case WIN:
-//			drawWin();
+			if (!isWinScreenDrawn) {
+				graphics.drawImage(nextLevelImg, 0, 0, Graphics.TOP | Graphics.LEFT);
+				isWinScreenDrawn = true;
+			}
 			count++;
+			System.out.println(count);
 			if (count >= 30) {
 				count = 0;
 				initOre(level + 1);
+				this.gameState = GAME;
+				isWinScreenDrawn = false;
+			}
+			break;
+		case LOST:
+			if (!isLostScreenDrawn) {
+				graphics.drawImage(timeRunsOutImg, 0, 0, Graphics.TOP | Graphics.LEFT);
+				isLostScreenDrawn = true;
+			}
+			count++;
+			if (count >= 30) {
+				count = 0;
+				isLostScreenDrawn = false;
 				this.gameState = LEVELINFO;
+				this.midlet.getDisplay().setCurrent(this.midlet.getMenuCanvas());
+			}
+			break;
+		case GAMEEND:
+			if (!isGameEndScreenDrawn) {
+				graphics.drawImage(levelClearImg, 0, 0, Graphics.TOP | Graphics.LEFT);
+				isGameEndScreenDrawn = true;
+			}
+			count++;
+			if (count >= 30) {
+				count = 0;
+				isGameEndScreenDrawn = false;
+				this.gameState = LEVELINFO;
+				this.midlet.getDisplay().setCurrent(this.midlet.getMenuCanvas());
 			}
 			break;
 		}
@@ -198,13 +258,17 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		graphics.drawImage(workerImg[nowFrame], 310, 48, 0);
 	}
 
-	private void drawBack() {
+	private void drawBack() throws Exception {
 		graphics.drawImage(backgroundImg, 0, 0, 0);
 		graphics.setColor(0Xffff00);
-		graphics.drawString(String.valueOf(score), 30, -2, 0);
-		graphics.drawString(String.valueOf(levelScore[level]), 45, 22, 0);
-		graphics.drawString(String.valueOf(nowTime), 220, 0, 0);
-		graphics.drawString(String.valueOf(level), 212, 22, 0);
+		NumberImgUtil.updateNumber(graphics, score, numbersOrangeImg, 10, 10, Graphics.TOP | Graphics.LEFT);
+		NumberImgUtil.updateNumber(graphics, levelScore[level], numbersOrangeImg, 10, 50, Graphics.TOP | Graphics.LEFT);
+		NumberImgUtil.updateNumber(graphics, nowTime, numbersWhiteImg, 620, 10, Graphics.TOP | Graphics.RIGHT);
+		NumberImgUtil.updateNumber(graphics, level, numbersGreenImg, 620, 50, Graphics.TOP | Graphics.RIGHT);
+		// graphics.drawString(String.valueOf(score), 30, -2, 0);
+		// graphics.drawString(String.valueOf(levelScore[level]), 45, 22, 0);
+		// graphics.drawString(String.valueOf(nowTime), 220, 0, 0);
+		// graphics.drawString(String.valueOf(level), 212, 22, 0);
 	}
 
 }

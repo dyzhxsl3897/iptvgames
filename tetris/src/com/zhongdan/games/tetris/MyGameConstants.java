@@ -9,11 +9,32 @@ public class MyGameConstants {
 		public static int COL_NO = 10;
 	}
 
+	public static class Menu {
+		public static int BTN_TOP_X = 265;
+		public static int BTN_TOP_Y = 280;
+		public static int BTN_BOT_X = 265;
+		public static int BTN_BOT_Y = 380;
+	}
+
 	public static class Score {
 		public static int WIDTH = 25;
 		public static int HEIGHT = 27;
-		public static int X = 25;
-		public static int Y = 27;
+		public static int X = 60;
+		public static int Y = 282;
+	}
+	
+	public static class Line {
+		public static int WIDTH = 25;
+		public static int HEIGHT = 27;
+		public static int X = 60;
+		public static int Y = 177;
+	}
+	
+	public static class Level {
+		public static int WIDTH = 25;
+		public static int HEIGHT = 27;
+		public static int X = 60;
+		public static int Y = 72;
 	}
 
 	public static class ButtonIcon {
@@ -32,7 +53,7 @@ public class MyGameConstants {
 	}
 
 	public static class GameSettings {
-		public static int[] DROPDOWN_INTERVAL = { 800, 500, 300, 200, 100, 50 };
+		public static int[] DROPDOWN_INTERVAL = { 1000, 800, 500, 300, 200, 100, 50 };
 		public static int[] SCORE = { 1, 3, 6, 10 };
 	}
 

@@ -7,16 +7,16 @@ import javax.microedition.lcdui.game.Sprite;
 
 import com.zhongdan.games.framework.utils.ImageUtil;
 
-public class ScoreSprite {
+public class LevelSprite {
 
-	private int score;
+	private int level;
 	private Vector sprites;
 	private MyGameCanvas canvas;
 	private Graphics graphics;
 
-	public ScoreSprite(int score, MyGameCanvas canvas, Graphics graphics) {
+	public LevelSprite(int level, MyGameCanvas canvas, Graphics graphics) {
 		super();
-		this.score = score;
+		this.level = level;
 		this.canvas = canvas;
 		this.graphics = graphics;
 		createSprites();
@@ -31,26 +31,26 @@ public class ScoreSprite {
 		} else {
 			sprites = new Vector();
 		}
-		int scoreSplit = score;
+		int levelSplit = level;
 		int digitNo = 0;
-		if (score > 0) {
-			while (scoreSplit > 0) {
-				Sprite s = new Sprite(ImageUtil.createImage("/number.png"), MyGameConstants.Score.WIDTH, MyGameConstants.Score.HEIGHT);
-				s.setFrame(scoreSplit % 10);
+		if (level > 0) {
+			while (levelSplit > 0) {
+				Sprite s = new Sprite(ImageUtil.createImage("/number.png"), MyGameConstants.Level.WIDTH, MyGameConstants.Level.HEIGHT);
+				s.setFrame(levelSplit % 10);
 				sprites.addElement(s);
-				scoreSplit /= 10;
+				levelSplit /= 10;
 				digitNo++;
 			}
 		} else {
 			digitNo++;
-			Sprite s = new Sprite(ImageUtil.createImage("/number.png"), MyGameConstants.Score.WIDTH, MyGameConstants.Score.HEIGHT);
+			Sprite s = new Sprite(ImageUtil.createImage("/number.png"), MyGameConstants.Level.WIDTH, MyGameConstants.Level.HEIGHT);
 			s.setFrame(0);
 			sprites.addElement(s);
 		}
 		for (int i = 0; i < digitNo; i++) {
 			Sprite s = (Sprite) sprites.elementAt(i);
-			int posX = MyGameConstants.Score.X - (digitNo / 2 * MyGameConstants.Score.WIDTH) + ((digitNo - i) * MyGameConstants.Score.WIDTH);
-			int posY = MyGameConstants.Score.Y;
+			int posX = MyGameConstants.Level.X - (digitNo / 2 * MyGameConstants.Level.WIDTH) + ((digitNo - i) * MyGameConstants.Level.WIDTH);
+			int posY = MyGameConstants.Level.Y;
 			s.setPosition(posX, posY);
 		}
 		for (int i = 0; i < sprites.size(); i++) {
@@ -60,12 +60,12 @@ public class ScoreSprite {
 		}
 	}
 
-	public int getScore() {
-		return score;
+	public int getLevel() {
+		return level;
 	}
 
-	public void setScore(int score) {
-		this.score = score;
+	public void setLevel(int level) {
+		this.level = level;
 		createSprites();
 	}
 

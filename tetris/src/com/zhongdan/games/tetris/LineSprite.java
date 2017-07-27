@@ -7,16 +7,16 @@ import javax.microedition.lcdui.game.Sprite;
 
 import com.zhongdan.games.framework.utils.ImageUtil;
 
-public class ScoreSprite {
+public class LineSprite {
 
-	private int score;
+	private int line;
 	private Vector sprites;
 	private MyGameCanvas canvas;
 	private Graphics graphics;
 
-	public ScoreSprite(int score, MyGameCanvas canvas, Graphics graphics) {
+	public LineSprite(int line, MyGameCanvas canvas, Graphics graphics) {
 		super();
-		this.score = score;
+		this.line = line;
 		this.canvas = canvas;
 		this.graphics = graphics;
 		createSprites();
@@ -31,26 +31,26 @@ public class ScoreSprite {
 		} else {
 			sprites = new Vector();
 		}
-		int scoreSplit = score;
+		int lineSplit = line;
 		int digitNo = 0;
-		if (score > 0) {
-			while (scoreSplit > 0) {
-				Sprite s = new Sprite(ImageUtil.createImage("/number.png"), MyGameConstants.Score.WIDTH, MyGameConstants.Score.HEIGHT);
-				s.setFrame(scoreSplit % 10);
+		if (line > 0) {
+			while (lineSplit > 0) {
+				Sprite s = new Sprite(ImageUtil.createImage("/number.png"), MyGameConstants.Line.WIDTH, MyGameConstants.Line.HEIGHT);
+				s.setFrame(lineSplit % 10);
 				sprites.addElement(s);
-				scoreSplit /= 10;
+				lineSplit /= 10;
 				digitNo++;
 			}
 		} else {
 			digitNo++;
-			Sprite s = new Sprite(ImageUtil.createImage("/number.png"), MyGameConstants.Score.WIDTH, MyGameConstants.Score.HEIGHT);
+			Sprite s = new Sprite(ImageUtil.createImage("/number.png"), MyGameConstants.Line.WIDTH, MyGameConstants.Line.HEIGHT);
 			s.setFrame(0);
 			sprites.addElement(s);
 		}
 		for (int i = 0; i < digitNo; i++) {
 			Sprite s = (Sprite) sprites.elementAt(i);
-			int posX = MyGameConstants.Score.X - (digitNo / 2 * MyGameConstants.Score.WIDTH) + ((digitNo - i) * MyGameConstants.Score.WIDTH);
-			int posY = MyGameConstants.Score.Y;
+			int posX = MyGameConstants.Line.X - (digitNo / 2 * MyGameConstants.Line.WIDTH) + ((digitNo - i) * MyGameConstants.Line.WIDTH);
+			int posY = MyGameConstants.Line.Y;
 			s.setPosition(posX, posY);
 		}
 		for (int i = 0; i < sprites.size(); i++) {
@@ -60,12 +60,12 @@ public class ScoreSprite {
 		}
 	}
 
-	public int getScore() {
-		return score;
+	public int getLine() {
+		return line;
 	}
 
-	public void setScore(int score) {
-		this.score = score;
+	public void setLine(int line) {
+		this.line = line;
 		createSprites();
 	}
 

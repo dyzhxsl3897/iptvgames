@@ -1,22 +1,20 @@
-package com.zhongdan.games.goldminer;
+package com.zhongdan.games.huarong;
 
 import javax.microedition.lcdui.Display;
-import javax.microedition.lcdui.game.GameCanvas;
 import javax.microedition.midlet.MIDlet;
 import javax.microedition.midlet.MIDletStateChangeException;
 
-public class MainMidlet extends MIDlet {
-
+public class MyMIDlet extends MIDlet {
 	private Display display;
-	private GameCanvas menuCanvas;
-	private MainGameCanvas mainGameCanvas;
+	private MenuCanvas menuCanvas;
+	private MyGameCanvas myGameCanvas;
 
-	public MainMidlet() {
+	public MyMIDlet() {
 	}
 
 	protected void startApp() throws MIDletStateChangeException {
 		menuCanvas = new MenuCanvas(this);
-		mainGameCanvas = new MainGameCanvas(this);
+		myGameCanvas = new MyGameCanvas(this);
 		display = Display.getDisplay(this);
 		display.setCurrent(menuCanvas);
 	}
@@ -31,16 +29,12 @@ public class MainMidlet extends MIDlet {
 		return display;
 	}
 
-	public GameCanvas getMenuCanvas() {
+	public MenuCanvas getMenuCanvas() {
 		return menuCanvas;
 	}
 
-	public MainGameCanvas getMainGameCanvas() {
-		return mainGameCanvas;
-	}
-
-	public void setMainGameCanvas(MainGameCanvas mainGameCanvas) {
-		this.mainGameCanvas = mainGameCanvas;
+	public MyGameCanvas getMyGameCanvas() {
+		return myGameCanvas;
 	}
 
 }
