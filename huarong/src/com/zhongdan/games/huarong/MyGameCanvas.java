@@ -8,6 +8,7 @@ import javax.microedition.lcdui.game.TiledLayer;
 
 import com.zhongdan.games.framework.utils.Constants;
 import com.zhongdan.games.framework.utils.ImageUtil;
+import com.zhongdan.games.framework.utils.Constants.KeyCode;
 import com.zhongdan.games.huarong.GameConstants.GameSettings;
 import com.zhongdan.games.huarong.GameConstants.RoleName;
 
@@ -132,32 +133,36 @@ public class MyGameCanvas extends GameCanvas {
 		if (keyCode == Constants.KeyCode.LEFT) {
 			if (isPlaying) {
 				if (isMoving) {
+					moveRole(KeyCode.LEFT);
 				} else {
-					moveCurser(Constants.KeyCode.LEFT);
+					moveCurser(KeyCode.LEFT);
 				}
 			}
-		} else if (keyCode == Constants.KeyCode.RIGHT) {
+		} else if (keyCode == KeyCode.RIGHT) {
 			if (isPlaying) {
 				if (isMoving) {
+					moveRole(KeyCode.RIGHT);
 				} else {
-					moveCurser(Constants.KeyCode.RIGHT);
+					moveCurser(KeyCode.RIGHT);
 				}
 			}
-		} else if (keyCode == Constants.KeyCode.UP) {
+		} else if (keyCode == KeyCode.UP) {
 			if (isPlaying) {
 				if (isMoving) {
+					moveRole(KeyCode.UP);
 				} else {
-					moveCurser(Constants.KeyCode.UP);
+					moveCurser(KeyCode.UP);
 				}
 			}
-		} else if (keyCode == Constants.KeyCode.DOWN) {
+		} else if (keyCode == KeyCode.DOWN) {
 			if (isPlaying) {
 				if (isMoving) {
+					moveRole(KeyCode.DOWN);
 				} else {
-					moveCurser(Constants.KeyCode.DOWN);
+					moveCurser(KeyCode.DOWN);
 				}
 			}
-		} else if (keyCode == Constants.KeyCode.OK) {
+		} else if (keyCode == KeyCode.OK) {
 			if (isPlaying) {
 				if (isMoving) {
 					isMoving = false;
@@ -165,9 +170,234 @@ public class MyGameCanvas extends GameCanvas {
 					isMoving = true;
 				}
 			}
-		} else if (keyCode == Constants.KeyCode.BACK) {
+		} else if (keyCode == KeyCode.BACK) {
 			this.midlet.getDisplay().setCurrent(this.midlet.getMenuCanvas());
 		}
+	}
+
+	private void moveRole(int dir) {
+		int currentRow = selectedRoleSprite.getRow();
+		int currentCol = selectedRoleSprite.getCol();
+		RoleSprite checkRoleSprite = null;
+		boolean canMove = true;
+		switch (dir) {
+		case KeyCode.LEFT:
+			if (currentCol > 0) {
+				// 1. Check upper
+				if (currentRow > 0) {
+					// 1.1. Check upper double left
+					if (currentCol > 1) {
+						checkRoleSprite = maps[currentRow - 1][currentCol - 2];
+						if (null != checkRoleSprite && checkRoleSprite.getRoleHeight() == 2 && checkRoleSprite.getRoleWidth() == 2) {
+							canMove = false;
+						}
+					}
+					// 1.2. Check upper left
+					checkRoleSprite = maps[currentRow - 1][currentCol - 1];
+					if (null != checkRoleSprite && checkRoleSprite.getRoleHeight() == 2) {
+						canMove = false;
+					}
+				}
+				// 2.1. Check double left
+				if (currentCol > 1) {
+					checkRoleSprite = maps[currentRow][currentCol - 2];
+					if (null != checkRoleSprite && checkRoleSprite.getRoleWidth() == 2) {
+						canMove = false;
+					}
+				}
+				// 2.2. Check left
+				checkRoleSprite = maps[currentRow][currentCol - 1];
+				if (null != checkRoleSprite) {
+					canMove = false;
+				}
+				// 3. Check lower
+				if (selectedRoleSprite.getRoleHeight() == 2) {
+					// 3.1. Check lower double left
+					if (currentCol > 1) {
+						checkRoleSprite = maps[currentRow + 1][currentCol - 2];
+						if (null != checkRoleSprite && checkRoleSprite.getRoleWidth() == 2) {
+							canMove = false;
+						}
+					}
+					// 3.2. Check lower left
+					checkRoleSprite = maps[currentRow][currentCol - 1];
+					if (null != checkRoleSprite) {
+						canMove = false;
+					}
+				}
+			} else {
+				canMove = false;
+			}
+			if (canMove) {
+				maps[currentRow][currentCol] = null;
+				maps[currentRow][currentCol - 1] = selectedRoleSprite;
+				selectedRoleSprite.setCol(currentCol - 1);
+			}
+			break;
+		case KeyCode.RIGHT:
+			if (currentCol + 1 < GameSettings.MAP_COL) {
+				// Check upper right
+				if (currentRow > 0) {
+					checkRoleSprite = maps[currentRow - 1][currentCol + 1];
+					if (null != checkRoleSprite && checkRoleSprite.getRoleHeight() == 2) {
+						canMove = false;
+					}
+				}
+				// Check right
+				checkRoleSprite = maps[currentRow][currentCol + 1];
+				if (null != checkRoleSprite) {
+					canMove = false;
+				}
+				// Check lower right
+				if (selectedRoleSprite.getRoleHeight() == 2) {
+					checkRoleSprite = maps[currentRow + 1][currentCol + 1];
+					if (null != checkRoleSprite) {
+						canMove = false;
+					}
+				}
+				if (selectedRoleSprite.getRoleWidth() == 2) {
+					if (currentCol + 2 < GameSettings.MAP_COL) {
+						// Check upper double right
+						if (currentRow > 0) {
+							checkRoleSprite = maps[currentRow - 1][currentCol + 2];
+							if (null != checkRoleSprite && checkRoleSprite.getRoleHeight() == 2) {
+								canMove = false;
+							}
+						}
+						// Check double right
+						checkRoleSprite = maps[currentRow][currentCol + 2];
+						if (null != checkRoleSprite) {
+							canMove = false;
+						}
+						// Check lower double right
+						if (selectedRoleSprite.getRoleHeight() == 2) {
+							checkRoleSprite = maps[currentRow + 1][currentCol + 2];
+							if (null != checkRoleSprite) {
+								canMove = false;
+							}
+						}
+					} else {
+						canMove = false;
+					}
+				}
+			} else {
+				canMove = false;
+			}
+			if (canMove) {
+				maps[currentRow][currentCol] = null;
+				maps[currentRow][currentCol + 1] = selectedRoleSprite;
+				selectedRoleSprite.setCol(currentCol + 1);
+			}
+			break;
+		case KeyCode.UP:
+			if (currentRow > 0) {
+				if (currentRow > 1) {
+					// 1. Check double upper left
+					if (currentCol > 0) {
+						checkRoleSprite = maps[currentRow - 2][currentCol - 1];
+						if (null != checkRoleSprite && checkRoleSprite.getRoleHeight() == 2 && checkRoleSprite.getRoleWidth() == 2) {
+							canMove = false;
+						}
+					}
+					// 2. Check double upper
+					checkRoleSprite = maps[currentRow - 2][currentCol];
+					if (null != checkRoleSprite && checkRoleSprite.getRoleHeight() == 2) {
+						canMove = false;
+					}
+					// 3. Check double upper right
+					if (selectedRoleSprite.getRoleWidth() == 2) {
+						checkRoleSprite = maps[currentRow - 2][currentCol + 1];
+						if (null != checkRoleSprite && checkRoleSprite.getRoleHeight() == 2) {
+							canMove = false;
+						}
+					}
+				}
+				// 4. Check upper left
+				if (currentCol > 0) {
+					checkRoleSprite = maps[currentRow - 1][currentCol - 1];
+					if (null != checkRoleSprite && checkRoleSprite.getRoleWidth() == 2) {
+						canMove = false;
+					}
+				}
+				// 5. Check upper
+				checkRoleSprite = maps[currentRow - 1][currentCol];
+				if (null != checkRoleSprite) {
+					canMove = false;
+				}
+				// 6. Check upper right
+				if (selectedRoleSprite.getRoleWidth() == 2) {
+					checkRoleSprite = maps[currentRow - 1][currentCol + 1];
+					if (null != checkRoleSprite) {
+						canMove = false;
+					}
+				}
+			} else {
+				canMove = false;
+			}
+			if (canMove) {
+				maps[currentRow][currentCol] = null;
+				maps[currentRow - 1][currentCol] = selectedRoleSprite;
+				selectedRoleSprite.setRow(currentRow - 1);
+			}
+			break;
+		case KeyCode.DOWN:
+			if (currentRow + 1 < GameSettings.MAP_ROW) {
+				// 1. Check lower left
+				if (currentCol > 0) {
+					checkRoleSprite = maps[currentRow + 1][currentCol - 1];
+					if (null != checkRoleSprite && checkRoleSprite.getRoleWidth() == 2) {
+						canMove = false;
+					}
+				}
+				// 2. Check lower
+				checkRoleSprite = maps[currentRow + 1][currentCol];
+				if (null != checkRoleSprite) {
+					canMove = false;
+				}
+				// 3. Check lower right
+				if (selectedRoleSprite.getRoleWidth() == 2) {
+					checkRoleSprite = maps[currentRow + 1][currentCol + 1];
+					if (null != checkRoleSprite) {
+						canMove = false;
+					}
+				}
+				if (selectedRoleSprite.getRoleHeight() == 2) {
+					if (currentRow + 2 < GameSettings.MAP_ROW) {
+						// 4. Check double lower left
+						if (currentCol > 0) {
+							checkRoleSprite = maps[currentRow + 2][currentCol - 1];
+							if (null != checkRoleSprite && checkRoleSprite.getRoleWidth() == 2) {
+								canMove = false;
+							}
+						}
+						// 5. Check double lower
+						checkRoleSprite = maps[currentRow + 2][currentCol];
+						if (null != checkRoleSprite) {
+							canMove = false;
+						}
+						// 6. Check double lower right
+						if (selectedRoleSprite.getRoleWidth() == 2) {
+							checkRoleSprite = maps[currentRow + 2][currentCol + 1];
+							if (null != checkRoleSprite) {
+								canMove = false;
+							}
+						}
+					} else {
+						canMove = false;
+					}
+				}
+			} else {
+				canMove = false;
+			}
+			if (canMove) {
+				maps[currentRow][currentCol] = null;
+				maps[currentRow + 1][currentCol] = selectedRoleSprite;
+				selectedRoleSprite.setRow(currentRow + 1);
+			}
+			break;
+		}
+		layerManager.paint(graphics, 0, 0);
+		this.flushGraphics();
 	}
 
 	private void moveCurser(int dir) {
@@ -175,7 +405,7 @@ public class MyGameCanvas extends GameCanvas {
 		int currentCol = selectedRoleSprite.getCol();
 		RoleSprite nextRoleSprite = null;
 		switch (dir) {
-		case Constants.KeyCode.LEFT:
+		case KeyCode.LEFT:
 			if (currentCol > 0) {
 				// Left
 				nextRoleSprite = maps[currentRow][currentCol - 1];
@@ -191,11 +421,9 @@ public class MyGameCanvas extends GameCanvas {
 				if (null == nextRoleSprite && currentRow + 1 < GameSettings.MAP_ROW && currentCol > 1) {
 					nextRoleSprite = maps[currentRow + 1][currentCol - 2];
 				}
-			} else {
-				nextRoleSprite = selectedRoleSprite;
 			}
 			break;
-		case Constants.KeyCode.RIGHT:
+		case KeyCode.RIGHT:
 			if (currentCol + selectedRoleSprite.getRoleWidth() < GameSettings.MAP_COL) {
 				// Right
 				nextRoleSprite = maps[currentRow][currentCol + selectedRoleSprite.getRoleWidth()];
@@ -212,11 +440,9 @@ public class MyGameCanvas extends GameCanvas {
 						&& currentCol + selectedRoleSprite.getRoleWidth() + 1 < GameSettings.MAP_COL) {
 					nextRoleSprite = maps[currentRow + 1][currentCol + selectedRoleSprite.getRoleWidth() + 1];
 				}
-			} else {
-				nextRoleSprite = selectedRoleSprite;
 			}
 			break;
-		case Constants.KeyCode.UP:
+		case KeyCode.UP:
 			if (currentRow > 0) {
 				// Upper
 				nextRoleSprite = maps[currentRow - 1][currentCol];
@@ -240,11 +466,9 @@ public class MyGameCanvas extends GameCanvas {
 				if (null == nextRoleSprite && currentRow > 2 && currentCol + 1 < GameSettings.MAP_COL) {
 					nextRoleSprite = maps[currentRow - 3][currentCol + 1];
 				}
-			} else {
-				nextRoleSprite = selectedRoleSprite;
 			}
 			break;
-		case Constants.KeyCode.DOWN:
+		case KeyCode.DOWN:
 			if (currentRow + selectedRoleSprite.getRoleHeight() < GameSettings.MAP_ROW) {
 				// Down
 				nextRoleSprite = maps[currentRow + selectedRoleSprite.getRoleHeight()][currentCol];
@@ -261,10 +485,11 @@ public class MyGameCanvas extends GameCanvas {
 						&& currentCol + 1 < GameSettings.MAP_COL) {
 					nextRoleSprite = maps[currentRow + selectedRoleSprite.getRoleHeight() + 1][currentCol + 1];
 				}
-			} else {
-				nextRoleSprite = selectedRoleSprite;
 			}
 			break;
+		}
+		if (null == nextRoleSprite) {
+			nextRoleSprite = selectedRoleSprite;
 		}
 		selectedRoleSprite.setSelected(false);
 		selectedRoleSprite = nextRoleSprite;

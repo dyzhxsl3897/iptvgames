@@ -63,10 +63,6 @@ public class RoleSprite extends Sprite {
 		return roleName;
 	}
 
-	public void setRoleName(int roleName) {
-		this.roleName = roleName;
-	}
-
 	public boolean isSelected() {
 		return selected;
 	}
