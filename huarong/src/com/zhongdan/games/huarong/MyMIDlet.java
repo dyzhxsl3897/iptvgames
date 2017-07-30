@@ -5,6 +5,7 @@ import javax.microedition.midlet.MIDlet;
 import javax.microedition.midlet.MIDletStateChangeException;
 
 public class MyMIDlet extends MIDlet {
+
 	private Display display;
 	private MenuCanvas menuCanvas;
 	private MyGameCanvas myGameCanvas;
