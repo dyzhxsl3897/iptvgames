@@ -7,6 +7,7 @@ import javax.microedition.lcdui.game.LayerManager;
 import javax.microedition.lcdui.game.Sprite;
 import javax.microedition.lcdui.game.TiledLayer;
 
+import com.zhongdan.games.paopaolong.Constants.KeyCode;
 import com.zhongdan.games.paopaolong.MyGameConstants.Menu;
 
 public class MenuCanvas extends GameCanvas {
@@ -88,6 +89,8 @@ public class MenuCanvas extends GameCanvas {
 			} else if (selectedItem == 2) {
 				this.midlet.notifyDestroyed();
 			}
+		} else if (keyCode == KeyCode.BACK || keyCode == KeyCode.BACK_1) {
+			this.midlet.notifyDestroyed();
 		}
 	}
 

@@ -20,9 +20,11 @@ import com.zhongdan.games.utils.Constants;
 import com.zhongdan.games.utils.ImageUtil;
 import com.zhongdan.games.utils.MusicUtil;
 import com.zhongdan.games.utils.NumberImgUtil;
+import com.zhongdan.games.utils.Constants.KeyCode;
 
 public class MyGameCanvas extends GameCanvas implements Runnable {
 
+	MyMIDlet midlet;
 	private Graphics graphics;
 	private LayerManager layerManager = new LayerManager();
 	private Random random;
@@ -50,6 +52,7 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 
 	protected MyGameCanvas(MyMIDlet midlet) {
 		super(false);
+		this.midlet = midlet;
 		graphics = this.getGraphics();
 		this.setFullScreenMode(true);
 		random = new Random();
@@ -156,6 +159,8 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 				welcomeLayer.setVisible(false);
 				backgroundLayer.setVisible(true);
 				this.score = 0;
+			} else if (keyCode == KeyCode.BACK || keyCode == KeyCode.BACK_1) {
+				this.midlet.notifyDestroyed();
 			}
 		}
 	}
