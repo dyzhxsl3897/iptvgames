@@ -35,7 +35,7 @@ public class MenuCanvas extends GameCanvas {
 
 	private void initCanvas() {
 		// Initialize background
-		backgroundImg = ImageUtil.createImage("/menu_background.jpg");
+		backgroundImg = ImageUtil.createImage("/menu_background.png");
 		backgroundLayer = new TiledLayer(1, 1, backgroundImg, backgroundImg.getWidth(), backgroundImg.getHeight());
 		backgroundLayer.setCell(0, 0, 1);
 		layerManager.append(backgroundLayer);

@@ -58,7 +58,7 @@ public class MyGameCanvas extends GameCanvas {
 	}
 
 	private void loadImage() {
-		backgroundImg = ImageUtil.createImage("/background.jpg");
+		backgroundImg = ImageUtil.createImage("/background.png");
 		numberStepImg = ImageUtil.createImage("/number_step.png");
 		numberGoalImg = ImageUtil.createImage("/number_goal.png");
 		zhangfeiImg = ImageUtil.createImage("/zhangfei.png");
