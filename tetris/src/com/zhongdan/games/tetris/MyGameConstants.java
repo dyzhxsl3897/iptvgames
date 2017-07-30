@@ -40,11 +40,17 @@ public class MyGameConstants {
 	public static class ButtonIcon {
 		public static int ddown_X = 50;
 		public static int ddown_Y = 360;
-		public static int down_X = 210;
-		public static int down_Y = 455;
-		public static int left_X = 50;
+//		public static int left_X = 50;
+//		public static int left_Y = 455;
+//		public static int down_X = 210;
+//		public static int down_Y = 455;
+//		public static int right_X = 370;
+//		public static int right_Y = 455;
+		public static int left_X = 130;
 		public static int left_Y = 455;
-		public static int right_X = 370;
+		public static int down_X = 280;
+		public static int down_Y = 455;
+		public static int right_X = 420;
 		public static int right_Y = 455;
 		public static int pause_X = 530;
 		public static int pause_Y = 455;

@@ -13,6 +13,7 @@ import javax.microedition.lcdui.game.TiledLayer;
 
 import com.zhongdan.games.framework.utils.Constants;
 import com.zhongdan.games.framework.utils.Constants.KeyCode;
+import com.zhongdan.games.tetris.MyGameConstants.Playboard;
 
 public class MyGameCanvas extends GameCanvas {
 
@@ -30,6 +31,8 @@ public class MyGameCanvas extends GameCanvas {
 	private ScoreSprite score = null;
 	private LevelSprite level = null;
 	private LineSprite line = null;
+	Timer dropDownTimer = new Timer();
+	DropdownTask dropdownTask = null;
 
 	protected MyGameCanvas(MainMidlet midlet) {
 		super(false);
@@ -89,6 +92,7 @@ public class MyGameCanvas extends GameCanvas {
 		for (int i = layerManager.getSize() - 1; i >= 0; i--) {
 			layerManager.remove(layerManager.getLayerAt(i));
 		}
+		clearAllBlocks();
 
 		// Initialize background
 		if (backgroundImg == null) {
@@ -103,12 +107,12 @@ public class MyGameCanvas extends GameCanvas {
 		layerManager.insert(backgroundLayer, 0);
 
 		// Initialize buttons
-		new ButtonSprite("ddown", this, graphics, MyGameConstants.ButtonIcon.ddown_X, MyGameConstants.ButtonIcon.ddown_Y);
+		// new ButtonSprite("ddown", this, graphics, MyGameConstants.ButtonIcon.ddown_X, MyGameConstants.ButtonIcon.ddown_Y);
 		btnLeft = new ButtonSprite("left", this, graphics, MyGameConstants.ButtonIcon.left_X, MyGameConstants.ButtonIcon.left_Y);
 		btnDown = new ButtonSprite("down", this, graphics, MyGameConstants.ButtonIcon.down_X, MyGameConstants.ButtonIcon.down_Y);
 		btnRight = new ButtonSprite("right", this, graphics, MyGameConstants.ButtonIcon.right_X, MyGameConstants.ButtonIcon.right_Y);
-		new ButtonSprite("pause", this, graphics, MyGameConstants.ButtonIcon.pause_X, MyGameConstants.ButtonIcon.pause_Y);
-		new ButtonSprite("returns", this, graphics, MyGameConstants.ButtonIcon.returns_X, MyGameConstants.ButtonIcon.returns_Y);
+		// new ButtonSprite("pause", this, graphics, MyGameConstants.ButtonIcon.pause_X, MyGameConstants.ButtonIcon.pause_Y);
+		// new ButtonSprite("returns", this, graphics, MyGameConstants.ButtonIcon.returns_X, MyGameConstants.ButtonIcon.returns_Y);
 
 		// Initialize score/level
 		score = new ScoreSprite(0, this, graphics);
@@ -130,9 +134,22 @@ public class MyGameCanvas extends GameCanvas {
 		this.flushGraphics();
 	}
 
+	private void clearAllBlocks() {
+		for (int i = 0; i < Playboard.ROW_NO; i++) {
+			for (int j = 0; j < Playboard.COL_NO; j++) {
+				allBrickSprite[i][j] = null;
+			}
+		}
+	}
+
 	public void startDropDown() {
-		Timer dropDownTimer = new Timer();
-		dropDownTimer.schedule(new DropdownTask(this, graphics), 0, MyGameConstants.GameSettings.DROPDOWN_INTERVAL[this.level.getLevel()]);
+		if (null == dropdownTask) {
+			dropdownTask = new DropdownTask(this, graphics);
+		} else {
+			dropdownTask.cancel();
+			dropdownTask = new DropdownTask(this, graphics);
+		}
+		dropDownTimer.schedule(dropdownTask, 0, MyGameConstants.GameSettings.DROPDOWN_INTERVAL[this.level.getLevel()]);
 	}
 
 	public LayerManager getLayerManager() {
