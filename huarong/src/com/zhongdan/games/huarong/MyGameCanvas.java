@@ -184,7 +184,7 @@ public class MyGameCanvas extends GameCanvas {
 					isMoving = true;
 				}
 			}
-		} else if (keyCode == KeyCode.BACK) {
+		} else if (keyCode == KeyCode.BACK || keyCode == KeyCode.BACK_1) {
 			this.midlet.getDisplay().setCurrent(this.midlet.getMenuCanvas());
 		}
 	}

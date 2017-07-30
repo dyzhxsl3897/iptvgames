@@ -9,6 +9,7 @@ import javax.microedition.lcdui.game.GameCanvas;
 import javax.microedition.lcdui.game.LayerManager;
 import javax.microedition.lcdui.game.TiledLayer;
 
+import com.zhongdan.games.paopaolong.Constants.KeyCode;
 import com.zhongdan.games.paopaolong.MyGameConstants.GameSettings;
 
 public class MyGameCanvas extends GameCanvas {
@@ -128,7 +129,7 @@ public class MyGameCanvas extends GameCanvas {
 			turnRightArrow();
 		} else if (keyCode == Constants.KeyCode.OK) {
 			fireBall();
-		} else if (keyCode == Constants.KeyCode.BACK) {
+		} else if (keyCode == Constants.KeyCode.BACK || keyCode == KeyCode.BACK_1) {
 			this.midlet.getDisplay().setCurrent(this.midlet.getMenuCanvas());
 		}
 	}

@@ -12,6 +12,7 @@ import javax.microedition.lcdui.game.TiledLayer;
 import com.zhongdan.games.framework.utils.Constants;
 import com.zhongdan.games.framework.utils.ImageUtil;
 import com.zhongdan.games.framework.utils.NumberImgUtil;
+import com.zhongdan.games.framework.utils.Constants.KeyCode;
 
 public class MyGameCanvas extends GameCanvas implements Runnable {
 
@@ -201,7 +202,7 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 					initCanvas(level + 1);
 				}
 			}
-		} else if (keyCode == Constants.KeyCode.BACK) {
+		} else if (keyCode == Constants.KeyCode.BACK || keyCode == KeyCode.BACK_1) {
 			this.midlet.getDisplay().setCurrent(this.midlet.getMenuCanvas());
 		}
 	}

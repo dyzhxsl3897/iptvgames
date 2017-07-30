@@ -12,6 +12,7 @@ import javax.microedition.lcdui.game.Sprite;
 import javax.microedition.lcdui.game.TiledLayer;
 
 import com.zhongdan.games.framework.utils.Constants;
+import com.zhongdan.games.framework.utils.Constants.KeyCode;
 
 public class MyGameCanvas extends GameCanvas {
 
@@ -78,7 +79,7 @@ public class MyGameCanvas extends GameCanvas {
 				layerManager.paint(graphics, 0, 0);
 				this.flushGraphics();
 			}
-		} else if (keyCode == Constants.KeyCode.BACK) {
+		} else if (keyCode == Constants.KeyCode.BACK || keyCode == KeyCode.BACK_1) {
 			this.midlet.getDisplay().setCurrent(this.midlet.getMenuCanvas());
 		}
 	}
