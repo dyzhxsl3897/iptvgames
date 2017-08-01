@@ -7,6 +7,8 @@ import java.util.Vector;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.game.LayerManager;
 
+import com.zhongdan.games.paopaolong.MyGameConstants.GameSettings;
+
 public class FireBallTask extends TimerTask {
 
 	private MyGameCanvas canvas;
@@ -64,7 +66,16 @@ public class FireBallTask extends TimerTask {
 					movingBall.getSprite().setPosition(newX, newY);
 					int clearedBallNo = clearBall();
 					if (0 == clearedBallNo) {
-						balls[row][column] = movingBall;
+						if (row >= GameSettings.ROW_NO) {
+							this.canvas.setGameOver(true);
+							layerManager.paint(graphics, 0, 0);
+							this.canvas.flushGraphics();
+							this.canvas.setMoving(false);
+							this.cancel();
+							this.canvas.failed();
+						} else {
+							balls[row][column] = movingBall;
+						}
 					} else {
 						int incScore = clearedBallNo * clearedBallNo;
 						this.canvas.setScore(this.canvas.getScore() + incScore);
@@ -74,7 +85,7 @@ public class FireBallTask extends TimerTask {
 					this.canvas.flushGraphics();
 					this.canvas.setMoving(false);
 					Date currSysDate = new Date();
-					if (currSysDate.getTime() - canvas.systemDate.getTime() > 10000) {
+					if (currSysDate.getTime() - canvas.systemDate.getTime() > GameSettings.DROP_DOWN_TIME) {
 						canvas.dropDownTwoLines();
 						canvas.systemDate = currSysDate;
 					}
@@ -308,8 +319,8 @@ public class FireBallTask extends TimerTask {
 	}
 
 	private boolean hasCollision() {
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 13; j++) {
+		for (int i = 0; i < GameSettings.ROW_NO; i++) {
+			for (int j = 0; j < GameSettings.COL_NO; j++) {
 				BallSprite ball = balls[i][j];
 				if (ball != null) {
 					if (this.movingBall.getSprite().collidesWith(ball.getSprite(), true)) {
