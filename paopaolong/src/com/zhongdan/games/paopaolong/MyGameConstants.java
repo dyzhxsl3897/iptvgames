@@ -11,12 +11,16 @@ public class MyGameConstants extends Constants {
 		public static int SECOND_ROW_LEFT_BALL_X = 26;// 第二行左边小球的X坐标
 		public static int TOP_LEFT_BALL_Y = 80;// 左上角小球的Y坐标
 		public static int INITIAL_ROW_NO = 4;// 游戏初始化小球的行数
-		public static int ROW_NO = 8;// 行数
+		public static int ROW_NO = 10;// 行数
 		public static int COL_NO = 13;// 列数
 		public static int ROW_HEIGHT = 33;// 行高
 		public static int COL_WIDTH = 38;// 列宽
 		public static int ANGLE_MAX = 72;// 箭头旋转最大角度
 		public static int ANGLE_SINGLE_MOVE = 6;// 箭头每次旋转的角度
+		public static int DROP_DOWN_TIME = 20000;// 每过多少毫秒下降两层
+		public static int GAME_OVER_FOCUS_X = 254;// 游戏失败按钮选中对焦坐标
+		public static int GAME_OVER_FOCUS_Y = 431;// 游戏失败按钮选中对焦坐标
+		public static int GAME_OVER_SCREEN_DELAY = 1000; // Game Over之后等一段时间显示Game Over画面
 	}
 
 	public static class Menu {

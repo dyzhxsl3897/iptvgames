@@ -2,6 +2,7 @@ package com.zhongdan.games.paopaolong;
 
 import java.util.Date;
 import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
@@ -9,6 +10,7 @@ import javax.microedition.lcdui.game.GameCanvas;
 import javax.microedition.lcdui.game.LayerManager;
 import javax.microedition.lcdui.game.TiledLayer;
 
+import com.zhongdan.games.paopaolong.Constants.KeyCode;
 import com.zhongdan.games.paopaolong.MyGameConstants.GameSettings;
 
 public class MyGameCanvas extends GameCanvas {
@@ -21,7 +23,11 @@ public class MyGameCanvas extends GameCanvas {
 	private BallSprite nextBall = null;
 	private BallSprite movingBall = null;
 	private ArrowSprite arrow = null;
+	private Image gameOverBackgroundImage = null;
+	private Image gameOverFocusImage = null;
 	private boolean isMoving = false;
+	private boolean isGameOver = false;
+	private boolean canPressOKBackToMenu = false;// 游戏失败后可以按OK返回菜单
 	private ScoreSprite score = null;
 	public Date systemDate = new Date();
 
@@ -56,6 +62,12 @@ public class MyGameCanvas extends GameCanvas {
 		balls = new BallSprite[MyGameConstants.GameSettings.ROW_NO][MyGameConstants.GameSettings.COL_NO];
 		movingBall = null;
 		isMoving = false;
+		isGameOver = false;
+		canPressOKBackToMenu = false;
+
+		// Initialize game over screen
+		gameOverBackgroundImage = ImageUtil.createImage("/game_over.png");
+		gameOverFocusImage = ImageUtil.createImage("/game_over_focus.png");
 
 		initializeBalls();
 
@@ -65,7 +77,6 @@ public class MyGameCanvas extends GameCanvas {
 		this.flushGraphics();
 	}
 
-	// TODO
 	public void dropDownTwoLines() {
 		if (!hasBallInBottomTwoRows()) {
 			for (int row = GameSettings.ROW_NO - 1; row > 1; row--) {
@@ -89,8 +100,6 @@ public class MyGameCanvas extends GameCanvas {
 					layerManager.insert(ball.getSprite(), 0);
 				}
 			}
-		} else {
-			// TODO Failed
 		}
 		layerManager.paint(graphics, 0, 0);
 		this.flushGraphics();
@@ -127,8 +136,12 @@ public class MyGameCanvas extends GameCanvas {
 		} else if (keyCode == Constants.KeyCode.RIGHT) {
 			turnRightArrow();
 		} else if (keyCode == Constants.KeyCode.OK) {
-			fireBall();
-		} else if (keyCode == Constants.KeyCode.BACK) {
+			if (!isGameOver) {
+				fireBall();
+			} else if (canPressOKBackToMenu) {
+				this.midlet.getDisplay().setCurrent(this.midlet.getMenuCanvas());
+			}
+		} else if (keyCode == Constants.KeyCode.BACK || keyCode == KeyCode.BACK_1) {
 			this.midlet.getDisplay().setCurrent(this.midlet.getMenuCanvas());
 		}
 	}
@@ -150,27 +163,27 @@ public class MyGameCanvas extends GameCanvas {
 	}
 
 	private void fireBall() {
-		// Switch next ball and waiting ball, create new next ball
-		movingBall = waitingBall;
-		int nextBallColor = nextBall.getColor();
-		if (nextBallColor == MyGameConstants.BallColor.BLUE) {
-			waitingBall = new BallSprite().createBigBlueBall();
-		} else if (nextBallColor == MyGameConstants.BallColor.PURPLE) {
-			waitingBall = new BallSprite().createBigPurpleBall();
-		} else if (nextBallColor == MyGameConstants.BallColor.RED) {
-			waitingBall = new BallSprite().createBigRedBall();
-		} else if (nextBallColor == MyGameConstants.BallColor.YELLOW) {
-			waitingBall = new BallSprite().createBigYellowBall();
-		}
-		waitingBall.getSprite().setPosition(MyGameConstants.WaitingBall.LEFT, MyGameConstants.WaitingBall.TOP);
-		layerManager.insert(waitingBall.getSprite(), 0);
-		layerManager.remove(nextBall.getSprite());
-		nextBall = new BallSprite().createSmallRandomBall();
-		layerManager.insert(nextBall.getSprite(), 0);
-		nextBall.getSprite().setPosition(MyGameConstants.NextBall.LEFT, MyGameConstants.NextBall.TOP);
-
-		// Move the moving ball
 		if (!isMoving) {
+			// Switch next ball and waiting ball, create new next ball
+			movingBall = waitingBall;
+			int nextBallColor = nextBall.getColor();
+			if (nextBallColor == MyGameConstants.BallColor.BLUE) {
+				waitingBall = new BallSprite().createBigBlueBall();
+			} else if (nextBallColor == MyGameConstants.BallColor.PURPLE) {
+				waitingBall = new BallSprite().createBigPurpleBall();
+			} else if (nextBallColor == MyGameConstants.BallColor.RED) {
+				waitingBall = new BallSprite().createBigRedBall();
+			} else if (nextBallColor == MyGameConstants.BallColor.YELLOW) {
+				waitingBall = new BallSprite().createBigYellowBall();
+			}
+			waitingBall.getSprite().setPosition(MyGameConstants.WaitingBall.LEFT, MyGameConstants.WaitingBall.TOP);
+			layerManager.insert(waitingBall.getSprite(), 0);
+			layerManager.remove(nextBall.getSprite());
+			nextBall = new BallSprite().createSmallRandomBall();
+			layerManager.insert(nextBall.getSprite(), 0);
+			nextBall.getSprite().setPosition(MyGameConstants.NextBall.LEFT, MyGameConstants.NextBall.TOP);
+
+			// Move the moving ball
 			isMoving = true;
 			Timer fireBallTimer = new Timer();
 			fireBallTimer.schedule(new FireBallTask(this, graphics, layerManager, balls, movingBall, arrow.getAngle()), 0,
@@ -225,6 +238,18 @@ public class MyGameCanvas extends GameCanvas {
 		}
 	}
 
+	public void failed() {
+		Timer failedScreenTimer = new Timer();
+		failedScreenTimer.schedule(new TimerTask() {
+			public void run() {
+				graphics.drawImage(gameOverBackgroundImage, 0, 0, Graphics.TOP | Graphics.LEFT);
+				graphics.drawImage(gameOverFocusImage, GameSettings.GAME_OVER_FOCUS_X, GameSettings.GAME_OVER_FOCUS_Y, Graphics.TOP | Graphics.LEFT);
+				flushGraphics();
+				canPressOKBackToMenu = true;
+			}
+		}, GameSettings.GAME_OVER_SCREEN_DELAY);
+	}
+
 	public void setGraphics(Graphics graphics) {
 		this.graphics = graphics;
 	}
@@ -255,6 +280,14 @@ public class MyGameCanvas extends GameCanvas {
 
 	public void setMoving(boolean isMoving) {
 		this.isMoving = isMoving;
+	}
+
+	public boolean isGameOver() {
+		return isGameOver;
+	}
+
+	public void setGameOver(boolean isGameOver) {
+		this.isGameOver = isGameOver;
 	}
 
 	public int getScore() {

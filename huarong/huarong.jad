@@ -1,3 +1,4 @@
+MIDlet-1: MyMIDlet,,com.zhongdan.games.huarong.MyMIDlet
 MIDlet-Jar-URL: huarong.jar
 MIDlet-Name: huarong Midlet Suite
 MIDlet-Vendor: Midlet Suite Vendor

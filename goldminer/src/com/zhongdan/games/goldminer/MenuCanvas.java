@@ -9,6 +9,7 @@ import javax.microedition.lcdui.game.TiledLayer;
 
 import com.zhongdan.games.framework.utils.Constants;
 import com.zhongdan.games.framework.utils.ImageUtil;
+import com.zhongdan.games.framework.utils.Constants.KeyCode;
 import com.zhongdan.games.goldminer.GameConstants.Menu;
 
 public class MenuCanvas extends GameCanvas {
@@ -118,6 +119,8 @@ public class MenuCanvas extends GameCanvas {
 			} else if (selectedItem == 2) {
 				this.midlet.notifyDestroyed();
 			}
+		} else if (keyCode == KeyCode.BACK || keyCode == KeyCode.BACK_1) {
+			this.midlet.notifyDestroyed();
 		}
 	}
 

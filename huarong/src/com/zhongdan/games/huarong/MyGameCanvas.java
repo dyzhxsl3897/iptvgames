@@ -58,7 +58,7 @@ public class MyGameCanvas extends GameCanvas {
 	}
 
 	private void loadImage() {
-		backgroundImg = ImageUtil.createImage("/background.jpg");
+		backgroundImg = ImageUtil.createImage("/background.png");
 		numberStepImg = ImageUtil.createImage("/number_step.png");
 		numberGoalImg = ImageUtil.createImage("/number_goal.png");
 		zhangfeiImg = ImageUtil.createImage("/zhangfei.png");
@@ -184,7 +184,7 @@ public class MyGameCanvas extends GameCanvas {
 					isMoving = true;
 				}
 			}
-		} else if (keyCode == KeyCode.BACK) {
+		} else if (keyCode == KeyCode.BACK || keyCode == KeyCode.BACK_1) {
 			this.midlet.getDisplay().setCurrent(this.midlet.getMenuCanvas());
 		}
 	}

@@ -22,14 +22,14 @@ public class MyGameConstants {
 		public static int X = 60;
 		public static int Y = 282;
 	}
-	
+
 	public static class Line {
 		public static int WIDTH = 25;
 		public static int HEIGHT = 27;
 		public static int X = 60;
 		public static int Y = 177;
 	}
-	
+
 	public static class Level {
 		public static int WIDTH = 25;
 		public static int HEIGHT = 27;
@@ -40,11 +40,17 @@ public class MyGameConstants {
 	public static class ButtonIcon {
 		public static int ddown_X = 50;
 		public static int ddown_Y = 360;
-		public static int down_X = 210;
-		public static int down_Y = 455;
-		public static int left_X = 50;
+		// public static int left_X = 50;
+		// public static int left_Y = 455;
+		// public static int down_X = 210;
+		// public static int down_Y = 455;
+		// public static int right_X = 370;
+		// public static int right_Y = 455;
+		public static int left_X = 130;
 		public static int left_Y = 455;
-		public static int right_X = 370;
+		public static int down_X = 280;
+		public static int down_Y = 455;
+		public static int right_X = 420;
 		public static int right_Y = 455;
 		public static int pause_X = 530;
 		public static int pause_Y = 455;
@@ -55,6 +61,9 @@ public class MyGameConstants {
 	public static class GameSettings {
 		public static int[] DROPDOWN_INTERVAL = { 1000, 800, 500, 300, 200, 100, 50 };
 		public static int[] SCORE = { 1, 3, 6, 10 };
+		public static int GAME_OVER_FOCUS_X = 254;// 游戏失败按钮选中对焦坐标
+		public static int GAME_OVER_FOCUS_Y = 431;// 游戏失败按钮选中对焦坐标
+		public static int GAME_OVER_SCREEN_DELAY = 1000; // Game Over之后等一段时间显示Game Over画面
 	}
 
 	public static class Brick {

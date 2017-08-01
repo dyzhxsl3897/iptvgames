@@ -9,6 +9,7 @@ import javax.microedition.lcdui.game.TiledLayer;
 
 import com.zhongdan.games.framework.utils.Constants;
 import com.zhongdan.games.framework.utils.ImageUtil;
+import com.zhongdan.games.framework.utils.Constants.KeyCode;
 import com.zhongdan.games.huarong.GameConstants.Menu;
 
 public class MenuCanvas extends GameCanvas {
@@ -35,7 +36,7 @@ public class MenuCanvas extends GameCanvas {
 
 	private void initCanvas() {
 		// Initialize background
-		backgroundImg = ImageUtil.createImage("/menu_background.jpg");
+		backgroundImg = ImageUtil.createImage("/menu_background.png");
 		backgroundLayer = new TiledLayer(1, 1, backgroundImg, backgroundImg.getWidth(), backgroundImg.getHeight());
 		backgroundLayer.setCell(0, 0, 1);
 		layerManager.append(backgroundLayer);
@@ -90,6 +91,8 @@ public class MenuCanvas extends GameCanvas {
 			} else if (selectedItem == 2) {
 				this.midlet.notifyDestroyed();
 			}
+		} else if (keyCode == KeyCode.BACK || keyCode == KeyCode.BACK_1) {
+			this.midlet.notifyDestroyed();
 		}
 	}
 

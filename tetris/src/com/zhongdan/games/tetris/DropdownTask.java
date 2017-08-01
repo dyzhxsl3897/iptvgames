@@ -52,6 +52,7 @@ public class DropdownTask extends TimerTask {
 			if (!canvas.getMovingBrick().canMove(0, MyGameConstants.Brick.HEIGHT)) {
 				canvas.setPlaying(false);
 				cancel();
+				this.canvas.gameOver();
 			}
 		}
 	}

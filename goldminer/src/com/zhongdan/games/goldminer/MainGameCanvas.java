@@ -7,6 +7,7 @@ import javax.microedition.lcdui.game.GameCanvas;
 import com.zhongdan.games.framework.utils.Constants;
 import com.zhongdan.games.framework.utils.ImageUtil;
 import com.zhongdan.games.framework.utils.NumberImgUtil;
+import com.zhongdan.games.framework.utils.Constants.KeyCode;
 
 public class MainGameCanvas extends GameCanvas implements Runnable {
 
@@ -133,7 +134,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	}
 
 	protected void keyPressed(int keyCode) {
-		if (keyCode == Constants.KeyCode.BACK) {
+		if (keyCode == Constants.KeyCode.BACK || keyCode == KeyCode.BACK_1) {
 			this.midlet.getDisplay().setCurrent(this.midlet.getMenuCanvas());
 		}
 	}
