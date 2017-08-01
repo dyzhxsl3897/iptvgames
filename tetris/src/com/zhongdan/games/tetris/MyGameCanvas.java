@@ -3,6 +3,7 @@ package com.zhongdan.games.tetris;
 import java.io.IOException;
 import java.util.Random;
 import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
@@ -12,7 +13,9 @@ import javax.microedition.lcdui.game.Sprite;
 import javax.microedition.lcdui.game.TiledLayer;
 
 import com.zhongdan.games.framework.utils.Constants;
+import com.zhongdan.games.framework.utils.ImageUtil;
 import com.zhongdan.games.framework.utils.Constants.KeyCode;
+import com.zhongdan.games.tetris.MyGameConstants.GameSettings;
 import com.zhongdan.games.tetris.MyGameConstants.Playboard;
 
 public class MyGameCanvas extends GameCanvas {
@@ -21,10 +24,13 @@ public class MyGameCanvas extends GameCanvas {
 	private Graphics graphics;
 	private LayerManager layerManager = new LayerManager();
 	private Image backgroundImg;
+	private Image gameOverBackgroundImage = null;
+	private Image gameOverFocusImage = null;
 	private Sprite[][] allBrickSprite = new Sprite[MyGameConstants.Playboard.ROW_NO][MyGameConstants.Playboard.COL_NO];
 	private BrickItem movingBrick;
 	private BrickItem nextBrick;
 	private boolean isPlaying = true;
+	private boolean canPressOKBackToMenu = false;
 	private ButtonSprite btnDown;
 	private ButtonSprite btnLeft;
 	private ButtonSprite btnRight;
@@ -81,6 +87,8 @@ public class MyGameCanvas extends GameCanvas {
 				movingBrick.turnBrick();
 				layerManager.paint(graphics, 0, 0);
 				this.flushGraphics();
+			} else if (canPressOKBackToMenu) {
+				this.midlet.getDisplay().setCurrent(this.midlet.getMenuCanvas());
 			}
 		} else if (keyCode == Constants.KeyCode.BACK || keyCode == KeyCode.BACK_1) {
 			this.midlet.getDisplay().setCurrent(this.midlet.getMenuCanvas());
@@ -106,6 +114,10 @@ public class MyGameCanvas extends GameCanvas {
 		backgroundLayer.setCell(0, 0, 1);
 		layerManager.insert(backgroundLayer, 0);
 
+		// Initialize game over screen
+		gameOverBackgroundImage = ImageUtil.createImage("/game_over.png");
+		gameOverFocusImage = ImageUtil.createImage("/game_over_focus.png");
+
 		// Initialize buttons
 		// new ButtonSprite("ddown", this, graphics, MyGameConstants.ButtonIcon.ddown_X, MyGameConstants.ButtonIcon.ddown_Y);
 		btnLeft = new ButtonSprite("left", this, graphics, MyGameConstants.ButtonIcon.left_X, MyGameConstants.ButtonIcon.left_Y);
@@ -127,6 +139,9 @@ public class MyGameCanvas extends GameCanvas {
 		type = (rnd.nextInt() >>> 1) % 7;
 		dir = (rnd.nextInt() >>> 1) % 4;
 		movingBrick = BrickItem.createNewBrick(type, dir, this, false);
+
+		isPlaying = true;
+		canPressOKBackToMenu = false;
 
 		// Paint all
 		layerManager.setViewWindow(0, 0, this.getWidth(), this.getHeight());
@@ -150,6 +165,18 @@ public class MyGameCanvas extends GameCanvas {
 			dropdownTask = new DropdownTask(this, graphics);
 		}
 		dropDownTimer.schedule(dropdownTask, 0, MyGameConstants.GameSettings.DROPDOWN_INTERVAL[this.level.getLevel()]);
+	}
+
+	public void gameOver() {
+		Timer failedScreenTimer = new Timer();
+		failedScreenTimer.schedule(new TimerTask() {
+			public void run() {
+				graphics.drawImage(gameOverBackgroundImage, 0, 0, Graphics.TOP | Graphics.LEFT);
+				graphics.drawImage(gameOverFocusImage, GameSettings.GAME_OVER_FOCUS_X, GameSettings.GAME_OVER_FOCUS_Y, Graphics.TOP | Graphics.LEFT);
+				flushGraphics();
+				canPressOKBackToMenu = true;
+			}
+		}, GameSettings.GAME_OVER_SCREEN_DELAY);
 	}
 
 	public LayerManager getLayerManager() {
