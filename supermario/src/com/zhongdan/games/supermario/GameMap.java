@@ -6,7 +6,7 @@ import javax.microedition.lcdui.game.TiledLayer;
 
 public class GameMap {
 	Image img_map;
-	int kuaisiz = 20;
+	int kuaisize = 33;
 	GameImage imglei;	
 	TiledLayer til_back01,til_peng01,til_zhebi01,til_back02,til_peng02,til_zhebi02;	
 	byte huan;
@@ -718,9 +718,9 @@ public class GameMap {
 		imglei = new GameImage();		
 		img_map = imglei.imglong("back");	
 		/**********第一关****************/
-		til_peng01 = new TiledLayer(map_peng01[0].length,map_peng01.length,img_map,kuaisiz,kuaisiz);	
-		til_back01 = new TiledLayer(map_back01[0].length,map_back01.length,img_map,kuaisiz,kuaisiz);	
-		til_zhebi01 = new TiledLayer(map_zhebi01[0].length,map_zhebi01.length,img_map,kuaisiz,kuaisiz);
+		til_peng01 = new TiledLayer(map_peng01[0].length,map_peng01.length,img_map,kuaisize,kuaisize);	
+		til_back01 = new TiledLayer(map_back01[0].length,map_back01.length,img_map,kuaisize,kuaisize);	
+		til_zhebi01 = new TiledLayer(map_zhebi01[0].length,map_zhebi01.length,img_map,kuaisize,kuaisize);
 		for(int i=0;i<map_back01.length;i++) {
 			for(int j=0;j<map_back01[i].length;j++) {
 				if(map_back01[i][j]==0)continue;
@@ -734,9 +734,9 @@ public class GameMap {
 			}
 		}
 		/**********第二关****************/
-		til_peng02 = new TiledLayer(map_peng02[0].length,map_peng02.length,img_map,kuaisiz,kuaisiz);
-		til_back02 = new TiledLayer(map_back02[0].length,map_back02.length,img_map,kuaisiz,kuaisiz);	
-		til_zhebi02 = new TiledLayer(map_zhebi02[0].length,map_zhebi02.length,img_map,kuaisiz,kuaisiz);
+		til_peng02 = new TiledLayer(map_peng02[0].length,map_peng02.length,img_map,kuaisize,kuaisize);
+		til_back02 = new TiledLayer(map_back02[0].length,map_back02.length,img_map,kuaisize,kuaisize);	
+		til_zhebi02 = new TiledLayer(map_zhebi02[0].length,map_zhebi02.length,img_map,kuaisize,kuaisize);
 		for(int i=0;i<map_back02.length;i++) {
 			for(int j=0;j<map_back02[i].length;j++) {
 				if(map_back02[i][j]==0)continue;

@@ -33,7 +33,7 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 	GamePlayer pla;
 	Image img_logo,img_enemy,img_cai01,img_cai02,img_pp,img_help,img_zi,img_MaLi;
 	final byte LOGO = 0, CG1 = 1,CG2 = 2,caidan = 3,HELP = 4,jieshao = 5,zhizuo = 6,kaishi = 7;
-	byte gamestate = LOGO;
+	byte gamestate = caidan;
 	final byte U = 2,D = 8,R = 4,L = 6;
 	byte hqDIR = 8;
 	

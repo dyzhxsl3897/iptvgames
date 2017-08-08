@@ -29,7 +29,7 @@ public class GamePlayer {
 	byte d_mali_state = zhanli,x_mali_state = zhanli,DIR = R,跳跃状态,kill_state;	
 	int mali_X,mali_Y;
 	byte malisudu;	
-	byte jiasudu[] = {14,12,10,9,8,7,6,5,4,3,2,1};
+	byte jiasudu[] = {23,19,16,14,13,11,9,8,6,4,3,1};
 	byte index;//加速度数组下标
 	int x_mali_H,x_mali_W,d_mali_H,d_mali_W;
 	boolean sfkillstate;//是否进入死亡状态
@@ -56,17 +56,17 @@ public class GamePlayer {
 		jinbichuxian = new boolean[flashN];
 		shitouchuxian = new boolean[flashN];
 		pengkuai = new int[map.map_peng01_h][map.map_peng01_w];
-		mali_X = 10;
-		mali_Y = 278;
+		mali_X = 16;
+		mali_Y = 458;
 		mid_kill = miclei.musiclong("kill");
 		mid_gameover = miclei.musiclong("gameover");
 		img_Y_mali = imglei.imglong("MaLi");
 		img_gamevoer = imglei.imglong("gameover");
-		img_d_mali = Image.createImage(img_Y_mali, 0, 14, 160, 27, Sprite.TRANS_NONE);		
-		img_x_mali = Image.createImage(img_Y_mali, 0, 41, 160, 24, Sprite.TRANS_NONE);	
-		d_mali = new Sprite(img_d_mali,20,27);
-		x_mali = new Sprite(img_x_mali,20,24);	
-		malisudu = 4;
+		img_d_mali = Image.createImage(img_Y_mali, 0, 23, 264, 44, Sprite.TRANS_NONE);		
+		img_x_mali = Image.createImage(img_Y_mali, 0, 68, 264, 39, Sprite.TRANS_NONE);	
+		d_mali = new Sprite(img_d_mali,33,44);
+		x_mali = new Sprite(img_x_mali,33,39);	
+		malisudu = 6;
 		n1 = 5;
 		d_guan = 1;
 		x_guan = 1;
@@ -248,40 +248,40 @@ public class GamePlayer {
 		switch (GameMap.guan) {
 		case 0:
 			if(!guaichuxian[0]&&!guaichuxian[1]&&!guaichuxian[2]&&mapmoveX==0) {
-				enemy[0] = new GameEnemy(0,200,180);
-				enemy[1] = new GameEnemy(0,200,140);
-				enemy[2] = new GameEnemy(0,200,220);
+				enemy[0] = new GameEnemy(0,330,297);
+				enemy[1] = new GameEnemy(0,330,231);
+				enemy[2] = new GameEnemy(0,330,363);
 				guaichuxian[0] = true;
 				guaichuxian[1] = true;
 				guaichuxian[2] = true;
 			}
-			if(!guaichuxian[3]&&!guaichuxian[4]&&!guaichuxian[5]&&mapmoveX==168) {
-				enemy[3] = new GameEnemy(1,300,180);
-				enemy[4] = new GameEnemy(2,300,220);
-				enemy[5] = new GameEnemy(2,360,180);
+			if(!guaichuxian[3]&&!guaichuxian[4]&&!guaichuxian[5]&&mapmoveX==228) {
+				enemy[3] = new GameEnemy(1,450,297);
+				enemy[4] = new GameEnemy(2,450,363);
+				enemy[5] = new GameEnemy(2,555,297);
 				guaichuxian[3] = true;
 				guaichuxian[4] = true;
 				guaichuxian[5] = true;
 			}
 			if(!guaichuxian[0]&&!guaichuxian[1]&&mapmoveX==504) {
 				enemy[0] = new GameEnemy(1,300,180);
-				enemy[1] = new GameEnemy(1,300,220);
+				enemy[1] = new GameEnemy(1,300,246);
 				guaichuxian[0] = true;
 				guaichuxian[1] = true;
 			}
 			if(!guaichuxian[2]&&!guaichuxian[3]&&!guaichuxian[4]&&!guaichuxian[5]&&mapmoveX==1000) {
-				enemy[2] = new GameEnemy(0,300,180);
-				enemy[3] = new GameEnemy(0,300,220);
-				enemy[4] = new GameEnemy(2,360,140);
-				enemy[5] = new GameEnemy(2,400,160);
+				enemy[2] = new GameEnemy(0,300,206);
+				enemy[3] = new GameEnemy(0,300,272);
+				enemy[4] = new GameEnemy(2,399,140);
+				enemy[5] = new GameEnemy(2,465,177);
 				guaichuxian[2] = true;
 				guaichuxian[3] = true;
 				guaichuxian[4] = true;
 				guaichuxian[5] = true;
 			}
 			if(!guaichuxian[0]&&!guaichuxian[1]&&mapmoveX==1400) {
-				enemy[0] = new GameEnemy(0,140,100);
-				enemy[1] = new GameEnemy(0,180,80);
+				enemy[0] = new GameEnemy(0,140,113);
+				enemy[1] = new GameEnemy(0,206,80);
 				guaichuxian[0] = true;
 				guaichuxian[1] = true;
 			}
@@ -344,7 +344,7 @@ public class GamePlayer {
 		}
 		if(z == 120)z = 0;
 		/******主角超出屏幕死亡判断******/
-		if(x_mali.getY()>309&&!sfkillstate) {
+		if(x_mali.getY()>530&&!sfkillstate) {
 			index = 0;
 			x_mali_state = kill;
 			kill_state = U;
@@ -461,7 +461,7 @@ public class GamePlayer {
 						map.til_back01.move(-malisudu, 0);
 						map.til_peng01.move(-malisudu, 0);
 						map.til_zhebi01.move(-malisudu, 0);
-						mapmoveX+=4;
+						mapmoveX+=malisudu;
 						x_mali.move(-malisudu, 0);
 						/******主角右移动怪物移动判断******/
 						for(int i=0;i<enemyN;i++) {
@@ -482,7 +482,7 @@ public class GamePlayer {
 						map.til_back02.move(-malisudu, 0);
 						map.til_peng02.move(-malisudu, 0);
 						map.til_zhebi02.move(-malisudu, 0);
-						mapmoveX+=4;
+						mapmoveX+=malisudu;
 						x_mali.move(-malisudu, 0);
 						/******主角右移动怪物移动判断******/
 						for(int i=0;i<enemyN;i++) {
@@ -533,7 +533,7 @@ public class GamePlayer {
 									n2++;
 									for(int a=0;a<flashN;a++) {
 										if(!jinbichuxian[a]) {
-											flash[a] = new GameFlash(0,x_mali_kuai_up_coll_x*map.kuaisiz-mapmoveX,x_mali_kuai_up_coll_y*map.kuaisiz); 
+											flash[a] = new GameFlash(0,x_mali_kuai_up_coll_x*map.kuaisize-mapmoveX,x_mali_kuai_up_coll_y*map.kuaisize); 
 											jinbichuxian[a] = true;
 											break;
 										}
@@ -546,7 +546,7 @@ public class GamePlayer {
 									跳跃状态 = D;
 									for(int a=0;a<flashN;a++) {
 										if(!shitouchuxian[a]) {
-											flash[a] = new GameFlash(1,x_mali_kuai_up_coll_x*map.kuaisiz-mapmoveX,x_mali_kuai_up_coll_y*map.kuaisiz); 
+											flash[a] = new GameFlash(1,x_mali_kuai_up_coll_x*map.kuaisize-mapmoveX,x_mali_kuai_up_coll_y*map.kuaisize); 
 											shitouchuxian[a] = true;
 											break;
 										}
@@ -571,7 +571,7 @@ public class GamePlayer {
 									n2++;
 									for(int a=0;a<flashN;a++) {
 										if(!jinbichuxian[a]) {
-											flash[a] = new GameFlash(0,x_mali_kuai_up_coll_x*map.kuaisiz-mapmoveX,x_mali_kuai_up_coll_y*map.kuaisiz); 
+											flash[a] = new GameFlash(0,x_mali_kuai_up_coll_x*map.kuaisize-mapmoveX,x_mali_kuai_up_coll_y*map.kuaisize); 
 											jinbichuxian[a] = true;
 											break;
 										}
@@ -584,7 +584,7 @@ public class GamePlayer {
 									跳跃状态 = D;
 									for(int a=0;a<flashN;a++) {
 										if(!shitouchuxian[a]) {
-											flash[a] = new GameFlash(1,x_mali_kuai_up_coll_x*map.kuaisiz-mapmoveX,x_mali_kuai_up_coll_y*map.kuaisiz); 
+											flash[a] = new GameFlash(1,x_mali_kuai_up_coll_x*map.kuaisize-mapmoveX,x_mali_kuai_up_coll_y*map.kuaisize); 
 											shitouchuxian[a] = true;
 											break;
 										}
@@ -764,7 +764,7 @@ public class GamePlayer {
 					if(index==0)index = 1;
 					/******主角下跳跃碰撞到地图设置主角坐标和状态转换******/
 					if(DZR_coll(map.til_peng01,map.map_peng01)||DZL_coll(map.til_peng01,map.map_peng01)) {
-						x_mali.setPosition(x_mali.getX(), (x_mali.getY()+x_mali_H)/map.kuaisiz*map.kuaisiz-x_mali_H+3);
+						x_mali.setPosition(x_mali.getX(), (x_mali.getY()+x_mali_H)/map.kuaisize*map.kuaisize-x_mali_H+3);
 						x_mali_state = zhanli;
 						index = 1;
 					}
@@ -793,7 +793,7 @@ public class GamePlayer {
 					if(index==0)index = 1;
 					/******主角下跳跃碰撞到地图设置主角坐标和状态转换******/
 					if(DZR_coll(map.til_peng02,map.map_peng02)||DZL_coll(map.til_peng02,map.map_peng02)) {
-						x_mali.setPosition(x_mali.getX(), (x_mali.getY()+x_mali_H)/map.kuaisiz*map.kuaisiz-x_mali_H+3);
+						x_mali.setPosition(x_mali.getX(), (x_mali.getY()+x_mali_H)/map.kuaisize*map.kuaisize-x_mali_H+3);
 						x_mali_state = zhanli;
 						index = 1;
 					}
@@ -969,8 +969,8 @@ public class GamePlayer {
 	
 	/*************碰撞检测点***********上中左***/
 	public boolean UZL_coll(TiledLayer til,int tilarr[][]) {
-		int x_mali_kuai_x = (x_mali.getX()+Math.abs(til.getX())+x_mali_W/2-5)/map.kuaisiz;
-		int x_mali_kuai_y = (x_mali.getY()+Math.abs(til.getY()))/map.kuaisiz;
+		int x_mali_kuai_x = (x_mali.getX()+Math.abs(til.getX())+x_mali_W/2-5)/map.kuaisize;
+		int x_mali_kuai_y = (x_mali.getY()+Math.abs(til.getY()))/map.kuaisize;
 		int coll_kuai = 0;
 		if(!x_mali_arrout) {
 			try {
@@ -989,8 +989,8 @@ public class GamePlayer {
 	
 	/*************碰撞检测点***********上中右***/
 	public boolean UZR_coll(TiledLayer til,int tilarr[][]) {
-		int x_mali_kuai_x = (x_mali.getX()+Math.abs(til.getX())+x_mali_W/2+5)/map.kuaisiz;
-		int x_mali_kuai_y = (x_mali.getY()+Math.abs(til.getY()))/map.kuaisiz;
+		int x_mali_kuai_x = (x_mali.getX()+Math.abs(til.getX())+x_mali_W/2+5)/map.kuaisize;
+		int x_mali_kuai_y = (x_mali.getY()+Math.abs(til.getY()))/map.kuaisize;
 		int coll_kuai = 0;
 		if(!x_mali_arrout) {
 			try {
@@ -1009,8 +1009,8 @@ public class GamePlayer {
 	
 	/*************碰撞检测点***********右中上***/
 	public boolean RZU_coll(TiledLayer til,int tilarr[][]) {
-		int x_mali_kuai_x = (x_mali.getX()+Math.abs(til.getX())+x_mali_W)/map.kuaisiz;
-		int x_mali_kuai_y = (x_mali.getY()+Math.abs(til.getY())+x_mali_H/2-8)/map.kuaisiz;
+		int x_mali_kuai_x = (x_mali.getX()+Math.abs(til.getX())+x_mali_W)/map.kuaisize;
+		int x_mali_kuai_y = (x_mali.getY()+Math.abs(til.getY())+x_mali_H/2-8)/map.kuaisize;
 		int coll_kuai = 0;
 		if(!x_mali_arrout) {
 			try {
@@ -1025,8 +1025,8 @@ public class GamePlayer {
 	
 	/*************碰撞检测点***********左中上***/
 	public boolean LZU_coll(TiledLayer til,int tilarr[][]) {
-		int x_mali_kuai_x = (x_mali.getX()+Math.abs(til.getX()))/map.kuaisiz;
-		int x_mali_kuai_y = (x_mali.getY()+Math.abs(til.getY())+x_mali_H/2-8)/map.kuaisiz;
+		int x_mali_kuai_x = (x_mali.getX()+Math.abs(til.getX()))/map.kuaisize;
+		int x_mali_kuai_y = (x_mali.getY()+Math.abs(til.getY())+x_mali_H/2-8)/map.kuaisize;
 		int coll_kuai = 0;
 		if(!x_mali_arrout) {
 			try {
@@ -1041,8 +1041,8 @@ public class GamePlayer {
 	
 	/*************碰撞检测点***********下中***/
 	public boolean DZ_coll(TiledLayer til,int tilarr[][]) {
-		int x_mali_kuai_x = (x_mali.getX()+Math.abs(til.getX())+x_mali_W/2)/map.kuaisiz;
-		int x_mali_kuai_y = (x_mali.getY()+Math.abs(til.getY())+x_mali_H)/map.kuaisiz;
+		int x_mali_kuai_x = (x_mali.getX()+Math.abs(til.getX())+x_mali_W/2)/map.kuaisize;
+		int x_mali_kuai_y = (x_mali.getY()+Math.abs(til.getY())+x_mali_H)/map.kuaisize;
 		int coll_kuai = 0;
 		if(!x_mali_arrout) {
 			try {
@@ -1057,8 +1057,8 @@ public class GamePlayer {
 	
 	/*************碰撞检测点***********下中左***/
 	public boolean DZL_coll(TiledLayer til,int tilarr[][]) {
-		int x_mali_kuai_x = (x_mali.getX()+Math.abs(til.getX())+x_mali_W/2-5)/map.kuaisiz;
-		int x_mali_kuai_y = (x_mali.getY()+Math.abs(til.getY())+x_mali_H)/map.kuaisiz;
+		int x_mali_kuai_x = (x_mali.getX()+Math.abs(til.getX())+x_mali_W/2-5)/map.kuaisize;
+		int x_mali_kuai_y = (x_mali.getY()+Math.abs(til.getY())+x_mali_H)/map.kuaisize;
 		int coll_kuai = 0;
 		if(!x_mali_arrout) {
 			try {
@@ -1073,8 +1073,8 @@ public class GamePlayer {
 	
 	/*************碰撞检测点***********下中右***/
 	public boolean DZR_coll(TiledLayer til,int tilarr[][]) {
-		int x_mali_kuai_x = (x_mali.getX()+Math.abs(til.getX())+x_mali_W/2+5)/map.kuaisiz;
-		int x_mali_kuai_y = (x_mali.getY()+Math.abs(til.getY())+x_mali_H)/map.kuaisiz;
+		int x_mali_kuai_x = (x_mali.getX()+Math.abs(til.getX())+x_mali_W/2+5)/map.kuaisize;
+		int x_mali_kuai_y = (x_mali.getY()+Math.abs(til.getY())+x_mali_H)/map.kuaisize;
 		int coll_kuai = 0;
 		if(!x_mali_arrout) {
 			try {
@@ -1090,8 +1090,8 @@ public class GamePlayer {
 	
 	/*************碰撞检测点***********右中下***/
 	public boolean RZD_coll(TiledLayer til,int tilarr[][]) {
-		int x_mali_kuai_x = (x_mali.getX()+Math.abs(til.getX())+x_mali_W)/map.kuaisiz;
-		int x_mali_kuai_y = (x_mali.getY()+Math.abs(til.getY())+x_mali_H/2+8)/map.kuaisiz;
+		int x_mali_kuai_x = (x_mali.getX()+Math.abs(til.getX())+x_mali_W)/map.kuaisize;
+		int x_mali_kuai_y = (x_mali.getY()+Math.abs(til.getY())+x_mali_H/2+8)/map.kuaisize;
 		int coll_kuai = 0;
 		if(!x_mali_arrout) {
 			try {
@@ -1106,8 +1106,8 @@ public class GamePlayer {
 	
 	/*************碰撞检测点***********左中下***/
 	public boolean LZD_coll(TiledLayer til,int tilarr[][]) {
-		int x_mali_kuai_x = (x_mali.getX()+Math.abs(til.getX()))/map.kuaisiz;
-		int x_mali_kuai_y = (x_mali.getY()+Math.abs(til.getY())+x_mali_H/2+8)/map.kuaisiz;
+		int x_mali_kuai_x = (x_mali.getX()+Math.abs(til.getX()))/map.kuaisize;
+		int x_mali_kuai_y = (x_mali.getY()+Math.abs(til.getY())+x_mali_H/2+8)/map.kuaisize;
 		int coll_kuai = 0;
 		if(!x_mali_arrout) {
 			try {

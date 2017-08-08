@@ -18,30 +18,30 @@ public class GameEnemy {
 	int killtime;
 	int mogu01_H,mogu01_W,mogu02_H,mogu02_W,wugui_H,wugui_W;
 	Image img_Y_emy = imglei.imglong("emy");
-	Image img_emy_mogu01 = Image.createImage(img_Y_emy, 72, 98, 23*3, 16, Sprite.TRANS_NONE);
-	Image img_emy_mogu02 = Image.createImage(img_Y_emy, 0, 101, 23*3, 13, Sprite.TRANS_NONE);
-	Image img_emy_wugui = Image.createImage(img_Y_emy, 70, 17, 26*3, 15, Sprite.TRANS_NONE);
+	Image img_emy_mogu01 = Image.createImage(img_Y_emy, 118, 161, 40*3, 26, Sprite.TRANS_NONE);
+	Image img_emy_mogu02 = Image.createImage(img_Y_emy, 0, 166, 40*3, 21, Sprite.TRANS_NONE);
+	Image img_emy_wugui = Image.createImage(img_Y_emy, 115, 28, 43*3, 24, Sprite.TRANS_NONE);
 	
 	public GameEnemy(int type,int x,int y) {
 		this.type = type;
 		/********根据类型不同创建不同的怪物*********/
 		switch (type) {
 		case mogu01:
-			sp_mogu01 = new Sprite(img_emy_mogu01,23,16);
+			sp_mogu01 = new Sprite(img_emy_mogu01,40,26);
 			sp_mogu01.setPosition(x, y);	
 			mogu01_H = sp_mogu01.getHeight();
 			mogu01_W = sp_mogu01.getWidth();
 			break;
 
 		case mogu02:
-			sp_mogu02 = new Sprite(img_emy_mogu02,23,13);
+			sp_mogu02 = new Sprite(img_emy_mogu02,40,21);
 			sp_mogu02.setPosition(x, y);
 			mogu02_H = sp_mogu02.getHeight();
 			mogu02_W = sp_mogu02.getWidth();
 			break;
 			
 		case wugui:
-			sp_wugui = new Sprite(img_emy_wugui,26,15);
+			sp_wugui = new Sprite(img_emy_wugui,43,24);
 			sp_wugui.setPosition(x, y);
 			wugui_H = sp_wugui.getHeight();
 			wugui_W = sp_wugui.getWidth();
@@ -126,7 +126,7 @@ public class GameEnemy {
 			case mogu01:
 				/********第一类怪物的逻辑*********/
 				if(!sfkill&&sp_mogu01_DZ_coll(map.map_peng01)) {
-					sp_mogu01.setPosition(sp_mogu01.getX(), (sp_mogu01.getY()+mogu01_H)/map.kuaisiz*map.kuaisiz-mogu01_H);
+					sp_mogu01.setPosition(sp_mogu01.getX(), (sp_mogu01.getY()+mogu01_H)/map.kuaisize*map.kuaisize-mogu01_H);
 					state = 移动;
 				} else if(!sfkill&&!sp_mogu01_DZ_coll(map.map_peng01))state = D;
 				if(!sfkill&&sp_mogu01_LZ_coll(map.map_peng01))DIR = R;
@@ -136,7 +136,7 @@ public class GameEnemy {
 			case mogu02:
 				/********第二类怪物的逻辑*********/
 				if(!sfkill&&sp_mogu02_DZ_coll(map.map_peng01)) {
-					sp_mogu02.setPosition(sp_mogu02.getX(), (sp_mogu02.getY()+mogu02_H)/map.kuaisiz*map.kuaisiz-mogu02_H);
+					sp_mogu02.setPosition(sp_mogu02.getX(), (sp_mogu02.getY()+mogu02_H)/map.kuaisize*map.kuaisize-mogu02_H);
 					state = 移动;
 				} else if(!sfkill&&!sp_mogu02_DZ_coll(map.map_peng01))state = D;
 				if(!sfkill&&sp_mogu02_LZ_coll(map.map_peng01))DIR = R;
@@ -146,7 +146,7 @@ public class GameEnemy {
 			case wugui:
 				/********第三类怪物的逻辑*********/
 				if(!sfkill&&sp_wugui_DZ_coll(map.map_peng01)) {
-					sp_wugui.setPosition(sp_wugui.getX(), (sp_wugui.getY()+wugui_H)/map.kuaisiz*map.kuaisiz-wugui_H);
+					sp_wugui.setPosition(sp_wugui.getX(), (sp_wugui.getY()+wugui_H)/map.kuaisize*map.kuaisize-wugui_H);
 					state = 移动;
 				} else if(!sfkill&&!sp_wugui_DZ_coll(map.map_peng01))state = D;
 				if(!sfkill&&sp_wugui_LZ_coll(map.map_peng01))DIR = R;
@@ -160,7 +160,7 @@ public class GameEnemy {
 			case mogu01:
 				/********第一类怪物的逻辑*********/
 				if(!sfkill&&sp_mogu01_DZ_coll(map.map_peng02)) {
-					sp_mogu01.setPosition(sp_mogu01.getX(), (sp_mogu01.getY()+mogu01_H)/map.kuaisiz*map.kuaisiz-mogu01_H);
+					sp_mogu01.setPosition(sp_mogu01.getX(), (sp_mogu01.getY()+mogu01_H)/map.kuaisize*map.kuaisize-mogu01_H);
 					state = 移动;
 				} else if(!sfkill&&!sp_mogu01_DZ_coll(map.map_peng02))state = D;
 				if(!sfkill&&sp_mogu01_LZ_coll(map.map_peng02))DIR = R;
@@ -170,7 +170,7 @@ public class GameEnemy {
 			case mogu02:
 				/********第二类怪物的逻辑*********/
 				if(!sfkill&&sp_mogu02_DZ_coll(map.map_peng02)) {
-					sp_mogu02.setPosition(sp_mogu02.getX(), (sp_mogu02.getY()+mogu02_H)/map.kuaisiz*map.kuaisiz-mogu02_H);
+					sp_mogu02.setPosition(sp_mogu02.getX(), (sp_mogu02.getY()+mogu02_H)/map.kuaisize*map.kuaisize-mogu02_H);
 					state = 移动;
 				} else if(!sfkill&&!sp_mogu02_DZ_coll(map.map_peng02))state = D;
 				if(!sfkill&&sp_mogu02_LZ_coll(map.map_peng02))DIR = R;
@@ -180,7 +180,7 @@ public class GameEnemy {
 			case wugui:
 				/********第三类怪物的逻辑*********/
 				if(!sfkill&&sp_wugui_DZ_coll(map.map_peng02)) {
-					sp_wugui.setPosition(sp_wugui.getX(), (sp_wugui.getY()+wugui_H)/map.kuaisiz*map.kuaisiz-wugui_H);
+					sp_wugui.setPosition(sp_wugui.getX(), (sp_wugui.getY()+wugui_H)/map.kuaisize*map.kuaisize-wugui_H);
 					state = 移动;
 				} else if(!sfkill&&!sp_wugui_DZ_coll(map.map_peng02))state = D;
 				if(!sfkill&&sp_wugui_LZ_coll(map.map_peng02))DIR = R;
@@ -285,8 +285,8 @@ public class GameEnemy {
 	
 	/*************sp_mogu01 碰撞检测点***********下中***/
 	public boolean sp_mogu01_DZ_coll(int tilarrr[][]) {
-		int sp_mogu01_kuai_x = (sp_mogu01.getX()+地图移动量X+mogu01_W/2)/map.kuaisiz;
-		int	sp_mogu01_kuai_y = (sp_mogu01.getY()+mogu01_H)/map.kuaisiz;
+		int sp_mogu01_kuai_x = (sp_mogu01.getX()+地图移动量X+mogu01_W/2)/map.kuaisize;
+		int	sp_mogu01_kuai_y = (sp_mogu01.getY()+mogu01_H)/map.kuaisize;
 		int coll_kuai = 1;
 		if(!sp_mogu01_arrout) {
 			try {
@@ -301,8 +301,8 @@ public class GameEnemy {
 	
 	/*************sp_mogu01 碰撞检测点***********右中***/
 	public boolean sp_mogu01_RZ_coll(int tilarrr[][]) {
-		int sp_mogu01_kuai_x = (sp_mogu01.getX()+地图移动量X+mogu01_W)/map.kuaisiz;
-		int	sp_mogu01_kuai_y = (sp_mogu01.getY()+mogu01_H/2)/map.kuaisiz;
+		int sp_mogu01_kuai_x = (sp_mogu01.getX()+地图移动量X+mogu01_W)/map.kuaisize;
+		int	sp_mogu01_kuai_y = (sp_mogu01.getY()+mogu01_H/2)/map.kuaisize;
 		int coll_kuai = 1;
 		if(!sp_mogu01_arrout) {
 			try {
@@ -317,8 +317,8 @@ public class GameEnemy {
 	
 	/*************sp_mogu01 碰撞检测点***********左中***/
 	public boolean sp_mogu01_LZ_coll(int tilarrr[][]) {
-		int sp_mogu01_kuai_x = (sp_mogu01.getX()+地图移动量X)/map.kuaisiz;
-		int sp_mogu01_kuai_y = (sp_mogu01.getY()+mogu01_H/2)/map.kuaisiz;
+		int sp_mogu01_kuai_x = (sp_mogu01.getX()+地图移动量X)/map.kuaisize;
+		int sp_mogu01_kuai_y = (sp_mogu01.getY()+mogu01_H/2)/map.kuaisize;
 		int coll_kuai = 1;
 		if(!sp_mogu01_arrout) {
 			try {
@@ -338,8 +338,8 @@ public class GameEnemy {
 	
 	/*************sp_mogu02 碰撞检测点***********下中***/
 	public boolean sp_mogu02_DZ_coll(int tilarrr[][]) {
-		int sp_mogu02_kuai_x = (sp_mogu02.getX()+地图移动量X+mogu02_W/2)/map.kuaisiz;
-		int	sp_mogu02_kuai_y = (sp_mogu02.getY()+mogu02_H)/map.kuaisiz;
+		int sp_mogu02_kuai_x = (sp_mogu02.getX()+地图移动量X+mogu02_W/2)/map.kuaisize;
+		int	sp_mogu02_kuai_y = (sp_mogu02.getY()+mogu02_H)/map.kuaisize;
 		int coll_kuai = 1;
 		if(!sp_mogu02_arrout) {
 			try {
@@ -354,8 +354,8 @@ public class GameEnemy {
 	
 	/*************sp_mogu02 碰撞检测点***********右中***/
 	public boolean sp_mogu02_RZ_coll(int tilarrr[][]) {
-		int sp_mogu02_kuai_x = (sp_mogu02.getX()+地图移动量X+mogu02_W)/map.kuaisiz;
-		int	sp_mogu02_kuai_y = (sp_mogu02.getY()+mogu02_H/2)/map.kuaisiz;
+		int sp_mogu02_kuai_x = (sp_mogu02.getX()+地图移动量X+mogu02_W)/map.kuaisize;
+		int	sp_mogu02_kuai_y = (sp_mogu02.getY()+mogu02_H/2)/map.kuaisize;
 		int coll_kuai = 1;
 		if(!sp_mogu02_arrout) {
 			try {
@@ -370,8 +370,8 @@ public class GameEnemy {
 	
 	/*************sp_mogu02 碰撞检测点***********左中***/
 	public boolean sp_mogu02_LZ_coll(int tilarrr[][]) {
-		int sp_mogu02_kuai_x = (sp_mogu02.getX()+地图移动量X)/map.kuaisiz;
-		int sp_mogu02_kuai_y = (sp_mogu02.getY()+mogu02_H/2)/map.kuaisiz;
+		int sp_mogu02_kuai_x = (sp_mogu02.getX()+地图移动量X)/map.kuaisize;
+		int sp_mogu02_kuai_y = (sp_mogu02.getY()+mogu02_H/2)/map.kuaisize;
 		int coll_kuai = 1;
 		if(!sp_mogu02_arrout) {
 			try {
@@ -391,8 +391,8 @@ public class GameEnemy {
 	
 	/*************sp_wugui 碰撞检测点***********下中***/
 	public boolean sp_wugui_DZ_coll(int tilarrr[][]) {
-		int sp_wugui_kuai_x = (sp_wugui.getX()+地图移动量X+wugui_W/2)/map.kuaisiz;
-		int	sp_wugui_kuai_y = (sp_wugui.getY()+wugui_H)/map.kuaisiz;
+		int sp_wugui_kuai_x = (sp_wugui.getX()+地图移动量X+wugui_W/2)/map.kuaisize;
+		int	sp_wugui_kuai_y = (sp_wugui.getY()+wugui_H)/map.kuaisize;
 		int coll_kuai = 1;
 		if(!sp_wugui_arrout) {
 			try {
@@ -407,8 +407,8 @@ public class GameEnemy {
 	
 	/*************sp_wugui 碰撞检测点***********右中***/
 	public boolean sp_wugui_RZ_coll(int tilarrr[][]) {
-		int sp_wugui_kuai_x = (sp_wugui.getX()+地图移动量X+wugui_W)/map.kuaisiz;
-		int	sp_wugui_kuai_y = (sp_wugui.getY()+wugui_H/2)/map.kuaisiz;
+		int sp_wugui_kuai_x = (sp_wugui.getX()+地图移动量X+wugui_W)/map.kuaisize;
+		int	sp_wugui_kuai_y = (sp_wugui.getY()+wugui_H/2)/map.kuaisize;
 		int coll_kuai = 1;
 		if(!sp_wugui_arrout) {
 			try {
@@ -423,8 +423,8 @@ public class GameEnemy {
 	
 	/*************sp_wugui 碰撞检测点***********左中***/
 	public boolean sp_wugui_LZ_coll(int tilarrr[][]) {
-		int sp_wugui_kuai_x = (sp_wugui.getX()+地图移动量X)/map.kuaisiz;
-		int sp_wugui_kuai_y = (sp_wugui.getY()+wugui_H/2)/map.kuaisiz;
+		int sp_wugui_kuai_x = (sp_wugui.getX()+地图移动量X)/map.kuaisize;
+		int sp_wugui_kuai_y = (sp_wugui.getY()+wugui_H/2)/map.kuaisize;
 		int coll_kuai = 1;
 		if(!sp_wugui_arrout) {
 			try {

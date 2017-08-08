@@ -11,8 +11,8 @@ public class GameFlash {
 	final byte U = 2,D = 8;
 	int DIR = U;
 	Image img_Y_tu = imglei.imglong("MaLi");
-	Image img_jinbi = Image.createImage(img_Y_tu, 30, 0, 11*6, 11, Sprite.TRANS_NONE);
-	Image img_shitou = Image.createImage(img_Y_tu, 0, 105, 40*4, 40*2, Sprite.TRANS_NONE);
+	Image img_jinbi = Image.createImage(img_Y_tu, 49, 0, 18*6, 18, Sprite.TRANS_NONE);
+	Image img_shitou = Image.createImage(img_Y_tu, 0, 173, 66*4, 66*2, Sprite.TRANS_NONE);
 	int 地图移动量X;
 	int type;
 	int jibimove;//金币的移动偏移量
@@ -23,13 +23,13 @@ public class GameFlash {
 		this.type = type;
 		switch (type) {
 		case jinbi:
-			sp_jinbi = new Sprite(img_jinbi,11,11);
-			sp_jinbi.setPosition(x+5, y-11);
+			sp_jinbi = new Sprite(img_jinbi,18,18);
+			sp_jinbi.setPosition(x+8, y-18);
 			break;
 
 		case shitou:
-			sp_shitou = new Sprite(img_shitou,40,40);
-			sp_shitou.setPosition(x-10, y-25);
+			sp_shitou = new Sprite(img_shitou,66,66);
+			sp_shitou.setPosition(x-16, y-41);
 			break;
 		}
 	}
@@ -48,7 +48,7 @@ public class GameFlash {
 			switch (DIR) {
 			case U:
 				jibimove++;
-				if(jibimove>=4)DIR = D;
+				if(jibimove>=6)DIR = D;
 				break;
 
 			case D:
@@ -67,7 +67,7 @@ public class GameFlash {
 			case U:
 				if(shitoumove%2==0)sp_shitou.nextFrame();
 				shitoumove++;
-				if(shitoumove>=4)DIR = D;
+				if(shitoumove>=6)DIR = D;
 				break;
 
 			case D:
@@ -88,15 +88,15 @@ public class GameFlash {
 		switch (type) {
 		case jinbi:
 			switch (DIR) {
-			case U:		sp_jinbi.move(0, -4);		break;
-			case D:		sp_jinbi.move(0, 4);		break;
+			case U:		sp_jinbi.move(0, -6);		break;
+			case D:		sp_jinbi.move(0, 6);		break;
 			}
 			break;
 			
 		case shitou:
 			switch (DIR) {
-			case U:		sp_shitou.move(0, -3);		break;
-			case D:		sp_shitou.move(0, 3);		break;
+			case U:		sp_shitou.move(0, -5);		break;
+			case D:		sp_shitou.move(0, 5);		break;
 			}
 			break;
 		}

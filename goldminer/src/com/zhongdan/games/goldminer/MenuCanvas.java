@@ -1,5 +1,7 @@
 package com.zhongdan.games.goldminer;
 
+import java.util.Timer;
+
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.GameCanvas;
@@ -19,11 +21,13 @@ public class MenuCanvas extends GameCanvas {
 	private LayerManager layerManager = new LayerManager();
 	private TiledLayer backgroundLayer;
 	private Image menuBackgroundImg;
+	private Image menuSelectedImg;
 	private Image startGameBtnImg;
 	private Image endGameBtnImg;
 	private Image levelSelectBtnImg;
 	private Image rankingBtnImg;
 	private Image helpBtnImg;
+	private Sprite menuSelectedSprite;
 	private Sprite topBtnSprite;
 	private Sprite midBtnSprite;
 	private Sprite botBtnSprite;
@@ -44,9 +48,15 @@ public class MenuCanvas extends GameCanvas {
 	private void initCanvas() {
 		// Initialize background
 		menuBackgroundImg = ImageUtil.createImage("/menu-background.png");
+		menuSelectedImg = ImageUtil.createImage("/menu_selected.png");
 		backgroundLayer = new TiledLayer(1, 1, menuBackgroundImg, menuBackgroundImg.getWidth(), menuBackgroundImg.getHeight());
 		backgroundLayer.setCell(0, 0, 1);
+		menuSelectedSprite = new Sprite(menuSelectedImg, 30, 50);
+		menuSelectedSprite.setFrame(0);
+		menuSelectedSprite.setPosition(Menu.SELECT_CURSE_X, Menu.SELECT_CURSE_Y);
+		new Timer().schedule(new MenuSelectedTimerTask(this, graphics, layerManager, menuSelectedSprite), 0, 200);
 		layerManager.append(backgroundLayer);
+		layerManager.insert(menuSelectedSprite, 0);
 
 		// Initialize buttons
 		startGameBtnImg = ImageUtil.createImage("/menu_btn_start_game.png");
@@ -102,11 +112,13 @@ public class MenuCanvas extends GameCanvas {
 		if (keyCode == Constants.KeyCode.UP) {
 			if (selectedItem > 1) {
 				selectedItem--;
+				menuSelectedSprite.setPosition(Menu.SELECT_CURSE_X, Menu.SELECT_CURSE_Y);
 				updateSelectedButton();
 			}
 		} else if (keyCode == Constants.KeyCode.DOWN) {
 			if (selectedItem < 2) {
 				selectedItem++;
+				menuSelectedSprite.setPosition(Menu.SELECT_CURSE_X, Menu.SELECT_CURSE_Y + 60);
 				updateSelectedButton();
 			}
 		} else if (keyCode == Constants.KeyCode.OK) {

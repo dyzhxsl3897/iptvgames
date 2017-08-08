@@ -1,5 +1,7 @@
 package com.zhongdan.games.huarong;
 
+import java.util.Timer;
+
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.GameCanvas;
@@ -19,8 +21,10 @@ public class MenuCanvas extends GameCanvas {
 	private LayerManager layerManager = new LayerManager();
 	private TiledLayer backgroundLayer;
 	private Image backgroundImg;
+	private Image menuSelectedImg;
 	private Image startGameBtnImg;
 	private Image endGameBtnImg;
+	private Sprite menuSelectedSprite;
 	private Sprite topBtnSprite;
 	private Sprite botBtnSprite;
 	private Sprite startGameBtnSprite;
@@ -40,6 +44,12 @@ public class MenuCanvas extends GameCanvas {
 		backgroundLayer = new TiledLayer(1, 1, backgroundImg, backgroundImg.getWidth(), backgroundImg.getHeight());
 		backgroundLayer.setCell(0, 0, 1);
 		layerManager.append(backgroundLayer);
+		menuSelectedImg = ImageUtil.createImage("/menu_selected.png");
+		menuSelectedSprite = new Sprite(menuSelectedImg, 30, 50);
+		menuSelectedSprite.setFrame(0);
+		menuSelectedSprite.setPosition(270, 295);
+		new Timer().schedule(new MenuSelectedTimerTask(this, graphics, layerManager, menuSelectedSprite), 0, 200);
+		layerManager.insert(menuSelectedSprite, 0);
 
 		// Initialize buttons
 		startGameBtnImg = ImageUtil.createImage("/menu_btn_start.png");
@@ -77,11 +87,13 @@ public class MenuCanvas extends GameCanvas {
 		if (keyCode == Constants.KeyCode.DOWN) {
 			if (selectedItem > 1) {
 				selectedItem--;
+				menuSelectedSprite.setPosition(270, 295);
 				updateSelectedButton();
 			}
 		} else if (keyCode == Constants.KeyCode.UP) {
 			if (selectedItem < 2) {
 				selectedItem++;
+				menuSelectedSprite.setPosition(610, 15);
 				updateSelectedButton();
 			}
 		} else if (keyCode == Constants.KeyCode.OK) {

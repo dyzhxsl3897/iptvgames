@@ -1,5 +1,7 @@
 package com.zhongdan.games.tetris;
 
+import java.util.Timer;
+
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.GameCanvas;
@@ -20,6 +22,8 @@ public class MenuCanvas extends GameCanvas {
 	private Image menuBackgroundImg;
 	private Image startGameBtnImg;
 	private Image endGameBtnImg;
+	private Image menuSelectedImg;
+	private Sprite menuSelectedSprite;
 	private Sprite topBtnSprite;
 	private Sprite botBtnSprite;
 	private Sprite startGameBtnSprite;
@@ -39,6 +43,12 @@ public class MenuCanvas extends GameCanvas {
 		backgroundLayer = new TiledLayer(1, 1, menuBackgroundImg, menuBackgroundImg.getWidth(), menuBackgroundImg.getHeight());
 		backgroundLayer.setCell(0, 0, 1);
 		layerManager.append(backgroundLayer);
+		menuSelectedImg = ImageUtil.createImage("/menu_selected.png");
+		menuSelectedSprite = new Sprite(menuSelectedImg, 30, 50);
+		menuSelectedSprite.setFrame(0);
+		menuSelectedSprite.setPosition(380, 280);
+		new Timer().schedule(new MenuSelectedTimerTask(this, graphics, layerManager, menuSelectedSprite), 0, 200);
+		layerManager.insert(menuSelectedSprite, 0);
 
 		// Initialize buttons
 		startGameBtnImg = ImageUtil.createImage("/menu_btn_start.png");
@@ -76,11 +86,13 @@ public class MenuCanvas extends GameCanvas {
 		if (keyCode == Constants.KeyCode.UP) {
 			if (selectedItem > 1) {
 				selectedItem--;
+				menuSelectedSprite.setPosition(380, 280);
 				updateSelectedButton();
 			}
 		} else if (keyCode == Constants.KeyCode.DOWN) {
 			if (selectedItem < 2) {
 				selectedItem++;
+				menuSelectedSprite.setPosition(380, 380);
 				updateSelectedButton();
 			}
 		} else if (keyCode == Constants.KeyCode.OK) {
