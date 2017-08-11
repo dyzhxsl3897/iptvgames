@@ -10,7 +10,7 @@ public class GameConstants {
 		public static int BTN_BOT_X = 220;
 		public static int BTN_BOT_Y = 340;
 
-		public static int SELECT_CURSE_X = 420;
+		public static int SELECT_CURSE_X = 400;
 		public static int SELECT_CURSE_Y = 280;
 	}
 

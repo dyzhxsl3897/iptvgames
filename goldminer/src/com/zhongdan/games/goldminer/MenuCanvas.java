@@ -56,7 +56,6 @@ public class MenuCanvas extends GameCanvas {
 		menuSelectedSprite.setPosition(Menu.SELECT_CURSE_X, Menu.SELECT_CURSE_Y);
 		new Timer().schedule(new MenuSelectedTimerTask(this, graphics, layerManager, menuSelectedSprite), 0, 200);
 		layerManager.append(backgroundLayer);
-		layerManager.insert(menuSelectedSprite, 0);
 
 		// Initialize buttons
 		startGameBtnImg = ImageUtil.createImage("/menu_btn_start_game.png");
@@ -89,6 +88,8 @@ public class MenuCanvas extends GameCanvas {
 		layerManager.insert(levelSelectBtnSprite, 0);
 		layerManager.insert(rankingBtnSprite, 0);
 		layerManager.insert(helpBtnSprite, 0);
+
+		layerManager.insert(menuSelectedSprite, 0);
 
 		// Paint map
 		layerManager.paint(graphics, 0, 0);

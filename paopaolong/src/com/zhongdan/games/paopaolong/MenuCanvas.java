@@ -45,9 +45,8 @@ public class MenuCanvas extends GameCanvas {
 		menuSelectedImg = ImageUtil.createImage("/menu_selected.png");
 		menuSelectedSprite = new Sprite(menuSelectedImg, 30, 50);
 		menuSelectedSprite.setFrame(0);
-		menuSelectedSprite.setPosition(370, 205);
+		menuSelectedSprite.setPosition(330, 220);
 		new Timer().schedule(new MenuSelectedTimerTask(this, graphics, layerManager, menuSelectedSprite), 0, 200);
-		layerManager.insert(menuSelectedSprite, 0);
 
 		// Initialize buttons
 		startGameBtnImg = ImageUtil.createImage("/menu_btn_start.png");
@@ -63,6 +62,8 @@ public class MenuCanvas extends GameCanvas {
 		topBtnSprite.setFrame(1);
 		layerManager.insert(startGameBtnSprite, 0);
 		layerManager.insert(endGameBtnSprite, 0);
+
+		layerManager.insert(menuSelectedSprite, 0);
 
 		// Paint map
 		layerManager.paint(graphics, 0, 0);
@@ -85,13 +86,13 @@ public class MenuCanvas extends GameCanvas {
 		if (keyCode == Constants.KeyCode.UP) {
 			if (selectedItem > 1) {
 				selectedItem--;
-				menuSelectedSprite.setPosition(370, 205);
+				menuSelectedSprite.setPosition(330, 220);
 				updateSelectedButton();
 			}
 		} else if (keyCode == Constants.KeyCode.DOWN) {
 			if (selectedItem < 2) {
 				selectedItem++;
-				menuSelectedSprite.setPosition(370, 310);
+				menuSelectedSprite.setPosition(330, 325);
 				updateSelectedButton();
 			}
 		} else if (keyCode == Constants.KeyCode.OK) {
