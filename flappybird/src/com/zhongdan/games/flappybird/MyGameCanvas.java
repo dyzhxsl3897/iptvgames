@@ -159,7 +159,7 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 				welcomeLayer.setVisible(false);
 				backgroundLayer.setVisible(true);
 				this.score = 0;
-			} else if (keyCode == KeyCode.BACK || keyCode == KeyCode.BACK_1) {
+			} else if (keyCode == KeyCode.BACK || keyCode == KeyCode.BACK_1 || keyCode == KeyCode.BACK_2) {
 				this.midlet.notifyDestroyed();
 			}
 		}

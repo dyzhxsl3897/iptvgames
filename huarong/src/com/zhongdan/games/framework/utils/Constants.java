@@ -10,7 +10,8 @@ public class Constants {
 		public final static int OK = -5;// 确定/OK
 		public final static int MENU = -6;// 菜单
 		public final static int BACK = -7;// 返回
-		public static int BACK_1 = -31;// HUAWEI_EC6108V9A
+		public final static int BACK_1 = -31;// HUAWEI_EC6108V9A
+		public final static int BACK_2 = -9;// HUAWEI_EC6108V9
 		public final static int DEL = -8;// 删除
 		public final static int FAST_FORWARD = -21;// 快进/下页
 		public final static int REWIND = -20;// 快退/上页

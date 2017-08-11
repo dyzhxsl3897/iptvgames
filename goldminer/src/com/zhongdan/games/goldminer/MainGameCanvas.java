@@ -134,7 +134,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	}
 
 	protected void keyPressed(int keyCode) {
-		if (keyCode == Constants.KeyCode.BACK || keyCode == KeyCode.BACK_1) {
+		if (keyCode == Constants.KeyCode.BACK || keyCode == KeyCode.BACK_1 || keyCode == KeyCode.BACK_2) {
 			this.midlet.getDisplay().setCurrent(this.midlet.getMenuCanvas());
 		}
 	}

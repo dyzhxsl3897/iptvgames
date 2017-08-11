@@ -207,7 +207,7 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 			if (isPlaying) {
 				initCanvas(level);
 			}
-		} else if (keyCode == Constants.KeyCode.BACK || keyCode == KeyCode.BACK_1) {
+		} else if (keyCode == Constants.KeyCode.BACK || keyCode == KeyCode.BACK_1 || keyCode == KeyCode.BACK_2) {
 			this.midlet.getDisplay().setCurrent(this.midlet.getMenuCanvas());
 		}
 	}
