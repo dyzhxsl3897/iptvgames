@@ -82,18 +82,18 @@ public class GamePlayer {
 
 	public void piant(Graphics g) {
 		g.setColor(0);
-		g.fillRect(0, 0, W, 15);
+		g.fillRect(0, 0, W, 24);
 		g.setColor(-1);
-		g.drawRegion(img_Y_mali, 0, 0, 15, 14, Sprite.TRANS_NONE, 0, 0, 20);
-		g.drawString("X", 20, 0, 20);
-		g.drawString(String.valueOf(n1), 30, 0, 20);
-		g.drawRegion(img_Y_mali, 30+11*(z%6), 0, 11, 11, Sprite.TRANS_NONE, 48, 2, 20);
-		g.drawString("X", 66, 0, 20);
-		g.drawString(String.valueOf(n2), 80, 0, 20);
-		g.drawString("总分数:", 100, 0, 20);
-		g.drawString(String.valueOf(n3), 195, 0, Graphics.TOP|Graphics.RIGHT);
-		g.drawRegion(img_Y_mali, 15, 0, 14, 14, Sprite.TRANS_NONE, 205, 0, 20);
-		g.drawString(String.valueOf(gametime02), 240, 0, Graphics.TOP|Graphics.RIGHT);
+		g.drawRegion(img_Y_mali, 0, 0, 24, 23, Sprite.TRANS_NONE, 0, 0, 20);
+		g.drawString("X", 33, 0, 20);
+		g.drawString(String.valueOf(n1), 49, 0, 20);
+		g.drawRegion(img_Y_mali, 49+18*(z%6), 0, 18, 18, Sprite.TRANS_NONE, 79, 3, 20);
+		g.drawString("X", 109, 0, 20);
+		g.drawString(String.valueOf(n2), 132, 0, 20);
+		g.drawString("总分数:", 165, 0, 20);
+		g.drawString(String.valueOf(n3), 321, 0, Graphics.TOP|Graphics.RIGHT);
+		g.drawRegion(img_Y_mali, 24, 0, 23, 23, Sprite.TRANS_NONE, 338, 0, 20);
+		g.drawString(String.valueOf(gametime02), 396, 0, Graphics.TOP|Graphics.RIGHT);
 		/******怪物绘制******/
 		for(int i=0;i<enemyN;i++) {
 			if(enemy[i] == null)continue;
