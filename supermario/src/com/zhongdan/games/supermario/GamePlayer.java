@@ -91,7 +91,7 @@ public class GamePlayer {
 		g.drawString("X", 109, 0, 20);
 		g.drawString(String.valueOf(n2), 132, 0, 20);
 		g.drawString("总分数:", 165, 0, 20);
-		g.drawString(String.valueOf(n3), 321, 0, Graphics.TOP|Graphics.RIGHT);
+		g.drawString(String.valueOf(n3), 250, 0, Graphics.TOP|Graphics.RIGHT);
 		g.drawRegion(img_Y_mali, 24, 0, 23, 23, Sprite.TRANS_NONE, 338, 0, 20);
 		g.drawString(String.valueOf(gametime02), 396, 0, Graphics.TOP|Graphics.RIGHT);
 		/******怪物绘制******/
