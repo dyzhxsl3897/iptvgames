@@ -806,16 +806,18 @@ public class BaseComputerAi extends BasePlayer {
 
 	// 下棋子，对外接口
 	public Point run(Vector humans, Point p) {
-		// 把人类下的最后一步棋子去除
-		allFreePoints.removeElement((Point) humans.elementAt(humans.size() - 1));
-		// 电脑可以下的一步棋子
-		Point result = doAnalysis(myPoints, humans);
-		// 去除电脑下的棋子
-		allFreePoints.removeElement(result);
-		// 加入到电脑棋子中，下棋了
-		myPoints.addElement(result);
+		// // 把人类下的最后一步棋子去除
+		// allFreePoints.removeElement((Point) humans.elementAt(humans.size() - 1));
+		// // 电脑可以下的一步棋子
+		// Point result = doAnalysis(myPoints, humans);
+		// // 去除电脑下的棋子
+		// allFreePoints.removeElement(result);
+		// // 加入到电脑棋子中，下棋了
+		// myPoints.addElement(result);
 
-		return result;
+		getMyPoints().addElement(p);
+		allFreePoints.removeElement(p);
+		return p;
 	}
 
 }

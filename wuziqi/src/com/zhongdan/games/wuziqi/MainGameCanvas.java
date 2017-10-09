@@ -138,7 +138,8 @@ public class MainGameCanvas extends GameCanvas {
 							layerManager.insert(winSprite, 0);
 							isPlaying = false;
 						} else {
-							Point result = aiPlayer.run(humanPlayer.getMyPoints(), null);
+							// Point result = aiPlayer.run(humanPlayer.getMyPoints(), null);
+							Point result = new Point(0, 0);
 
 							JSONObject json = null;
 							try {
@@ -146,13 +147,16 @@ public class MainGameCanvas extends GameCanvas {
 							} catch (JSONException e1) {
 								e1.printStackTrace();
 							}
-							JSONObject resultJson = AiService.calNextStep("http://localhost:8180/rest/ai/wuziqi/nextstep", json);
+							JSONObject resultJson = AiService.calNextStep("http://localhost:8180/lobby/rest/ai/wuziqi/nextstep", json);
 							try {
-								System.out.println(resultJson.getString("nextPoint"));
-								System.out.println(resultJson.getString("status"));
+								int nextX = resultJson.getJSONObject("nextPoint").getInt("x");
+								int nextY = resultJson.getJSONObject("nextPoint").getInt("y");
+								result.setX(nextX);
+								result.setY(nextY);
 							} catch (JSONException e) {
 								e.printStackTrace();
 							}
+							aiPlayer.run(null, result);
 
 							if (whiteSprite != null) {
 								whiteSprite.setImage(whiteImg, GameSettings.CELL_W, GameSettings.CELL_H);
