@@ -147,7 +147,8 @@ public class MainGameCanvas extends GameCanvas {
 							} catch (JSONException e1) {
 								e1.printStackTrace();
 							}
-							JSONObject resultJson = AiService.calNextStep("http://localhost:8180/lobby/rest/ai/wuziqi/nextstep", json);
+//							JSONObject resultJson = AiService.calNextStep("http://localhost:8180/lobby/rest/ai/wuziqi/nextstep", json);
+							JSONObject resultJson = AiService.calNextStep("http://202.99.114.28:9595/lobby/rest/ai/wuziqi/nextstep", json);
 							try {
 								int nextX = resultJson.getJSONObject("nextPoint").getInt("x");
 								int nextY = resultJson.getJSONObject("nextPoint").getInt("y");
