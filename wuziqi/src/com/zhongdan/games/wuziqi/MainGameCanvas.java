@@ -9,6 +9,9 @@ import javax.microedition.lcdui.game.LayerManager;
 import javax.microedition.lcdui.game.Sprite;
 import javax.microedition.lcdui.game.TiledLayer;
 
+import org.json.me.JSONException;
+import org.json.me.JSONObject;
+
 import com.zhongdan.games.framework.utils.Constants;
 import com.zhongdan.games.framework.utils.ImageUtil;
 import com.zhongdan.games.framework.utils.NumberImgUtil;
@@ -136,6 +139,21 @@ public class MainGameCanvas extends GameCanvas {
 							isPlaying = false;
 						} else {
 							Point result = aiPlayer.run(humanPlayer.getMyPoints(), null);
+
+							JSONObject json = null;
+							try {
+								json = JsonUtil.gatherInfo(humanPlayer, aiPlayer);
+							} catch (JSONException e1) {
+								e1.printStackTrace();
+							}
+							JSONObject resultJson = AiService.calNextStep("http://localhost:8180/rest/ai/wuziqi/nextstep", json);
+							try {
+								System.out.println(resultJson.getString("nextPoint"));
+								System.out.println(resultJson.getString("status"));
+							} catch (JSONException e) {
+								e.printStackTrace();
+							}
+
 							if (whiteSprite != null) {
 								whiteSprite.setImage(whiteImg, GameSettings.CELL_W, GameSettings.CELL_H);
 							}
