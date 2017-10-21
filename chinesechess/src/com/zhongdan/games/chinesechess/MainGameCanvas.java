@@ -16,6 +16,7 @@ import com.zhongdan.games.chinesechess.GameConstants.GameSettings;
 import com.zhongdan.games.framework.utils.Constants;
 import com.zhongdan.games.framework.utils.ImageUtil;
 import com.zhongdan.games.framework.utils.NumberImgUtil;
+import com.zhongdan.games.framework.utils.Constants.KeyCode;
 
 public class MainGameCanvas extends GameCanvas {
 
@@ -224,9 +225,17 @@ public class MainGameCanvas extends GameCanvas {
 							currentPiece = pieces[row][col];
 						}
 					}
+				} else if (keyCode == Constants.KeyCode.NUM_0) {
+					initCanvas();
+				} else if (keyCode == Constants.KeyCode.BACK || keyCode == KeyCode.BACK_1 || keyCode == KeyCode.BACK_2) {
+					this.midlet.getDisplay().setCurrent(this.midlet.getMenuCanvas());
 				}
 				layerManager.paint(graphics, 0, 0);
 				this.flushGraphics();
+			}
+		} else {
+			if (keyCode == Constants.KeyCode.OK) {
+				this.midlet.getDisplay().setCurrent(this.midlet.getMenuCanvas());
 			}
 		}
 	}
