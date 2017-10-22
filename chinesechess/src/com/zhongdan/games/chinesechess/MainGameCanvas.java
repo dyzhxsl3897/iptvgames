@@ -179,7 +179,10 @@ public class MainGameCanvas extends GameCanvas {
 								String moveStep = null;
 								try {
 									json.put("chessboard", currentChessBoard.toString());
-									JSONObject resultJson = AiService.calNextStep("http://localhost:8180/lobby/rest/ai/chinesechess/nextstep", json);
+									JSONObject resultJson = AiService.calNextStep("http://202.99.114.28:9595/lobby/rest/ai/chinesechess/nextstep",
+											json);
+									// JSONObject resultJson = AiService.calNextStep("http://localhost:8180/lobby/rest/ai/chinesechess/nextstep",
+									// json);
 									moveStep = resultJson.getString("moveStep");
 								} catch (JSONException e) {
 									e.printStackTrace();
