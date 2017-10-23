@@ -27,12 +27,14 @@ public class MainGameCanvas extends GameCanvas {
 	private Image lostImg;
 	private Image winImg;
 	private Image numbersImg;
+	private Image thinkingImg;
 	private Image pieceAllImg;
 	private Image cursorTargetImg;
 	private Image cursorLastSrcImg;
 	private Image cursorLastDesImg;
 	private Sprite lostSprite;
 	private Sprite winSprite;
+	private Sprite thinkingSprite;
 	private Sprite cursorTargetSprite;
 	private Sprite cursorLastSrcSprite;
 	private Sprite cursorLastDesSprite;
@@ -64,6 +66,7 @@ public class MainGameCanvas extends GameCanvas {
 		cursorLastSrcImg = ImageUtil.createImage("/cur_last_src.png");
 		cursorLastDesImg = ImageUtil.createImage("/cur_last_des.png");
 		numbersImg = ImageUtil.createImage("/numbers.png");
+		thinkingImg = ImageUtil.createImage("/thinking.png");
 	}
 
 	public void initCanvas() {
@@ -94,6 +97,12 @@ public class MainGameCanvas extends GameCanvas {
 			}
 		}
 
+		// Add thinking picture
+		thinkingSprite = new Sprite(thinkingImg);
+		thinkingSprite.setPosition(500, 150);
+		thinkingSprite.setVisible(false);
+		layerManager.insert(thinkingSprite, 0);
+
 		// Initialize cursors
 		cursorTargetSprite = new Sprite(cursorTargetImg, 49, 49);
 		cursorTargetSprite.setFrame(1);
@@ -117,6 +126,7 @@ public class MainGameCanvas extends GameCanvas {
 		isPieceSelected = false;
 		currentPos = null;
 		currentPiece = '\0';
+		thinkingSprite.setVisible(false);
 		cursorLastSrcSprite.setVisible(false);
 		cursorLastDesSprite.setVisible(false);
 
@@ -168,6 +178,10 @@ public class MainGameCanvas extends GameCanvas {
 							this.flushGraphics();
 							// AI's turn
 							isHumanPlaying = false;
+							thinkingSprite.setVisible(true);
+							layerManager.paint(graphics, 0, 0);
+							this.flushGraphics();
+							boolean aiWins = false;
 							if (isHumanWin(pieces)) {// If human wins
 								layerManager.insert(winSprite, 0);
 								isPlaying = false;
@@ -187,29 +201,36 @@ public class MainGameCanvas extends GameCanvas {
 								} catch (JSONException e) {
 									e.printStackTrace();
 								}
-								// update the board
-								cursorLastSrcSprite.setVisible(true);
-								cursorLastDesSprite.setVisible(true);
-								String srcMove = moveStep.substring(0, 2);
-								String desMove = moveStep.substring(2);
-								PosNode srcNode = new PosNode(srcMove);
-								PosNode desNode = new PosNode(desMove);
-								pieces[desNode.getRow()][desNode.getCol()] = pieces[srcNode.getRow()][srcNode.getCol()];
-								pieces[srcNode.getRow()][srcNode.getCol()] = '\0';
-								if (piecesSprite[desNode.getRow()][desNode.getCol()] != null) {
-									piecesSprite[desNode.getRow()][desNode.getCol()].setVisible(false);
+								if (null == moveStep || "".equals(moveStep)) {// If AI wins
+									layerManager.insert(lostSprite, 0);
+									isPlaying = false;
+									aiWins = true;
+								} else {
+									// update the board
+									cursorLastSrcSprite.setVisible(true);
+									cursorLastDesSprite.setVisible(true);
+									String srcMove = moveStep.substring(0, 2);
+									String desMove = moveStep.substring(2);
+									PosNode srcNode = new PosNode(srcMove);
+									PosNode desNode = new PosNode(desMove);
+									pieces[desNode.getRow()][desNode.getCol()] = pieces[srcNode.getRow()][srcNode.getCol()];
+									pieces[srcNode.getRow()][srcNode.getCol()] = '\0';
+									if (piecesSprite[desNode.getRow()][desNode.getCol()] != null) {
+										piecesSprite[desNode.getRow()][desNode.getCol()].setVisible(false);
+									}
+									piecesSprite[desNode.getRow()][desNode.getCol()] = piecesSprite[srcNode.getRow()][srcNode.getCol()];
+									piecesSprite[srcNode.getRow()][srcNode.getCol()] = null;
+									spritePos.setRow(desNode.getRow());
+									spritePos.setCol(desNode.getCol());
+									piecesSprite[desNode.getRow()][desNode.getCol()].setPosition(spritePos.getPieceX(), spritePos.getPieceY());
+									cursorLastSrcSprite.setPosition(srcNode.getCursorX(), srcNode.getCursorY());
+									cursorLastDesSprite.setPosition(desNode.getCursorX(), desNode.getCursorY());
 								}
-								piecesSprite[desNode.getRow()][desNode.getCol()] = piecesSprite[srcNode.getRow()][srcNode.getCol()];
-								piecesSprite[srcNode.getRow()][srcNode.getCol()] = null;
-								spritePos.setRow(desNode.getRow());
-								spritePos.setCol(desNode.getCol());
-								piecesSprite[desNode.getRow()][desNode.getCol()].setPosition(spritePos.getPieceX(), spritePos.getPieceY());
-								cursorLastSrcSprite.setPosition(srcNode.getCursorX(), srcNode.getCursorY());
-								cursorLastDesSprite.setPosition(desNode.getCursorX(), desNode.getCursorY());
 							}
 							// AI finishes
 							isHumanPlaying = true;
-							if (isAiWin(pieces)) {// If AI wins
+							thinkingSprite.setVisible(false);
+							if (aiWins || isAiWin(pieces)) {// If AI wins
 								layerManager.insert(lostSprite, 0);
 								isPlaying = false;
 							}
