@@ -85,26 +85,26 @@ public class MenuCanvas extends GameCanvas {
 	}
 
 	protected void keyPressed(int keyCode) {
-		if (keyCode == Constants.KeyCode.DOWN) {
+		if (Constants.KeyCode.DOWN.contains(new Integer(keyCode))) {
 			if (selectedItem > 1) {
 				selectedItem--;
 				menuSelectedSprite.setPosition(230, 305);
 				updateSelectedButton();
 			}
-		} else if (keyCode == Constants.KeyCode.UP) {
+		} else if (Constants.KeyCode.UP.contains(new Integer(keyCode))) {
 			if (selectedItem < 2) {
 				selectedItem++;
 				menuSelectedSprite.setPosition(580, 35);
 				updateSelectedButton();
 			}
-		} else if (keyCode == Constants.KeyCode.OK) {
+		} else if (Constants.KeyCode.OK.contains(new Integer(keyCode))) {
 			if (selectedItem == 1) {
 				this.midlet.getMyGameCanvas().initCanvas(1);
 				this.midlet.getDisplay().setCurrent(this.midlet.getMyGameCanvas());
 			} else if (selectedItem == 2) {
 				this.midlet.notifyDestroyed();
 			}
-		} else if (keyCode == KeyCode.BACK || keyCode == KeyCode.BACK_1  || keyCode == KeyCode.BACK_2) {
+		} else if (KeyCode.BACK.contains(new Integer(keyCode))) {
 			this.midlet.notifyDestroyed();
 		}
 	}

@@ -144,7 +144,7 @@ public class MyGameCanvas extends GameCanvas {
 	}
 
 	protected void keyPressed(int keyCode) {
-		if (keyCode == Constants.KeyCode.LEFT) {
+		if (Constants.KeyCode.LEFT.contains(new Integer(keyCode))) {
 			if (isPlaying) {
 				if (isMoving) {
 					moveRole(KeyCode.LEFT);
@@ -152,7 +152,7 @@ public class MyGameCanvas extends GameCanvas {
 					moveCurser(KeyCode.LEFT);
 				}
 			}
-		} else if (keyCode == KeyCode.RIGHT) {
+		} else if (KeyCode.RIGHT.contains(new Integer(keyCode))) {
 			if (isPlaying) {
 				if (isMoving) {
 					moveRole(KeyCode.RIGHT);
@@ -160,7 +160,7 @@ public class MyGameCanvas extends GameCanvas {
 					moveCurser(KeyCode.RIGHT);
 				}
 			}
-		} else if (keyCode == KeyCode.UP) {
+		} else if (KeyCode.UP.contains(new Integer(keyCode))) {
 			if (isPlaying) {
 				if (isMoving) {
 					moveRole(KeyCode.UP);
@@ -168,7 +168,7 @@ public class MyGameCanvas extends GameCanvas {
 					moveCurser(KeyCode.UP);
 				}
 			}
-		} else if (keyCode == KeyCode.DOWN) {
+		} else if (KeyCode.DOWN.contains(new Integer(keyCode))) {
 			if (isPlaying) {
 				if (isMoving) {
 					moveRole(KeyCode.DOWN);
@@ -176,7 +176,7 @@ public class MyGameCanvas extends GameCanvas {
 					moveCurser(KeyCode.DOWN);
 				}
 			}
-		} else if (keyCode == KeyCode.OK) {
+		} else if (KeyCode.OK.contains(new Integer(keyCode))) {
 			if (isPlaying) {
 				if (isMoving) {
 					isMoving = false;
@@ -184,18 +184,17 @@ public class MyGameCanvas extends GameCanvas {
 					isMoving = true;
 				}
 			}
-		} else if (keyCode == KeyCode.BACK || keyCode == KeyCode.BACK_1 || keyCode == KeyCode.BACK_2) {
+		} else if (KeyCode.BACK.contains(new Integer(keyCode))) {
 			this.midlet.getDisplay().setCurrent(this.midlet.getMenuCanvas());
 		}
 	}
 
-	private void moveRole(int dir) {
+	private void moveRole(Vector dir) {
 		int currentRow = selectedRoleSprite.getRow();
 		int currentCol = selectedRoleSprite.getCol();
 		RoleSprite checkRoleSprite = null;
 		boolean canMove = true;
-		switch (dir) {
-		case KeyCode.LEFT:
+		if (dir.contains(KeyCode.LEFT.firstElement())) {
 			if (currentCol > 0) {
 				// 1. Check upper
 				if (currentRow > 0) {
@@ -248,8 +247,7 @@ public class MyGameCanvas extends GameCanvas {
 				selectedRoleSprite.setCol(currentCol - 1);
 				step++;
 			}
-			break;
-		case KeyCode.RIGHT:
+		} else if (dir.contains(KeyCode.RIGHT.firstElement())) {
 			if (currentCol + 1 < GameSettings.MAP_COL) {
 				// Check upper right
 				if (currentRow > 0) {
@@ -304,8 +302,7 @@ public class MyGameCanvas extends GameCanvas {
 				selectedRoleSprite.setCol(currentCol + 1);
 				step++;
 			}
-			break;
-		case KeyCode.UP:
+		} else if (dir.contains(KeyCode.UP.firstElement())) {
 			if (currentRow > 0) {
 				if (currentRow > 1) {
 					// 1. Check double upper left
@@ -356,8 +353,7 @@ public class MyGameCanvas extends GameCanvas {
 				selectedRoleSprite.setRow(currentRow - 1);
 				step++;
 			}
-			break;
-		case KeyCode.DOWN:
+		} else if (dir.contains(KeyCode.DOWN.firstElement())) {
 			if (currentRow + 1 < GameSettings.MAP_ROW) {
 				// 1. Check lower left
 				if (currentCol > 0) {
@@ -412,19 +408,17 @@ public class MyGameCanvas extends GameCanvas {
 				selectedRoleSprite.setRow(currentRow + 1);
 				step++;
 			}
-			break;
 		}
 		updateStep();
 		layerManager.paint(graphics, 0, 0);
 		this.flushGraphics();
 	}
 
-	private void moveCurser(int dir) {
+	private void moveCurser(Vector dir) {
 		int currentRow = selectedRoleSprite.getRow();
 		int currentCol = selectedRoleSprite.getCol();
 		RoleSprite nextRoleSprite = null;
-		switch (dir) {
-		case KeyCode.LEFT:
+		if (dir.contains(KeyCode.LEFT.firstElement())) {
 			if (currentCol > 0) {
 				// Left
 				nextRoleSprite = maps[currentRow][currentCol - 1];
@@ -441,8 +435,7 @@ public class MyGameCanvas extends GameCanvas {
 					nextRoleSprite = maps[currentRow + 1][currentCol - 2];
 				}
 			}
-			break;
-		case KeyCode.RIGHT:
+		} else if (dir.contains(KeyCode.RIGHT.firstElement())) {
 			if (currentCol + selectedRoleSprite.getRoleWidth() < GameSettings.MAP_COL) {
 				// Right
 				nextRoleSprite = maps[currentRow][currentCol + selectedRoleSprite.getRoleWidth()];
@@ -460,8 +453,7 @@ public class MyGameCanvas extends GameCanvas {
 					nextRoleSprite = maps[currentRow + 1][currentCol + selectedRoleSprite.getRoleWidth() + 1];
 				}
 			}
-			break;
-		case KeyCode.UP:
+		} else if (dir.contains(KeyCode.UP.firstElement())) {
 			if (currentRow > 0) {
 				// Upper
 				nextRoleSprite = maps[currentRow - 1][currentCol];
@@ -486,8 +478,7 @@ public class MyGameCanvas extends GameCanvas {
 					nextRoleSprite = maps[currentRow - 3][currentCol + 1];
 				}
 			}
-			break;
-		case KeyCode.DOWN:
+		} else if (dir.contains(KeyCode.DOWN.firstElement())) {
 			if (currentRow + selectedRoleSprite.getRoleHeight() < GameSettings.MAP_ROW) {
 				// Down
 				nextRoleSprite = maps[currentRow + selectedRoleSprite.getRoleHeight()][currentCol];
@@ -505,7 +496,6 @@ public class MyGameCanvas extends GameCanvas {
 					nextRoleSprite = maps[currentRow + selectedRoleSprite.getRoleHeight() + 1][currentCol + 1];
 				}
 			}
-			break;
 		}
 		if (null == nextRoleSprite) {
 			nextRoleSprite = selectedRoleSprite;
