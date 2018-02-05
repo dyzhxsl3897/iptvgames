@@ -359,7 +359,7 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 				case 0:		map.til_zhebi01.paint(g);		break;
 				case 1:		map.til_zhebi02.paint(g);		break;
 				}
-				g.drawRegion(img_zi, 0, 85, 40, 27, Sprite.TRANS_NONE, 200, 309-27, 20);
+				g.drawRegion(img_zi, 0, 85, 40, 27, Sprite.TRANS_NONE, 600, 27, 20);
 			}
 			break;
 		}
