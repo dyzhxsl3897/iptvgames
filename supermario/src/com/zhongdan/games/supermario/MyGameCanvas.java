@@ -18,8 +18,8 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 	int ppx[] = {320,306,293,280,269,259,251,245,241,240,241,245,251,259,269,280,293,306,320,334,347,360,371,381,389,395,399,400,399,395,389,381,371,360,347,334};
 	int ppy[] = {110,111,115,121,129,139,150,163,176,190,204,217,230,241,251,259,265,269,270,269,265,259,251,241,230,217,204,190,176,163,150,139,129,121,115,111};
 	int pp_Array_index_1,pp_Array_index_2,pp_Array_index_3,pp_Array_index_4,pp_Array_index_5,pp_Array_index_6;
-	String zhizuo_Array[] = {"总策划:","钱警警同学。","美术设计:", "牛晓波同学。","程序设计:", "杨轶凡同学。",
-			"测试人员:","高国超同学。","制作单位：","武汉游戏学院。"};
+	String zhizuo_Array[] = {"总策划:","阿飞同学。","美术设计:", "史瑞克同学。","程序设计:", "忍者神龟同学。",
+			"测试人员:","蜘蛛侠同学。","制作单位：","西安蓝硅通信技术有限公司。"};
 	String jieshao_File = "从前在玛雅大陆上有着一个安静而又和平的小国家，在那个国家中，人们都非常的友好。在国家的中心" +
 			"有一个名叫比特艾尔的花园城堡，城堡非常的美丽，满地都是鲜花，在这个国家的每个角落都能感受到城堡中鲜花" +			
 			"的香味。这坐城堡的主人有一个女儿，拥有着天使般的面容。可能正是因为这位公主的美丽而带来了一次浩劫。在一" +
@@ -159,7 +159,7 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 			g.drawRegion(img_cai02, 0, 49, 45, 40, Sprite.TRANS_NONE, 120+200, 270+120, 20);
 			g.drawRegion(img_cai02, 159, 0, 81, 74, Sprite.TRANS_NONE, 160+200, 235+120, 20);
 			g.drawRegion(img_cai01, 0, 0, 114, 114, Sprite.TRANS_NONE, W/2, 180-114+70,Graphics.TOP|Graphics.HCENTER);
-			if(jishi == 0 && ppy[pp_Array_index_6+18]-25 == 175) {
+			if(jishi == 0 && ppy[pp_Array_index_6+18]-25 == 175+70) {
 				g.drawRegion(img_pp, 55*0, 55, 55, 55, Sprite.TRANS_NONE, ppx[pp_Array_index_6+18], ppy[pp_Array_index_6+18]-25, Graphics.TOP|Graphics.HCENTER);
 			} else {
 				if(pp_Array_index_6+18 > 35 ) {
@@ -170,7 +170,7 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 				}
 				g.drawRegion(img_pp, 55*0, 0, 55, 55, Sprite.TRANS_NONE, ppx[pp_Array_index_6+18], ppy[pp_Array_index_6+18]-25, Graphics.TOP|Graphics.HCENTER);
 			}
-			if(jishi == 4 && ppy[pp_Array_index_4+6]-25 == 175) {
+			if(jishi == 4 && ppy[pp_Array_index_4+6]-25 == 175+70) {
 				g.drawRegion(img_pp, 55*1, 55, 55, 55, Sprite.TRANS_NONE, ppx[pp_Array_index_4+6], ppy[pp_Array_index_4+6]-25, Graphics.TOP|Graphics.HCENTER);
 			} else {
 				if(pp_Array_index_4+6 > 35 ) {
@@ -181,7 +181,7 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 				}
 				g.drawRegion(img_pp, 55*1, 0, 55, 55, Sprite.TRANS_NONE, ppx[pp_Array_index_4+6], ppy[pp_Array_index_4+6]-25, Graphics.TOP|Graphics.HCENTER);
 			}
-			if(jishi == 2 && ppy[pp_Array_index_2+30]-25 == 175) {
+			if(jishi == 2 && ppy[pp_Array_index_2+30]-25 == 175+70) {
 				g.drawRegion(img_pp, 55*2, 55, 55, 55, Sprite.TRANS_NONE, ppx[pp_Array_index_2+30], ppy[pp_Array_index_2+30]-25, Graphics.TOP|Graphics.HCENTER);
 			} else {
 				if(pp_Array_index_2+30 > 35 ) {
@@ -192,7 +192,7 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 				}
 				g.drawRegion(img_pp, 55*2, 0, 55, 55, Sprite.TRANS_NONE, ppx[pp_Array_index_2+30], ppy[pp_Array_index_2+30]-25, Graphics.TOP|Graphics.HCENTER);
 			}
-			if(jishi == 1 && ppy[pp_Array_index_1+24]-25 == 175) {
+			if(jishi == 1 && ppy[pp_Array_index_1+24]-25 == 175+70) {
 				g.drawRegion(img_pp, 55*3, 55, 55, 55, Sprite.TRANS_NONE, ppx[pp_Array_index_1+24], ppy[pp_Array_index_1+24]-25, Graphics.TOP|Graphics.HCENTER);
 			} else {
 				if(pp_Array_index_1+24 > 35 ) {
@@ -203,7 +203,7 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 				}
 				g.drawRegion(img_pp, 55*3, 0, 55, 55, Sprite.TRANS_NONE, ppx[pp_Array_index_1+24], ppy[pp_Array_index_1+24]-25, Graphics.TOP|Graphics.HCENTER);
 			}
-			if(jishi == 5 && ppy[pp_Array_index_5+12]-25 == 175) {
+			if(jishi == 5 && ppy[pp_Array_index_5+12]-25 == 175+70) {
 				g.drawRegion(img_pp, 55*4, 55, 55, 55, Sprite.TRANS_NONE, ppx[pp_Array_index_5+12], ppy[pp_Array_index_5+12]-25, Graphics.TOP|Graphics.HCENTER);
 			} else {
 				if(pp_Array_index_5+12 > 35 ) {
@@ -214,7 +214,7 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 				}
 				g.drawRegion(img_pp, 55*4, 0, 55, 55, Sprite.TRANS_NONE, ppx[pp_Array_index_5+12], ppy[pp_Array_index_5+12]-25, Graphics.TOP|Graphics.HCENTER);
 			}
-			if(jishi == 3 && ppy[pp_Array_index_3]-25 == 175) {
+			if(jishi == 3 && ppy[pp_Array_index_3]-25 == 175+70) {
 				g.drawRegion(img_pp, 55*5, 55, 55, 55, Sprite.TRANS_NONE, ppx[pp_Array_index_3], ppy[pp_Array_index_3]-25, Graphics.TOP|Graphics.HCENTER);
 			} else {
 				if(pp_Array_index_3 > 35 ) {
