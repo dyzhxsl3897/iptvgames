@@ -288,32 +288,32 @@ public class GamePlayer {
 			break;
 
 		case 1:
-			if(!guaichuxian[0]&&!guaichuxian[1]&&mapmoveX==652) {
-				enemy[0] = new GameEnemy(0,240,100);
-				enemy[1] = new GameEnemy(0,300,80);
+			if(!guaichuxian[0]&&!guaichuxian[1]&&mapmoveX==1074) {
+				enemy[0] = new GameEnemy(0,396,165);
+				enemy[1] = new GameEnemy(0,495,132);
 				guaichuxian[0] = true;
 				guaichuxian[1] = true;
 			}
-			if(!guaichuxian[2]&&!guaichuxian[3]&&!guaichuxian[4]&&mapmoveX==860) {
-				enemy[2] = new GameEnemy(1,140,100);
-				enemy[3] = new GameEnemy(0,160,90);
-				enemy[4] = new GameEnemy(1,180,80);
+			if(!guaichuxian[2]&&!guaichuxian[3]&&!guaichuxian[4]&&mapmoveX==1422) {
+				enemy[2] = new GameEnemy(1,231,165);
+				enemy[3] = new GameEnemy(0,264,148);
+				enemy[4] = new GameEnemy(1,297,132);
 				guaichuxian[2] = true;
 				guaichuxian[3] = true;
 				guaichuxian[4] = true;
 			}
-			if(!guaichuxian[5]&&!guaichuxian[0]&&!guaichuxian[1]&&mapmoveX==1180) {
-				enemy[5] = new GameEnemy(1,340,100);
-				enemy[0] = new GameEnemy(2,360,90);
-				enemy[1] = new GameEnemy(1,380,80);
+			if(!guaichuxian[5]&&!guaichuxian[0]&&!guaichuxian[1]&&mapmoveX==1950) {
+				enemy[5] = new GameEnemy(1,561,165);
+				enemy[0] = new GameEnemy(2,594,148);
+				enemy[1] = new GameEnemy(1,627,132);
 				guaichuxian[5] = true;
 				guaichuxian[0] = true;
 				guaichuxian[1] = true;
 			}
-			if(!guaichuxian[2]&&!guaichuxian[3]&&!guaichuxian[4]&&mapmoveX==1516) {
-				enemy[2] = new GameEnemy(1,140,100);
-				enemy[3] = new GameEnemy(2,160,90);
-				enemy[4] = new GameEnemy(1,180,80);
+			if(!guaichuxian[2]&&!guaichuxian[3]&&!guaichuxian[4]&&mapmoveX==2502) {
+				enemy[2] = new GameEnemy(1,231,165);
+				enemy[3] = new GameEnemy(2,264,148);
+				enemy[4] = new GameEnemy(1,297,132);
 				guaichuxian[2] = true;
 				guaichuxian[3] = true;
 				guaichuxian[4] = true;
