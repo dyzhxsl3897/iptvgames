@@ -171,16 +171,16 @@ public class GamePlayer {
 		case kill:
 			x_mali.setTransform(Sprite.TRANS_NONE);
 			x_mali.paint(g);
-			if(sfkillstate&&x_mali.getY()>325) {
+			if(sfkillstate&&x_mali.getY()>530) {
 				g.setColor(0);
 				g.fillRect(0, 0, W, H);
 				g.setColor(-1);
-				g.drawString(String.valueOf((int)d_guan), 102, H/2-20, Graphics.TOP|Graphics.HCENTER);
+				g.drawString(String.valueOf((int)d_guan), W/2 - 30, H/2-20, Graphics.TOP|Graphics.HCENTER);
 				g.drawString("X", W/2, H/2-20, Graphics.TOP|Graphics.HCENTER);
-				g.drawString(String.valueOf((int)x_guan), 138, H/2-20, Graphics.TOP|Graphics.HCENTER);
-				g.drawRegion(img_Y_mali, 20, 41, 20, 24, Sprite.TRANS_NONE, 100, H/2-6+10, Graphics.TOP|Graphics.HCENTER);
-				g.drawString("X", W/2, H/2+10, Graphics.TOP|Graphics.HCENTER);
-				g.drawString(String.valueOf(n1), 140, H/2+10, Graphics.TOP|Graphics.HCENTER);
+				g.drawString(String.valueOf((int)x_guan), W/2 + 30, H/2-20, Graphics.TOP|Graphics.HCENTER);
+				g.drawRegion(img_Y_mali, 33, 66, 33, 40, Sprite.TRANS_NONE, W/2 - 30, H/2-6+10, Graphics.TOP|Graphics.HCENTER);
+				g.drawString("X", W/2, H/2+20, Graphics.TOP|Graphics.HCENTER);
+				g.drawString(String.valueOf(n1), W/2 + 30, H/2+20, Graphics.TOP|Graphics.HCENTER);
 			}
 			break;
 			
@@ -862,7 +862,7 @@ public class GamePlayer {
 			z++;
 			x_mali.setFrame(5);
 			/******Ö÷½ÇËÀÍöÅÐ¶Ï******/
-			if(sfkillstate&&!sfkill&&x_mali.getY()>325) {
+			if(sfkillstate&&!sfkill&&x_mali.getY()>530) {
 				n1--;
 				if(n1<=0) {
 					x_mali_state = gameover;
