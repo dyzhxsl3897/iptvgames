@@ -11,7 +11,7 @@ public class GameMusic {
 	
 	public Player musiclong(String s) {
 		try {
-			pla = Manager.createPlayer(getClass().getResourceAsStream("/"+s+".wav"),"audio/x-wav");
+			pla = Manager.createPlayer(getClass().getResourceAsStream("/"+s+".mid"),"audio/midi");
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (MediaException e) {
