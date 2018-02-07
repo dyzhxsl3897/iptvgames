@@ -259,93 +259,93 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 			g.setColor(-1);
 			g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_LARGE));
 			if(jishi<4) {
-				g.drawSubstring(zhizuo_Array[0], 0, jishi+1, 40, 20, 20);
+				g.drawSubstring(zhizuo_Array[0], 0, jishi+1, 40+200, 20+70, 20);
 			}
-			if(jishi>=4&&jishi<10) {
-				g.drawString(zhizuo_Array[0], 40, 20, 20);
-				g.drawSubstring(zhizuo_Array[1], 0, jishi-4+1, 80, 40, 20);
+			if(jishi>=4&&jishi<9) {
+				g.drawString(zhizuo_Array[0], 40+200, 20+70, 20);
+				g.drawSubstring(zhizuo_Array[1], 0, jishi-4+1, 80+200, 40+70, 20);
 			}
-			if(jishi>=10&&jishi<15) {
-				g.drawString(zhizuo_Array[0], 40, 20, 20);
-				g.drawString(zhizuo_Array[1], 80, 40, 20);
-				g.drawSubstring(zhizuo_Array[2], 0, jishi-10+1, 40, 60, 20);
+			if(jishi>=9&&jishi<14) {
+				g.drawString(zhizuo_Array[0], 40+200, 20+70, 20);
+				g.drawString(zhizuo_Array[1], 80+200, 40+70, 20);
+				g.drawSubstring(zhizuo_Array[2], 0, jishi-9+1, 40+200, 60+70, 20);
 			}
-			if(jishi>=15&&jishi<21) {
-				g.drawString(zhizuo_Array[0], 40, 20, 20);
-				g.drawString(zhizuo_Array[1], 80, 40, 20);
-				g.drawString(zhizuo_Array[2], 40, 60, 20);
-				g.drawSubstring(zhizuo_Array[3], 0, jishi-15+1, 80, 80, 20);
+			if(jishi>=14&&jishi<20) {
+				g.drawString(zhizuo_Array[0], 40+200, 20+70, 20);
+				g.drawString(zhizuo_Array[1], 80+200, 40+70, 20);
+				g.drawString(zhizuo_Array[2], 40+200, 60+70, 20);
+				g.drawSubstring(zhizuo_Array[3], 0, jishi-14+1, 80+200, 80+70, 20);
 			}
-			if(jishi>=21&&jishi<26) {
-				g.drawString(zhizuo_Array[0], 40, 20, 20);
-				g.drawString(zhizuo_Array[1], 80, 40, 20);
-				g.drawString(zhizuo_Array[2], 40, 60, 20);
-				g.drawString(zhizuo_Array[3], 80, 80, 20);
-				g.drawSubstring(zhizuo_Array[4], 0, jishi-21+1, 40, 100, 20);
+			if(jishi>=20&&jishi<25) {
+				g.drawString(zhizuo_Array[0], 40+200, 20+70, 20);
+				g.drawString(zhizuo_Array[1], 80+200, 40+70, 20);
+				g.drawString(zhizuo_Array[2], 40+200, 60+70, 20);
+				g.drawString(zhizuo_Array[3], 80+200, 80+70, 20);
+				g.drawSubstring(zhizuo_Array[4], 0, jishi-20+1, 40+200, 100+70, 20);
 			}
-			if(jishi>=26&&jishi<32) {
-				g.drawString(zhizuo_Array[0], 40, 20, 20);
-				g.drawString(zhizuo_Array[1], 80, 40, 20);
-				g.drawString(zhizuo_Array[2], 40, 60, 20);
-				g.drawString(zhizuo_Array[3], 80, 80, 20);
-				g.drawString(zhizuo_Array[4], 40, 100, 20);
-				g.drawSubstring(zhizuo_Array[5], 0, jishi-26+1, 80, 120, 20);
+			if(jishi>=25&&jishi<32) {
+				g.drawString(zhizuo_Array[0], 40+200, 20+70, 20);
+				g.drawString(zhizuo_Array[1], 80+200, 40+70, 20);
+				g.drawString(zhizuo_Array[2], 40+200, 60+70, 20);
+				g.drawString(zhizuo_Array[3], 80+200, 80+70, 20);
+				g.drawString(zhizuo_Array[4], 40+200, 100+70, 20);
+				g.drawSubstring(zhizuo_Array[5], 0, jishi-25+1, 80+200, 120+70, 20);
 			}
 			if(jishi>=32&&jishi<37) {
-				g.drawString(zhizuo_Array[0], 40, 20, 20);
-				g.drawString(zhizuo_Array[1], 80, 40, 20);
-				g.drawString(zhizuo_Array[2], 40, 60, 20);
-				g.drawString(zhizuo_Array[3], 80, 80, 20);
-				g.drawString(zhizuo_Array[4], 40, 100, 20);
-				g.drawString(zhizuo_Array[5], 80, 120, 20);
-				g.drawSubstring(zhizuo_Array[6], 0, jishi-32+1, 40, 140, 20);
+				g.drawString(zhizuo_Array[0], 40+200, 20+70, 20);
+				g.drawString(zhizuo_Array[1], 80+200, 40+70, 20);
+				g.drawString(zhizuo_Array[2], 40+200, 60+70, 20);
+				g.drawString(zhizuo_Array[3], 80+200, 80+70, 20);
+				g.drawString(zhizuo_Array[4], 40+200, 100+70, 20);
+				g.drawString(zhizuo_Array[5], 80+200, 120+70, 20);
+				g.drawSubstring(zhizuo_Array[6], 0, jishi-32+1, 40+200, 140+70, 20);
 			}
 			if(jishi>=37&&jishi<43) {
-				g.drawString(zhizuo_Array[0], 40, 20, 20);
-				g.drawString(zhizuo_Array[1], 80, 40, 20);
-				g.drawString(zhizuo_Array[2], 40, 60, 20);
-				g.drawString(zhizuo_Array[3], 80, 80, 20);
-				g.drawString(zhizuo_Array[4], 40, 100, 20);
-				g.drawString(zhizuo_Array[5], 80, 120, 20);
-				g.drawString(zhizuo_Array[6], 40, 140, 20);
-				g.drawSubstring(zhizuo_Array[7], 0, jishi-37+1, 80, 160, 20);
+				g.drawString(zhizuo_Array[0], 40+200, 20+70, 20);
+				g.drawString(zhizuo_Array[1], 80+200, 40+70, 20);
+				g.drawString(zhizuo_Array[2], 40+200, 60+70, 20);
+				g.drawString(zhizuo_Array[3], 80+200, 80+70, 20);
+				g.drawString(zhizuo_Array[4], 40+200, 100+70, 20);
+				g.drawString(zhizuo_Array[5], 80+200, 120+70, 20);
+				g.drawString(zhizuo_Array[6], 40+200, 140+70, 20);
+				g.drawSubstring(zhizuo_Array[7], 0, jishi-37+1, 80+200, 160+70, 20);
 			}
 			if(jishi>=43&&jishi<48) {
-				g.drawString(zhizuo_Array[0], 40, 20, 20);
-				g.drawString(zhizuo_Array[1], 80, 40, 20);
-				g.drawString(zhizuo_Array[2], 40, 60, 20);
-				g.drawString(zhizuo_Array[3], 80, 80, 20);
-				g.drawString(zhizuo_Array[4], 40, 100, 20);
-				g.drawString(zhizuo_Array[5], 80, 120, 20);
-				g.drawString(zhizuo_Array[6], 40, 140, 20);
-				g.drawString(zhizuo_Array[7], 80, 160, 20);
-				g.drawSubstring(zhizuo_Array[8], 0, jishi-43+1, 40, 180, 20);
+				g.drawString(zhizuo_Array[0], 40+200, 20+70, 20);
+				g.drawString(zhizuo_Array[1], 80+200, 40+70, 20);
+				g.drawString(zhizuo_Array[2], 40+200, 60+70, 20);
+				g.drawString(zhizuo_Array[3], 80+200, 80+70, 20);
+				g.drawString(zhizuo_Array[4], 40+200, 100+70, 20);
+				g.drawString(zhizuo_Array[5], 80+200, 120+70, 20);
+				g.drawString(zhizuo_Array[6], 40+200, 140+70, 20);
+				g.drawString(zhizuo_Array[7], 80+200, 160+70, 20);
+				g.drawSubstring(zhizuo_Array[8], 0, jishi-43+1, 40+200, 180+70, 20);
 			}
-			if(jishi>=48&&jishi<53) {
-				g.drawString(zhizuo_Array[0], 40, 20, 20);
-				g.drawString(zhizuo_Array[1], 80, 40, 20);
-				g.drawString(zhizuo_Array[2], 40, 60, 20);
-				g.drawString(zhizuo_Array[3], 80, 80, 20);
-				g.drawString(zhizuo_Array[4], 40, 100, 20);
-				g.drawString(zhizuo_Array[5], 80, 120, 20);
-				g.drawString(zhizuo_Array[6], 40, 140, 20);
-				g.drawString(zhizuo_Array[7], 80, 160, 20);
-				g.drawString(zhizuo_Array[8], 40, 180, 20);
-				g.drawSubstring(zhizuo_Array[9], 0, jishi-48+1, 80, 200, 20);
+			if(jishi>=48&&jishi<61) {
+				g.drawString(zhizuo_Array[0], 40+200, 20+70, 20);
+				g.drawString(zhizuo_Array[1], 80+200, 40+70, 20);
+				g.drawString(zhizuo_Array[2], 40+200, 60+70, 20);
+				g.drawString(zhizuo_Array[3], 80+200, 80+70, 20);
+				g.drawString(zhizuo_Array[4], 40+200, 100+70, 20);
+				g.drawString(zhizuo_Array[5], 80+200, 120+70, 20);
+				g.drawString(zhizuo_Array[6], 40+200, 140+70, 20);
+				g.drawString(zhizuo_Array[7], 80+200, 160+70, 20);
+				g.drawString(zhizuo_Array[8], 40+200, 180+70, 20);
+				g.drawSubstring(zhizuo_Array[9], 0, jishi-48+1, 80+200, 200+70, 20);
 			}
 			if(jishi>=53) {
 				RUNtime = 80;
-				g.drawString(zhizuo_Array[0], 40, 20, 20);
-				g.drawString(zhizuo_Array[1], 80, 40, 20);
-				g.drawString(zhizuo_Array[2], 40, 60, 20);
-				g.drawString(zhizuo_Array[3], 80, 80, 20);
-				g.drawString(zhizuo_Array[4], 40, 100, 20);
-				g.drawString(zhizuo_Array[5], 80, 120, 20);
-				g.drawString(zhizuo_Array[6], 40, 140, 20);
-				g.drawString(zhizuo_Array[7], 80, 160, 20);
-				g.drawString(zhizuo_Array[8], 40, 180, 20);
-				g.drawString(zhizuo_Array[9], 80, 200, 20);
-				g.drawRegion(img_zi, 50, 42, 50, 43, Sprite.TRANS_NONE, 120, 268, Graphics.TOP|Graphics.HCENTER);
+				g.drawString(zhizuo_Array[0], 40+200, 20+70, 20);
+				g.drawString(zhizuo_Array[1], 80+200, 40+70, 20);
+				g.drawString(zhizuo_Array[2], 40+200, 60+70, 20);
+				g.drawString(zhizuo_Array[3], 80+200, 80+70, 20);
+				g.drawString(zhizuo_Array[4], 40+200, 100+70, 20);
+				g.drawString(zhizuo_Array[5], 80+200, 120+70, 20);
+				g.drawString(zhizuo_Array[6], 40+200, 140+70, 20);
+				g.drawString(zhizuo_Array[7], 80+200, 160+70, 20);
+				g.drawString(zhizuo_Array[8], 40+200, 180+70, 20);
+				g.drawString(zhizuo_Array[9], 80+200, 200+70, 20);
+				g.drawRegion(img_zi, 50, 42, 50, 43, Sprite.TRANS_NONE, 120+200, 268+70, Graphics.TOP|Graphics.HCENTER);
 			}
 			break;
 			
