@@ -15,8 +15,8 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 	Player cg,gameback01,gameback02,menu;
 	boolean gameback01start,gameback01stop;
 	int jishi,hqy,RUNtime = 80;
-	int ppx[] = {120,106,93,80,69,59,51,45, 41,40, 41, 45, 51, 59, 69, 80, 93, 106,120,134,147,160,171,181,189,195,199,200,199,195,189,181,171,160,147,134};
-	int ppy[] = {40, 41, 45,51,59,69,80,93,106,120,134,147,160,171,181,189,195,199,200,199,195,189,181,171,160,147,134,120,106,93, 80, 69, 59, 51, 45, 41};
+	int ppx[] = {320,306,293,280,269,259,251,245,241,240,241,245,251,259,269,280,293,306,320,334,347,360,371,381,389,395,399,400,399,395,389,381,371,360,347,334};
+	int ppy[] = {110,111,115,121,129,139,150,163,176,190,204,217,230,241,251,259,265,269,270,269,265,259,251,241,230,217,204,190,176,163,150,139,129,121,115,111};
 	int pp_Array_index_1,pp_Array_index_2,pp_Array_index_3,pp_Array_index_4,pp_Array_index_5,pp_Array_index_6;
 	String zhizuo_Array[] = {"总策划:","钱警警同学。","美术设计:", "牛晓波同学。","程序设计:", "杨轶凡同学。",
 			"测试人员:","高国超同学。","制作单位：","武汉游戏学院。"};
@@ -154,11 +154,11 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 		case caidan:
 			g.setColor(0);
 			g.fillRect(0, 0, W, H);
-			g.drawRegion(img_cai02, 0, 0, 45, 49, Sprite.TRANS_NONE, 0, 250, 20);
-			g.drawRegion(img_cai02, 46, 0, 107, 78, Sprite.TRANS_NONE, 35, 222, 20);
-			g.drawRegion(img_cai02, 0, 49, 45, 40, Sprite.TRANS_NONE, 120, 270, 20);
-			g.drawRegion(img_cai02, 159, 0, 81, 74, Sprite.TRANS_NONE, 160, 235, 20);
-			g.drawRegion(img_cai01, 0, 0, 114, 114, Sprite.TRANS_NONE, W/2, 180-114,Graphics.TOP|Graphics.HCENTER);
+			g.drawRegion(img_cai02, 0, 0, 45, 49, Sprite.TRANS_NONE, 0+200, 250+120, 20);
+			g.drawRegion(img_cai02, 46, 0, 107, 78, Sprite.TRANS_NONE, 35+200, 222+120, 20);
+			g.drawRegion(img_cai02, 0, 49, 45, 40, Sprite.TRANS_NONE, 120+200, 270+120, 20);
+			g.drawRegion(img_cai02, 159, 0, 81, 74, Sprite.TRANS_NONE, 160+200, 235+120, 20);
+			g.drawRegion(img_cai01, 0, 0, 114, 114, Sprite.TRANS_NONE, W/2, 180-114+70,Graphics.TOP|Graphics.HCENTER);
 			if(jishi == 0 && ppy[pp_Array_index_6+18]-25 == 175) {
 				g.drawRegion(img_pp, 55*0, 55, 55, 55, Sprite.TRANS_NONE, ppx[pp_Array_index_6+18], ppy[pp_Array_index_6+18]-25, Graphics.TOP|Graphics.HCENTER);
 			} else {
