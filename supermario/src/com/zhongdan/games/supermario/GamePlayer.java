@@ -210,7 +210,7 @@ public class GamePlayer {
 		/**********主角过关***************/
 		switch (GameMap.guan) {
 		case 0:
-			if(x_mali.getX()>=192) {
+			if(x_mali.getX()>=220) {
 				GameMap.guan = GameMap.tow;
 				x_guan++;
 				x_mali.setPosition(mali_X, mali_Y);
@@ -239,7 +239,7 @@ public class GamePlayer {
 			break;
 			
 		case 1:
-			if(x_mali.getX()>=192) {
+			if(x_mali.getX()>=317) {
 				
 			}
 			break;
@@ -255,31 +255,31 @@ public class GamePlayer {
 				guaichuxian[1] = true;
 				guaichuxian[2] = true;
 			}
-			if(!guaichuxian[3]&&!guaichuxian[4]&&!guaichuxian[5]&&mapmoveX==228) {
-				enemy[3] = new GameEnemy(1,450,297);
-				enemy[4] = new GameEnemy(2,450,363);
-				enemy[5] = new GameEnemy(2,555,297);
+			if(!guaichuxian[3]&&!guaichuxian[4]&&!guaichuxian[5]&&mapmoveX==252) {
+				enemy[3] = new GameEnemy(1,495,297);
+				enemy[4] = new GameEnemy(2,495,363);
+				enemy[5] = new GameEnemy(2,594,297);
 				guaichuxian[3] = true;
 				guaichuxian[4] = true;
 				guaichuxian[5] = true;
 			}
-			if(!guaichuxian[0]&&!guaichuxian[1]&&mapmoveX==504) {
-				enemy[0] = new GameEnemy(1,300,180);
-				enemy[1] = new GameEnemy(1,300,246);
+			if(!guaichuxian[0]&&!guaichuxian[1]&&mapmoveX==834) {
+				enemy[0] = new GameEnemy(1,495,297);
+				enemy[1] = new GameEnemy(1,495,363);
 				guaichuxian[0] = true;
 				guaichuxian[1] = true;
 			}
-			if(!guaichuxian[2]&&!guaichuxian[3]&&!guaichuxian[4]&&!guaichuxian[5]&&mapmoveX==1000) {
-				enemy[2] = new GameEnemy(0,300,206);
-				enemy[3] = new GameEnemy(0,300,272);
-				enemy[4] = new GameEnemy(2,399,140);
-				enemy[5] = new GameEnemy(2,465,177);
+			if(!guaichuxian[2]&&!guaichuxian[3]&&!guaichuxian[4]&&!guaichuxian[5]&&mapmoveX==1650) {
+				enemy[2] = new GameEnemy(0,495,297);
+				enemy[3] = new GameEnemy(0,495,363);
+				enemy[4] = new GameEnemy(2,594,231);
+				enemy[5] = new GameEnemy(2,660,264);
 				guaichuxian[2] = true;
 				guaichuxian[3] = true;
 				guaichuxian[4] = true;
 				guaichuxian[5] = true;
 			}
-			if(!guaichuxian[0]&&!guaichuxian[1]&&mapmoveX==1400) {
+			if(!guaichuxian[0]&&!guaichuxian[1]&&mapmoveX==2310) {
 				enemy[0] = new GameEnemy(0,140,113);
 				enemy[1] = new GameEnemy(0,206,80);
 				guaichuxian[0] = true;
@@ -457,7 +457,7 @@ public class GamePlayer {
 				/******主角右移动地图移动判断******/
 				switch (GameMap.guan) {
 				case 0:
-					if(map.til_back01.getX()>-1740&&x_mali.getX()>=120) {
+					if(map.til_back01.getX()>-2970&&x_mali.getX()>=198) {
 						map.til_back01.move(-malisudu, 0);
 						map.til_peng01.move(-malisudu, 0);
 						map.til_zhebi01.move(-malisudu, 0);
@@ -478,7 +478,7 @@ public class GamePlayer {
 					break;
 
 				case 1:
-					if(map.til_peng02.getX()>-1740&&x_mali.getX()>=120) {
+					if(map.til_peng02.getX()>-2970&&x_mali.getX()>=198) {
 						map.til_back02.move(-malisudu, 0);
 						map.til_peng02.move(-malisudu, 0);
 						map.til_zhebi02.move(-malisudu, 0);
@@ -641,11 +641,11 @@ public class GamePlayer {
 				/******主角上跳跃地图移动判断******/
 				switch (GameMap.guan) {
 				case 0:
-					if(map.til_back01.getX()>-1740&&x_mali.getX()>=120) {
+					if(map.til_back01.getX()>-2970&&x_mali.getX()>=198) {
 						map.til_back01.move(-malisudu, 0);
 						map.til_peng01.move(-malisudu, 0);
 						map.til_zhebi01.move(-malisudu, 0);
-						mapmoveX+=4;
+						mapmoveX+=malisudu;
 						x_mali.move(-malisudu, 0);
 						/******主角上跳跃怪物移动判断******/
 						for(int i=0;i<enemyN;i++) {
@@ -662,11 +662,11 @@ public class GamePlayer {
 					break;
 
 				case 1:
-					if(map.til_peng02.getX()>-1740&&x_mali.getX()>=120) {
+					if(map.til_peng02.getX()>-2970&&x_mali.getX()>=198) {
 						map.til_back02.move(-malisudu, 0);
 						map.til_peng02.move(-malisudu, 0);
 						map.til_zhebi02.move(-malisudu, 0);
-						mapmoveX+=4;
+						mapmoveX+=malisudu;
 						x_mali.move(-malisudu, 0);
 						/******主角上跳跃怪物移动判断******/
 						for(int i=0;i<enemyN;i++) {
@@ -743,11 +743,11 @@ public class GamePlayer {
 				/******主角下跳跃地图移动判断******/
 				switch (GameMap.guan) {
 				case 0:
-					if(map.til_back01.getX()>-1740&&x_mali.getX()>=120) {
+					if(map.til_back01.getX()>-2970&&x_mali.getX()>=198) {
 						map.til_back01.move(-malisudu, 0);
 						map.til_peng01.move(-malisudu, 0);
 						map.til_zhebi01.move(-malisudu, 0);
-						mapmoveX+=4;
+						mapmoveX+=malisudu;
 						x_mali.move(-malisudu, 0);
 						/******主角上跳跃怪物移动判断******/
 						for(int i=0;i<enemyN;i++) {
@@ -772,11 +772,11 @@ public class GamePlayer {
 					break;
 
 				case 1:
-					if(map.til_peng02.getX()>-1740&&x_mali.getX()>=120) {
+					if(map.til_peng02.getX()>-2970&&x_mali.getX()>=198) {
 						map.til_back02.move(-malisudu, 0);
 						map.til_peng02.move(-malisudu, 0);
 						map.til_zhebi02.move(-malisudu, 0);
-						mapmoveX+=4;
+						mapmoveX+=malisudu;
 						x_mali.move(-malisudu, 0);
 						/******主角上跳跃怪物移动判断******/
 						for(int i=0;i<enemyN;i++) {
@@ -824,9 +824,9 @@ public class GamePlayer {
 							if(pengkuai[i][j]==31)map.map_peng01[i][j] = 31;
 						}
 					}
-					enemy[0] = new GameEnemy(0,200,180);
-					enemy[1] = new GameEnemy(0,200,140);
-					enemy[2] = new GameEnemy(0,200,220);
+					enemy[0] = new GameEnemy(0,330,297);
+					enemy[1] = new GameEnemy(0,330,231);
+					enemy[2] = new GameEnemy(0,330,363);
 					guaichuxian[0] = true;
 					guaichuxian[1] = true;
 					guaichuxian[2] = true;				

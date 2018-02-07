@@ -247,22 +247,22 @@ public class GameEnemy {
 			switch (type) {
 			case mogu01:
 				switch (DIR) {
-				case R:		sp_mogu01.move(2, 0);		break;
-				case L:		sp_mogu01.move(-2, 0);		break;	
+				case R:		sp_mogu01.move(3, 0);		break;
+				case L:		sp_mogu01.move(-3, 0);		break;	
 				}
 				break;
 
 			case mogu02:
 				switch (DIR) {
-				case R:		sp_mogu02.move(2, 0);		break;
-				case L:		sp_mogu02.move(-2, 0);		break;
+				case R:		sp_mogu02.move(3, 0);		break;
+				case L:		sp_mogu02.move(-3, 0);		break;
 				}
 				break;
 				
 			case wugui:
 				switch (DIR) {
-				case R:		sp_wugui.move(2, 0);		break;
-				case L:		sp_wugui.move(-2, 0);		break;
+				case R:		sp_wugui.move(3, 0);		break;
+				case L:		sp_wugui.move(-3, 0);		break;
 				}
 				break;
 			}
@@ -270,9 +270,9 @@ public class GameEnemy {
 			
 		case D:
 			switch (type) {
-			case mogu01:	sp_mogu01.move(0, 4);		break;
-			case mogu02:	sp_mogu02.move(0, 4);		break;			
-			case wugui:		sp_wugui.move(0, 4);		break;
+			case mogu01:	sp_mogu01.move(0, 6);		break;
+			case mogu02:	sp_mogu02.move(0, 6);		break;			
+			case wugui:		sp_wugui.move(0, 6);		break;
 			}
 			break;
 		}
