@@ -237,16 +237,16 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 		case jieshao:
 			g.setColor(0);
 			g.fillRect(0, 0, W, H);
-			g.drawRegion(img_zi, 50, 42, 50, 43, Sprite.TRANS_NONE, 120, 268, Graphics.TOP|Graphics.HCENTER);
+			g.drawRegion(img_zi, 50, 42, 50, 43, Sprite.TRANS_NONE, 500, 450, Graphics.TOP|Graphics.HCENTER);
 			g.setColor(-1);
 			g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_LARGE));
-			g.setClip(0, 0, W, 268);
-			g.drawSubstring(jieshao_File, 0, 17-2, 28, 268+17*0-jishi, 20);
+			g.setClip(0, 0, W, H);
+			g.drawSubstring(jieshao_File, 0, 17-2, 28+200, 268+17*0-jishi+70, 20);
 			for(int i=1;i<=jieshao_File.length()/17;i++) {
 				if(i == jieshao_File.length()/17) {
-					g.drawSubstring(jieshao_File, 17*i-2, jieshao_File.length()%17+2, 0, 268+17*i-jishi, 20);
+					g.drawSubstring(jieshao_File, 17*i-2, jieshao_File.length()%17+2, 0+200, 268+17*i-jishi+70, 20);
 				} else {
-					g.drawSubstring(jieshao_File, 17*i-2, 17, 0, 268+17*i-jishi, 20);
+					g.drawSubstring(jieshao_File, 17*i-2, 17, 0+200, 268+17*i-jishi+70, 20);
 				}
 			}
 			g.setClip(0, 0, W, H);
