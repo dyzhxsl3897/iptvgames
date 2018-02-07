@@ -557,8 +557,8 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 				/*********ฐ๏ึ๚*************/
 				case 4:
 					if(!xiang_L&&!xiang_R) {
-						jishi = 0;	
-						gamestate = HELP;	
+//						jishi = 0;	
+//						gamestate = HELP;	
 					}
 					break;
 				/*********ึฦื๗ื้************/
