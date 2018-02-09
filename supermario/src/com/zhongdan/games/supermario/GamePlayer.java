@@ -40,7 +40,7 @@ public class GamePlayer {
 	byte z;//换图片
 	byte d_guan;//大关卡数
 	byte x_guan;//小关卡数
-	int gametime01,gametime02 = 100;
+	int gametime01,gametime02 = 150;
 	
 	public GamePlayer(GameMap map,GameImage imglei,GameMusic miclei,int w,int h) {
 		this.map = map;
@@ -66,8 +66,8 @@ public class GamePlayer {
 		img_x_mali = Image.createImage(img_Y_mali, 0, 68, 264, 39, Sprite.TRANS_NONE);	
 		d_mali = new Sprite(img_d_mali,33,44);
 		x_mali = new Sprite(img_x_mali,33,39);	
-		malisudu = 6;
-		n1 = 5;
+		malisudu = 7;
+		n1 = 100;
 		d_guan = 1;
 		x_guan = 1;
 		x_mali_H = x_mali.getHeight();
@@ -263,13 +263,13 @@ public class GamePlayer {
 				guaichuxian[4] = true;
 				guaichuxian[5] = true;
 			}
-			if(!guaichuxian[0]&&!guaichuxian[1]&&mapmoveX==834) {
+			if(!guaichuxian[0]&&!guaichuxian[1]&&mapmoveX==833) {
 				enemy[0] = new GameEnemy(1,495,297);
 				enemy[1] = new GameEnemy(1,495,363);
 				guaichuxian[0] = true;
 				guaichuxian[1] = true;
 			}
-			if(!guaichuxian[2]&&!guaichuxian[3]&&!guaichuxian[4]&&!guaichuxian[5]&&mapmoveX==1650) {
+			if(!guaichuxian[2]&&!guaichuxian[3]&&!guaichuxian[4]&&!guaichuxian[5]&&mapmoveX==1652) {
 				enemy[2] = new GameEnemy(0,495,297);
 				enemy[3] = new GameEnemy(0,495,363);
 				enemy[4] = new GameEnemy(2,594,231);
@@ -288,13 +288,13 @@ public class GamePlayer {
 			break;
 
 		case 1:
-			if(!guaichuxian[0]&&!guaichuxian[1]&&mapmoveX==1074) {
+			if(!guaichuxian[0]&&!guaichuxian[1]&&mapmoveX==1071) {
 				enemy[0] = new GameEnemy(0,396,165);
 				enemy[1] = new GameEnemy(0,495,132);
 				guaichuxian[0] = true;
 				guaichuxian[1] = true;
 			}
-			if(!guaichuxian[2]&&!guaichuxian[3]&&!guaichuxian[4]&&mapmoveX==1422) {
+			if(!guaichuxian[2]&&!guaichuxian[3]&&!guaichuxian[4]&&mapmoveX==1421) {
 				enemy[2] = new GameEnemy(1,231,165);
 				enemy[3] = new GameEnemy(0,264,148);
 				enemy[4] = new GameEnemy(1,297,132);
@@ -302,7 +302,7 @@ public class GamePlayer {
 				guaichuxian[3] = true;
 				guaichuxian[4] = true;
 			}
-			if(!guaichuxian[5]&&!guaichuxian[0]&&!guaichuxian[1]&&mapmoveX==1950) {
+			if(!guaichuxian[5]&&!guaichuxian[0]&&!guaichuxian[1]&&mapmoveX==1953) {
 				enemy[5] = new GameEnemy(1,561,165);
 				enemy[0] = new GameEnemy(2,594,148);
 				enemy[1] = new GameEnemy(1,627,132);
@@ -310,7 +310,7 @@ public class GamePlayer {
 				guaichuxian[0] = true;
 				guaichuxian[1] = true;
 			}
-			if(!guaichuxian[2]&&!guaichuxian[3]&&!guaichuxian[4]&&mapmoveX==2502) {
+			if(!guaichuxian[2]&&!guaichuxian[3]&&!guaichuxian[4]&&mapmoveX==2499) {
 				enemy[2] = new GameEnemy(1,231,165);
 				enemy[3] = new GameEnemy(2,264,148);
 				enemy[4] = new GameEnemy(1,297,132);
