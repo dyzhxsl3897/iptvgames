@@ -6,7 +6,7 @@ import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.GameCanvas;
 import javax.microedition.lcdui.game.Sprite;
 import javax.microedition.media.Player;
-/********±¾Ô´ÂëÏÂÔØ×ÔÔ´Âë°®ºÃÕß_www.codefans.net*********/
+/********æœ¬æºç ä¸‹è½½è‡ªæºç çˆ±å¥½è€…_www.codefans.net*********/
 
 public class MyGameCanvas extends GameCanvas implements Runnable {
 	final int W,H;
@@ -18,15 +18,15 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 	int ppx[] = {320,306,293,280,269,259,251,245,241,240,241,245,251,259,269,280,293,306,320,334,347,360,371,381,389,395,399,400,399,395,389,381,371,360,347,334};
 	int ppy[] = {110,111,115,121,129,139,150,163,176,190,204,217,230,241,251,259,265,269,270,269,265,259,251,241,230,217,204,190,176,163,150,139,129,121,115,111};
 	int pp_Array_index_1,pp_Array_index_2,pp_Array_index_3,pp_Array_index_4,pp_Array_index_5,pp_Array_index_6;
-	String zhizuo_Array[] = {"×Ü²ß»®:","°¢·ÉÍ¬Ñ§¡£","ÃÀÊõÉè¼Æ:", "Ê·Èğ¿ËÍ¬Ñ§¡£","³ÌĞòÉè¼Æ:", "ÈÌÕßÉñ¹êÍ¬Ñ§¡£",
-			"²âÊÔÈËÔ±:","Ö©ÖëÏÀÍ¬Ñ§¡£","ÖÆ×÷µ¥Î»£º","Î÷°²À¶¹èÍ¨ĞÅ¼¼ÊõÓĞÏŞ¹«Ë¾¡£"};
-	String jieshao_File = "´ÓÇ°ÔÚÂêÑÅ´óÂ½ÉÏÓĞ×ÅÒ»¸ö°²¾²¶øÓÖºÍÆ½µÄĞ¡¹ú¼Ò£¬ÔÚÄÇ¸ö¹ú¼ÒÖĞ£¬ÈËÃÇ¶¼·Ç³£µÄÓÑºÃ¡£ÔÚ¹ú¼ÒµÄÖĞĞÄ" +
-			"ÓĞÒ»¸öÃû½Ğ±ÈÌØ°¬¶ûµÄ»¨Ô°³Ç±¤£¬³Ç±¤·Ç³£µÄÃÀÀö£¬ÂúµØ¶¼ÊÇÏÊ»¨£¬ÔÚÕâ¸ö¹ú¼ÒµÄÃ¿¸ö½ÇÂä¶¼ÄÜ¸ĞÊÜµ½³Ç±¤ÖĞÏÊ»¨" +			
-			"µÄÏãÎ¶¡£Õâ×ø³Ç±¤µÄÖ÷ÈËÓĞÒ»¸öÅ®¶ù£¬ÓµÓĞ×ÅÌìÊ¹°ãµÄÃæÈİ¡£¿ÉÄÜÕıÊÇÒòÎªÕâÎ»¹«Ö÷µÄÃÀÀö¶ø´øÀ´ÁËÒ»´ÎºÆ½Ù¡£ÔÚÒ»" +
-			"¸öÆáºÚµÄÍíÉÏÎÚÔÆÃÜ²¼£¬Ìì¿ÕÖĞµçÉÁÀ×Ãù£¬Í»È»´ÓÎÚÔÆÖĞ·É³öÒ»ÌõºÚÉ«µÄ¾ŞÁúÇÀ×ßÁË¹«Ö÷£¬³Ç±¤µÄÖ÷ÈËËÄÏÂ´òÌı²ÅµÃ" +
-			"ÖªÔ­À´×Ô¼ºµÄÅ®¶ù¸ø¾ŞÁú´øµ½ÁËÀë³Ç±¤²»Ô¶µÄÁúÑÀ¹ÈÖĞ£¬ÎªÁË¾Í³öËûÎ¨Ò»µÄÅ®¶ù£¬ÔÚ³Ç±¤ÖĞÕ³Ìù¸æÊ¾£¬²¢ĞíÅµ£ºË­Òª" +
-			"ÊÇÄÜ¾È³ö¹«Ö÷¾Í°Ñ¹«Ö÷ĞíÅä¸øËû¡£´ËÊ±Ò»Î»ÄêÇáÈË×ß³öÈËÈº£¬À´µ½³Ç±¤´ğÓ¦¾È³ö¹«Ö÷¡£ÕâÎ»ÄêÇáÈËËûµÄÃû×Ö¾Í½Ğ¡°ÂêÀö¡±" +
-			"¡£µÈµ½µÚ¶şÌìÂêÀö¾ÍÌ¤ÉÏÁËÓª¾È¹«Ö÷µÄÂÃ³Ì¡£¡£¡£¡£¡£¡£";
+	String zhizuo_Array[] = {"æ€»ç­–åˆ’:","é˜¿é£åŒå­¦ã€‚","ç¾æœ¯è®¾è®¡:", "å²ç‘å…‹åŒå­¦ã€‚","ç¨‹åºè®¾è®¡:", "å¿è€…ç¥é¾ŸåŒå­¦ã€‚",
+			"æµ‹è¯•äººå‘˜:","èœ˜è››ä¾ åŒå­¦ã€‚","åˆ¶ä½œå•ä½ï¼š","è¥¿å®‰è“ç¡…é€šä¿¡æŠ€æœ¯æœ‰é™å…¬å¸ã€‚"};
+	String jieshao_File = "ä»å‰åœ¨ç›é›…å¤§é™†ä¸Šæœ‰ç€ä¸€ä¸ªå®‰é™è€Œåˆå’Œå¹³çš„å°å›½å®¶ï¼Œåœ¨é‚£ä¸ªå›½å®¶ä¸­ï¼Œäººä»¬éƒ½éå¸¸çš„å‹å¥½ã€‚åœ¨å›½å®¶çš„ä¸­å¿ƒ" +
+			"æœ‰ä¸€ä¸ªåå«æ¯”ç‰¹è‰¾å°”çš„èŠ±å›­åŸå ¡ï¼ŒåŸå ¡éå¸¸çš„ç¾ä¸½ï¼Œæ»¡åœ°éƒ½æ˜¯é²œèŠ±ï¼Œåœ¨è¿™ä¸ªå›½å®¶çš„æ¯ä¸ªè§’è½éƒ½èƒ½æ„Ÿå—åˆ°åŸå ¡ä¸­é²œèŠ±" +			
+			"çš„é¦™å‘³ã€‚è¿™ååŸå ¡çš„ä¸»äººæœ‰ä¸€ä¸ªå¥³å„¿ï¼Œæ‹¥æœ‰ç€å¤©ä½¿èˆ¬çš„é¢å®¹ã€‚å¯èƒ½æ­£æ˜¯å› ä¸ºè¿™ä½å…¬ä¸»çš„ç¾ä¸½è€Œå¸¦æ¥äº†ä¸€æ¬¡æµ©åŠ«ã€‚åœ¨ä¸€" +
+			"ä¸ªæ¼†é»‘çš„æ™šä¸Šä¹Œäº‘å¯†å¸ƒï¼Œå¤©ç©ºä¸­ç”µé—ªé›·é¸£ï¼Œçªç„¶ä»ä¹Œäº‘ä¸­é£å‡ºä¸€æ¡é»‘è‰²çš„å·¨é¾™æŠ¢èµ°äº†å…¬ä¸»ï¼ŒåŸå ¡çš„ä¸»äººå››ä¸‹æ‰“å¬æ‰å¾—" +
+			"çŸ¥åŸæ¥è‡ªå·±çš„å¥³å„¿ç»™å·¨é¾™å¸¦åˆ°äº†ç¦»åŸå ¡ä¸è¿œçš„é¾™ç‰™è°·ä¸­ï¼Œä¸ºäº†å°±å‡ºä»–å”¯ä¸€çš„å¥³å„¿ï¼Œåœ¨åŸå ¡ä¸­ç²˜è´´å‘Šç¤ºï¼Œå¹¶è®¸è¯ºï¼šè°è¦" +
+			"æ˜¯èƒ½æ•‘å‡ºå…¬ä¸»å°±æŠŠå…¬ä¸»è®¸é…ç»™ä»–ã€‚æ­¤æ—¶ä¸€ä½å¹´è½»äººèµ°å‡ºäººç¾¤ï¼Œæ¥åˆ°åŸå ¡ç­”åº”æ•‘å‡ºå…¬ä¸»ã€‚è¿™ä½å¹´è½»äººä»–çš„åå­—å°±å«â€œç›ä¸½â€" +
+			"ã€‚ç­‰åˆ°ç¬¬äºŒå¤©ç›ä¸½å°±è¸ä¸Šäº†è¥æ•‘å…¬ä¸»çš„æ—…ç¨‹ã€‚ã€‚ã€‚ã€‚ã€‚ã€‚";
 	GameImage imglei;
 	GameMusic miclei;
 	GameMap map;
@@ -527,7 +527,7 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 				
 			case Canvas.FIRE:
 				switch (jishi) {
-				/*********¿ªÊ¼*************/
+				/*********å¼€å§‹*************/
 				case 0:
 					if(!xiang_L&&!xiang_R) {
 						jishi = 0;
@@ -535,33 +535,33 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 						gamestate = kaishi;			
 					}
 					break;
-				/*********ÒôÀÖ*************/
+				/*********éŸ³ä¹*************/
 				case 1:
 					if(!xiang_L&&!xiang_R) {
 						
 					}
 					break;
-				/*********½éÉÜ*************/
+				/*********ä»‹ç»*************/
 				case 2:
 					if(!xiang_L&&!xiang_R) {
 						jishi = 0;
 						gamestate = jieshao;	
 					}
 					break;
-				/*********ÍË³ö*************/
+				/*********é€€å‡º*************/
 				case 3:
 					if(!xiang_L&&!xiang_R) {
 						RUN = false;
 					}
 					break;
-				/*********°ïÖú*************/
+				/*********å¸®åŠ©*************/
 				case 4:
 					if(!xiang_L&&!xiang_R) {
 //						jishi = 0;	
 //						gamestate = HELP;	
 					}
 					break;
-				/*********ÖÆ×÷×é************/
+				/*********åˆ¶ä½œç»„************/
 				case 5:
 					if(!xiang_L&&!xiang_R) {
 						jishi = 0;
@@ -624,7 +624,7 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 				break;
 			}
 		case kaishi:
-			if(keyCode == -7) {
+			if(keyCode == -7 || keyCode == -31 || keyCode == -9) {
 				jishi = 0;	
 				pp_Array_index_1 = 0;
 				pp_Array_index_2 = 0;
@@ -635,13 +635,13 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 				RUNtime = 80;
 				gamestate = caidan;
 			}
-//			if(keyCode == KEY_NUM1&&pla.x_mali_state!=pla.ÌøÔ¾) {
-//				pla.x_mali_state = pla.ÌøÔ¾;
-////				pla.´óÂêÀö×´Ì¬ = pla.ÌøÔ¾;
-//				pla.ÌøÔ¾×´Ì¬ = pla.U;
-////				pla.x_mali.move(pla.ÂêÀöÒÆ¶¯ËÙ¶È, 0);
+//			if(keyCode == KEY_NUM1&&pla.x_mali_state!=pla.è·³è·ƒ) {
+//				pla.x_mali_state = pla.è·³è·ƒ;
+////				pla.å¤§ç›ä¸½çŠ¶æ€ = pla.è·³è·ƒ;
+//				pla.è·³è·ƒçŠ¶æ€ = pla.U;
+////				pla.x_mali.move(pla.ç›ä¸½ç§»åŠ¨é€Ÿåº¦, 0);
 //			}
-//			if(keyCode == KEY_NUM3&&pla.x_mali_state!=pla.ÌøÔ¾) {
+//			if(keyCode == KEY_NUM3&&pla.x_mali_state!=pla.è·³è·ƒ) {
 //				System.out.println("54");
 //			}
 			break;
@@ -652,21 +652,21 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 		switch (gamestate) {
 		case kaishi:
 			if(pla.x_mali_state!=pla.gameover&&pla.x_mali_state!=pla.kill) {
-				if((this.getKeyStates()&GameCanvas.RIGHT_PRESSED)!=0)//·ÀÖ¹Ïß³Ì²»Í¬²½ÎÊÌâ
+				if((this.getKeyStates()&GameCanvas.RIGHT_PRESSED)!=0)//é˜²æ­¢çº¿ç¨‹ä¸åŒæ­¥é—®é¢˜
 					if((this.getKeyStates()&GameCanvas.RIGHT_PRESSED)!=0&&pla.x_mali_state!=pla.tiaoyue) {
 						pla.x_mali_state = pla.yidong;
-//						pla.´óÂêÀö×´Ì¬ = pla.ÒÆ¶¯;
+//						pla.å¤§ç›ä¸½çŠ¶æ€ = pla.ç§»åŠ¨;
 						pla.DIR = pla.R;
 					}
 					if((this.getKeyStates()&GameCanvas.LEFT_PRESSED)!=0&&pla.x_mali_state!=pla.tiaoyue) {
 						pla.x_mali_state = pla.yidong;
-//						pla.´óÂêÀö×´Ì¬ = pla.ÒÆ¶¯;
+//						pla.å¤§ç›ä¸½çŠ¶æ€ = pla.ç§»åŠ¨;
 						pla.DIR = pla.L;
 					}	
 					if((this.getKeyStates()&GameCanvas.UP_PRESSED)!=0&&pla.x_mali_state!=pla.tiaoyue) {
 						pla.x_mali_state = pla.tiaoyue;
-//						pla.´óÂêÀö×´Ì¬ = pla.ÌøÔ¾;
-						pla.ÌøÔ¾×´Ì¬ = pla.U;
+//						pla.å¤§ç›ä¸½çŠ¶æ€ = pla.è·³è·ƒ;
+						pla.è·³è·ƒçŠ¶æ€ = pla.U;
 					}
 					switch (pla.x_mali_state) {
 					case 3:

@@ -2,7 +2,7 @@ package com.zhongdan.games.supermario;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.Sprite;
-/********±¾Ô´ÂëÏÂÔØ×ÔÔ´Âë°®ºÃÕß_www.codefans.net*********/
+/********æœ¬æºç ä¸‹è½½è‡ªæºç çˆ±å¥½è€…_www.codefans.net*********/
 
 public class GameEnemy {
 	GameImage imglei = new GameImage();
@@ -10,9 +10,9 @@ public class GameEnemy {
 	Sprite sp_mogu01,sp_mogu02,sp_wugui;
 	final byte mogu01 = 0,mogu02 = 1,wugui = 2;
 	final byte R = 6,L= 4,D = 8;
-	final byte ÒÆ¶¯ = 1,kill = 2;
+	final byte ç§»åŠ¨ = 1,kill = 2;
 	int type;
-	int µØÍ¼ÒÆ¶¯Á¿X;
+	int åœ°å›¾ç§»åŠ¨é‡X;
 	int DIR = L,state = D;
 	boolean sfkill;
 	int killtime;
@@ -24,7 +24,7 @@ public class GameEnemy {
 	
 	public GameEnemy(int type,int x,int y) {
 		this.type = type;
-		/********¸ù¾İÀàĞÍ²»Í¬´´½¨²»Í¬µÄ¹ÖÎï*********/
+		/********æ ¹æ®ç±»å‹ä¸åŒåˆ›å»ºä¸åŒçš„æ€ªç‰©*********/
 		switch (type) {
 		case mogu01:
 			sp_mogu01 = new Sprite(img_emy_mogu01,40,26);
@@ -52,8 +52,8 @@ public class GameEnemy {
 	
 	public void pinat(Graphics g) {
 		switch (state) {
-		case ÒÆ¶¯:
-			/********ÔÚÒÆ¶¯×´Ì¬ÏÂ¸ù¾İÀàĞÍ²»Í¬»æÖÆ²»Í¬µÄ¹ÖÎï*********/
+		case ç§»åŠ¨:
+			/********åœ¨ç§»åŠ¨çŠ¶æ€ä¸‹æ ¹æ®ç±»å‹ä¸åŒç»˜åˆ¶ä¸åŒçš„æ€ªç‰©*********/
 			switch (type) {
 			case mogu01:	sp_mogu01.paint(g);		break;				
 			case mogu02:	sp_mogu02.paint(g);		break;					
@@ -74,7 +74,7 @@ public class GameEnemy {
 			break;
 			
 		case D:
-			/********ÔÚÏÂÂä×´Ì¬ÏÂ¸ù¾İÀàĞÍ²»Í¬»æÖÆ²»Í¬µÄ¹ÖÎï*********/
+			/********åœ¨ä¸‹è½çŠ¶æ€ä¸‹æ ¹æ®ç±»å‹ä¸åŒç»˜åˆ¶ä¸åŒçš„æ€ªç‰©*********/
 			switch (type) {
 			case mogu01:	sp_mogu01.paint(g);		break;				
 			case mogu02:	sp_mogu02.paint(g);		break;				
@@ -95,7 +95,7 @@ public class GameEnemy {
 			break;
 			
 		case kill:
-			/********ÔÚËÀÍö×´Ì¬ÏÂ¸ù¾İÀàĞÍ²»Í¬»æÖÆ²»Í¬µÄ¹ÖÎï*********/
+			/********åœ¨æ­»äº¡çŠ¶æ€ä¸‹æ ¹æ®ç±»å‹ä¸åŒç»˜åˆ¶ä¸åŒçš„æ€ªç‰©*********/
 			switch (type) {
 			case mogu01:	sp_mogu01.paint(g);		break;					
 			case mogu02:	sp_mogu02.paint(g);		break;					
@@ -117,37 +117,37 @@ public class GameEnemy {
 		}
 	}
 
-	public void logic(int µØÍ¼ÒÆ¶¯Á¿X) {
-		this.µØÍ¼ÒÆ¶¯Á¿X = µØÍ¼ÒÆ¶¯Á¿X;
-		/********¸ù¾İ²»Í¬¹ÖÎïµÄÀàĞÍÊµÏÖ²»Í¬µÄÂß¼­*********/
+	public void logic(int åœ°å›¾ç§»åŠ¨é‡X) {
+		this.åœ°å›¾ç§»åŠ¨é‡X = åœ°å›¾ç§»åŠ¨é‡X;
+		/********æ ¹æ®ä¸åŒæ€ªç‰©çš„ç±»å‹å®ç°ä¸åŒçš„é€»è¾‘*********/
 		switch (GameMap.guan) {
 		case 0:
 			switch (type) {
 			case mogu01:
-				/********µÚÒ»Àà¹ÖÎïµÄÂß¼­*********/
+				/********ç¬¬ä¸€ç±»æ€ªç‰©çš„é€»è¾‘*********/
 				if(!sfkill&&sp_mogu01_DZ_coll(map.map_peng01)) {
 					sp_mogu01.setPosition(sp_mogu01.getX(), (sp_mogu01.getY()+mogu01_H)/map.kuaisize*map.kuaisize-mogu01_H);
-					state = ÒÆ¶¯;
+					state = ç§»åŠ¨;
 				} else if(!sfkill&&!sp_mogu01_DZ_coll(map.map_peng01))state = D;
 				if(!sfkill&&sp_mogu01_LZ_coll(map.map_peng01))DIR = R;
 				if(!sfkill&&sp_mogu01_RZ_coll(map.map_peng01))DIR = L;
 				break;
 				
 			case mogu02:
-				/********µÚ¶şÀà¹ÖÎïµÄÂß¼­*********/
+				/********ç¬¬äºŒç±»æ€ªç‰©çš„é€»è¾‘*********/
 				if(!sfkill&&sp_mogu02_DZ_coll(map.map_peng01)) {
 					sp_mogu02.setPosition(sp_mogu02.getX(), (sp_mogu02.getY()+mogu02_H)/map.kuaisize*map.kuaisize-mogu02_H);
-					state = ÒÆ¶¯;
+					state = ç§»åŠ¨;
 				} else if(!sfkill&&!sp_mogu02_DZ_coll(map.map_peng01))state = D;
 				if(!sfkill&&sp_mogu02_LZ_coll(map.map_peng01))DIR = R;
 				if(!sfkill&&sp_mogu02_RZ_coll(map.map_peng01))DIR = L;
 				break;
 				
 			case wugui:
-				/********µÚÈıÀà¹ÖÎïµÄÂß¼­*********/
+				/********ç¬¬ä¸‰ç±»æ€ªç‰©çš„é€»è¾‘*********/
 				if(!sfkill&&sp_wugui_DZ_coll(map.map_peng01)) {
 					sp_wugui.setPosition(sp_wugui.getX(), (sp_wugui.getY()+wugui_H)/map.kuaisize*map.kuaisize-wugui_H);
-					state = ÒÆ¶¯;
+					state = ç§»åŠ¨;
 				} else if(!sfkill&&!sp_wugui_DZ_coll(map.map_peng01))state = D;
 				if(!sfkill&&sp_wugui_LZ_coll(map.map_peng01))DIR = R;
 				if(!sfkill&&sp_wugui_RZ_coll(map.map_peng01))DIR = L;
@@ -158,30 +158,30 @@ public class GameEnemy {
 		case 1:
 			switch (type) {
 			case mogu01:
-				/********µÚÒ»Àà¹ÖÎïµÄÂß¼­*********/
+				/********ç¬¬ä¸€ç±»æ€ªç‰©çš„é€»è¾‘*********/
 				if(!sfkill&&sp_mogu01_DZ_coll(map.map_peng02)) {
 					sp_mogu01.setPosition(sp_mogu01.getX(), (sp_mogu01.getY()+mogu01_H)/map.kuaisize*map.kuaisize-mogu01_H);
-					state = ÒÆ¶¯;
+					state = ç§»åŠ¨;
 				} else if(!sfkill&&!sp_mogu01_DZ_coll(map.map_peng02))state = D;
 				if(!sfkill&&sp_mogu01_LZ_coll(map.map_peng02))DIR = R;
 				if(!sfkill&&sp_mogu01_RZ_coll(map.map_peng02))DIR = L;
 				break;
 				
 			case mogu02:
-				/********µÚ¶şÀà¹ÖÎïµÄÂß¼­*********/
+				/********ç¬¬äºŒç±»æ€ªç‰©çš„é€»è¾‘*********/
 				if(!sfkill&&sp_mogu02_DZ_coll(map.map_peng02)) {
 					sp_mogu02.setPosition(sp_mogu02.getX(), (sp_mogu02.getY()+mogu02_H)/map.kuaisize*map.kuaisize-mogu02_H);
-					state = ÒÆ¶¯;
+					state = ç§»åŠ¨;
 				} else if(!sfkill&&!sp_mogu02_DZ_coll(map.map_peng02))state = D;
 				if(!sfkill&&sp_mogu02_LZ_coll(map.map_peng02))DIR = R;
 				if(!sfkill&&sp_mogu02_RZ_coll(map.map_peng02))DIR = L;
 				break;
 				
 			case wugui:
-				/********µÚÈıÀà¹ÖÎïµÄÂß¼­*********/
+				/********ç¬¬ä¸‰ç±»æ€ªç‰©çš„é€»è¾‘*********/
 				if(!sfkill&&sp_wugui_DZ_coll(map.map_peng02)) {
 					sp_wugui.setPosition(sp_wugui.getX(), (sp_wugui.getY()+wugui_H)/map.kuaisize*map.kuaisize-wugui_H);
-					state = ÒÆ¶¯;
+					state = ç§»åŠ¨;
 				} else if(!sfkill&&!sp_wugui_DZ_coll(map.map_peng02))state = D;
 				if(!sfkill&&sp_wugui_LZ_coll(map.map_peng02))DIR = R;
 				if(!sfkill&&sp_wugui_RZ_coll(map.map_peng02))DIR = L;
@@ -190,22 +190,22 @@ public class GameEnemy {
 			break;
 		}
 		switch (state) {
-		case ÒÆ¶¯:
+		case ç§»åŠ¨:
 			switch (type) {
 			case mogu01:
-				/********µÚÒ»Àà¹ÖÎïµÄ»»Ö¡*********/
+				/********ç¬¬ä¸€ç±»æ€ªç‰©çš„æ¢å¸§*********/
 				sp_mogu01.nextFrame();	
 				if(sp_mogu01.getFrame()==2)sp_mogu01.setFrame(0);
 				break;
 				
 			case mogu02:
-				/********µÚ¶şÀà¹ÖÎïµÄ»»Ö¡*********/
+				/********ç¬¬äºŒç±»æ€ªç‰©çš„æ¢å¸§*********/
 				sp_mogu02.nextFrame();	
 				if(sp_mogu02.getFrame()==2)sp_mogu02.setFrame(0);
 				break;
 				
 			case wugui:
-				/********µÚÈıÀà¹ÖÎïµÄ»»Ö¡*********/
+				/********ç¬¬ä¸‰ç±»æ€ªç‰©çš„æ¢å¸§*********/
 				sp_wugui.nextFrame();	
 				if(sp_wugui.getFrame()==2)sp_wugui.setFrame(0);	
 				break;
@@ -241,9 +241,9 @@ public class GameEnemy {
 	}
 	
 	public void move() {
-		/********¸ù¾İ²»Í¬¹ÖÎïµÄÀàĞÍÊµÏÖ²»Í¬µÄÒÆ¶¯*********/
+		/********æ ¹æ®ä¸åŒæ€ªç‰©çš„ç±»å‹å®ç°ä¸åŒçš„ç§»åŠ¨*********/
 		switch (state) {
-		case ÒÆ¶¯:
+		case ç§»åŠ¨:
 			switch (type) {
 			case mogu01:
 				switch (DIR) {
@@ -279,13 +279,13 @@ public class GameEnemy {
 	}
 	
 	/**
-	 * sp_mogu01 Åö×²¼ì²âµã
+	 * sp_mogu01 ç¢°æ’æ£€æµ‹ç‚¹
 	 */
 	boolean sp_mogu01_arrout = false;
 	
-	/*************sp_mogu01 Åö×²¼ì²âµã***********ÏÂÖĞ***/
+	/*************sp_mogu01 ç¢°æ’æ£€æµ‹ç‚¹***********ä¸‹ä¸­***/
 	public boolean sp_mogu01_DZ_coll(int tilarrr[][]) {
-		int sp_mogu01_kuai_x = (sp_mogu01.getX()+µØÍ¼ÒÆ¶¯Á¿X+mogu01_W/2)/map.kuaisize;
+		int sp_mogu01_kuai_x = (sp_mogu01.getX()+åœ°å›¾ç§»åŠ¨é‡X+mogu01_W/2)/map.kuaisize;
 		int	sp_mogu01_kuai_y = (sp_mogu01.getY()+mogu01_H)/map.kuaisize;
 		int coll_kuai = 1;
 		if(!sp_mogu01_arrout) {
@@ -299,9 +299,9 @@ public class GameEnemy {
 		else return false;
 	}
 	
-	/*************sp_mogu01 Åö×²¼ì²âµã***********ÓÒÖĞ***/
+	/*************sp_mogu01 ç¢°æ’æ£€æµ‹ç‚¹***********å³ä¸­***/
 	public boolean sp_mogu01_RZ_coll(int tilarrr[][]) {
-		int sp_mogu01_kuai_x = (sp_mogu01.getX()+µØÍ¼ÒÆ¶¯Á¿X+mogu01_W)/map.kuaisize;
+		int sp_mogu01_kuai_x = (sp_mogu01.getX()+åœ°å›¾ç§»åŠ¨é‡X+mogu01_W)/map.kuaisize;
 		int	sp_mogu01_kuai_y = (sp_mogu01.getY()+mogu01_H/2)/map.kuaisize;
 		int coll_kuai = 1;
 		if(!sp_mogu01_arrout) {
@@ -315,9 +315,9 @@ public class GameEnemy {
 		else return false;
 	}
 	
-	/*************sp_mogu01 Åö×²¼ì²âµã***********×óÖĞ***/
+	/*************sp_mogu01 ç¢°æ’æ£€æµ‹ç‚¹***********å·¦ä¸­***/
 	public boolean sp_mogu01_LZ_coll(int tilarrr[][]) {
-		int sp_mogu01_kuai_x = (sp_mogu01.getX()+µØÍ¼ÒÆ¶¯Á¿X)/map.kuaisize;
+		int sp_mogu01_kuai_x = (sp_mogu01.getX()+åœ°å›¾ç§»åŠ¨é‡X)/map.kuaisize;
 		int sp_mogu01_kuai_y = (sp_mogu01.getY()+mogu01_H/2)/map.kuaisize;
 		int coll_kuai = 1;
 		if(!sp_mogu01_arrout) {
@@ -332,13 +332,13 @@ public class GameEnemy {
 	}
 	
 	/**
-	 * sp_mogu02 Åö×²¼ì²âµã
+	 * sp_mogu02 ç¢°æ’æ£€æµ‹ç‚¹
 	 */
 	boolean sp_mogu02_arrout = false;
 	
-	/*************sp_mogu02 Åö×²¼ì²âµã***********ÏÂÖĞ***/
+	/*************sp_mogu02 ç¢°æ’æ£€æµ‹ç‚¹***********ä¸‹ä¸­***/
 	public boolean sp_mogu02_DZ_coll(int tilarrr[][]) {
-		int sp_mogu02_kuai_x = (sp_mogu02.getX()+µØÍ¼ÒÆ¶¯Á¿X+mogu02_W/2)/map.kuaisize;
+		int sp_mogu02_kuai_x = (sp_mogu02.getX()+åœ°å›¾ç§»åŠ¨é‡X+mogu02_W/2)/map.kuaisize;
 		int	sp_mogu02_kuai_y = (sp_mogu02.getY()+mogu02_H)/map.kuaisize;
 		int coll_kuai = 1;
 		if(!sp_mogu02_arrout) {
@@ -352,9 +352,9 @@ public class GameEnemy {
 		else return false;
 	}
 	
-	/*************sp_mogu02 Åö×²¼ì²âµã***********ÓÒÖĞ***/
+	/*************sp_mogu02 ç¢°æ’æ£€æµ‹ç‚¹***********å³ä¸­***/
 	public boolean sp_mogu02_RZ_coll(int tilarrr[][]) {
-		int sp_mogu02_kuai_x = (sp_mogu02.getX()+µØÍ¼ÒÆ¶¯Á¿X+mogu02_W)/map.kuaisize;
+		int sp_mogu02_kuai_x = (sp_mogu02.getX()+åœ°å›¾ç§»åŠ¨é‡X+mogu02_W)/map.kuaisize;
 		int	sp_mogu02_kuai_y = (sp_mogu02.getY()+mogu02_H/2)/map.kuaisize;
 		int coll_kuai = 1;
 		if(!sp_mogu02_arrout) {
@@ -368,9 +368,9 @@ public class GameEnemy {
 		else return false;
 	}
 	
-	/*************sp_mogu02 Åö×²¼ì²âµã***********×óÖĞ***/
+	/*************sp_mogu02 ç¢°æ’æ£€æµ‹ç‚¹***********å·¦ä¸­***/
 	public boolean sp_mogu02_LZ_coll(int tilarrr[][]) {
-		int sp_mogu02_kuai_x = (sp_mogu02.getX()+µØÍ¼ÒÆ¶¯Á¿X)/map.kuaisize;
+		int sp_mogu02_kuai_x = (sp_mogu02.getX()+åœ°å›¾ç§»åŠ¨é‡X)/map.kuaisize;
 		int sp_mogu02_kuai_y = (sp_mogu02.getY()+mogu02_H/2)/map.kuaisize;
 		int coll_kuai = 1;
 		if(!sp_mogu02_arrout) {
@@ -385,13 +385,13 @@ public class GameEnemy {
 	}
 	
 	/**
-	 * sp_wugui Åö×²¼ì²âµã
+	 * sp_wugui ç¢°æ’æ£€æµ‹ç‚¹
 	 */
 	boolean sp_wugui_arrout = false;
 	
-	/*************sp_wugui Åö×²¼ì²âµã***********ÏÂÖĞ***/
+	/*************sp_wugui ç¢°æ’æ£€æµ‹ç‚¹***********ä¸‹ä¸­***/
 	public boolean sp_wugui_DZ_coll(int tilarrr[][]) {
-		int sp_wugui_kuai_x = (sp_wugui.getX()+µØÍ¼ÒÆ¶¯Á¿X+wugui_W/2)/map.kuaisize;
+		int sp_wugui_kuai_x = (sp_wugui.getX()+åœ°å›¾ç§»åŠ¨é‡X+wugui_W/2)/map.kuaisize;
 		int	sp_wugui_kuai_y = (sp_wugui.getY()+wugui_H)/map.kuaisize;
 		int coll_kuai = 1;
 		if(!sp_wugui_arrout) {
@@ -405,9 +405,9 @@ public class GameEnemy {
 		else return false;
 	}
 	
-	/*************sp_wugui Åö×²¼ì²âµã***********ÓÒÖĞ***/
+	/*************sp_wugui ç¢°æ’æ£€æµ‹ç‚¹***********å³ä¸­***/
 	public boolean sp_wugui_RZ_coll(int tilarrr[][]) {
-		int sp_wugui_kuai_x = (sp_wugui.getX()+µØÍ¼ÒÆ¶¯Á¿X+wugui_W)/map.kuaisize;
+		int sp_wugui_kuai_x = (sp_wugui.getX()+åœ°å›¾ç§»åŠ¨é‡X+wugui_W)/map.kuaisize;
 		int	sp_wugui_kuai_y = (sp_wugui.getY()+wugui_H/2)/map.kuaisize;
 		int coll_kuai = 1;
 		if(!sp_wugui_arrout) {
@@ -421,9 +421,9 @@ public class GameEnemy {
 		else return false;
 	}
 	
-	/*************sp_wugui Åö×²¼ì²âµã***********×óÖĞ***/
+	/*************sp_wugui ç¢°æ’æ£€æµ‹ç‚¹***********å·¦ä¸­***/
 	public boolean sp_wugui_LZ_coll(int tilarrr[][]) {
-		int sp_wugui_kuai_x = (sp_wugui.getX()+µØÍ¼ÒÆ¶¯Á¿X)/map.kuaisize;
+		int sp_wugui_kuai_x = (sp_wugui.getX()+åœ°å›¾ç§»åŠ¨é‡X)/map.kuaisize;
 		int sp_wugui_kuai_y = (sp_wugui.getY()+wugui_H/2)/map.kuaisize;
 		int coll_kuai = 1;
 		if(!sp_wugui_arrout) {

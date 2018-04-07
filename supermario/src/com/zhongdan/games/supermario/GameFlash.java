@@ -13,10 +13,10 @@ public class GameFlash {
 	Image img_Y_tu = imglei.imglong("MaLi");
 	Image img_jinbi = Image.createImage(img_Y_tu, 49, 0, 18*6, 18, Sprite.TRANS_NONE);
 	Image img_shitou = Image.createImage(img_Y_tu, 0, 173, 66*4, 66*2, Sprite.TRANS_NONE);
-	int 地图移动量X;
+	int 鍦板浘绉诲姩閲廥;
 	int type;
-	int jibimove;//金币的移动偏移量
-	int shitoumove;//石头的移动偏移量
+	int jibimove;//閲戝竵鐨勭Щ鍔ㄥ亸绉婚噺
+	int shitoumove;//鐭冲ご鐨勭Щ鍔ㄥ亸绉婚噺
 	boolean sfxiaoshi;
 	
 	public GameFlash(int type,int x,int y) {
@@ -41,7 +41,7 @@ public class GameFlash {
 		}
 	}
 	
-	public void logic(int 地图移动量X) {
+	public void logic(int 鍦板浘绉诲姩閲廥) {
 		switch (type) {
 		case jinbi:
 			sp_jinbi.nextFrame();

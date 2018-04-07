@@ -4,15 +4,15 @@ import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.Sprite;
 import javax.microedition.lcdui.game.TiledLayer;
 import javax.microedition.media.Player;
-/********±¾Ô´ÂëÏÂÔØ×ÔÔ´Âë°®ºÃÕß_www.codefans.net*********/
+/********æœ¬æºç ä¸‹è½½è‡ªæºç çˆ±å¥½è€…_www.codefans.net*********/
 
 public class GamePlayer {
 	GameImage imglei;
 	GameMusic miclei;
 	GameMap map;
 	Player mid_kill,mid_gameover;
-	GameEnemy enemy[];//µĞÈËÀà£¨¹ÖÎï£©
-	GameFlash flash[];//¶¯»­Àà£¨½ğ±ÒºÍÊ¯Í·£©
+	GameEnemy enemy[];//æ•Œäººç±»ï¼ˆæ€ªç‰©ï¼‰
+	GameFlash flash[];//åŠ¨ç”»ç±»ï¼ˆé‡‘å¸å’ŒçŸ³å¤´ï¼‰
 	int flashN;
 	int enemyN;
 	boolean guaichuxian[];
@@ -26,20 +26,20 @@ public class GamePlayer {
 	int frame[] = {3,1,2,5,6,7};	
 	final byte zhanli = 0,yidong = 1,ACT = 2,tiaoyue = 3,kill = 4,gameover = 5;
 	final byte U = 2,D = 8,L = 4,R = 6,UR = 26,UL = 24,DR = 86,DL = 84;
-	byte d_mali_state = zhanli,x_mali_state = zhanli,DIR = R,ÌøÔ¾×´Ì¬,kill_state;	
+	byte d_mali_state = zhanli,x_mali_state = zhanli,DIR = R,è·³è·ƒçŠ¶æ€,kill_state;	
 	int mali_X,mali_Y;
 	byte malisudu;	
 	byte jiasudu[] = {23,19,16,14,13,11,9,8,6,4,3,1};
-	byte index;//¼ÓËÙ¶ÈÊı×éÏÂ±ê
+	byte index;//åŠ é€Ÿåº¦æ•°ç»„ä¸‹æ ‡
 	int x_mali_H,x_mali_W,d_mali_H,d_mali_W;
-	boolean sfkillstate;//ÊÇ·ñ½øÈëËÀÍö×´Ì¬
-	boolean sfkill;//ÊÇ·ñËÀÍö
-	int n1;//ÂêÀöÊıÁ¿
-	int n2;//½ğ±ÒÊıÁ¿
-	int n3;//×Ü·ÖÊı
-	byte z;//»»Í¼Æ¬
-	byte d_guan;//´ó¹Ø¿¨Êı
-	byte x_guan;//Ğ¡¹Ø¿¨Êı
+	boolean sfkillstate;//æ˜¯å¦è¿›å…¥æ­»äº¡çŠ¶æ€
+	boolean sfkill;//æ˜¯å¦æ­»äº¡
+	int n1;//ç›ä¸½æ•°é‡
+	int n2;//é‡‘å¸æ•°é‡
+	int n3;//æ€»åˆ†æ•°
+	byte z;//æ¢å›¾ç‰‡
+	byte d_guan;//å¤§å…³å¡æ•°
+	byte x_guan;//å°å…³å¡æ•°
 	int gametime01,gametime02 = 150;
 	
 	public GamePlayer(GameMap map,GameImage imglei,GameMusic miclei,int w,int h) {
@@ -90,11 +90,11 @@ public class GamePlayer {
 		g.drawRegion(img_Y_mali, 49+18*(z%6), 0, 18, 18, Sprite.TRANS_NONE, 79, 3, 20);
 		g.drawString("X", 109, 0, 20);
 		g.drawString(String.valueOf(n2), 132, 0, 20);
-		g.drawString("×Ü·ÖÊı:", 165, 0, 20);
+		g.drawString("æ€»åˆ†æ•°:", 165, 0, 20);
 		g.drawString(String.valueOf(n3), 250, 0, Graphics.TOP|Graphics.RIGHT);
 		g.drawRegion(img_Y_mali, 24, 0, 23, 23, Sprite.TRANS_NONE, 338, 0, 20);
 		g.drawString(String.valueOf(gametime02), 396, 0, Graphics.TOP|Graphics.RIGHT);
-		/******¹ÖÎï»æÖÆ******/
+		/******æ€ªç‰©ç»˜åˆ¶******/
 		for(int i=0;i<enemyN;i++) {
 			if(enemy[i] == null)continue;
 			else enemy[i].pinat(g);
@@ -103,7 +103,7 @@ public class GamePlayer {
 			if(flash[i] == null)continue;
 			else flash[i].pinat(g);
 		}
-		/******Ö÷½Ç»æÖÆ******/
+		/******ä¸»è§’ç»˜åˆ¶******/
 		switch (x_mali_state) {
 		case zhanli:
 			switch (DIR) {
@@ -134,7 +134,7 @@ public class GamePlayer {
 			break;
 			
 		case tiaoyue:
-			switch (ÌøÔ¾×´Ì¬) {
+			switch (è·³è·ƒçŠ¶æ€) {
 			case UL:
 			case UR:
 			case U:
@@ -195,7 +195,7 @@ public class GamePlayer {
 	}
 	
 	public void logic() {
-		/*********Ê±¼äµ½ÔòÖ÷½ÇËÀÍöÅĞ¶Ï*************/
+		/*********æ—¶é—´åˆ°åˆ™ä¸»è§’æ­»äº¡åˆ¤æ–­*************/
 		if(gametime01%25==0)gametime02--;
 		if(gametime01<500000)gametime01++;
 		if(!sfkillstate&&gametime02<0){
@@ -207,7 +207,7 @@ public class GamePlayer {
 			mid_kill = miclei.musiclong("kill");
 			miclei.musicstart(mid_kill);
 		}
-		/**********Ö÷½Ç¹ı¹Ø***************/
+		/**********ä¸»è§’è¿‡å…³***************/
 		switch (GameMap.guan) {
 		case 0:
 			if(x_mali.getX()>=220) {
@@ -244,7 +244,7 @@ public class GamePlayer {
 			}
 			break;
 		}
-		/********µ±Ö÷½Çµ½µØÍ¼ÒÆ¶¯Á¿XµÄÄ³¸öÖµ¿ªÊ¼Ë¢¹Ö***********/
+		/********å½“ä¸»è§’åˆ°åœ°å›¾ç§»åŠ¨é‡Xçš„æŸä¸ªå€¼å¼€å§‹åˆ·æ€ª***********/
 		switch (GameMap.guan) {
 		case 0:
 			if(!guaichuxian[0]&&!guaichuxian[1]&&!guaichuxian[2]&&mapmoveX==0) {
@@ -320,7 +320,7 @@ public class GamePlayer {
 			}
 			break;
 		}
-		/******¹ÖÎïÂß¼­******/
+		/******æ€ªç‰©é€»è¾‘******/
 		for(int i=0;i<enemyN;i++) {
 			if(enemy[i] == null)continue;
 			else {
@@ -343,7 +343,7 @@ public class GamePlayer {
 			}
 		}
 		if(z == 120)z = 0;
-		/******Ö÷½Ç³¬³öÆÁÄ»ËÀÍöÅĞ¶Ï******/
+		/******ä¸»è§’è¶…å‡ºå±å¹•æ­»äº¡åˆ¤æ–­******/
 		if(x_mali.getY()>530&&!sfkillstate) {
 			index = 0;
 			x_mali_state = kill;
@@ -353,10 +353,10 @@ public class GamePlayer {
 			mid_kill = miclei.musiclong("kill");
 			miclei.musicstart(mid_kill);
 		}
-		/******Ö÷½ÇÂß¼­******/
+		/******ä¸»è§’é€»è¾‘******/
 		switch (x_mali_state) {
 		case zhanli:
-			/******Ö÷½ÇÕ¾Á¢×´Ì¬Åöµ½¹ÖÎïËÀÍöÅĞ¶Ï******/
+			/******ä¸»è§’ç«™ç«‹çŠ¶æ€ç¢°åˆ°æ€ªç‰©æ­»äº¡åˆ¤æ–­******/
 			for(int i=0;i<enemyN;i++) {
 				if(enemy[i] == null||enemy[i].sfkill)continue;
 				else {
@@ -404,7 +404,7 @@ public class GamePlayer {
 			break;
 			
 		case yidong:
-			/******Ö÷½ÇÒÆ¶¯×´Ì¬Åöµ½¹ÖÎïËÀÍöÅĞ¶Ï******/
+			/******ä¸»è§’ç§»åŠ¨çŠ¶æ€ç¢°åˆ°æ€ªç‰©æ­»äº¡åˆ¤æ–­******/
 			for(int i=0;i<enemyN;i++) {
 				if(enemy[i] == null||enemy[i].sfkill)continue;
 				else {
@@ -449,12 +449,12 @@ public class GamePlayer {
 			}
 			z++;
 			switch (DIR) {
-			/******Ö÷½ÇÓÒÒÆ¶¯Âß¼­******/
+			/******ä¸»è§’å³ç§»åŠ¨é€»è¾‘******/
 			case R:	
-				/******Ö÷½Ç»»Ö¡******/
+				/******ä¸»è§’æ¢å¸§******/
 				x_mali.nextFrame();
 				if(x_mali.getFrame() >= 3)x_mali.setFrame(0);
-				/******Ö÷½ÇÓÒÒÆ¶¯µØÍ¼ÒÆ¶¯ÅĞ¶Ï******/
+				/******ä¸»è§’å³ç§»åŠ¨åœ°å›¾ç§»åŠ¨åˆ¤æ–­******/
 				switch (GameMap.guan) {
 				case 0:
 					if(map.til_back01.getX()>-2970&&x_mali.getX()>=198) {
@@ -463,7 +463,7 @@ public class GamePlayer {
 						map.til_zhebi01.move(-malisudu, 0);
 						mapmoveX+=malisudu;
 						x_mali.move(-malisudu, 0);
-						/******Ö÷½ÇÓÒÒÆ¶¯¹ÖÎïÒÆ¶¯ÅĞ¶Ï******/
+						/******ä¸»è§’å³ç§»åŠ¨æ€ªç‰©ç§»åŠ¨åˆ¤æ–­******/
 						for(int i=0;i<enemyN;i++) {
 							if(enemy[i] == null)continue;
 							else {
@@ -484,7 +484,7 @@ public class GamePlayer {
 						map.til_zhebi02.move(-malisudu, 0);
 						mapmoveX+=malisudu;
 						x_mali.move(-malisudu, 0);
-						/******Ö÷½ÇÓÒÒÆ¶¯¹ÖÎïÒÆ¶¯ÅĞ¶Ï******/
+						/******ä¸»è§’å³ç§»åŠ¨æ€ªç‰©ç§»åŠ¨åˆ¤æ–­******/
 						for(int i=0;i<enemyN;i++) {
 							if(enemy[i] == null)continue;
 							else {
@@ -500,9 +500,9 @@ public class GamePlayer {
 				}
 				break;	
 				
-			/******Ö÷½Ç×óÒÆ¶¯Âß¼­******/
+			/******ä¸»è§’å·¦ç§»åŠ¨é€»è¾‘******/
 			case L:
-				/******Ö÷½Ç»»Ö¡******/
+				/******ä¸»è§’æ¢å¸§******/
 				x_mali.nextFrame();
 				if(x_mali.getFrame() >= 3)x_mali.setFrame(0);
 				break;
@@ -511,13 +511,13 @@ public class GamePlayer {
 			
 		case tiaoyue:
 			z++;
-			switch (ÌøÔ¾×´Ì¬) {
-			/******Ö÷½ÇÉÏÌøÔ¾Âß¼­******/
+			switch (è·³è·ƒçŠ¶æ€) {
+			/******ä¸»è§’ä¸Šè·³è·ƒé€»è¾‘******/
 			case UR:
 			case UL:
 			case U:
 				x_mali.setFrame(3);
-				/******Ö÷½ÇÉÏÌøÔ¾Ê±Åöµ½µØÍ¼ÖĞÄÇÒ»¿éµÄÂß¼­******/
+				/******ä¸»è§’ä¸Šè·³è·ƒæ—¶ç¢°åˆ°åœ°å›¾ä¸­é‚£ä¸€å—çš„é€»è¾‘******/
 				switch (GameMap.guan) {
 				case 0:
 					for(int i=0;i<map.map_peng01_h;i++) {
@@ -543,7 +543,7 @@ public class GamePlayer {
 								if(map.map_peng01[x_mali_kuai_up_coll_y][x_mali_kuai_up_coll_x]==31) {
 									map.map_peng01[x_mali_kuai_up_coll_y][x_mali_kuai_up_coll_x] = 0;
 									pengkuai[x_mali_kuai_up_coll_y][x_mali_kuai_up_coll_x] = 31;
-									ÌøÔ¾×´Ì¬ = D;
+									è·³è·ƒçŠ¶æ€ = D;
 									for(int a=0;a<flashN;a++) {
 										if(!shitouchuxian[a]) {
 											flash[a] = new GameFlash(1,x_mali_kuai_up_coll_x*map.kuaisize-mapmoveX,x_mali_kuai_up_coll_y*map.kuaisize); 
@@ -581,7 +581,7 @@ public class GamePlayer {
 								if(map.map_peng02[x_mali_kuai_up_coll_y][x_mali_kuai_up_coll_x]==31) {
 									map.map_peng02[x_mali_kuai_up_coll_y][x_mali_kuai_up_coll_x] = 0;
 									pengkuai[x_mali_kuai_up_coll_y][x_mali_kuai_up_coll_x] = 31;
-									ÌøÔ¾×´Ì¬ = D;
+									è·³è·ƒçŠ¶æ€ = D;
 									for(int a=0;a<flashN;a++) {
 										if(!shitouchuxian[a]) {
 											flash[a] = new GameFlash(1,x_mali_kuai_up_coll_x*map.kuaisize-mapmoveX,x_mali_kuai_up_coll_y*map.kuaisize); 
@@ -595,7 +595,7 @@ public class GamePlayer {
 					}
 					break;
 				}
-				/******Ö÷½ÇÉÏÌøÔ¾ËÀÍöÅĞ¶Ï******/
+				/******ä¸»è§’ä¸Šè·³è·ƒæ­»äº¡åˆ¤æ–­******/
 				for(int i=0;i<enemyN;i++) {
 					if(enemy[i] == null||enemy[i].sfkill)continue;
 					else {
@@ -638,7 +638,7 @@ public class GamePlayer {
 						}
 					}
 				}
-				/******Ö÷½ÇÉÏÌøÔ¾µØÍ¼ÒÆ¶¯ÅĞ¶Ï******/
+				/******ä¸»è§’ä¸Šè·³è·ƒåœ°å›¾ç§»åŠ¨åˆ¤æ–­******/
 				switch (GameMap.guan) {
 				case 0:
 					if(map.til_back01.getX()>-2970&&x_mali.getX()>=198) {
@@ -647,7 +647,7 @@ public class GamePlayer {
 						map.til_zhebi01.move(-malisudu, 0);
 						mapmoveX+=malisudu;
 						x_mali.move(-malisudu, 0);
-						/******Ö÷½ÇÉÏÌøÔ¾¹ÖÎïÒÆ¶¯ÅĞ¶Ï******/
+						/******ä¸»è§’ä¸Šè·³è·ƒæ€ªç‰©ç§»åŠ¨åˆ¤æ–­******/
 						for(int i=0;i<enemyN;i++) {
 							if(enemy[i] == null)continue;
 							else {
@@ -668,7 +668,7 @@ public class GamePlayer {
 						map.til_zhebi02.move(-malisudu, 0);
 						mapmoveX+=malisudu;
 						x_mali.move(-malisudu, 0);
-						/******Ö÷½ÇÉÏÌøÔ¾¹ÖÎïÒÆ¶¯ÅĞ¶Ï******/
+						/******ä¸»è§’ä¸Šè·³è·ƒæ€ªç‰©ç§»åŠ¨åˆ¤æ–­******/
 						for(int i=0;i<enemyN;i++) {
 							if(enemy[i] == null)continue;
 							else {
@@ -682,15 +682,15 @@ public class GamePlayer {
 					}
 					break;
 				}
-				/******Ö÷½ÇÉÏÌøÔ¾µ½¶¥µã»òÅö×²µ½µØÍ¼×´Ì¬×ª»»******/
+				/******ä¸»è§’ä¸Šè·³è·ƒåˆ°é¡¶ç‚¹æˆ–ç¢°æ’åˆ°åœ°å›¾çŠ¶æ€è½¬æ¢******/
 				switch (GameMap.guan) {
 				case 0:
-					if(index==jiasudu.length-2||(UZR_coll(map.til_peng01,map.map_peng01)||UZL_coll(map.til_peng01,map.map_peng01)))ÌøÔ¾×´Ì¬ = D;
+					if(index==jiasudu.length-2||(UZR_coll(map.til_peng01,map.map_peng01)||UZL_coll(map.til_peng01,map.map_peng01)))è·³è·ƒçŠ¶æ€ = D;
 					index++;
 					break;
 
 				case 1:
-					if(index==jiasudu.length-2||(UZR_coll(map.til_peng02,map.map_peng02)||UZL_coll(map.til_peng02,map.map_peng02)))ÌøÔ¾×´Ì¬ = D;
+					if(index==jiasudu.length-2||(UZR_coll(map.til_peng02,map.map_peng02)||UZL_coll(map.til_peng02,map.map_peng02)))è·³è·ƒçŠ¶æ€ = D;
 					index++;
 					break;
 				}
@@ -700,7 +700,7 @@ public class GamePlayer {
 			case DL:
 			case D:
 				x_mali.setFrame(4);
-				/******Ö÷½ÇÏÂÌøÔ¾¹ÖÎïËÀÍöÅĞ¶Ï******/
+				/******ä¸»è§’ä¸‹è·³è·ƒæ€ªç‰©æ­»äº¡åˆ¤æ–­******/
 				for(int i=0;i<enemyN;i++) {
 					if(enemy[i] == null||enemy[i].sfkill)continue;
 					else {
@@ -710,7 +710,7 @@ public class GamePlayer {
 								enemy[i].sfkill =true;
 								enemy[i].state = enemy[i].kill;
 								x_mali_state = tiaoyue;
-								ÌøÔ¾×´Ì¬ = U;
+								è·³è·ƒçŠ¶æ€ = U;
 								index = 7;
 								n3+=300;
 							}
@@ -721,7 +721,7 @@ public class GamePlayer {
 								enemy[i].sfkill =true;
 								enemy[i].state = enemy[i].kill;
 								x_mali_state = tiaoyue;
-								ÌøÔ¾×´Ì¬ = U;
+								è·³è·ƒçŠ¶æ€ = U;
 								index = 7;
 								n3+=500;
 							}
@@ -732,7 +732,7 @@ public class GamePlayer {
 								enemy[i].sfkill =true;
 								enemy[i].state = enemy[i].kill;
 								x_mali_state = tiaoyue;
-								ÌøÔ¾×´Ì¬ = U;
+								è·³è·ƒçŠ¶æ€ = U;
 								index = 7;
 								n3+=800;
 							}
@@ -740,7 +740,7 @@ public class GamePlayer {
 						}
 					}
 				}
-				/******Ö÷½ÇÏÂÌøÔ¾µØÍ¼ÒÆ¶¯ÅĞ¶Ï******/
+				/******ä¸»è§’ä¸‹è·³è·ƒåœ°å›¾ç§»åŠ¨åˆ¤æ–­******/
 				switch (GameMap.guan) {
 				case 0:
 					if(map.til_back01.getX()>-2970&&x_mali.getX()>=198) {
@@ -749,7 +749,7 @@ public class GamePlayer {
 						map.til_zhebi01.move(-malisudu, 0);
 						mapmoveX+=malisudu;
 						x_mali.move(-malisudu, 0);
-						/******Ö÷½ÇÉÏÌøÔ¾¹ÖÎïÒÆ¶¯ÅĞ¶Ï******/
+						/******ä¸»è§’ä¸Šè·³è·ƒæ€ªç‰©ç§»åŠ¨åˆ¤æ–­******/
 						for(int i=0;i<enemyN;i++) {
 							if(enemy[i] == null)continue;
 							else {
@@ -762,7 +762,7 @@ public class GamePlayer {
 						}
 					}
 					if(index==0)index = 1;
-					/******Ö÷½ÇÏÂÌøÔ¾Åö×²µ½µØÍ¼ÉèÖÃÖ÷½Ç×ø±êºÍ×´Ì¬×ª»»******/
+					/******ä¸»è§’ä¸‹è·³è·ƒç¢°æ’åˆ°åœ°å›¾è®¾ç½®ä¸»è§’åæ ‡å’ŒçŠ¶æ€è½¬æ¢******/
 					if(DZR_coll(map.til_peng01,map.map_peng01)||DZL_coll(map.til_peng01,map.map_peng01)) {
 						x_mali.setPosition(x_mali.getX(), (x_mali.getY()+x_mali_H)/map.kuaisize*map.kuaisize-x_mali_H+3);
 						x_mali_state = zhanli;
@@ -778,7 +778,7 @@ public class GamePlayer {
 						map.til_zhebi02.move(-malisudu, 0);
 						mapmoveX+=malisudu;
 						x_mali.move(-malisudu, 0);
-						/******Ö÷½ÇÉÏÌøÔ¾¹ÖÎïÒÆ¶¯ÅĞ¶Ï******/
+						/******ä¸»è§’ä¸Šè·³è·ƒæ€ªç‰©ç§»åŠ¨åˆ¤æ–­******/
 						for(int i=0;i<enemyN;i++) {
 							if(enemy[i] == null)continue;
 							else {
@@ -791,7 +791,7 @@ public class GamePlayer {
 						}
 					}
 					if(index==0)index = 1;
-					/******Ö÷½ÇÏÂÌøÔ¾Åö×²µ½µØÍ¼ÉèÖÃÖ÷½Ç×ø±êºÍ×´Ì¬×ª»»******/
+					/******ä¸»è§’ä¸‹è·³è·ƒç¢°æ’åˆ°åœ°å›¾è®¾ç½®ä¸»è§’åæ ‡å’ŒçŠ¶æ€è½¬æ¢******/
 					if(DZR_coll(map.til_peng02,map.map_peng02)||DZL_coll(map.til_peng02,map.map_peng02)) {
 						x_mali.setPosition(x_mali.getX(), (x_mali.getY()+x_mali_H)/map.kuaisize*map.kuaisize-x_mali_H+3);
 						x_mali_state = zhanli;
@@ -805,7 +805,7 @@ public class GamePlayer {
 			break;
 			
 		case kill:
-			/******Ö÷½Ç¸´»î******/
+			/******ä¸»è§’å¤æ´»******/
 			if(z==90) {
 				for(int i=0;i<enemyN;i++) {
 					guaichuxian[i] = false;
@@ -861,7 +861,7 @@ public class GamePlayer {
 			}
 			z++;
 			x_mali.setFrame(5);
-			/******Ö÷½ÇËÀÍöÅĞ¶Ï******/
+			/******ä¸»è§’æ­»äº¡åˆ¤æ–­******/
 			if(sfkillstate&&!sfkill&&x_mali.getY()>530) {
 				n1--;
 				if(n1<=0) {
@@ -871,7 +871,7 @@ public class GamePlayer {
 				z = 0;
 				sfkill = true;
 			}
-			/******Ö÷½ÇËÀÍöÂß¼­******/
+			/******ä¸»è§’æ­»äº¡é€»è¾‘******/
 			switch (kill_state) {
 			case U:
 				if(index == jiasudu.length-2)kill_state = D;
@@ -892,7 +892,7 @@ public class GamePlayer {
 	}
 	
 	public void move() {
-		/******¹ÖÎïÒÆ¶¯******/
+		/******æ€ªç‰©ç§»åŠ¨******/
 		for(int i=0;i<enemyN;i++) {
 			if(enemy[i] == null||enemy[i].sfkill)continue;
 			else enemy[i].move();
@@ -907,7 +907,7 @@ public class GamePlayer {
 			case 0:
 				if(!DZ_coll(map.til_peng01,map.map_peng01)) {
 					x_mali_state = tiaoyue;
-					ÌøÔ¾×´Ì¬ = D;
+					è·³è·ƒçŠ¶æ€ = D;
 					index = (byte)jiasudu.length;
 				}
 				switch (DIR) {
@@ -928,7 +928,7 @@ public class GamePlayer {
 			case 1:
 				if(!DZ_coll(map.til_peng02,map.map_peng02)) {
 					x_mali_state = tiaoyue;
-					ÌøÔ¾×´Ì¬ = D;
+					è·³è·ƒçŠ¶æ€ = D;
 					index = (byte)jiasudu.length;
 				}
 				switch (DIR) {
@@ -945,7 +945,7 @@ public class GamePlayer {
 			break;
 			
 		case tiaoyue:
-			switch (ÌøÔ¾×´Ì¬) {
+			switch (è·³è·ƒçŠ¶æ€) {
 			case U:		x_mali.move(0, -jiasudu[index]);		break;	
 			case D:		x_mali.move(0, jiasudu[index]);		break;
 			case UR:	x_mali.move(malisudu, -jiasudu[index]);		break;	
@@ -967,7 +967,7 @@ public class GamePlayer {
 	boolean x_mali_arrout = false;
 	int x_mali_kuai_up_coll_x,x_mali_kuai_up_coll_y;
 	
-	/*************Åö×²¼ì²âµã***********ÉÏÖĞ×ó***/
+	/*************ç¢°æ’æ£€æµ‹ç‚¹***********ä¸Šä¸­å·¦***/
 	public boolean UZL_coll(TiledLayer til,int tilarr[][]) {
 		int x_mali_kuai_x = (x_mali.getX()+Math.abs(til.getX())+x_mali_W/2-5)/map.kuaisize;
 		int x_mali_kuai_y = (x_mali.getY()+Math.abs(til.getY()))/map.kuaisize;
@@ -987,7 +987,7 @@ public class GamePlayer {
 		else return false;
 	}
 	
-	/*************Åö×²¼ì²âµã***********ÉÏÖĞÓÒ***/
+	/*************ç¢°æ’æ£€æµ‹ç‚¹***********ä¸Šä¸­å³***/
 	public boolean UZR_coll(TiledLayer til,int tilarr[][]) {
 		int x_mali_kuai_x = (x_mali.getX()+Math.abs(til.getX())+x_mali_W/2+5)/map.kuaisize;
 		int x_mali_kuai_y = (x_mali.getY()+Math.abs(til.getY()))/map.kuaisize;
@@ -1007,7 +1007,7 @@ public class GamePlayer {
 		else return false;
 	}
 	
-	/*************Åö×²¼ì²âµã***********ÓÒÖĞÉÏ***/
+	/*************ç¢°æ’æ£€æµ‹ç‚¹***********å³ä¸­ä¸Š***/
 	public boolean RZU_coll(TiledLayer til,int tilarr[][]) {
 		int x_mali_kuai_x = (x_mali.getX()+Math.abs(til.getX())+x_mali_W)/map.kuaisize;
 		int x_mali_kuai_y = (x_mali.getY()+Math.abs(til.getY())+x_mali_H/2-8)/map.kuaisize;
@@ -1023,7 +1023,7 @@ public class GamePlayer {
 		else return false;
 	}
 	
-	/*************Åö×²¼ì²âµã***********×óÖĞÉÏ***/
+	/*************ç¢°æ’æ£€æµ‹ç‚¹***********å·¦ä¸­ä¸Š***/
 	public boolean LZU_coll(TiledLayer til,int tilarr[][]) {
 		int x_mali_kuai_x = (x_mali.getX()+Math.abs(til.getX()))/map.kuaisize;
 		int x_mali_kuai_y = (x_mali.getY()+Math.abs(til.getY())+x_mali_H/2-8)/map.kuaisize;
@@ -1039,7 +1039,7 @@ public class GamePlayer {
 		else return false;
 	}
 	
-	/*************Åö×²¼ì²âµã***********ÏÂÖĞ***/
+	/*************ç¢°æ’æ£€æµ‹ç‚¹***********ä¸‹ä¸­***/
 	public boolean DZ_coll(TiledLayer til,int tilarr[][]) {
 		int x_mali_kuai_x = (x_mali.getX()+Math.abs(til.getX())+x_mali_W/2)/map.kuaisize;
 		int x_mali_kuai_y = (x_mali.getY()+Math.abs(til.getY())+x_mali_H)/map.kuaisize;
@@ -1055,7 +1055,7 @@ public class GamePlayer {
 		else return false;
 	}
 	
-	/*************Åö×²¼ì²âµã***********ÏÂÖĞ×ó***/
+	/*************ç¢°æ’æ£€æµ‹ç‚¹***********ä¸‹ä¸­å·¦***/
 	public boolean DZL_coll(TiledLayer til,int tilarr[][]) {
 		int x_mali_kuai_x = (x_mali.getX()+Math.abs(til.getX())+x_mali_W/2-5)/map.kuaisize;
 		int x_mali_kuai_y = (x_mali.getY()+Math.abs(til.getY())+x_mali_H)/map.kuaisize;
@@ -1071,7 +1071,7 @@ public class GamePlayer {
 		else return false;
 	}
 	
-	/*************Åö×²¼ì²âµã***********ÏÂÖĞÓÒ***/
+	/*************ç¢°æ’æ£€æµ‹ç‚¹***********ä¸‹ä¸­å³***/
 	public boolean DZR_coll(TiledLayer til,int tilarr[][]) {
 		int x_mali_kuai_x = (x_mali.getX()+Math.abs(til.getX())+x_mali_W/2+5)/map.kuaisize;
 		int x_mali_kuai_y = (x_mali.getY()+Math.abs(til.getY())+x_mali_H)/map.kuaisize;
@@ -1088,7 +1088,7 @@ public class GamePlayer {
 	}
 	
 	
-	/*************Åö×²¼ì²âµã***********ÓÒÖĞÏÂ***/
+	/*************ç¢°æ’æ£€æµ‹ç‚¹***********å³ä¸­ä¸‹***/
 	public boolean RZD_coll(TiledLayer til,int tilarr[][]) {
 		int x_mali_kuai_x = (x_mali.getX()+Math.abs(til.getX())+x_mali_W)/map.kuaisize;
 		int x_mali_kuai_y = (x_mali.getY()+Math.abs(til.getY())+x_mali_H/2+8)/map.kuaisize;
@@ -1104,7 +1104,7 @@ public class GamePlayer {
 		else return false;
 	}
 	
-	/*************Åö×²¼ì²âµã***********×óÖĞÏÂ***/
+	/*************ç¢°æ’æ£€æµ‹ç‚¹***********å·¦ä¸­ä¸‹***/
 	public boolean LZD_coll(TiledLayer til,int tilarr[][]) {
 		int x_mali_kuai_x = (x_mali.getX()+Math.abs(til.getX()))/map.kuaisize;
 		int x_mali_kuai_y = (x_mali.getY()+Math.abs(til.getY())+x_mali_H/2+8)/map.kuaisize;

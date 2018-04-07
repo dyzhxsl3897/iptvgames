@@ -32,18 +32,18 @@ public class GameConstants {
 	}
 
 	/**
-	 * Õ∆œ‰◊”…Ë÷√<br/>
-	 * -1£∫¥˙±ÌµÿÕºÕ‚ΩÁ<br/>
-	 * 0£∫¥˙±Ìø’µÿ<br/>
-	 * 1£∫¥˙±Ì«Ω<br/>
-	 * 2£∫¥˙±Ìƒø±Íµÿµ„<br/>
-	 * 3£∫¥˙±Ìœ‰◊”<br/>
-	 * 4£∫¥˙±Ì—π◊°ƒø±Íµÿµ„µƒœ‰◊”<br/>
-	 * 5£∫¥˙±Ì–°»À…œ<br/>
-	 * 6£∫¥˙±Ì–°»Àœ¬<br/>
-	 * 7£∫¥˙±Ì–°»À◊Û<br/>
-	 * 8£∫¥˙±Ì–°»À”“<br/>
-	 * 9£∫¥˙±Ì—π◊°ƒø±Íµÿµ„µƒ–°»À
+	 * Êé®ÁÆ±Â≠êËÆæÁΩÆ<br/>
+	 * -1Ôºö‰ª£Ë°®Âú∞ÂõæÂ§ñÁïå<br/>
+	 * 0Ôºö‰ª£Ë°®Á©∫Âú∞<br/>
+	 * 1Ôºö‰ª£Ë°®Â¢ô<br/>
+	 * 2Ôºö‰ª£Ë°®ÁõÆÊ†áÂú∞ÁÇπ<br/>
+	 * 3Ôºö‰ª£Ë°®ÁÆ±Â≠ê<br/>
+	 * 4Ôºö‰ª£Ë°®Âéã‰ΩèÁõÆÊ†áÂú∞ÁÇπÁöÑÁÆ±Â≠ê<br/>
+	 * 5Ôºö‰ª£Ë°®Â∞è‰∫∫‰∏ä<br/>
+	 * 6Ôºö‰ª£Ë°®Â∞è‰∫∫‰∏ã<br/>
+	 * 7Ôºö‰ª£Ë°®Â∞è‰∫∫Â∑¶<br/>
+	 * 8Ôºö‰ª£Ë°®Â∞è‰∫∫Âè≥<br/>
+	 * 9Ôºö‰ª£Ë°®Âéã‰ΩèÁõÆÊ†áÂú∞ÁÇπÁöÑÂ∞è‰∫∫
 	 */
 	public static class MapInfo {
 		public final static int OUT_BOARD = -1;
@@ -65,7 +65,7 @@ public class GameConstants {
 	public static int[] MAP_SUCC_STEP = { 4, 4, 3, 4, 3, 4, 5, 6, 7 };
 
 	public static int[][][] START_MAP = {
-	// µ⁄“ªπÿ(“ª)
+	// Á¨¨‰∏ÄÂÖ≥(‰∏Ä)
 			{
 					{ MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD,
 							MapInfo.OUT_BOARD },//
@@ -79,7 +79,7 @@ public class GameConstants {
 							MapInfo.OUT_BOARD },//
 					{ MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.OUT_BOARD,
 							MapInfo.OUT_BOARD } },
-			// µ⁄∂˛πÿ(Àƒ)
+			// Á¨¨‰∫åÂÖ≥(Âõõ)
 			{
 					{ MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.OUT_BOARD,
 							MapInfo.OUT_BOARD },//
@@ -91,7 +91,7 @@ public class GameConstants {
 					{ MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.TARGET, MapInfo.TARGET, MapInfo.BOX_TARGET, MapInfo.TARGET, MapInfo.WALL,
 							MapInfo.OUT_BOARD },//
 					{ MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.OUT_BOARD } }, //
-			// µ⁄»˝πÿ(ŒÂ)
+			// Á¨¨‰∏âÂÖ≥(‰∫î)
 			{
 					{ MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD },//
 					{ MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.BLANK, MapInfo.PLAYER_DOWN, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL,
@@ -102,7 +102,7 @@ public class GameConstants {
 					{ MapInfo.WALL, MapInfo.TARGET, MapInfo.BOX, MapInfo.BLANK, MapInfo.BLANK, MapInfo.WALL, MapInfo.BLANK, MapInfo.WALL },//
 					{ MapInfo.WALL, MapInfo.TARGET, MapInfo.BLANK, MapInfo.BLANK, MapInfo.BLANK, MapInfo.BOX, MapInfo.BLANK, MapInfo.WALL },//
 					{ MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL } }, //
-			// µ⁄Àƒπÿ( Æ)
+			// Á¨¨ÂõõÂÖ≥(ÂçÅ)
 			{
 					{ MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL },//
 					{ MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.BLANK, MapInfo.BLANK, MapInfo.BLANK, MapInfo.BLANK, MapInfo.WALL },//
@@ -114,7 +114,7 @@ public class GameConstants {
 							MapInfo.OUT_BOARD },//
 					{ MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD,
 							MapInfo.OUT_BOARD, MapInfo.OUT_BOARD } }, //
-			// µ⁄ŒÂπÿ( Æ∂˛)
+			// Á¨¨‰∫îÂÖ≥(ÂçÅ‰∫å)
 			{
 					{ MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.OUT_BOARD },//
 					{ MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.BLANK, MapInfo.BLANK, MapInfo.PLAYER_DOWN, MapInfo.WALL, MapInfo.OUT_BOARD },//
@@ -125,7 +125,7 @@ public class GameConstants {
 					{ MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.OUT_BOARD },//
 					{ MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD,
 							MapInfo.OUT_BOARD, MapInfo.OUT_BOARD } }, //
-			// µ⁄¡˘πÿ( Æ»˝)
+			// Á¨¨ÂÖ≠ÂÖ≥(ÂçÅ‰∏â)
 			{
 					{ MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.OUT_BOARD,
 							MapInfo.OUT_BOARD },//
@@ -137,7 +137,7 @@ public class GameConstants {
 					{ MapInfo.WALL, MapInfo.BLANK, MapInfo.BLANK, MapInfo.WALL, MapInfo.BOX, MapInfo.BOX, MapInfo.BLANK, MapInfo.WALL },//
 					{ MapInfo.WALL, MapInfo.BLANK, MapInfo.BLANK, MapInfo.PLAYER_DOWN, MapInfo.BLANK, MapInfo.BLANK, MapInfo.BLANK, MapInfo.WALL },//
 					{ MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL } }, //
-			// µ⁄∆ﬂπÿ( ÆÀƒ)
+			// Á¨¨‰∏ÉÂÖ≥(ÂçÅÂõõ)
 			{
 					{ MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL },//
 					{ MapInfo.WALL, MapInfo.BLANK, MapInfo.BLANK, MapInfo.WALL, MapInfo.BLANK, MapInfo.BLANK, MapInfo.BLANK, MapInfo.WALL },//
@@ -148,7 +148,7 @@ public class GameConstants {
 					{ MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL }, //
 					{ MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD,
 							MapInfo.OUT_BOARD, MapInfo.OUT_BOARD } }, //
-			// µ⁄∞Àπÿ( ÆŒÂ)
+			// Á¨¨ÂÖ´ÂÖ≥(ÂçÅ‰∫î)
 			{
 					{ MapInfo.OUT_BOARD, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.OUT_BOARD },//
 					{ MapInfo.WALL, MapInfo.WALL, MapInfo.BLANK, MapInfo.BLANK, MapInfo.BLANK, MapInfo.BLANK, MapInfo.WALL, MapInfo.WALL },//
@@ -160,7 +160,7 @@ public class GameConstants {
 							MapInfo.OUT_BOARD }, //
 					{ MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD, MapInfo.OUT_BOARD,
 							MapInfo.OUT_BOARD, MapInfo.OUT_BOARD } }, //
-			// µ⁄æ≈πÿ(∂˛ Æ)
+			// Á¨¨‰πùÂÖ≥(‰∫åÂçÅ)
 			{
 					{ MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.WALL, MapInfo.OUT_BOARD },//
 					{ MapInfo.WALL, MapInfo.TARGET, MapInfo.TARGET, MapInfo.BOX, MapInfo.TARGET, MapInfo.TARGET, MapInfo.WALL, MapInfo.OUT_BOARD },//

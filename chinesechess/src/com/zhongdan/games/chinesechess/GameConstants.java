@@ -15,18 +15,18 @@ public class GameConstants {
 	}
 
 	public static class GameSettings {
-		public final static int CELL_START_X = 61;// ÆåÅÌ×óÉÏ½Ç×ø±ê
-		public final static int CELL_START_Y = 43;// ÆåÅÌ×óÉÏ½Ç×ø±ê
-		public final static int CELL_WIDTH = 49;// Ã¿Ò»¸ö¸ñ×Ó´óĞ¡
-		public final static int CELL_HEIGHT = 49;// Ã¿Ò»¸ö¸ñ×Ó´óĞ¡
-		public final static int PIECE_WIDTH = 44;// Æå×Ó´óĞ¡
-		public final static int PIECE_HEIGHT = 44;// Æå×Ó´óĞ¡
-		public final static int PIECE_START_X = CELL_START_X - PIECE_WIDTH / 2;// ×óÉÏ½ÇÆå×Ó×ø±ê
-		public final static int PIECE_START_Y = CELL_START_Y - PIECE_HEIGHT / 2;// ×óÉÏ½ÇÆå×Ó×ø±ê
-		public final static int CUR_START_X = CELL_START_X - CELL_WIDTH / 2;// ×óÉÏ½Ç¹â±ê×ø±ê
-		public final static int CUR_START_Y = CELL_START_Y - CELL_HEIGHT / 2;// ×óÉÏ½Ç¹â±ê×ø±ê
-		public final static int STEP_NUMBER_X = 562;// ²½Êı×ø±ê
-		public final static int STEP_NUMBER_Y = 420;// ²½Êı×ø±ê
+		public final static int CELL_START_X = 61;// æ£‹ç›˜å·¦ä¸Šè§’åæ ‡
+		public final static int CELL_START_Y = 43;// æ£‹ç›˜å·¦ä¸Šè§’åæ ‡
+		public final static int CELL_WIDTH = 49;// æ¯ä¸€ä¸ªæ ¼å­å¤§å°
+		public final static int CELL_HEIGHT = 49;// æ¯ä¸€ä¸ªæ ¼å­å¤§å°
+		public final static int PIECE_WIDTH = 44;// æ£‹å­å¤§å°
+		public final static int PIECE_HEIGHT = 44;// æ£‹å­å¤§å°
+		public final static int PIECE_START_X = CELL_START_X - PIECE_WIDTH / 2;// å·¦ä¸Šè§’æ£‹å­åæ ‡
+		public final static int PIECE_START_Y = CELL_START_Y - PIECE_HEIGHT / 2;// å·¦ä¸Šè§’æ£‹å­åæ ‡
+		public final static int CUR_START_X = CELL_START_X - CELL_WIDTH / 2;// å·¦ä¸Šè§’å…‰æ ‡åæ ‡
+		public final static int CUR_START_Y = CELL_START_Y - CELL_HEIGHT / 2;// å·¦ä¸Šè§’å…‰æ ‡åæ ‡
+		public final static int STEP_NUMBER_X = 562;// æ­¥æ•°åæ ‡
+		public final static int STEP_NUMBER_Y = 420;// æ­¥æ•°åæ ‡
 	}
 
 }
