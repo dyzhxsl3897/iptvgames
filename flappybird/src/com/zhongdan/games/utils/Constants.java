@@ -3,34 +3,34 @@ package com.zhongdan.games.utils;
 public class Constants {
 
 	public static class KeyCode {
-		public final static int UP = -1;// ÉÏ
-		public final static int DOWN = -2;// ÏÂ
-		public final static int LEFT = -3;// ×ó
-		public final static int RIGHT = -4;// ÓÒ
-		public final static int OK = -5;// È·¶¨/OK
-		public final static int MENU = -6;// ²Ëµ¥
-		public final static int BACK = -7;// ·µ»Ø
+		public final static int UP = -1;// ä¸Š
+		public final static int DOWN = -2;// ä¸‹
+		public final static int LEFT = -3;// å·¦
+		public final static int RIGHT = -4;// å³
+		public final static int OK = -5;// ç¡®å®š/OK
+		public final static int MENU = -6;// èœå•
+		public final static int BACK = -7;// è¿”å›
 		public final static int BACK_1 = -31;// HUAWEI_EC6108V9A
 		public final static int BACK_2 = -9;// HUAWEI_EC6108V9
-		public final static int DEL = -8;// É¾³ı
-		public final static int FAST_FORWARD = -21;// ¿ì½ø/ÏÂÒ³
-		public final static int REWIND = -20;// ¿ìÍË/ÉÏÒ³
-		public final static int INPUT = -30;// ÊäÈë·¨
-		public final static int RED = 42;// Ö±²¥/ºì/F1
-		public final static int GREEN = 42;// »Ø¿´/ÂÌ/F2
-		public final static int YELLOW = 42;// µã²¥/»Æ/F3
-		public final static int BLUE = 42;// ×ÉÑ¯/À¶/F4
-		public final static int VOLUMN_DEC = 35;// ÒôÁ¿¼õ
-		public final static int NUM_0 = 48;// Êı×Ö0
-		public final static int NUM_1 = 49;// Êı×Ö1
-		public final static int NUM_2 = 50;// Êı×Ö2
-		public final static int NUM_3 = 51;// Êı×Ö3
-		public final static int NUM_4 = 52;// Êı×Ö4
-		public final static int NUM_5 = 53;// Êı×Ö5
-		public final static int NUM_6 = 54;// Êı×Ö6
-		public final static int NUM_7 = 55;// Êı×Ö7
-		public final static int NUM_8 = 56;// Êı×Ö8
-		public final static int NUM_9 = 57;// Êı×Ö9
+		public final static int DEL = -8;// åˆ é™¤
+		public final static int FAST_FORWARD = -21;// å¿«è¿›/ä¸‹é¡µ
+		public final static int REWIND = -20;// å¿«é€€/ä¸Šé¡µ
+		public final static int INPUT = -30;// è¾“å…¥æ³•
+		public final static int RED = 42;// ç›´æ’­/çº¢/F1
+		public final static int GREEN = 42;// å›çœ‹/ç»¿/F2
+		public final static int YELLOW = 42;// ç‚¹æ’­/é»„/F3
+		public final static int BLUE = 42;// å’¨è¯¢/è“/F4
+		public final static int VOLUMN_DEC = 35;// éŸ³é‡å‡
+		public final static int NUM_0 = 48;// æ•°å­—0
+		public final static int NUM_1 = 49;// æ•°å­—1
+		public final static int NUM_2 = 50;// æ•°å­—2
+		public final static int NUM_3 = 51;// æ•°å­—3
+		public final static int NUM_4 = 52;// æ•°å­—4
+		public final static int NUM_5 = 53;// æ•°å­—5
+		public final static int NUM_6 = 54;// æ•°å­—6
+		public final static int NUM_7 = 55;// æ•°å­—7
+		public final static int NUM_8 = 56;// æ•°å­—8
+		public final static int NUM_9 = 57;// æ•°å­—9
 	}
 
 }
