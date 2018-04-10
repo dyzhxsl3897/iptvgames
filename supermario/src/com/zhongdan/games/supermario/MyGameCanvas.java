@@ -706,6 +706,18 @@ public class MyGameCanvas extends GameCanvas implements Runnable {
 	public void keyReleased(int keyCode) {
 		switch (gamestate) {
 		case kaishi:
+			if(keyCode == -7 || keyCode == -31 || keyCode == -9) {
+				jishi = 0;	
+				pp_Array_index_1 = 0;
+				pp_Array_index_2 = 0;
+				pp_Array_index_3 = 0;
+				pp_Array_index_4 = 0;
+				pp_Array_index_5 = 0;
+				pp_Array_index_6 = 0;
+				RUNtime = 80;
+				gamestate = caidan;
+				break;
+			}
 			switch (pla.x_mali_state) {
 			case 1:
 				pla.x_mali_state = pla.zhanli;
