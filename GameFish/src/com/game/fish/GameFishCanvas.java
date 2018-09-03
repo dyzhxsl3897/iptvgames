@@ -118,7 +118,7 @@ public class GameFishCanvas extends GameCanvas implements Runnable {
 		for (int i = layerManager.getSize() - 1; i >= 0; i--) {
 			layerManager.remove(layerManager.getLayerAt(i));
 		}
-		
+
 		backgroundSprite0 = new Sprite(mainBgImage);
 		startSprite = new Sprite(startImage, 260, 133);
 		endSprite = new Sprite(endImage, 260, 133);
@@ -135,7 +135,7 @@ public class GameFishCanvas extends GameCanvas implements Runnable {
 		endSprite.setPosition(currentX - 130, currentY + 33);
 		pauseBgSprite = new Sprite(pauseBgImage);
 		continueSprite = new Sprite(continueImage, 260, 133);
-		
+
 		layerManager.paint(getGraphics(), 0, 0);
 		flushGraphics();
 	}
@@ -223,7 +223,7 @@ public class GameFishCanvas extends GameCanvas implements Runnable {
 		t = new Thread(this);
 		t.start();
 	}
-	
+
 	public void stop() {
 		isPlay = false;
 	}
@@ -311,7 +311,7 @@ public class GameFishCanvas extends GameCanvas implements Runnable {
 									}
 								} else {
 									pause();
-									step=0;
+									step = 0;
 									levelSprite.setFrame(0);
 									fishIconSprites[1].setFrame(1);
 									fishIconSprites[2].setFrame(1);
@@ -395,7 +395,6 @@ public class GameFishCanvas extends GameCanvas implements Runnable {
 		// Enter
 		if (keyCode == KeyCode.OK) {
 			if (isPause) {
-				System.out.println("isPause");
 				if (endSprite.getFrame() == 0) {
 					GameFishMidlet.instance.exit();
 				} else {
@@ -405,7 +404,6 @@ public class GameFishCanvas extends GameCanvas implements Runnable {
 					step = 1;
 				}
 			} else if (startSprite.getFrame() == 0) {
-				System.out.println("!isPause");
 				step = 1;
 				initGame();
 				start();
