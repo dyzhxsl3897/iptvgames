@@ -69,49 +69,45 @@ public class GameFishCanvas extends GameCanvas implements Runnable {
 
 	public GameFishCanvas() throws Exception {
 		super(false);
-		try {
-			this.setFullScreenMode(true);
-			step = 0;
-			width = getWidth();
-			height = getHeight();
+		this.setFullScreenMode(true);
+		step = 0;
+		width = getWidth();
+		height = getHeight();
 
-			currentX = width / 2;
-			currentY = height / 2;
-			delay = 80;
-			startSel = 0;
-			endSel = 1;
+		currentX = width / 2;
+		currentY = height / 2;
+		delay = 80;
+		startSel = 0;
+		endSel = 1;
 
-			startImage = Image.createImage("/start.png");
-			endImage = Image.createImage("/end.png");
-			continueImage = Image.createImage("/continue.png");
-			mainBgImage = Image.createImage("/bg_main.jpg");
+		startImage = Image.createImage("/start.png");
+		endImage = Image.createImage("/end.png");
+		continueImage = Image.createImage("/continue.png");
+		mainBgImage = Image.createImage("/bg_main.jpg");
 
-			gameBgImage0 = Image.createImage("/bg_play_0.jpg");
-			gameBgImage1 = Image.createImage("/bg_play_1.png");
+		gameBgImage0 = Image.createImage("/bg_play_0.jpg");
+		gameBgImage1 = Image.createImage("/bg_play_1.png");
 
-			playerFishImage = new Image[3];
-			for (int i = 0; i < playerFishImage.length; i++) {
-				playerFishImage[i] = Image.createImage("/fish/player_Lv" + (i + 1) + ".png");
-			}
-			fishImages = new Image[5];
-			for (int i = 0; i < fishImages.length; i++) {
-				fishImages[i] = Image.createImage("/fish/fish" + (i + 1) + ".png");
-			}
-			fishIcons = new Image[3];
-			fishIcons[0] = Image.createImage("/fish1_true.png");
-			fishIcons[1] = Image.createImage("/fish2_true_false.png");
-			fishIcons[2] = Image.createImage("/fish3_true_false.png");
-
-			numberImage = Image.createImage("/num.png");
-			lvUpImage = Image.createImage("/LvUP.png");
-			upImage = Image.createImage("/+1UP.png");
-
-			levelImage = Image.createImage("/Lv.png");
-			pauseBgImage = Image.createImage("/bg_pause.png");
-			initMainMenu();
-		} catch (Exception e) {
-			getGraphics().drawString(e.toString(), 0, 0, 0);
+		playerFishImage = new Image[3];
+		for (int i = 0; i < playerFishImage.length; i++) {
+			playerFishImage[i] = Image.createImage("/fish/player_Lv" + (i + 1) + ".png");
 		}
+		fishImages = new Image[5];
+		for (int i = 0; i < fishImages.length; i++) {
+			fishImages[i] = Image.createImage("/fish/fish" + (i + 1) + ".png");
+		}
+		fishIcons = new Image[3];
+		fishIcons[0] = Image.createImage("/fish1_true.png");
+		fishIcons[1] = Image.createImage("/fish2_true_false.png");
+		fishIcons[2] = Image.createImage("/fish3_true_false.png");
+
+		numberImage = Image.createImage("/num.png");
+		lvUpImage = Image.createImage("/LvUP.png");
+		upImage = Image.createImage("/+1UP.png");
+
+		levelImage = Image.createImage("/Lv.png");
+		pauseBgImage = Image.createImage("/bg_pause.png");
+		initMainMenu();
 	}
 
 	private void initMainMenu() {
@@ -122,8 +118,8 @@ public class GameFishCanvas extends GameCanvas implements Runnable {
 		backgroundSprite0 = new Sprite(mainBgImage);
 		startSprite = new Sprite(startImage, 260, 133);
 		endSprite = new Sprite(endImage, 260, 133);
-		layerManager.append(startSprite);
-		layerManager.append(endSprite);
+//		layerManager.append(startSprite);
+//		layerManager.append(endSprite);
 		layerManager.append(backgroundSprite0);
 		startSel = 0;
 		endSel = 1;
