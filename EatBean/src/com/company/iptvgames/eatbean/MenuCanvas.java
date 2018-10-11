@@ -3,16 +3,22 @@ package com.company.iptvgames.eatbean;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.GameCanvas;
+import javax.microedition.lcdui.game.LayerManager;
+import javax.microedition.lcdui.game.Sprite;
 
 import com.company.iptvgames.framework.utils.Constants.KeyCode;
 
 public class MenuCanvas extends GameCanvas {
 
 	public MainMIDlet midlet;
+	private LayerManager layerManager = new LayerManager();
 	private Image homeImage;
 	private Image startImage;
 	private Image exitImage;
 	private int startmenu = 1;
+	private Sprite bkgLayer;
+	private Sprite startSprite;
+	private Sprite exitSprite;
 	private Graphics gra;
 
 	protected MenuCanvas(MainMIDlet midlet) {
@@ -20,17 +26,26 @@ public class MenuCanvas extends GameCanvas {
 		this.midlet = midlet;
 		gra = getGraphics();
 
-		// load image
 		try {
+			// load image
 			homeImage = Image.createImage("/homepage.png");
 			startImage = Image.createImage("/start.png");
 			exitImage = Image.createImage("/exit.png");
+			bkgLayer = new Sprite(homeImage);
+			startSprite = new Sprite(startImage);
+			exitSprite = new Sprite(exitImage);
+			exitSprite.setVisible(false);
+			startSprite.setPosition(184, 281);
+			exitSprite.setPosition(184, 392);
+			layerManager.append(bkgLayer);
+			layerManager.insert(startSprite, 0);
+			layerManager.insert(exitSprite, 0);
+			layerManager.paint(gra, 0, 0);
+			this.flushGraphics();// 将后备屏幕缓冲区内容输出到显示屏上
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			gra.drawString(ex.getMessage(), 0, 0, 0);
 		}
 
-		paint();
-		this.flushGraphics();// 将后备屏幕缓冲区内容输出到显示屏上
 	}
 
 	protected void keyPressed(int keyCode) {
@@ -53,7 +68,6 @@ public class MenuCanvas extends GameCanvas {
 					midlet.NPCbegin = System.currentTimeMillis();
 					this.flushGraphics();
 				} else {
-					System.out.println("exit game:");
 					midlet.notifyDestroyed();
 				}
 			}
@@ -61,13 +75,16 @@ public class MenuCanvas extends GameCanvas {
 	}
 
 	public void paint() {
-		gra.drawImage(homeImage, 0, 0, 0);
 		if (startmenu == 1) {
-			gra.drawImage(startImage, 184, 281, 0);
+			startSprite.setVisible(true);
+			exitSprite.setVisible(false);
 		}
 		if (startmenu == 0) {
-			gra.drawImage(exitImage, 184, 392, 0);
+			startSprite.setVisible(false);
+			exitSprite.setVisible(true);
 		}
+		layerManager.paint(gra, 0, 0);
+		this.flushGraphics();
 	}
 
 }
