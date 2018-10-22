@@ -1,4 +1,4 @@
-MIDlet-1: MakeMap,,com.company.iptvgames.eatbean.EatBean
+MIDlet-1: MainMIDlet,,com.company.iptvgames.eatbean.MainMIDlet
 MIDlet-Jar-URL: EatBean.jar
 MIDlet-Name: EatBean Midlet Suite
 MIDlet-Vendor: Midlet Suite Vendor

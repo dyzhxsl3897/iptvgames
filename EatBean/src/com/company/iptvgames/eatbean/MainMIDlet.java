@@ -8,7 +8,7 @@ public class MainMIDlet extends MIDlet {
 
 	public Display dis;
 	public MainGameCanvas gameCanvas;
-	public MenuCanvas menuCanvas;
+	public MenuGameCanvas menuCanvas;
 	public boolean menuShow = true;
 	public boolean isRunning = true;
 	public int gamestatus = 0;// 1 means running, 0 means pause, 2 means failed, 3 means pass, 4 means real pause
@@ -16,19 +16,23 @@ public class MainMIDlet extends MIDlet {
 	public long NPCbegin;
 
 	public MainMIDlet() {
+		// TODO Auto-generated constructor stub
 		dis = Display.getDisplay(this);
-		menuCanvas = new MenuCanvas(this);
 		gameCanvas = new MainGameCanvas(this);
+		menuCanvas = new MenuGameCanvas(this);
+		dis.setCurrent(menuCanvas);
 	}
 
 	protected void destroyApp(boolean arg0) throws MIDletStateChangeException {
+		// TODO Auto-generated method stub
 	}
 
 	protected void pauseApp() {
+		// TODO Auto-generated method stub
 	}
 
 	protected void startApp() throws MIDletStateChangeException {
-		dis.setCurrent(menuCanvas);
+		// TODO Auto-generated method stub
 	}
 
 }

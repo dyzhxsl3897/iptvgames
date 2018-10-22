@@ -8,7 +8,7 @@ import javax.microedition.lcdui.game.Sprite;
 
 import com.company.iptvgames.framework.utils.Constants.KeyCode;
 
-public class MenuCanvas extends GameCanvas {
+public class MenuGameCanvas extends GameCanvas {
 
 	public MainMIDlet midlet;
 	private LayerManager layerManager = new LayerManager();
@@ -21,9 +21,11 @@ public class MenuCanvas extends GameCanvas {
 	private Sprite exitSprite;
 	private Graphics gra;
 
-	protected MenuCanvas(MainMIDlet midlet) {
-		super(false);// 传入false值，一旦按键按 下，就会调用传统的键盘事件处理方法
+	protected MenuGameCanvas(MainMIDlet midlet) {
+		super(false);
+		// TODO Auto-generated constructor stub
 		this.midlet = midlet;
+		this.setFullScreenMode(true);
 		gra = getGraphics();
 
 		try {
@@ -45,7 +47,6 @@ public class MenuCanvas extends GameCanvas {
 		} catch (Exception ex) {
 			gra.drawString(ex.getMessage(), 0, 0, 0);
 		}
-
 	}
 
 	protected void keyPressed(int keyCode) {

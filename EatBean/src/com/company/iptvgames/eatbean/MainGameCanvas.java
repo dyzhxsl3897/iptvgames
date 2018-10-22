@@ -14,10 +14,10 @@ import com.company.iptvgames.framework.utils.Constants.KeyCode;
 
 public class MainGameCanvas extends GameCanvas implements Runnable {
 
-	public MainMIDlet midlet;
+	private MainMIDlet midlet;
+	private Graphics gra = this.getGraphics();
 	private LayerManager layerManager = new LayerManager();
 	public Thread mainThread;
-	private Graphics gra = getGraphics();
 	private int maxlevel = 4;
 	private int score = 0;
 	private int level = 1;
@@ -68,11 +68,11 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 
 	protected MainGameCanvas(MainMIDlet midlet) {
 		super(false);
+		// TODO Auto-generated constructor stub
 		this.midlet = midlet;
 		this.setFullScreenMode(true);
 
 		initializeGame();
-
 		// paint canvas
 		layerManager.paint(gra, 0, 0);
 		this.flushGraphics();
@@ -81,7 +81,6 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			mainThread = new Thread(this);
 			mainThread.start();
 		}
-
 	}
 
 	private void initializeGame() {
@@ -111,28 +110,128 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		this.flushGraphics();
 	}
 
-	private void cleanUpBackground() {
-		for (int i = layerManager.getSize() - 1; i > 0; i--) {
-			layerManager.remove(layerManager.getLayerAt(i));
-		}
+	public void run() {
+		// TODO Auto-generated method stub
+		int times = 0;
+		while (true) {
+			long begin = System.currentTimeMillis();
+			player.nextFrame();
 
+			playduration = System.currentTimeMillis() - midlet.NPCbegin;
+			// if(midlet.gamestatus ==1){
+			if (midlet.NPCbegin > 0 && playduration > 2000 && midlet.gamestatus == 1) {
+				// NPC move speed is slower than player 5 times
+				if (times % speed == 0) {
+					for (int i = 0; i < NPCs.size(); i++) {
+						moving((Sprite) NPCs.elementAt(i));
+					}
+				}
+				// 检查与npc碰撞，则生命减1
+				for (int j = 0; j < NPCs.size(); j++) {
+					// check collides with player
+					if (player.collidesWith((Sprite) NPCs.elementAt(j), true)) {
+						showalert("Caught");
+						break;
+					}
+				}
+			}
+			// }
+
+			layerManager.paint(gra, 0, 0);
+			this.flushGraphics();// 将后备屏幕缓冲区内容输出到显示屏上
+
+			long runtime = System.currentTimeMillis() - begin;
+
+			if (runtime < midlet.fps) {
+				try {
+					Thread.sleep(midlet.fps - runtime);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+
+			}
+			times++;
+		}
 	}
 
-	private void reloadImages() {
-		try {
-			bgImage = Image.createImage("/bg.png");
-			map = Image.createImage("/wall/map.png");
-			bean = Image.createImage("/bean.png");
-			plimage = Image.createImage("/player.png");
-			NPCorange = Image.createImage("/NPC_O.png");
-			NPCred = Image.createImage("/NPC_R.png");
-			NPCgreen = Image.createImage("/NPC_G.png");
-			NPCblue = Image.createImage("/NPC_B.png");
-			numbimage = Image.createImage("/num240x34.png");
-		} catch (Exception ex) {
-			ex.printStackTrace();
+	private void moving(Sprite npc) {
+		Sprite s = npc;
+		// NPC is moving
+		boolean moveR = false;
+		int NPCPX = s.getX();
+		int NPCPY = s.getY();
+		// int NPCdir = Sprite.TRANS_NONE;
+
+		if (NPCPX > PX) {
+			if (NPCPY > PY) {
+				NPCdir = Sprite.TRANS_ROT90;
+			}// go up
+			if (NPCPY == PY) {
+				NPCdir = Sprite.TRANS_ROT180;
+			}// go left
+			if (NPCPY < PY) {
+				NPCdir = Sprite.TRANS_ROT270;
+			}// go down
+		}
+		if (NPCPX == PX) {
+			if (NPCPY > PY) {
+				NPCdir = Sprite.TRANS_ROT90;
+			}
+			if (NPCPY < PY) {
+				NPCdir = Sprite.TRANS_ROT270;
+			}
+		}
+		if (NPCPX < PX) {
+			if (NPCPY > PY) {
+				NPCdir = Sprite.TRANS_ROT90;
+			}
+			if (NPCPY == PY) {
+				NPCdir = Sprite.TRANS_NONE;
+			}// go right
+			if (NPCPY < PY) {
+				NPCdir = Sprite.TRANS_ROT270;
+			}
 		}
 
+		while (!moveR) {
+			if (NPCdir == Sprite.TRANS_ROT180) {
+				s.move(-25, 0);
+				moveR = true;
+				if (s.collidesWith(mapLayer, true)) {
+					s.move(25, 0);
+					NPCdir = Sprite.TRANS_ROT90;
+					moveR = false;
+				}
+			}
+			if (NPCdir == Sprite.TRANS_ROT270) {
+				s.move(0, 25);
+				moveR = true;
+				if (s.collidesWith(mapLayer, true)) {
+					s.move(0, -25);
+					NPCdir = Sprite.TRANS_ROT180;
+					moveR = false;
+				}
+			}
+			if (NPCdir == Sprite.TRANS_NONE) {
+				s.move(25, 0);
+				moveR = true;
+				if (s.collidesWith(mapLayer, true)) {
+					s.move(-25, 0);
+					NPCdir = Sprite.TRANS_ROT270;
+					moveR = false;
+				}
+			}
+			if (NPCdir == Sprite.TRANS_ROT90) {
+				s.move(0, -25);
+				moveR = true;
+				if (s.collidesWith(mapLayer, true)) {
+					s.move(0, 25);
+					NPCdir = Sprite.TRANS_NONE;
+					moveR = false;
+				}
+			}
+			// NPC.setTransform(NPCdir);
+		}
 	}
 
 	protected void keyPressed(int keyCode) {
@@ -299,47 +398,28 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		}
 	}
 
-	public void run() {
-		int times = 0;
-		while (true) {
-			long begin = System.currentTimeMillis();
-			player.nextFrame();
-
-			playduration = System.currentTimeMillis() - midlet.NPCbegin;
-			// if(midlet.gamestatus ==1){
-			if (midlet.NPCbegin > 0 && playduration > 2000 && midlet.gamestatus == 1) {
-				// NPC move speed is slower than player 5 times
-				if (times % speed == 0) {
-					for (int i = 0; i < NPCs.size(); i++) {
-						moving((Sprite) NPCs.elementAt(i));
-					}
-				}
-				// 检查与npc碰撞，则生命减1
-				for (int j = 0; j < NPCs.size(); j++) {
-					// check collides with player
-					if (player.collidesWith((Sprite) NPCs.elementAt(j), true)) {
-						showalert("Caught");
-						break;
-					}
-				}
-			}
-			// }
-
-			layerManager.paint(gra, 0, 0);
-			this.flushGraphics();// 将后备屏幕缓冲区内容输出到显示屏上
-
-			long runtime = System.currentTimeMillis() - begin;
-
-			if (runtime < midlet.fps) {
-				try {
-					Thread.sleep(midlet.fps - runtime);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-
-			}
-			times++;
+	private void cleanUpBackground() {
+		for (int i = layerManager.getSize() - 1; i > 0; i--) {
+			layerManager.remove(layerManager.getLayerAt(i));
 		}
+
+	}
+
+	private void reloadImages() {
+		try {
+			bgImage = Image.createImage("/bg.png");
+			map = Image.createImage("/wall/map.png");
+			bean = Image.createImage("/bean.png");
+			plimage = Image.createImage("/player.png");
+			NPCorange = Image.createImage("/NPC_O.png");
+			NPCred = Image.createImage("/NPC_R.png");
+			NPCgreen = Image.createImage("/NPC_G.png");
+			NPCblue = Image.createImage("/NPC_B.png");
+			numbimage = Image.createImage("/num240x34.png");
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
 	}
 
 	public void CreateMap() {
@@ -435,84 +515,23 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		}
 	}
 
-	private void moving(Sprite npc) {
-		Sprite s = npc;
-		// NPC is moving
-		boolean moveR = false;
-		int NPCPX = s.getX();
-		int NPCPY = s.getY();
-		// int NPCdir = Sprite.TRANS_NONE;
-
-		if (NPCPX > PX) {
-			if (NPCPY > PY) {
-				NPCdir = Sprite.TRANS_ROT90;
-			}// go up
-			if (NPCPY == PY) {
-				NPCdir = Sprite.TRANS_ROT180;
-			}// go left
-			if (NPCPY < PY) {
-				NPCdir = Sprite.TRANS_ROT270;
-			}// go down
-		}
-		if (NPCPX == PX) {
-			if (NPCPY > PY) {
-				NPCdir = Sprite.TRANS_ROT90;
-			}
-			if (NPCPY < PY) {
-				NPCdir = Sprite.TRANS_ROT270;
-			}
-		}
-		if (NPCPX < PX) {
-			if (NPCPY > PY) {
-				NPCdir = Sprite.TRANS_ROT90;
-			}
-			if (NPCPY == PY) {
-				NPCdir = Sprite.TRANS_NONE;
-			}// go right
-			if (NPCPY < PY) {
-				NPCdir = Sprite.TRANS_ROT270;
-			}
+	private void newlevel(int value) {
+		// cleanUpBackground();
+		if (value == 1) {
+			score = 0;
+			level = 1;
+			lives = 2;
+		} else {
+			level = value;
 		}
 
-		while (!moveR) {
-			if (NPCdir == Sprite.TRANS_ROT180) {
-				s.move(-25, 0);
-				moveR = true;
-				if (s.collidesWith(mapLayer, true)) {
-					s.move(25, 0);
-					NPCdir = Sprite.TRANS_ROT90;
-					moveR = false;
-				}
-			}
-			if (NPCdir == Sprite.TRANS_ROT270) {
-				s.move(0, 25);
-				moveR = true;
-				if (s.collidesWith(mapLayer, true)) {
-					s.move(0, -25);
-					NPCdir = Sprite.TRANS_ROT180;
-					moveR = false;
-				}
-			}
-			if (NPCdir == Sprite.TRANS_NONE) {
-				s.move(25, 0);
-				moveR = true;
-				if (s.collidesWith(mapLayer, true)) {
-					s.move(-25, 0);
-					NPCdir = Sprite.TRANS_ROT270;
-					moveR = false;
-				}
-			}
-			if (NPCdir == Sprite.TRANS_ROT90) {
-				s.move(0, -25);
-				moveR = true;
-				if (s.collidesWith(mapLayer, true)) {
-					s.move(0, 25);
-					NPCdir = Sprite.TRANS_NONE;
-					moveR = false;
-				}
-			}
-			// NPC.setTransform(NPCdir);
+		if (level > maxlevel) {
+			level = 1;
 		}
+		PX = 235;
+		PY = 251;
+
+		initializeGame();
 	}
 
 	private void showscore(int value, String str) {
@@ -639,25 +658,6 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		layerManager.insert(dialoglayer, 0);
 		layerManager.paint(gra, 0, 0);
 		this.flushGraphics();
-	}
-
-	private void newlevel(int value) {
-		// cleanUpBackground();
-		if (value == 1) {
-			score = 0;
-			level = 1;
-			lives = 2;
-		} else {
-			level = value;
-		}
-
-		if (level > maxlevel) {
-			level = 1;
-		}
-		PX = 235;
-		PY = 251;
-
-		initializeGame();
 	}
 
 }
