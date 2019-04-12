@@ -13,6 +13,7 @@ public abstract class Board {
 	private int posX;
 	private int posY;
 
+	private boolean isExist;
 	private int index;
 
 	protected Board(Image image, int x, int y, int index) {
@@ -23,6 +24,7 @@ public abstract class Board {
 	protected void initBoard(Image image, int x, int y, int index) {
 		this.setPosition(x, y);
 		this.index = index;
+		this.isExist = true;
 	}
 
 	public void removeFromScreen(LayerManager layerManager) {
@@ -44,7 +46,10 @@ public abstract class Board {
 	}
 
 	public boolean collidesWith(Sprite s, boolean pixelLevel) {
-		return this.boardSprite.collidesWith(s, pixelLevel);
+		if (this.isExist) {
+			return this.boardSprite.collidesWith(s, pixelLevel);
+		}
+		return false;
 	}
 
 	public Sprite getBoardSprite() {
@@ -57,6 +62,14 @@ public abstract class Board {
 
 	public int getPosY() {
 		return posY;
+	}
+
+	public boolean isExist() {
+		return isExist;
+	}
+
+	public void setExist(boolean isExist) {
+		this.isExist = isExist;
 	}
 
 	public int getIndex() {

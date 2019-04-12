@@ -5,9 +5,11 @@ import javax.microedition.lcdui.game.Sprite;
 
 import com.company.iptvgames.peiqidown.GameConst;
 import com.company.iptvgames.peiqidown.boards.Board;
+import com.company.iptvgames.peiqidown.boards.FlapBoard;
 import com.company.iptvgames.peiqidown.boards.LeftBoard;
 import com.company.iptvgames.peiqidown.boards.RightBoard;
 import com.company.iptvgames.peiqidown.boards.SpringBoard;
+import com.company.iptvgames.peiqidown.boards.StabBoard;
 import com.company.iptvgames.peiqidown.peiqi.states.PJumpState;
 import com.company.iptvgames.peiqidown.peiqi.states.PStandState;
 import com.company.iptvgames.peiqidown.peiqi.states.PState;
@@ -76,6 +78,10 @@ public class Peiqi {
 				this.move(0, this.dropSpeed);
 				SpringBoard board = (SpringBoard) boards[indexOfStandOnBoard % GameConst.Board.NUMBER];
 				board.startAnimation();
+			} else if (isStandOnFlapBoard(boards)) {
+				this.dropSpeed = 0;
+				FlapBoard board = (FlapBoard) boards[indexOfStandOnBoard % GameConst.Board.NUMBER];
+				board.startAnimation();
 			} else {
 				this.dropSpeed = 0;
 				this.setPosition(this.posX, boards[indexOfStandOnBoard % GameConst.Board.NUMBER].getPosY() - GameConst.Peiqi.HEIGHT + 10);
@@ -114,6 +120,30 @@ public class Peiqi {
 		}
 		Board board = boards[indexOfStandOnBoard % GameConst.Board.NUMBER];
 		if (board instanceof SpringBoard) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean isStandOnFlapBoard(Board[] boards) {
+		int indexOfStandOnBoard = indexOfStandOnBoard(boards);
+		if (indexOfStandOnBoard == -1) {
+			return false;
+		}
+		Board board = boards[indexOfStandOnBoard % GameConst.Board.NUMBER];
+		if (board instanceof FlapBoard) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean isStandOnStabBoard(Board[] boards) {
+		int indexOfStandOnBoard = indexOfStandOnBoard(boards);
+		if (indexOfStandOnBoard == -1) {
+			return false;
+		}
+		Board board = boards[indexOfStandOnBoard % GameConst.Board.NUMBER];
+		if (board instanceof StabBoard) {
 			return true;
 		}
 		return false;

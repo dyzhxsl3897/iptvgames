@@ -9,6 +9,17 @@ public class FlapBoard extends Board {
 	}
 
 	public void nextFrame() {
+		if (this.getBoardSprite().getFrame() > 0) {
+			this.getBoardSprite().nextFrame();
+			if (this.getBoardSprite().getFrame() == 0) {
+				this.setExist(false);
+				this.getBoardSprite().setFrame(this.getBoardSprite().getFrameSequenceLength() - 1);
+			}
+		}
+	}
+
+	public void startAnimation() {
+		this.getBoardSprite().nextFrame();
 	}
 
 }
