@@ -14,11 +14,9 @@ public class GCPlayState implements GCState {
 	}
 
 	public void exitState() {
-		// TODO Auto-generated method stub
 	}
 
 	public void intoState() {
-		// TODO Auto-generated method stub
 	}
 
 	public void keyAction() {

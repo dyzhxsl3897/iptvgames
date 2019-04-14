@@ -48,16 +48,16 @@ public class MenuGameCanvas extends GameCanvas implements Runnable {
 
 		cartoonSprite = new Sprite(cartoonImg, GameConst.Menu.CARTOON_W, GameConst.Menu.CARTOON_H);
 		cartoonSprite.setPosition(GameConst.Menu.CARTOON_X, GameConst.Menu.CARTOON_Y);
-		layerManager.insert(cartoonSprite, 0);
+		layerManager.insert(cartoonSprite, GameConst.Menu.LAYER_0);
 
 		startBtnSprite = new Sprite(startImg);
 		startBtnSprite.setPosition(GameConst.Menu.START_BTN_X, GameConst.Menu.START_BTN_Y);
-		layerManager.insert(startBtnSprite, 0);
+		layerManager.insert(startBtnSprite, GameConst.Menu.LAYER_0);
 
 		exitBtnSprite = new Sprite(exitImg);
 		exitBtnSprite.setPosition(GameConst.Menu.EXIT_BTN_X, GameConst.Menu.EXIT_BTN_Y);
 		exitBtnSprite.setVisible(false);
-		layerManager.insert(exitBtnSprite, 0);
+		layerManager.insert(exitBtnSprite, GameConst.Menu.LAYER_0);
 	}
 
 	public void startMenuCanvas() {
@@ -106,6 +106,8 @@ public class MenuGameCanvas extends GameCanvas implements Runnable {
 			if (startBtnSprite.isVisible()) {
 				turnOffMenuCanvas();
 				this.midlet.getDisplay().setCurrent(this.midlet.getMainGameCanvas());
+				this.midlet.getMainGameCanvas().initalizeGame();
+				this.midlet.getMainGameCanvas().updateStateToPlay();
 				this.midlet.getMainGameCanvas().startGameCanvas();
 			} else {
 				this.midlet.notifyDestroyed();

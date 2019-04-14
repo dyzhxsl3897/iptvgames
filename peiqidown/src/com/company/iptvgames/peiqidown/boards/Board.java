@@ -32,7 +32,7 @@ public abstract class Board {
 	}
 
 	public void addToScreen(LayerManager layerManager) {
-		layerManager.insert(boardSprite, 0);
+		layerManager.insert(boardSprite, GameConst.GameCanvas.LAYER_1);
 	}
 
 	public void move(int dx, int dy) {

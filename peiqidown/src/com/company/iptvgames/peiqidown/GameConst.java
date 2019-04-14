@@ -16,6 +16,8 @@ public class GameConst {
 		public static final int START_BTN_Y = 254;
 		public static final int EXIT_BTN_X = 550;
 		public static final int EXIT_BTN_Y = 13;
+
+		public static final int LAYER_0 = 0;
 	}
 
 	public static class GameCanvas {
@@ -25,6 +27,8 @@ public class GameConst {
 		public static final int MOVE_UP_SPEED = 4;
 		public static final int PLAYAREA_LEFT_X = 100;
 		public static final int PLAYAREA_RIGHT_X = 540;
+		public static final int LAYER_0 = 0;
+		public static final int LAYER_1 = 4;
 	}
 
 	public static class Peiqi {
@@ -55,9 +59,17 @@ public class GameConst {
 		public static final int LEFT_BOARD_MOVE_SPEED = 2;
 		public static final int RIGHT_BOARD_MOVE_SPEED = 2;
 
+		public static final int START_X = 282;
 		public static final int LEFT_X = 120;
 		public static final int RIGHT_X = 444;
-		public static final int TOP_Y = 70;
+		public static final int TOP_Y = 148;
 		public static final int LAYER_HEIGHT = 120;
+	}
+
+	public static class Pause {
+		public static final int CONTINUE_X = 212;
+		public static final int CONTINUE_Y = 124;
+		public static final int OVER_X = 315;
+		public static final int OVER_Y = 124;
 	}
 }

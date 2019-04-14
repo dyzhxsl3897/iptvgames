@@ -57,9 +57,9 @@ public class Peiqi {
 	}
 
 	public void addToScreen(LayerManager layerManager) {
-		layerManager.insert(walkSprite, 0);
-		layerManager.insert(standSprite, 0);
-		layerManager.insert(jumpSprite, 0);
+		layerManager.insert(walkSprite, GameConst.GameCanvas.LAYER_1);
+		layerManager.insert(standSprite, GameConst.GameCanvas.LAYER_1);
+		layerManager.insert(jumpSprite, GameConst.GameCanvas.LAYER_1);
 	}
 
 	public void drop(Board[] boards) {
@@ -87,6 +87,13 @@ public class Peiqi {
 				this.setPosition(this.posX, boards[indexOfStandOnBoard % GameConst.Board.NUMBER].getPosY() - GameConst.Peiqi.HEIGHT + 10);
 			}
 		}
+	}
+
+	public boolean isOutOfScreen() {
+		if (this.standSprite.getY() > GameConst.SCREEN_HEIGHT) {
+			return true;
+		}
+		return false;
 	}
 
 	public boolean isStandOnLeftBoard(Board[] boards) {
@@ -158,14 +165,14 @@ public class Peiqi {
 	}
 
 	public int indexOfStandOnBoard(Board[] boards) {
-		int isStandOnBoard = -1;
+		int indexOfBoard = -1;
 		for (int i = 0; i < boards.length; i++) {
 			if (boards[i].collidesWith(walkSprite, false) || boards[i].collidesWith(standSprite, false) || boards[i].collidesWith(jumpSprite, false)) {
-				isStandOnBoard = boards[i].getIndex();
+				indexOfBoard = boards[i].getIndex();
 				break;
 			}
 		}
-		return isStandOnBoard;
+		return indexOfBoard;
 	}
 
 	public void updateState(PState newState) {
