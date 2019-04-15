@@ -21,7 +21,9 @@ public class GCPlayState implements GCState {
 
 	public void keyAction() {
 		int keyState = this.gameCanvas.getKeyStates();
-		if (0 != (keyState & GameCanvas.RIGHT_PRESSED)) {
+		if (0 != (keyState & GameCanvas.FIRE_PRESSED)) {
+			this.gameCanvas.updateStateToPause();
+		} else if (0 != (keyState & GameCanvas.RIGHT_PRESSED)) {
 			this.gameCanvas.getPeiqi().faceRight();
 			if (!this.gameCanvas.getPeiqi().isInWalkState()) {
 				this.gameCanvas.getPeiqi().updateState(this.gameCanvas.getPeiqi().getWalkState());

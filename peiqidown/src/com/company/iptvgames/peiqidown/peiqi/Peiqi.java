@@ -73,19 +73,8 @@ public class Peiqi {
 				this.setPosition(this.posX, boards[indexOfStandOnBoard % GameConst.Board.NUMBER].getPosY() - GameConst.Peiqi.HEIGHT + 10);
 			}
 		} else {
-			if (isStandOnSpringBoard(boards)) {
-				this.dropSpeed = GameConst.Peiqi.JUMP_SPEED;
-				this.move(0, this.dropSpeed);
-				SpringBoard board = (SpringBoard) boards[indexOfStandOnBoard % GameConst.Board.NUMBER];
-				board.startAnimation();
-			} else if (isStandOnFlapBoard(boards)) {
-				this.dropSpeed = 0;
-				FlapBoard board = (FlapBoard) boards[indexOfStandOnBoard % GameConst.Board.NUMBER];
-				board.startAnimation();
-			} else {
-				this.dropSpeed = 0;
-				this.setPosition(this.posX, boards[indexOfStandOnBoard % GameConst.Board.NUMBER].getPosY() - GameConst.Peiqi.HEIGHT + 10);
-			}
+			this.dropSpeed = 0;
+			this.setPosition(this.posX, boards[indexOfStandOnBoard % GameConst.Board.NUMBER].getPosY() - GameConst.Peiqi.HEIGHT + 10);
 		}
 	}
 
@@ -252,6 +241,10 @@ public class Peiqi {
 
 	public PState getJumpState() {
 		return jumpState;
+	}
+
+	public int getDropSpeed() {
+		return dropSpeed;
 	}
 
 	public void setDropSpeed(int dropSpeed) {

@@ -14,6 +14,7 @@ public abstract class Board {
 	private int posY;
 
 	private boolean isExist;
+	private boolean isAlreadyStandOn;
 	private int index;
 
 	protected Board(Image image, int x, int y, int index) {
@@ -25,6 +26,7 @@ public abstract class Board {
 		this.setPosition(x, y);
 		this.index = index;
 		this.isExist = true;
+		this.isAlreadyStandOn = false;
 	}
 
 	public void removeFromScreen(LayerManager layerManager) {
@@ -70,6 +72,14 @@ public abstract class Board {
 
 	public void setExist(boolean isExist) {
 		this.isExist = isExist;
+	}
+
+	public boolean isAlreadyStandOn() {
+		return isAlreadyStandOn;
+	}
+
+	public void setAlreadyStandOn(boolean isAlreadyStandOn) {
+		this.isAlreadyStandOn = isAlreadyStandOn;
 	}
 
 	public int getIndex() {

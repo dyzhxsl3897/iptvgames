@@ -28,7 +28,12 @@ public class GameConst {
 		public static final int PLAYAREA_LEFT_X = 100;
 		public static final int PLAYAREA_RIGHT_X = 540;
 		public static final int LAYER_0 = 0;
-		public static final int LAYER_1 = 4;
+		public static final int LAYER_1 = 3;
+		public static final int NUMBER_X = 32;
+		public static final int NUMBER_Y = 63;
+		public static final int LIFE_X = 16;
+		public static final int LIFE_Y = 195;
+		public static final int LIFE_H = 11;
 	}
 
 	public static class Peiqi {
@@ -44,6 +49,8 @@ public class GameConst {
 
 		public static final int JUMP_SPEED = -15;
 		public static final int MOVE_SPEED = 15;
+
+		public static final int MAX_LIFE = 9;
 	}
 
 	public static class Board {

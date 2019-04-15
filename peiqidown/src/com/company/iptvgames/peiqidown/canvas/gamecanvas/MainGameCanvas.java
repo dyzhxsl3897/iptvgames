@@ -1,5 +1,7 @@
 package com.company.iptvgames.peiqidown.canvas.gamecanvas;
 
+import java.util.Vector;
+
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.GameCanvas;
@@ -8,11 +10,14 @@ import javax.microedition.lcdui.game.Sprite;
 import javax.microedition.lcdui.game.TiledLayer;
 
 import com.company.iptvgames.framework.utils.ImageUtil;
+import com.company.iptvgames.framework.utils.NumberImgUtil;
 import com.company.iptvgames.framework.utils.RandomUtil;
 import com.company.iptvgames.peiqidown.GameConst;
 import com.company.iptvgames.peiqidown.MainMIDlet;
 import com.company.iptvgames.peiqidown.boards.Board;
 import com.company.iptvgames.peiqidown.boards.BoardFactory;
+import com.company.iptvgames.peiqidown.boards.FlapBoard;
+import com.company.iptvgames.peiqidown.boards.SpringBoard;
 import com.company.iptvgames.peiqidown.canvas.gamecanvas.states.GCDeadState;
 import com.company.iptvgames.peiqidown.canvas.gamecanvas.states.GCPauseState;
 import com.company.iptvgames.peiqidown.canvas.gamecanvas.states.GCPlayState;
@@ -38,6 +43,8 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	private Sprite alertSprite;
 	private Sprite continueSprite;
 	private Sprite overSprite;
+	private Vector numberSprite;
+	private Vector lifeSprite;
 
 	private Thread gameCanvasThread;
 
@@ -45,6 +52,8 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	private Board[] boards;
 
 	private int boardIndex;
+	private int lastScore;
+	private int life;
 	private boolean isStayOnGameCanvas;
 
 	public MainGameCanvas(MainMIDlet midlet) {
@@ -74,6 +83,8 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 
 	public void initalizeGame() {
 		this.boardIndex = 0;
+		this.lastScore = 0;
+		this.life = GameConst.Peiqi.MAX_LIFE;
 		layerManager = new LayerManager();
 		Image bg1Img = ImageRes.getInstance().getImage("bg1Img");
 		Image bg2Img = ImageRes.getInstance().getImage("bg2Img");
@@ -103,6 +114,14 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		peiqi = new Peiqi();
 		peiqi.addToScreen(layerManager);
 
+		lifeSprite = new Vector();
+		for (int i = 0; i < life; i++) {
+			Sprite s = new Sprite(ImageRes.getInstance().getImage("lifeImg"));
+			s.setPosition(GameConst.GameCanvas.LIFE_X, GameConst.GameCanvas.LIFE_Y + i * GameConst.GameCanvas.LIFE_H);
+			layerManager.insert(s, GameConst.GameCanvas.LAYER_1);
+			lifeSprite.addElement(s);
+		}
+
 		boards = new Board[GameConst.Board.NUMBER];
 		Board board = BoardFactory.getInstance().createRandomBoard(GameConst.Board.START_X, GameConst.Board.TOP_Y, boardIndex++);
 		board.addToScreen(layerManager);
@@ -122,6 +141,8 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		ImageRes.getInstance().loadImage("alertImg", ImageUtil.createImage("/alert.png"));
 		ImageRes.getInstance().loadImage("overImg", ImageUtil.createImage("/over.png"));
 		ImageRes.getInstance().loadImage("continueImg", ImageUtil.createImage("/continue.png"));
+		ImageRes.getInstance().loadImage("numbersImg", ImageUtil.createImage("/numbers.png"));
+		ImageRes.getInstance().loadImage("lifeImg", ImageUtil.createImage("/life.png"));
 		ImageRes.getInstance().loadImage("peiqiStandImg", ImageUtil.createImage("/peiqi/stand.png"));
 		ImageRes.getInstance().loadImage("peiqiWalkImg", ImageUtil.createImage("/peiqi/walk.png"));
 		ImageRes.getInstance().loadImage("peiqiJumpImg", ImageUtil.createImage("/peiqi/jump.png"));
@@ -143,15 +164,38 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 				keyAction();
 				peiqi.drop(boards);
 				if (peiqi.isOutOfScreen()) {
-					updateState(deadState);
+					updateStateToDead();
 				}
-				if (peiqi.isStandOnLeftBoard(boards)) {
-					peiqi.move(-GameConst.Board.LEFT_BOARD_MOVE_SPEED, 0);
-				} else if (peiqi.isStandOnRightBoard(boards)) {
-					peiqi.move(GameConst.Board.LEFT_BOARD_MOVE_SPEED, 0);
+				System.out.println(peiqi.isStandOnBoard(boards));
+				if (peiqi.isStandOnBoard(boards)) {
+					Board board = (Board) boards[peiqi.indexOfStandOnBoard(boards) % GameConst.Board.NUMBER];
+					if (peiqi.isStandOnStabBoard(boards) && !board.isAlreadyStandOn()) {
+						life -= 3;
+					} else if (life < GameConst.Peiqi.MAX_LIFE && !board.isAlreadyStandOn()) {
+						life++;
+					}
+					if (peiqi.isStandOnLeftBoard(boards)) {
+						peiqi.move(-GameConst.Board.LEFT_BOARD_MOVE_SPEED, 0);
+					} else if (peiqi.isStandOnRightBoard(boards)) {
+						peiqi.move(GameConst.Board.LEFT_BOARD_MOVE_SPEED, 0);
+					} else if (peiqi.isStandOnSpringBoard(boards)) {
+						peiqi.setDropSpeed(GameConst.Peiqi.JUMP_SPEED);
+						peiqi.move(0, peiqi.getDropSpeed());
+						SpringBoard springBoard = (SpringBoard) board;
+						springBoard.startAnimation();
+					} else if (peiqi.isStandOnFlapBoard(boards)) {
+						peiqi.setDropSpeed(0);
+						FlapBoard flapBoard = (FlapBoard) board;
+						flapBoard.startAnimation();
+					}
+					board.setAlreadyStandOn(true);
 				}
 				animation();
+				updateScore();
+				updateLife();
 			} else if (isInDeadState()) {
+				keyAction();
+			} else if (isInPauseState()) {
 				keyAction();
 			}
 
@@ -176,13 +220,42 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		}
 	}
 
+	private void updateScore() {
+		int boardIndex = peiqi.indexOfStandOnBoard(boards);
+		int currentScore = boardIndex / 3 + 1;
+		if (currentScore > lastScore) {
+			lastScore = currentScore;
+			if (null != numberSprite && 0 < numberSprite.size()) {
+				for (int i = 0; i < numberSprite.size(); i++) {
+					layerManager.remove((Sprite) numberSprite.elementAt(i));
+				}
+			}
+			numberSprite = NumberImgUtil.updateNumber(currentScore, ImageRes.getInstance().getImage("numbersImg"), GameConst.GameCanvas.NUMBER_X,
+					GameConst.GameCanvas.NUMBER_Y, Graphics.TOP | Graphics.HCENTER);
+			for (int i = 0; i < numberSprite.size(); i++) {
+				layerManager.insert((Sprite) numberSprite.elementAt(i), GameConst.GameCanvas.LAYER_1);
+			}
+		}
+	}
+
+	private void updateLife() {
+		if (life < 0) {
+			life = 0;
+		}
+		for (int i = 0; i < life; i++) {
+			((Sprite) lifeSprite.elementAt(i)).setVisible(true);
+		}
+		for (int i = life; i < GameConst.Peiqi.MAX_LIFE; i++) {
+			((Sprite) lifeSprite.elementAt(i)).setVisible(false);
+		}
+	}
+
 	private void boardScroll() {
 		for (int i = 0; i < boards.length; i++) {
 			Board board = boards[i];
 			if (board.getPosY() <= 0) {
-				int index = boards[(i + boards.length - 1) % boards.length].getIndex() + 1;
 				Board newBoard = BoardFactory.getInstance().createRandomBoard(RandomUtil.nextInt(GameConst.Board.LEFT_X, GameConst.Board.RIGHT_X),
-						GameConst.Board.LAYER_HEIGHT * GameConst.Board.NUMBER, index);
+						GameConst.Board.LAYER_HEIGHT * GameConst.Board.NUMBER, boardIndex++);
 				newBoard.addToScreen(layerManager);
 				board.removeFromScreen(layerManager);
 				boards[i] = newBoard;
@@ -228,14 +301,18 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	}
 
 	public void updateStateToPlay() {
-		if (this.state != null) {
-			this.state.exitState();
-		}
-		this.state = this.playState;
-		this.state.intoState();
+		this.updateState(this.playState);
 	}
 
-	public void updateState(GCState newState) {
+	public void updateStateToDead() {
+		this.updateState(this.deadState);
+	}
+
+	public void updateStateToPause() {
+		this.updateState(this.pauseState);
+	}
+
+	private void updateState(GCState newState) {
 		if (this.state != null) {
 			this.state.exitState();
 		}
