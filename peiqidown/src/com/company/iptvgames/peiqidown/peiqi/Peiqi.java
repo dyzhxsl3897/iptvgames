@@ -31,9 +31,11 @@ public class Peiqi {
 	private int posY;
 
 	private int dropSpeed;
+	private boolean isTouchedTop;
 
 	public Peiqi() {
 		this.dropSpeed = 0;
+		this.isTouchedTop = false;
 
 		walkSprite = new Sprite(ImageRes.getInstance().getImage("peiqiWalkImg"), GameConst.Peiqi.WIDTH, GameConst.Peiqi.HEIGHT);
 		standSprite = new Sprite(ImageRes.getInstance().getImage("peiqiStandImg"), GameConst.Peiqi.WIDTH, GameConst.Peiqi.HEIGHT);
@@ -83,6 +85,10 @@ public class Peiqi {
 			return true;
 		}
 		return false;
+	}
+
+	public boolean isTouchTop() {
+		return this.posY < GameConst.Peiqi.TOUCH_TOP_Y;
 	}
 
 	public boolean isStandOnLeftBoard(Board[] boards) {
@@ -249,6 +255,14 @@ public class Peiqi {
 
 	public void setDropSpeed(int dropSpeed) {
 		this.dropSpeed = dropSpeed;
+	}
+
+	public boolean isTouchedTop() {
+		return isTouchedTop;
+	}
+
+	public void setTouchedTop(boolean isTouchedTop) {
+		this.isTouchedTop = isTouchedTop;
 	}
 
 }

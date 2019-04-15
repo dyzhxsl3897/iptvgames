@@ -42,6 +42,8 @@ public class GameConst {
 		public static final int START_X = 353;
 		public static final int START_Y = 80;
 
+		public static final int TOUCH_TOP_Y = 10;
+
 		public static final int COLLIDE_X = 15;
 		public static final int COLLIDE_Y = 64;
 		public static final int COLLIDE_W = 21;
@@ -51,6 +53,9 @@ public class GameConst {
 		public static final int MOVE_SPEED = 15;
 
 		public static final int MAX_LIFE = 9;
+		public static final int COST_LIFE_TOUCH_TOP = 1;
+		public static final int COST_LIFE_TOUCH_STAB = 3;
+		public static final int ADD_LIFE_TOUCH_BOARD = 1;
 	}
 
 	public static class Board {

@@ -52,6 +52,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	private Board[] boards;
 
 	private int boardIndex;
+	private int lastStandOnBoardIndex;
 	private int lastScore;
 	private int life;
 	private boolean isStayOnGameCanvas;
@@ -84,6 +85,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	public void initalizeGame() {
 		this.boardIndex = 0;
 		this.lastScore = 0;
+		this.lastStandOnBoardIndex = 0;
 		this.life = GameConst.Peiqi.MAX_LIFE;
 		layerManager = new LayerManager();
 		Image bg1Img = ImageRes.getInstance().getImage("bg1Img");
@@ -166,13 +168,22 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 				if (peiqi.isOutOfScreen()) {
 					updateStateToDead();
 				}
-				System.out.println(peiqi.isStandOnBoard(boards));
+				if (peiqi.isTouchTop()) {
+					if (!peiqi.isTouchedTop()) {
+						peiqi.setTouchedTop(true);
+						life -= GameConst.Peiqi.COST_LIFE_TOUCH_TOP;
+						boards[lastStandOnBoardIndex].setExist(false);
+					}
+				} else {
+					peiqi.setTouchedTop(false);
+				}
 				if (peiqi.isStandOnBoard(boards)) {
-					Board board = (Board) boards[peiqi.indexOfStandOnBoard(boards) % GameConst.Board.NUMBER];
+					lastStandOnBoardIndex = peiqi.indexOfStandOnBoard(boards) % GameConst.Board.NUMBER;
+					Board board = (Board) boards[lastStandOnBoardIndex];
 					if (peiqi.isStandOnStabBoard(boards) && !board.isAlreadyStandOn()) {
-						life -= 3;
+						life -= GameConst.Peiqi.COST_LIFE_TOUCH_STAB;
 					} else if (life < GameConst.Peiqi.MAX_LIFE && !board.isAlreadyStandOn()) {
-						life++;
+						life += GameConst.Peiqi.ADD_LIFE_TOUCH_BOARD;
 					}
 					if (peiqi.isStandOnLeftBoard(boards)) {
 						peiqi.move(-GameConst.Board.LEFT_BOARD_MOVE_SPEED, 0);
@@ -189,6 +200,9 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 						flapBoard.startAnimation();
 					}
 					board.setAlreadyStandOn(true);
+				}
+				if (life <= 0) {
+					updateStateToDead();
 				}
 				animation();
 				updateScore();
