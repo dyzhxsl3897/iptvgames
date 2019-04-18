@@ -23,8 +23,8 @@ public class GameConst {
 	public static class GameCanvas {
 		public static final int BG2_X = 66;
 		public static final int BG2_Y = 0;
-		public static final int GRAVITY = 3;
-		public static final int MOVE_UP_SPEED = 4;
+		public static final int GRAVITY = 1;
+		public static final int MOVE_UP_SPEED = 1;
 		public static final int PLAYAREA_LEFT_X = 100;
 		public static final int PLAYAREA_RIGHT_X = 540;
 		public static final int LAYER_0 = 0;
@@ -49,7 +49,7 @@ public class GameConst {
 		public static final int COLLIDE_W = 21;
 		public static final int COLLIDE_H = 1;
 
-		public static final int JUMP_SPEED = -15;
+		public static final int JUMP_SPEED = -8;
 		public static final int MOVE_SPEED = 15;
 
 		public static final int MAX_LIFE = 9;
