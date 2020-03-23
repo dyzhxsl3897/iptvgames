@@ -4,16 +4,16 @@ public class GameConst {
 
 	public static final int FPS = 80; // This is not real FPS, this is time in milliseconds
 	public static final int SCREEN_WIDTH = 640;
-	public static final int SCREEN_HEIGHT = 360;
+	public static final int SCREEN_HEIGHT = 530;
 
 	public static class Menu {
 		public static final int CARTOON_W = 177;
 		public static final int CARTOON_H = 322;
-		public static final int CARTOON_X = 367;
-		public static final int CARTOON_Y = 22;
+		public static final int CARTOON_X = 364;
+		public static final int CARTOON_Y = 100;
 
 		public static final int START_BTN_X = 142;
-		public static final int START_BTN_Y = 254;
+		public static final int START_BTN_Y = 328;
 		public static final int EXIT_BTN_X = 550;
 		public static final int EXIT_BTN_Y = 13;
 
@@ -32,8 +32,8 @@ public class GameConst {
 		public static final int NUMBER_X = 32;
 		public static final int NUMBER_Y = 63;
 		public static final int LIFE_X = 16;
-		public static final int LIFE_Y = 195;
-		public static final int LIFE_H = 11;
+		public static final int LIFE_Y = 190;
+		public static final int LIFE_H = 10;
 	}
 
 	public static class Peiqi {
@@ -43,7 +43,7 @@ public class GameConst {
 		public static final int START_Y = 80;
 
 		public static final int TOUCH_TOP_Y = 10;
-
+		
 		public static final int COLLIDE_X = 15;
 		public static final int COLLIDE_Y = 64;
 		public static final int COLLIDE_W = 21;
@@ -52,7 +52,7 @@ public class GameConst {
 		public static final int JUMP_SPEED = -8;
 		public static final int MOVE_SPEED = 15;
 
-		public static final int MAX_LIFE = 9;
+		public static final int MAX_LIFE = 11;
 		public static final int COST_LIFE_TOUCH_TOP = 1;
 		public static final int COST_LIFE_TOUCH_STAB = 3;
 		public static final int ADD_LIFE_TOUCH_BOARD = 1;
@@ -62,7 +62,7 @@ public class GameConst {
 		public static final int NUMBER = 10;
 		public static final int WIDTH = 131;
 		public static final int HEIGHT = 33;
-
+		
 		public static final int COLLIDE_X = 4;
 		public static final int COLLIDE_Y = 26;
 		public static final int COLLIDE_W = 122;
@@ -80,8 +80,8 @@ public class GameConst {
 
 	public static class Pause {
 		public static final int CONTINUE_X = 212;
-		public static final int CONTINUE_Y = 124;
+		public static final int CONTINUE_Y = 209;
 		public static final int OVER_X = 315;
-		public static final int OVER_Y = 124;
+		public static final int OVER_Y = 209;
 	}
 }

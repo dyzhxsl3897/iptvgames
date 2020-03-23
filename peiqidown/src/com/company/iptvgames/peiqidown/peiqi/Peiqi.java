@@ -122,6 +122,7 @@ public class Peiqi {
 		}
 		Board board = boards[indexOfStandOnBoard % GameConst.Board.NUMBER];
 		if (board instanceof SpringBoard) {
+			this.setPosition(this.posX, boards[indexOfStandOnBoard % GameConst.Board.NUMBER].getPosY() - GameConst.Peiqi.HEIGHT + 16);
 			return true;
 		}
 		return false;
@@ -161,11 +162,23 @@ public class Peiqi {
 
 	public int indexOfStandOnBoard(Board[] boards) {
 		int indexOfBoard = -1;
+
 		for (int i = 0; i < boards.length; i++) {
+			if (boards[i] instanceof SpringBoard) {
+				boards[i].move(0, 6);
+			}
+			
 			if (boards[i].collidesWith(walkSprite, false) || boards[i].collidesWith(standSprite, false) || boards[i].collidesWith(jumpSprite, false)) {
+				if (boards[i] instanceof SpringBoard) {
+					boards[i].move(0, -6);
+				}
 				indexOfBoard = boards[i].getIndex();
 				break;
 			}
+	
+			if (boards[i] instanceof SpringBoard) {
+				boards[i].move(0, -6);
+			}			
 		}
 		return indexOfBoard;
 	}

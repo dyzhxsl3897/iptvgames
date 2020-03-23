@@ -41,7 +41,7 @@ public class GCDeadState implements GCState {
 		} else if (0 != (keyState & GameCanvas.RIGHT_PRESSED)) {
 			this.gameCanvas.getOverSprite().setVisible(true);
 			this.gameCanvas.getContinueSprite().setVisible(false);
-		}
+		}	
 	}
 
 }
