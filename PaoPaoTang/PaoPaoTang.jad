@@ -1,0 +1,7 @@
+MIDlet-Version: 1.0.0
+MIDlet-Vendor: Midlet Suite Vendor
+MIDlet-Jar-URL: PaoPaoTang.jar
+MicroEdition-Configuration: CLDC-1.1
+MicroEdition-Profile: MIDP-2.0
+MIDlet-1: New Midlet,,com.company.iptvgames.PaoPaoTang.MainMIDlet
+MIDlet-Name: PaoPaoTang Midlet Suite
