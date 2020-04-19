@@ -1,4 +1,4 @@
-package com.company.iptvgames.PaoPaoTang.canvas;
+package com.company.iptvgames.RunCool.canvas;
 
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
@@ -7,28 +7,24 @@ import javax.microedition.lcdui.game.LayerManager;
 import javax.microedition.lcdui.game.Sprite;
 import javax.microedition.lcdui.game.TiledLayer;
 
+import com.company.iptvgames.RunCool.MainMIDlet;
+import com.company.iptvgames.RunCool.GameConst;
 import com.company.iptvgames.framework.utils.ImageUtil;
-import com.company.iptvgames.PaoPaoTang.GameConst;
-import com.company.iptvgames.PaoPaoTang.MainMIDlet;
 
 public class MenuGameCanvas extends GameCanvas implements Runnable {
 
 	private MainMIDlet midlet;
 	private Graphics graphics;
-	private LayerManager layerManager;
-
-	private TiledLayer menuBg;
-
 	private Image menuBgImg;
 	private Image startImg;
 	private Image exitImg;
-	
+	private LayerManager layerManager;
+	private TiledLayer menuBg;
 	private Sprite startBtnSprite;
 	private Sprite exitBtnSprite;
-	private boolean isPlayMenuCartoon = false;
-	
+	private boolean isPlayMenuCartoon;
 	private Thread menuThread;
-	
+
 	public MenuGameCanvas(MainMIDlet mainMIDlet) {
 		super(false);
 		this.setFullScreenMode(true);
@@ -40,38 +36,41 @@ public class MenuGameCanvas extends GameCanvas implements Runnable {
 	}
 
 	private void initalizeMenu() {
+		// TODO Auto-generated method stub
 		layerManager = new LayerManager();
 		menuBg = new TiledLayer(1, 1, menuBgImg, GameConst.SCREEN_WIDTH, GameConst.SCREEN_HEIGHT);
 		menuBg.setCell(0, 0, 1);
 		layerManager.append(menuBg);
 		
-		startBtnSprite = new Sprite(startImg,141, 133);
+		startBtnSprite = new Sprite(startImg,GameConst.Menu.START_BTN_WIDTH/GameConst.Menu.START_BTN_FRAME, GameConst.Menu.START_BTN_HEIGHT);
 		startBtnSprite.setPosition(GameConst.Menu.START_BTN_X, GameConst.Menu.START_BTN_Y);
-		layerManager.insert(startBtnSprite, GameConst.Menu.LAYER_0);
+		layerManager.insert(startBtnSprite, 0);
 		
 		exitBtnSprite = new Sprite(exitImg,43,42);
 		exitBtnSprite.setPosition(GameConst.Menu.EXIT_BTN_X, GameConst.Menu.EXIT_BTN_Y);		
 		exitBtnSprite.setVisible(false);
-		layerManager.insert(exitBtnSprite, GameConst.Menu.LAYER_0);
+		layerManager.insert(exitBtnSprite, 0);
 		
 		layerManager.paint(graphics, 0, 0);
 		this.flushGraphics();
-		
+
+	}
+
+	private void loadImages() {
+		// TODO Auto-generated method stub
+		menuBgImg = ImageUtil.createImage("/menu/menu.png");
+		startImg = ImageUtil.createImage("/menu/start.png");
+		exitImg = ImageUtil.createImage("/menu/exit.png");
 	}
 
 	public void startMenuCanvas() {
+		// TODO Auto-generated method stub
 		isPlayMenuCartoon = true;
 
 		menuThread = new Thread(this);
 		menuThread.start();
 	}
-	
-	private void loadImages() {
-		menuBgImg = ImageUtil.createImage("/menu/menu.png");
-		startImg = ImageUtil.createImage("/menu/start.png");
-		exitImg = ImageUtil.createImage("/menu/exit.png");
-	}
-	
+
 	public void run() {
 		while (isPlayMenuCartoon) {
 			long startTime = System.currentTimeMillis();

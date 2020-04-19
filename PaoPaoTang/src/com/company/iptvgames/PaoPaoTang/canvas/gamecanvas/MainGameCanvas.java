@@ -87,6 +87,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		//创建玩家角色
 		player = new PlayerObject("pb");
 		player.setSpeed(2);
+		player.setSuperTimeLeft();
 		
 		//创建NPC角色
 		NPCsVector = new Vector();
@@ -673,7 +674,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 				//检查当前tiled是否炸到任意实物
 				if(attackArea[i] > 0){
 					//检查与玩家碰撞
-					if(!checkIsSafeInTiled(player,attackArea[i])){
+					if(!checkIsSafeInTiled(player,attackArea[i]) && player.getSuperTimeLeft() == 0){//角色丢失生命后闪现期间不计算碰撞，0值表示非闪现状态
 						player.setLife(-1);
 						if(player.getLife() == 0){
 							player.removeToScreen(layerManager);
@@ -683,8 +684,9 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 					
 					//检查与NPC碰撞
 					if(NPCsVector!=null){
-						for(int j = NPCsVector.size()-1; j >= 0; j--){
-							if(!checkIsSafeInTiled(((PlayerObject)NPCsVector.elementAt(j)),attackArea[i])){
+						for(int j = NPCsVector.size()-1; j >= 0; j--){						
+							if(!checkIsSafeInTiled(((PlayerObject)NPCsVector.elementAt(j)),attackArea[i]) && 
+									((PlayerObject)NPCsVector.elementAt(j)).getSuperTimeLeft() == 0){//角色丢失生命后闪现期间不计算碰撞，0值表示非闪现状态
 								((PlayerObject)NPCsVector.elementAt(j)).setLife(-1);
 								if(((PlayerObject)NPCsVector.elementAt(j)).getLife() == 0){
 									((PlayerObject)NPCsVector.elementAt(j)).removeToScreen(layerManager);

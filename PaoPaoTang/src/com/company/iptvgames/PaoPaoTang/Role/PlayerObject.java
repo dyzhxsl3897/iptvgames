@@ -27,6 +27,7 @@ public class PlayerObject {
 	private boolean allowExplored;//是否允许被炸
 	private int timeForDontMove;//状态持续时间
 	private int timeForDontExplored;//状态持续时间
+	private int superTimeLeft;//角色丢失生命后闪现时间，期间不计算碰撞；为0则表示正常状态，非闪现状态
 	
 	public PlayerObject(String str) {
 		this.imageURL = str;
@@ -44,7 +45,8 @@ public class PlayerObject {
 		allowMove = true;
 		allowExplored = true;
 		timeForDontMove = 0;
-		timeForDontExplored = 0;
+		timeForDontExplored = 0;		
+		superTimeLeft = 0;
 		
 		updateState(walkState);
 	}
@@ -132,8 +134,24 @@ public class PlayerObject {
 		}
 		
 		if(allowMove){
+			if(superTimeLeft >= 1){
+				if(superTimeLeft%2 == 0){
+					walkSprite.setVisible(false);					
+				}else{
+					walkSprite.setVisible(true);	
+				}
+				superTimeLeft = superTimeLeft - 1;
+			}
 			this.state.nextFrame();
 		}
+	}
+	
+	public void setSuperTimeLeft() {
+		this.superTimeLeft = 10;
+	}
+	
+	public int getSuperTimeLeft() {
+		return superTimeLeft;
 	}
 	
 	public boolean isInWalkState() {
@@ -204,6 +222,12 @@ public class PlayerObject {
 			}
 		}else{
 			this.life = life + num;			
+		}
+		
+		if(life < 0){
+			life = 0;			
+		}else{
+			setSuperTimeLeft();//生命值非0时，丢失生命则角色闪现
 		}
 	}
 
