@@ -20,7 +20,7 @@ public class GameConst {
 		
 		public static final int LAYER_alert = 0;//alert起始图层号
 		public static final int LAYER_bg = 18;//背景图片起始图层号
-		public static final int RUNSPEED = 20;//游戏速度
+		public static final int RUNSPEED = 10;//游戏速度
 		public static final int BGNUMBER = 2;//背景图片创建容量数
 		public static final int BGWIDTH = 640;//背景图片每帧宽度
 		public static final int BG_TILEDNUMER = 1;//背景图片切帧个数
@@ -56,20 +56,22 @@ public class GameConst {
 		public static final int JUMPWIDTH = 504;//人物跳起图片尺寸-宽
 		public static final int JUMPHEIGHT = 63;//人物跳起图片尺寸-高
 		public static final int ROLE_FRAME = 8;//人物动画帧数
-		public static final int ADD_JUMP_HEIGHT = 20;//跳跃时每帧高度增加值
-		public static final int JUMP_FRAME = 16;//跳跃过程总显示帧数
-		public static final int[] JUMP_FRAME_SEQUENCE = {0,1,1,1,2,2,2,3,3,4,4,5,5,6,6,7};//跳跃过程帧顺序（确保中间值为最高点帧图）
+		public static final int ADD_JUMP_HEIGHT = 10;//跳跃时每帧高度增加值
+//		public static final int JUMP_FRAME = 16;//跳跃过程总显示帧数
+//		public static final int[] JUMP_FRAME_SEQUENCE = {0,1,1,1,2,2,2,3,3,4,4,5,5,6,6,7};//跳跃过程帧顺序（确保中间值为最高点帧图）
+		public static final int JUMP_FRAME = 32;//跳跃过程总显示帧数
+		public static final int[] JUMP_FRAME_SEQUENCE = {0,0,1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7};//跳跃过程帧顺序（确保中间值为最高点帧图）
 		
 		public static final int COLLIDE_X = 0;
 		public static final int COLLIDE_Y = 0;
 		public static final int COLLIDE_W = 63;
 		public static final int COLLIDE_H = 63;
 		
-		public static final int POS_X = 20;
+		public static final int POS_X = 160;
 		public static final int POS_Y = 337;
 		public static final int LAYER_player = 3;//人物所在图层号
 		
 		public static final int LIFE = 3;
-		public static final int DROPSPEED = 3;//退出画面的下落速度
+		public static final int DROPSPEED = 1;//退出画面的下落速度
 	}
 }

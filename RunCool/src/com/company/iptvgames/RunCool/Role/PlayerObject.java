@@ -15,7 +15,8 @@ public class PlayerObject {
 	private PState jumpState;
 	private Sprite walkSprite;
 	private Sprite jumpSprite;
-	private int jumpSequence[]= {0,1,1,2,2,2,3,3,3,4,4,5,5,6,6,7};
+	//private int jumpSequence[]= {0,1,1,2,2,2,3,3,3,4,4,5,5,6,6,7};
+	private int jumpSequence[] = GameConst.Player.JUMP_FRAME_SEQUENCE;
 
 	private int life;//角色生命值
 	private int posX;//角色所在位置x
