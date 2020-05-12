@@ -1,9 +1,7 @@
 package com.company.iptvgames.PaoPaoTang.canvas.gamecanvas.states;
 
-import javax.microedition.lcdui.game.GameCanvas;
-
 import com.company.iptvgames.PaoPaoTang.canvas.gamecanvas.MainGameCanvas;
-
+import com.company.iptvgames.framework.utils.Constants;
 
 public class GCPlayState implements GCState {
 
@@ -19,23 +17,23 @@ public class GCPlayState implements GCState {
 	public void intoState() {
 	}
 
-	public void keyAction() {
-		int keyState = this.gameCanvas.getKeyStates();
-		if (0 != (keyState & GameCanvas.FIRE_PRESSED)) {
+	public void keyAction(int keyCode) {
+		if (keyCode == Constants.KeyCode.NUM_0) {
+			this.gameCanvas.updateStateToPause();
+		} else if (keyCode == Constants.KeyCode.OK) {
 			this.gameCanvas.setBomb(this.gameCanvas.getRole());
-		} else if (0 != (keyState & GameCanvas.RIGHT_PRESSED)) {
+		} else if (keyCode == Constants.KeyCode.RIGHT) {
 			this.gameCanvas.getRole().faceRight();
-			this.gameCanvas.moveIfNotCollides(this.gameCanvas.getRole(),1,0);
-		} else if (0 != (keyState & GameCanvas.LEFT_PRESSED)) {
+			this.gameCanvas.moveIfNotCollides(this.gameCanvas.getRole(), 1, 0);
+		} else if (keyCode == Constants.KeyCode.LEFT) {
 			this.gameCanvas.getRole().faceLeft();
-			this.gameCanvas.moveIfNotCollides(this.gameCanvas.getRole(),-1,0);
-		}else if (0 != (keyState & GameCanvas.UP_PRESSED)) {
+			this.gameCanvas.moveIfNotCollides(this.gameCanvas.getRole(), -1, 0);
+		} else if (keyCode == Constants.KeyCode.UP) {
 			this.gameCanvas.getRole().faceUp();
-			this.gameCanvas.moveIfNotCollides(this.gameCanvas.getRole(),0,-1);
-		}else if (0 != (keyState & GameCanvas.DOWN_PRESSED)) {
+			this.gameCanvas.moveIfNotCollides(this.gameCanvas.getRole(), 0, -1);
+		} else if (keyCode == Constants.KeyCode.DOWN) {
 			this.gameCanvas.getRole().faceDown();
-			this.gameCanvas.moveIfNotCollides(this.gameCanvas.getRole(),0,1);
+			this.gameCanvas.moveIfNotCollides(this.gameCanvas.getRole(), 0, 1);
 		}
 	}
-
 }

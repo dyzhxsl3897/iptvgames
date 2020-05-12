@@ -6,6 +6,6 @@ public interface GCState {
 
 	public void exitState();
 
-	public void keyAction();
+	public void keyAction(int keyCode);
 
 }
