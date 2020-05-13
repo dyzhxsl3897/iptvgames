@@ -62,9 +62,9 @@ public class GameConst {
 	
 	public static class Pause {
 		public static final int CONTINUE_X = 212;//暂无暂停提示页
-		public static final int CONTINUE_Y = 124;//暂无暂停提示页
+		public static final int CONTINUE_Y = 214;//暂无暂停提示页
 		public static final int OVER_X = 315;//暂无暂停提示页
-		public static final int OVER_Y = 124;//暂无暂停提示页
+		public static final int OVER_Y = 214;//暂无暂停提示页
 		public static final int RETURN_X = 247;
 		public static final int RETURN_Y = 331;
 	}
