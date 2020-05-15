@@ -5,10 +5,14 @@ import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.GameCanvas;
 import javax.microedition.lcdui.game.LayerManager;
 import javax.microedition.lcdui.game.Sprite;
+import javax.microedition.media.MediaException;
+import javax.microedition.media.Player;
 import javax.microedition.midlet.MIDlet;
 
 import com.yunyouhudong.framework.constants.GameProps;
+import com.yunyouhudong.framework.constants.KeyCode;
 import com.yunyouhudong.framework.http.ApiFacade;
+import com.yunyouhudong.framework.resourcemanagement.audios.AudioUtil;
 import com.yunyouhudong.framework.resourcemanagement.images.ImageUtil;
 
 public class MainGameCanvas extends GameCanvas {
@@ -19,6 +23,8 @@ public class MainGameCanvas extends GameCanvas {
 	private int start = 20;
 	private int height = 15;
 	private LayerManager layerManager = new LayerManager();
+	Player player1 = AudioUtil.createAudioFromServer("TestGame", "game_bg_music.wav");
+	Player player2 = AudioUtil.createAudioFromServer("TestGame", "score.wav");
 
 	protected MainGameCanvas(MIDlet midlet) {
 		super(false);
@@ -36,7 +42,27 @@ public class MainGameCanvas extends GameCanvas {
 		layerManager.append(sprite);
 		layerManager.paint(graphics, 0, 0);
 
+		try {
+			player1.realize();
+			player1.prefetch();
+			player2.realize();
+			player2.prefetch();
+			player1.start();
+		} catch (MediaException e) {
+			e.printStackTrace();
+		}
+
 		this.flushGraphics();
+	}
+
+	protected void keyPressed(int keyCode) {
+		if (KeyCode.OK.contains(new Integer(keyCode))) {
+			try {
+				player2.start();
+			} catch (MediaException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	private void drawString(String string) {

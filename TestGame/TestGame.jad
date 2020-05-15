@@ -3,7 +3,7 @@ MIDlet-Jar-URL: TestGame.jar
 userid: 053702181995_216
 MicroEdition-Configuration: CLDC-1.1
 MIDlet-Version: 1.0.0
-audiourl: testaudiourl
+audiourl: http://localhost:8080/lobby/rest/resources/audio
 MIDlet-Name: TestGame Midlet Suite
 MIDlet-Vendor: Midlet Suite Vendor
 apiurl: http://localhost:8080/lobby/rest
