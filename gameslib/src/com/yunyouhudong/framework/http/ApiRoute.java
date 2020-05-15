@@ -6,4 +6,8 @@ public class ApiRoute {
 		public static final String GET_USER_LOGIN_TIMES = "/user/getuserlogintimes";
 	}
 
+	public static class Resource {
+		public static final String GET_IMAGE = "/resources/image";
+	}
+
 }

@@ -2,7 +2,7 @@ package com.yunyouhudong.framework.utils;
 
 import java.util.Enumeration;
 
-public class StringUtils {
+public class StringUtil {
 
 	public static String EMTPY = "";
 
@@ -26,7 +26,7 @@ public class StringUtils {
 		if (!isNullOrEmpty(str)) {
 			return str;
 		}
-		return StringUtils.EMTPY;
+		return StringUtil.EMTPY;
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class StringUtils {
 		if (!isNullOrEmpty(str2)) {
 			return str2;
 		}
-		return StringUtils.EMTPY;
+		return StringUtil.EMTPY;
 	}
 
 	/**
@@ -57,7 +57,7 @@ public class StringUtils {
 	 */
 	public static String join(Enumeration collection, String separator) {
 		if (collection == null || !collection.hasMoreElements()) {
-			return StringUtils.EMTPY;
+			return StringUtil.EMTPY;
 		}
 
 		StringBuffer buffer = new StringBuffer();

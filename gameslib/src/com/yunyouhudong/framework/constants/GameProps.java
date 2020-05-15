@@ -2,7 +2,7 @@ package com.yunyouhudong.framework.constants;
 
 import javax.microedition.midlet.MIDlet;
 
-import com.yunyouhudong.framework.utils.StringUtils;
+import com.yunyouhudong.framework.utils.StringUtil;
 
 public class GameProps {
 
@@ -13,6 +13,6 @@ public class GameProps {
 	}
 
 	public static String getProperty(String key) {
-		return StringUtils.defaultIfEmpty(mid.getAppProperty(key));
+		return StringUtil.defaultIfEmpty(mid.getAppProperty(key));
 	}
 }

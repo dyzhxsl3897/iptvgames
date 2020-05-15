@@ -6,7 +6,6 @@ MIDlet-Version: 1.0.0
 audiourl: testaudiourl
 MIDlet-Name: TestGame Midlet Suite
 MIDlet-Vendor: Midlet Suite Vendor
-apiurl: http://39.98.243.254:8080/lobby/rest
+apiurl: http://localhost:8080/lobby/rest
 MicroEdition-Profile: MIDP-2.0
-imageurl: testimageurl
-MIDlet-Permissions: 
+imageurl: http://localhost:8080/lobby/rest/resources/image

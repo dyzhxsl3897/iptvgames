@@ -5,7 +5,7 @@ import java.util.Hashtable;
 import com.yunyouhudong.framework.constants.GameProps;
 import com.yunyouhudong.framework.json.JSONException;
 import com.yunyouhudong.framework.json.JSONObject;
-import com.yunyouhudong.framework.utils.StringUtils;
+import com.yunyouhudong.framework.utils.StringUtil;
 
 public class ApiFacade {
 
@@ -20,7 +20,7 @@ public class ApiFacade {
 		int result = 0;
 		try {
 			String loginTimes = String.valueOf(responseJson.get("loginTimes"));
-			if (!StringUtils.isNullOrEmpty(loginTimes)) {
+			if (!StringUtil.isNullOrEmpty(loginTimes)) {
 				result = Integer.parseInt(loginTimes);
 			}
 		} catch (JSONException e) {
