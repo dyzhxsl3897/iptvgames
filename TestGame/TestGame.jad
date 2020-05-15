@@ -1,6 +1,12 @@
+MIDlet-1: MainMIDlet,,com.yunyouhudong.testgame.MainMIDlet
 MIDlet-Jar-URL: TestGame.jar
+userid: 053702181995_216
+MicroEdition-Configuration: CLDC-1.1
+MIDlet-Version: 1.0.0
+audiourl: testaudiourl
 MIDlet-Name: TestGame Midlet Suite
 MIDlet-Vendor: Midlet Suite Vendor
-MIDlet-Version: 1.0.0
-MicroEdition-Configuration: CLDC-1.1
+apiurl: http://39.98.243.254:8080/lobby/rest
 MicroEdition-Profile: MIDP-2.0
+imageurl: testimageurl
+MIDlet-Permissions: 

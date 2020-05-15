@@ -9,12 +9,10 @@ import java.util.Hashtable;
 import javax.microedition.io.Connector;
 import javax.microedition.io.HttpConnection;
 
-import org.json.me.JSONObject;
-
+import com.yunyouhudong.framework.json.JSONObject;
 import com.yunyouhudong.framework.utils.StringUtils;
 
 public class HttpClient {
-/*
 	public static JSONObject httpGet(String url, Hashtable params) {
 		JSONObject result = null;
 
@@ -123,5 +121,4 @@ public class HttpClient {
 
 		return buffer.toString();
 	}
-*/
 }

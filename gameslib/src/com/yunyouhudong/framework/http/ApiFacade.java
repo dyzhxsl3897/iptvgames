@@ -2,15 +2,13 @@ package com.yunyouhudong.framework.http;
 
 import java.util.Hashtable;
 
-import org.json.me.JSONException;
-import org.json.me.JSONObject;
-
 import com.yunyouhudong.framework.constants.GameProps;
+import com.yunyouhudong.framework.json.JSONException;
+import com.yunyouhudong.framework.json.JSONObject;
 import com.yunyouhudong.framework.utils.StringUtils;
 
 public class ApiFacade {
 
-	/*
 	private static final String apiBaseUrl = GameProps.getProperty("apiurl");
 
 	public static int getUserLoginTimes(String userId) {
@@ -31,5 +29,4 @@ public class ApiFacade {
 
 		return result;
 	}
-*/
 }
