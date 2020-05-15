@@ -14,10 +14,10 @@ public class ImageUtil {
 
 	private static final String imageApiUrl = GameProps.getProperty("imageurl");
 
-	public static Image createImageFromLocal(String imagePath) {
+	public static Image createImageFromLocal(String imageName) {
 		Image img = null;
 		try {
-			img = Image.createImage(imagePath);
+			img = Image.createImage(imageName);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

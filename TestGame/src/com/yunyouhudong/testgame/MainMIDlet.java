@@ -1,19 +1,18 @@
 package com.yunyouhudong.testgame;
 
 import javax.microedition.lcdui.Display;
-import javax.microedition.midlet.MIDlet;
 import javax.microedition.midlet.MIDletStateChangeException;
 
-import com.yunyouhudong.framework.constants.GameProps;
+import com.yunyouhudong.framework.game.YunyouMIDlet;
 
-public class MainMIDlet extends MIDlet {
+public class MainMIDlet extends YunyouMIDlet {
 
 	public MainMIDlet() {
-		GameProps.initializeProps(this);
+		this.init("TestGame");
 
 		Display dis = Display.getDisplay(this);
-		MainGameCanvas gc = new MainGameCanvas(this);
-		dis.setCurrent(gc);
+		MainGameCanvas gameCanvas = new MainGameCanvas(this, false);
+		dis.setCurrent(gameCanvas);
 	}
 
 	protected void destroyApp(boolean arg0) throws MIDletStateChangeException {

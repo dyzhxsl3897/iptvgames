@@ -275,7 +275,6 @@ public class XMLTokener extends JSONTokener {
 		}
 	}
 
-	// TODO
 	private static boolean isWhitespace(char c) {
 		switch (c) {
 		case ' ':
@@ -287,7 +286,6 @@ public class XMLTokener extends JSONTokener {
 		return false;
 	}
 
-	// TODO
 	private static boolean isLetterOrDigit(char c) {
 		switch (c) {
 		case '0':
