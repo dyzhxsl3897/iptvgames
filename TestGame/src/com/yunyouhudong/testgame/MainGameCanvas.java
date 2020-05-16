@@ -39,6 +39,8 @@ public class MainGameCanvas extends YunyouGameCanvas {
 		layerManager.append(sprite);
 		layerManager.paint(this.getGraphics(), 0, 0);
 
+		this.flushGraphics();
+
 		Player player1 = this.getResourceManager().getAudio("game_bg_music.wav");
 		try {
 			player1.start();
@@ -46,7 +48,13 @@ public class MainGameCanvas extends YunyouGameCanvas {
 			e.printStackTrace();
 		}
 
-		this.flushGraphics();
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		this.getResourceManager().clearAllResource();
 	}
 
 	private void loadResource() {
