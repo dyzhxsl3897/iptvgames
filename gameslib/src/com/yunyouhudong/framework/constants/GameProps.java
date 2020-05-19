@@ -8,7 +8,7 @@ import com.yunyouhudong.framework.utils.StringUtil;
 public class GameProps {
 
 	private static MIDlet mid;
-	private static Properties props;
+	private static Properties props = new Properties();
 
 	public static void initializeProps(MIDlet midlet) {
 		mid = midlet;
