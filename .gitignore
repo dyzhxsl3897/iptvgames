@@ -1,5 +1,9 @@
 .eclipseme
 .eclipseme.tmp/
 .metadata/
+.settings/
+.classpath/
+.project/
+.gitignore
 bin/
 deployed/

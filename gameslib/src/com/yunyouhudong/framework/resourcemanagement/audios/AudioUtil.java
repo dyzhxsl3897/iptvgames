@@ -59,20 +59,4 @@ public class AudioUtil {
 		return player;
 	}
 
-	public static void musicStart(Player player) {
-		try {
-			player.start();
-		} catch (MediaException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public static void musicStop(Player player) {
-		try {
-			player.stop();
-		} catch (MediaException e) {
-			e.printStackTrace();
-		}
-	}
-
 }

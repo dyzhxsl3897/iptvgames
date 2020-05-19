@@ -10,8 +10,9 @@ import com.yunyouhudong.framework.utils.StringUtil;
 public class ApiFacade {
 
 	private static final String apiBaseUrl = GameProps.getProperty("apiurl");
+	private static final String userId = GameProps.getProperty("userid");
 
-	public static int getUserLoginTimes(String userId) {
+	public static int getUserLoginTimes() {
 		String url = ApiRoute.User.GET_USER_LOGIN_TIMES;
 		Hashtable params = new Hashtable();
 		params.put("userid", userId);

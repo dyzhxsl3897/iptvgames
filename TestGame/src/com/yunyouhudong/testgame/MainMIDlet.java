@@ -11,8 +11,8 @@ public class MainMIDlet extends YunyouMIDlet {
 		this.init("TestGame");
 
 		Display dis = Display.getDisplay(this);
-		MainGameCanvas gameCanvas = new MainGameCanvas(this, false);
-		dis.setCurrent(gameCanvas);
+		MainGameCanvas gc = new MainGameCanvas(this, false);
+		dis.setCurrent(gc);
 	}
 
 	protected void destroyApp(boolean arg0) throws MIDletStateChangeException {
