@@ -148,7 +148,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	}
 
 	private void loadImages() {
-		ImageRes.getInstance().loadImage("bg1Img", ImageUtil.createImage("/bj1.png"));
+		ImageRes.getInstance().loadImage("bg1Img", ImageUtil.createImage("/bj1.jpg"));
 		ImageRes.getInstance().loadImage("mapImg", ImageUtil.createImage("/map.png"));
 
 		ImageRes.getInstance().loadImage("pbUpImg", ImageUtil.createImage("/role/bu.png"));

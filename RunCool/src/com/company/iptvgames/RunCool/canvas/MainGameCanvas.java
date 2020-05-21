@@ -205,12 +205,6 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 					// 更新玩家状态为死亡，更新游戏状态为结束
 					updateStateToDead();
 				}
-
-				keyAction();
-			} else if (isInDeadState()) {
-				keyAction();
-			} else if (isInPauseState()) {
-				keyAction();
 			}
 
 			this.layerManager.paint(graphics, 0, 0);
@@ -422,8 +416,8 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		return player;
 	}
 
-	private void keyAction() {
-		this.state.keyAction();
+	protected void keyPressed(int keyCode) {
+		this.state.keyAction(keyCode);
 	}
 
 	// 角色生命值为0，开始退出游戏画面

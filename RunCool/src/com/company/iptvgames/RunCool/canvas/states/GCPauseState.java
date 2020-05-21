@@ -4,6 +4,7 @@ import javax.microedition.lcdui.game.GameCanvas;
 
 import com.company.iptvgames.RunCool.GameConst;
 import com.company.iptvgames.RunCool.canvas.MainGameCanvas;
+import com.company.iptvgames.framework.utils.KeyCode;
 
 public class GCPauseState implements GCState{
 
@@ -39,10 +40,9 @@ public class GCPauseState implements GCState{
 		 showAlert = value;
 	}
 	
-	public void keyAction() {
+	public void keyAction(int keyCode) {
 		if(showAlert){
-			int keyState = this.gameCanvas.getKeyStates();
-			if (0 != (keyState & GameCanvas.FIRE_PRESSED)) {
+			if (KeyCode.OK.contains(new Integer(keyCode))) {
 				if (this.gameCanvas.getContinueSprite().isVisible()) {
 					this.gameCanvas.updateStateToPlay();
 				} else if (this.gameCanvas.getOverSprite().isVisible()) {
@@ -50,10 +50,10 @@ public class GCPauseState implements GCState{
 					this.gameCanvas.getMidlet().getDisplay().setCurrent(this.gameCanvas.getMidlet().getMenuGameCanvas());
 					this.gameCanvas.getMidlet().getMenuGameCanvas().startMenuCanvas();
 				}
-			} else if (0 != (keyState & GameCanvas.LEFT_PRESSED)) {
+			} else if (KeyCode.LEFT.contains(new Integer(keyCode))) {
 				this.gameCanvas.getOverSprite().setVisible(false);
 				this.gameCanvas.getContinueSprite().setVisible(true);
-			} else if (0 != (keyState & GameCanvas.RIGHT_PRESSED)) {
+			} else if (KeyCode.RIGHT.contains(new Integer(keyCode))) {
 				this.gameCanvas.getOverSprite().setVisible(true);
 				this.gameCanvas.getContinueSprite().setVisible(false);
 			}
