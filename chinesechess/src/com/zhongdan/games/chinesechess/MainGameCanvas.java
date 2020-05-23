@@ -193,10 +193,9 @@ public class MainGameCanvas extends GameCanvas {
 								String moveStep = null;
 								try {
 									json.put("chessboard", currentChessBoard.toString());
-									JSONObject resultJson = AiService.calNextStep("http://202.99.114.28:9595/lobby/rest/ai/chinesechess/nextstep",
+									String apirul = this.midlet.getAppProperty("apiurl");
+									JSONObject resultJson = AiService.calNextStep(apirul + "/ai/chinesechess/nextstep",
 											json);
-									// JSONObject resultJson = AiService.calNextStep("http://localhost:8180/lobby/rest/ai/chinesechess/nextstep",
-									// json);
 									moveStep = resultJson.getString("moveStep");
 								} catch (JSONException e) {
 									e.printStackTrace();
@@ -270,19 +269,19 @@ public class MainGameCanvas extends GameCanvas {
 		int colIncrease = 0;
 		PosNode checkPos = null;
 		switch (selectedPiece) {
-		case 'K':// ½«×ß·¨
+		case 'K':// ï¿½ï¿½ï¿½ß·ï¿½
 			if (Math.abs(from.getRow() - to.getRow()) + Math.abs(from.getCol() - to.getCol()) == 1 && to.getRow() < 3 && to.getCol() > 2
 					&& to.getCol() < 6 && !isRedPiece(to)) {
 				isObeyRule = true;
 			}
 			break;
-		case 'A':// Ê¿×ß·¨
+		case 'A':// Ê¿ï¿½ß·ï¿½
 			if (Math.abs(from.getRow() - to.getRow()) == 1 && Math.abs(from.getCol() - to.getCol()) == 1 && to.getRow() < 3 && to.getCol() > 2
 					&& to.getCol() < 6 && !isRedPiece(to)) {
 				isObeyRule = true;
 			}
 			break;
-		case 'B':// Ïó×ß·¨
+		case 'B':// ï¿½ï¿½ï¿½ß·ï¿½
 			isObeyRule = true;
 			if (isRedPiece(to)) {
 				isObeyRule = false;
@@ -321,7 +320,7 @@ public class MainGameCanvas extends GameCanvas {
 				break;
 			}
 			break;
-		case 'N':// Âí×ß·¨
+		case 'N':// ï¿½ï¿½ï¿½ß·ï¿½
 			isObeyRule = true;
 			if (isRedPiece(to)) {
 				isObeyRule = false;
@@ -373,7 +372,7 @@ public class MainGameCanvas extends GameCanvas {
 				break;
 			}
 			break;
-		case 'R':// ³µ×ß·¨
+		case 'R':// ï¿½ï¿½ï¿½ß·ï¿½
 			isObeyRule = true;
 			if (isRedPiece(to)) {
 				isObeyRule = false;
@@ -412,7 +411,7 @@ public class MainGameCanvas extends GameCanvas {
 				checkPos.setCol(checkPos.getCol() + colIncrease);
 			}
 			break;
-		case 'C':// ÅÚ×ß·¨
+		case 'C':// ï¿½ï¿½ï¿½ß·ï¿½
 			isObeyRule = true;
 			if (isRedPiece(to)) {
 				isObeyRule = false;
@@ -442,7 +441,7 @@ public class MainGameCanvas extends GameCanvas {
 			checkPos = new PosNode(from);
 			checkPos.setRow(checkPos.getRow() + rowIncrease);
 			checkPos.setCol(checkPos.getCol() + colIncrease);
-			int numOfHill = 0;// ÅÚ¸ôÁË¼¸×ùÉ½
+			int numOfHill = 0;// ï¿½Ú¸ï¿½ï¿½Ë¼ï¿½ï¿½ï¿½É½
 			while (!checkPos.equals(to)) {
 				if (isRedPiece(checkPos) || isBlackPiece(checkPos)) {
 					numOfHill++;
@@ -463,7 +462,7 @@ public class MainGameCanvas extends GameCanvas {
 				break;
 			}
 			break;
-		case 'P':// ×ä×ß·¨
+		case 'P':// ï¿½ï¿½ï¿½ß·ï¿½
 			isObeyRule = true;
 			if (isRedPiece(to)) {
 				isObeyRule = false;
@@ -477,7 +476,7 @@ public class MainGameCanvas extends GameCanvas {
 				isObeyRule = false;
 				break;
 			}
-			if (from.getRow() < 5 && to.getRow() == from.getRow()) {// Ã»ÓÐ¹ýºÓ¾Íºá×Å×ß
+			if (from.getRow() < 5 && to.getRow() == from.getRow()) {// Ã»ï¿½Ð¹ï¿½ï¿½Ó¾Íºï¿½ï¿½ï¿½ï¿½ï¿½
 				isObeyRule = false;
 				break;
 			}
