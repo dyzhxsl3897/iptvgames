@@ -1,6 +1,6 @@
 package com.yunyouhudong.framework.utils;
 
-import java.util.Enumeration;
+import java.util.Vector;
 
 public class StringUtil {
 
@@ -55,23 +55,26 @@ public class StringUtil {
 	 * @param separator
 	 * @return
 	 */
-	public static String join(Enumeration collection, String separator) {
-		if (collection == null || !collection.hasMoreElements()) {
+	public static String join(Vector collection, String separator) {
+		if (collection == null || collection.isEmpty()) {
 			return StringUtil.EMTPY;
 		}
 
 		StringBuffer buffer = new StringBuffer();
 		boolean isFirstElement = true;
-		while (collection.hasMoreElements()) {
-			if (!isFirstElement) {
-				buffer.append(separator);
-			} else {
-				isFirstElement = false;
+		for (int i = 0; i < collection.size(); i++) {
+			Object element = collection.elementAt(i);
+			if (element instanceof String) {
+				String strToAppend = String.valueOf(element);
+				if (!isFirstElement) {
+					buffer.append(separator);
+				} else {
+					isFirstElement = false;
+				}
+				buffer.append(strToAppend);
 			}
-			buffer.append(collection.nextElement());
 		}
 
 		return buffer.toString();
 	}
-
 }

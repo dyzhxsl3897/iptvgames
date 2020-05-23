@@ -13,11 +13,12 @@ import com.yunyouhudong.framework.http.HttpClient;
 public class ImageUtil {
 
 	private static final String imageApiUrl = GameProps.getProperty("imageurl");
+	private static final String localImageFolder = "/";
 
 	public static Image createImageFromLocal(String imageName) {
 		Image img = null;
 		try {
-			img = Image.createImage(imageName);
+			img = Image.createImage(localImageFolder + imageName);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

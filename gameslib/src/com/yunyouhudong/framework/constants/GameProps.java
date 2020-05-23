@@ -1,24 +1,18 @@
 package com.yunyouhudong.framework.constants;
 
-import javax.microedition.midlet.MIDlet;
-
-import com.sun.midp.io.Properties;
+import com.yunyouhudong.framework.game.YunyouMIDlet;
 import com.yunyouhudong.framework.utils.StringUtil;
 
 public class GameProps {
 
-	private static MIDlet mid;
-	private static Properties props = new Properties();
+	private static YunyouMIDlet mid;
 
-	public static void initializeProps(MIDlet midlet) {
+	public static void initializeProps(YunyouMIDlet midlet) {
 		mid = midlet;
 	}
 
 	public static String getProperty(String key) {
-		return StringUtil.defaultIfEmpty(mid.getAppProperty(key), props.getProperty(key));
+		return StringUtil.defaultIfEmpty(mid.getAppProperty(key));
 	}
 
-	public static void setProperty(String key, String value) {
-		props.setProperty(key, value);
-	}
 }

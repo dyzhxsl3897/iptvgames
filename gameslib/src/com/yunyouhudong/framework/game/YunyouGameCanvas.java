@@ -15,7 +15,7 @@ public abstract class YunyouGameCanvas extends GameCanvas {
 		this.midlet = midlet;
 		this.resourceManager = new ResourceManager(this);
 	}
-
+	
 	public YunyouMIDlet getMidlet() {
 		return midlet;
 	}
@@ -23,5 +23,9 @@ public abstract class YunyouGameCanvas extends GameCanvas {
 	public ResourceManager getResourceManager() {
 		return resourceManager;
 	}
+
+	public abstract void intoCanvas();
+
+	public abstract void exitCanvas();
 
 }
