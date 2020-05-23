@@ -15,11 +15,12 @@ import com.yunyouhudong.framework.http.HttpClient;
 public class AudioUtil {
 
 	private static final String audioApiUrl = GameProps.getProperty("audiourl");
+	private static final String localImageFolder = "/";
 
 	public static Player createAudioFromLocal(String audioName) {
 		Player player = null;
 		try {
-			player = Manager.createPlayer(AudioUtil.class.getResourceAsStream(audioName), "audio/x-wav");
+			player = Manager.createPlayer(AudioUtil.class.getResourceAsStream(localImageFolder + audioName), "audio/x-wav");
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (MediaException e) {
