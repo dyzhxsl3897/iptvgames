@@ -162,6 +162,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	public void updateStateToPause() {
 		// TODO Auto-generated method stub
 		this.updateState(this.pauseState);
+		this.state.setAlert(true);
 	}
 
 	public void updateStateToDead() {
