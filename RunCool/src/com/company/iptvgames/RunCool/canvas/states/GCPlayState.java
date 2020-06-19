@@ -36,7 +36,7 @@ public class GCPlayState implements GCState {
 			if (this.gameCanvas.getRole().isInWalkState()) {
 				this.gameCanvas.getRole().updateState(this.gameCanvas.getRole().getJumpState());
 			}
-		} else if (KeyCode.BACK.contains(new Integer(keyCode))) {
+		} else if (KeyCode.NUM_0.contains(new Integer(keyCode))) {
 			this.gameCanvas.updateStateToPause();
 		}
 	}

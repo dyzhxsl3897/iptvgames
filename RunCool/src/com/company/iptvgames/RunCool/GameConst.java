@@ -17,7 +17,8 @@ public class GameConst {
 	}
 
 	public static class GameCanvas {
-		
+		public static final int SPRITE_0_X = 261;
+		public static final int SPRITE_0_Y = 500;
 		public static final int LAYER_alert = 0;//alert起始图层号
 		public static final int LAYER_bg = 18;//背景图片起始图层号
 		public static final int RUNSPEED = 10;//游戏速度

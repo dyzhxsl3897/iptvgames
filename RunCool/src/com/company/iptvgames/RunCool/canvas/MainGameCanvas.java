@@ -43,6 +43,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	private Sprite lifeBackground;
 	private GCState state;
 
+	private Sprite sprite0;
 	private Sprite alertFailSprite1;
 	private Sprite alertFailSprite2;
 	private Sprite alertFailSprite3;
@@ -88,6 +89,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		ImageRes.getInstance().loadImage("numbersImg", ImageUtil.createImage("/other/numbers.png"));
 		ImageRes.getInstance().loadImage("lifeImg", ImageUtil.createImage("/other/life.png"));
 
+		ImageRes.getInstance().loadImage("0Img", ImageUtil.createImage("/other/0.png"));
 		ImageRes.getInstance().loadImage("alertPauseImg", ImageUtil.createImage("/other/pause.png"));
 		ImageRes.getInstance().loadImage("alertFailImg1", ImageUtil.createImage("/other/fail1.png"));
 		ImageRes.getInstance().loadImage("alertFailImg2", ImageUtil.createImage("/other/fail2.png"));
@@ -102,6 +104,8 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		layerManager = new LayerManager();
 
 		// 创建提示信息
+		sprite0 = new Sprite(ImageRes.getInstance().getImage("0Img"));
+		layerManager.append(sprite0);
 		alertFailSprite3 = new Sprite(ImageRes.getInstance().getImage("alertFailImg3"));
 		alertFailSprite2 = new Sprite(ImageRes.getInstance().getImage("alertFailImg2"));
 		alertFailSprite1 = new Sprite(ImageRes.getInstance().getImage("alertFailImg1"));
@@ -116,6 +120,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		layerManager.insert(continueSprite, GameConst.GameCanvas.LAYER_alert);
 		layerManager.insert(overSprite, GameConst.GameCanvas.LAYER_alert);
 
+		sprite0.setPosition(GameConst.GameCanvas.SPRITE_0_X, GameConst.GameCanvas.SPRITE_0_Y);
 		alertFailSprite1.setVisible(false);
 		alertFailSprite2.setVisible(false);
 		alertFailSprite3.setVisible(false);
