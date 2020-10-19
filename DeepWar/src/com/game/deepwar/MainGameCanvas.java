@@ -1,0 +1,426 @@
+package com.game.deepwar;
+
+import java.util.Random;
+
+import javax.microedition.lcdui.Graphics;
+import javax.microedition.lcdui.Image;
+import javax.microedition.lcdui.game.GameCanvas;
+import javax.microedition.lcdui.game.LayerManager;
+import javax.microedition.lcdui.game.Sprite;
+
+import com.game.Constants.KeyCode;
+import com.game.sprite.Bomb;
+import com.game.sprite.EnemyBomb;
+import com.game.sprite.Ship;
+import com.game.sprite.Submarine;
+
+public class MainGameCanvas extends GameCanvas implements Runnable {
+
+	private final static long DELAY = 80;
+	public MainMidlet midlet;
+	public Thread mainThread = new Thread(this);
+
+	public LayerManager layerManager = new LayerManager();// ͼ�������
+
+	public boolean isRunning = false;
+	public boolean pausing = false;
+	public boolean isleft = true;
+
+	public int level = 1;
+
+	/** ����ͼƬ */
+	private Image bgImage;
+	private Sprite bgGameSprites;
+
+	private Image shipImage;
+	Ship ship;
+
+	/** Ǳͧ�������� */
+	Submarine[] submarine = new Submarine[6];
+	private Image sImage1;
+	private Image sImage2;
+	private Image sImage3;
+	private Image sImage4;
+
+	private Image shuziImage;
+	private Sprite[] shuziSprites;
+
+	private Image pauseImage;
+	private Sprite pauseSprite;
+	private Image startImage;
+	private Sprite startSprite;
+
+	/** ը�� */
+	private Image bombImage;
+	private Bomb[] bombs = new Bomb[5];
+
+	Random rdm = new Random();
+	/** Ǳͧը�� */
+	private Image subDdImage;
+	private Image subSlImage;
+
+	private EnemyBomb[] eneBombs;
+
+	private int score = 0;
+	private int highestScore = 0;
+
+	private int life = 5;
+
+	Sprite scoreSprite;
+	Sprite s1Sprite;
+	Sprite s2Sprite;
+	Sprite s3Sprite;
+	Sprite s4Sprite;
+
+	Sprite topScoreSprite;
+
+	Sprite levelSprite;
+
+	Sprite lifeSprite;
+
+	protected MainGameCanvas(MainMidlet midlet) {
+		super(false);
+		this.midlet = midlet;
+		this.setFullScreenMode(true);
+
+		loadImage();
+		initializeGame();
+	}
+
+	public void initializeGame() {
+		initializeLevel(level);
+
+		mainThread = new Thread(this);
+		if (!mainThread.isAlive()) {
+			mainThread.start();
+		}
+	}
+
+	private void initializeLevel(int level) {
+		pausing = false;
+		isleft = true;
+		loadwithPosition();
+
+	}
+
+	private void initEnebombs() {
+		eneBombs = new EnemyBomb[10];
+		for (int i = 0; i < eneBombs.length; i++) {
+			if (i % 2 == 0) {
+				eneBombs[i] = new EnemyBomb(subDdImage, 11, 34);
+			} else {
+				eneBombs[i] = new EnemyBomb(subSlImage, 19, 19);
+			}
+			eneBombs[i].setPosition(-100, -100);
+			layerManager.append(eneBombs[i]);
+		}
+	}
+
+	private void loadImage() {
+		try {
+			bgImage = Image.createImage("/back.jpg");
+			shipImage = Image.createImage("/ship.png");
+			pauseImage = Image.createImage("/zt.jpg");
+			startImage = Image.createImage("/start.png");
+			shuziImage = Image.createImage("/sz.png");
+
+			// ը��ͼƬ
+			bombImage = Image.createImage("/zd.png");
+
+			// sumbraineͼƬ
+			sImage1 = Image.createImage("/q1.png");
+			sImage2 = Image.createImage("/q2.png");
+			sImage3 = Image.createImage("/q3.png");
+			sImage4 = Image.createImage("/q4.png");
+
+			subDdImage = Image.createImage("/dd.png");
+			subSlImage = Image.createImage("/sl.png");
+
+			pauseSprite = new Sprite(pauseImage);
+			startSprite = new Sprite(startImage, 69, 74);
+			bgGameSprites = new Sprite(bgImage);
+
+			ship = new Ship(shipImage, 142, 42);
+
+			shuziSprites = new Sprite[10];
+			for (int i = 0; i < 10; i++) {
+				shuziSprites[i] = new Sprite(Image.createImage(shuziImage, 13 * i, 0, 13, 19, Sprite.TRANS_NONE));
+			}
+
+			initSumarine(0);
+			initSumarine(1);
+			initSumarine(2);
+			initSumarine(3);
+
+			initEnebombs();
+
+			Sprite topScoreSprite = new Sprite(shuziSprites[0]);
+			topScoreSprite.setPosition(73, 36);
+			layerManager.append(topScoreSprite);
+
+			Sprite levelSprite = new Sprite(shuziSprites[1]);
+			levelSprite.setPosition(596, 12);
+			layerManager.append(levelSprite);
+
+			updateLife(life);
+
+			ship.setPosition(258, 42);
+
+			for (int i = 0; i < submarine.length; i++) {
+				submarine[i].setPosition(0 - rdm.nextInt(200), rdm.nextInt(300) + 200);
+				layerManager.append(submarine[i]);
+			}
+
+			for (int i = 0; i < 5; i++) {
+				int x = 261 + 25 * (i + 1);
+				int y = 7;
+				bombs[i] = new Bomb(bombImage, 20, 21, x, y);
+				bombs[i].setPosition(x, y);
+				layerManager.append(bombs[i]);
+			}
+
+			layerManager.append(ship);
+			layerManager.append(bgGameSprites);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void updateSore(int score) {
+		if (score < 9) {
+			scoreSprite = new Sprite(shuziSprites[score]);
+			scoreSprite.setPosition(73, 12);
+			layerManager.insert(scoreSprite, 0);
+		}
+		if (score > 9 && score < 100) {
+			String s = String.valueOf(score);
+			scoreSprite = new Sprite(shuziSprites[Integer.parseInt(s.substring(0, 1))]);
+			s1Sprite = new Sprite(shuziSprites[Integer.parseInt(s.substring(1, 2))]);
+			scoreSprite.setPosition(73, 12);
+			s1Sprite.setPosition(86, 12);
+			layerManager.insert(scoreSprite, 0);
+			layerManager.insert(s1Sprite, 0);
+		}
+		if (score > 99 && score < 1000) {
+			String s = String.valueOf(score);
+			scoreSprite = new Sprite(shuziSprites[Integer.parseInt(s.substring(0, 1))]);
+			s1Sprite = new Sprite(shuziSprites[Integer.parseInt(s.substring(1, 2))]);
+			s2Sprite = new Sprite(shuziSprites[Integer.parseInt(s.substring(2, 3))]);
+			scoreSprite.setPosition(73, 12);
+			s1Sprite.setPosition(86, 12);
+			s2Sprite.setPosition(99, 12);
+			layerManager.insert(scoreSprite, 0);
+			layerManager.insert(s1Sprite, 0);
+			layerManager.insert(s2Sprite, 0);
+		}
+
+		if (score > highestScore)
+			highestScore = score;
+	}
+
+	private void updateLife(int life) {
+		// Vector res=null;
+		// try {
+		// res=NumberImgUtil.updateNumber(life, shuziImage, 596, 38, 1);
+		// } catch (Exception e) {
+		// e.printStackTrace();
+		// }
+
+		// layerManager.insert((Sprite) res.firstElement(), 0);
+		lifeSprite = new Sprite(shuziSprites[life]);
+		lifeSprite.setPosition(596, 38);
+		layerManager.insert(lifeSprite, 0);
+	}
+
+	private void loadwithPosition() {
+
+		for (int i = 0; i < eneBombs.length; i++) {
+			eneBombs[i].setPosition(-100, -100);
+		}
+		ship.setPosition(258, 42);
+
+		for (int i = 0; i < submarine.length; i++) {
+			submarine[i].setPosition(0 - rdm.nextInt(200), rdm.nextInt(300) + 200);
+		}
+
+		for (int i = 0; i < 5; i++) {
+			int x = 261 + 25 * (i + 1);
+			int y = 7;
+			bombs[i].setPosition(x, y);
+			bombs[i].setFire(false);
+		}
+	}
+
+	private void initSumarine(int num) {
+		if (num == 0) {
+			submarine[0] = new Submarine(sImage1, 84, 26);
+		}
+		if (num == 1) {
+			submarine[1] = new Submarine(sImage2, 114, 37);
+			submarine[4] = new Submarine(sImage2, 114, 37);
+		}
+
+		if (num == 2) {
+			submarine[2] = new Submarine(sImage3, 108, 31);
+			submarine[5] = new Submarine(sImage3, 108, 31);
+		}
+		if (num == 3) {
+			submarine[3] = new Submarine(sImage4, 152, 32);
+		}
+	}
+
+	protected void keyPressed(int keyCode) {
+		super.keyPressed(keyCode);
+		switch (keyCode) {
+		case KeyCode.LEFT:
+			if (isRunning && !pausing) {
+				ship.left();
+			} else if (pausing) {
+				startSprite.setPosition(264, 289);
+				isleft = true;
+			}
+			break;
+		case KeyCode.RIGHT:
+			if (isRunning && !pausing) {
+				ship.right();
+			} else if (pausing) {
+				startSprite.setPosition(391, 289);
+				isleft = false;
+			}
+			break;
+		case KeyCode.OK:
+			if (pausing && isleft) {
+				pause();
+			} else if (pausing && !isleft) {
+				pause();
+				try {
+					backMenu();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			} else if (isRunning && !pausing) {
+				fireBomb();
+			}
+			break;
+
+		case KeyCode.MENU:
+			break;
+		case KeyCode.NUM_0:
+			if (pausing)
+				return;
+			pause();
+			break;
+		}
+
+	}
+
+	private void backMenu() throws InterruptedException {
+		this.midlet.dis.setCurrent(midlet.menuCanvas);
+		midlet.menuCanvas.initMenu();
+		this.isRunning = false;
+	}
+
+	private void fireBomb() {
+		for (int i = 4; i > -1; i--) {
+			if (bombs[i].isFire())
+				continue;
+			bombs[i].setPosition(ship.getX() + 71, ship.getY() + 42);
+			bombs[i].setDisplay(true);
+			bombs[i].setFire(true);
+			break;
+		}
+	}
+
+	private void pause() {
+		pausing = !pausing;
+		if (pausing) {
+			startSprite.setPosition(264, 289);
+			layerManager.insert(startSprite, 0);
+			layerManager.insert(pauseSprite, 1);
+		} else {
+			layerManager.remove(pauseSprite);
+			layerManager.remove(startSprite);
+		}
+	}
+
+	public void run() {
+		try {
+			Graphics g = getGraphics();
+			while (isRunning) {
+				long startTime = System.currentTimeMillis();
+				if (pausing) {
+					drawScreen(g);
+					Thread.currentThread();
+					Thread.sleep(DELAY);
+					continue;
+				}
+
+				for (int i = 0; i < eneBombs.length; i++) {
+					if (eneBombs[i].isDisplay()) {
+						eneBombs[i].fire();
+						if (eneBombs[i].collidesWith(ship)) {
+							life--;
+							updateLife(life);
+							Thread.sleep(DELAY * 2);
+							ship.setPosition(258, 42);
+						}
+					}
+				}
+				int rint = rdm.nextInt(submarine.length);
+
+				for (int i = 0; i < submarine.length; i++) {
+					if (!submarine[i].isIsBoom()) {
+						submarine[i].move();
+					} else { // ���ű�ըЧ��
+						submarine[i].boom();
+					}
+
+					if (rint == i) {
+						if (!eneBombs[i].isDisplay() && !eneBombs[i].isFire())
+							eneBombs[i].setPosition(submarine[i].getX() + submarine[i].getImageWidth() / 2, submarine[i].getY()
+									+ submarine[i].getImageHeight() / 2);
+						eneBombs[i].setDisplay(true);
+						eneBombs[i].setFire(true);
+					}
+				}
+
+				for (int i = 4; i > -1; i--) {
+					if (bombs[i].isDisplay() && bombs[i].isFire()) {
+						bombs[i].fire();
+
+						// �б��Ƿ���ײ
+						for (int j = 0; j < submarine.length; j++) {
+							if (bombs[i].collidesWith(submarine[j])) {
+								bombs[i].handlecollidesWith(submarine[j]);
+
+								score += 10;
+								updateSore(score);
+
+							}
+						}
+					}
+				}
+
+				drawScreen(g);
+
+				long runTime = System.currentTimeMillis() - startTime;
+
+				if (runTime < DELAY) {
+					try {
+						Thread.sleep(DELAY - runTime);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void drawScreen(Graphics g) {
+		layerManager.paint(g, 0, 0);
+		flushGraphics();
+	}
+}
