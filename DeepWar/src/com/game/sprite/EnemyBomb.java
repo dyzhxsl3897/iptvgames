@@ -5,14 +5,14 @@ import javax.microedition.lcdui.game.Sprite;
 
 public class EnemyBomb extends Sprite {
 
-	/** ÊÇ·ñ¿É¼û */
+	/** ï¿½Ç·ï¿½É¼ï¿½ */
 	private boolean isDisplay = false;
 
-	/** Í¼Æ¬¸ß¶È */
+	/** Í¼Æ¬ï¿½ß¶ï¿½ */
 	private int imageHeight;
-	/** Í¼Æ¬¿í¶È */
+	/** Í¼Æ¬ï¿½ï¿½ï¿½ */
 	private int imageWidth;
-	/** ÒÆ¶¯µ¥Î» */
+	/** ï¿½Æ¶ï¿½ï¿½ï¿½Î» */
 	private int dy = 3;
 	
 	private boolean isFire = false;
@@ -33,32 +33,38 @@ public class EnemyBomb extends Sprite {
 	}
 
 	/**
-	 * ÊÇ·ñºÍÇ±Í§·¢ÉúÅö×²
+	 * ï¿½Ç·ï¿½ï¿½Ç±Í§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²
 	 * 
 	 * @param Ship
-	 *            Submarine Ç±Í§¶ÔÏó
-	 * @return boolean true´ú±íÅö×²£¬false´ú±íÎ´·¢ÉúÅö×²
+	 *            Submarine Ç±Í§ï¿½ï¿½ï¿½ï¿½
+	 * @return boolean trueï¿½ï¿½ï¿½ï¿½ï¿½×²ï¿½ï¿½falseï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²
 	 */
 	public boolean collidesWith(Ship ship) {
-		// Õ¨µ¯ÖÐÐÄµãµÄ×ø±ê
+		// Õ¨ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½
 		int bx = this.getX() + imageWidth / 2;
 		int by = this.getY() + imageHeight / 2;
 
-		// Ç±Í§ÖÐÐÄµãµÄ×ø±ê
+		// Ç±Í§ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½
 		int sx = ship.getX() + ship.getImageWidth() / 2;
 		int sy = ship.getY() + ship.getImageHeight() / 2;
 
-		// ÅÐ¶ÏÖÐÐÄµãÖ®¼äµÄ¾àÀë
-		if ((Math.abs(bx - sx) < (imageWidth + ship.getImageWidth()) / 2)
-				&& (Math.abs(by - sy) < (imageHeight + ship.getImageHeight()) / 2)) {
+		// ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½Äµï¿½Ö®ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½
+		if ((Math.abs(bx - sx) <= ((imageWidth + ship.getImageWidth()) / 2))
+				&& (Math.abs(by - sy) <= ((imageHeight + ship.getImageHeight()) / 2))) {
 			return true;
 		} else {
 			return false;
 		}
 	}
+	
+	public void handlecollidesWith() {
+		this.isDisplay = false;
+		this.isFire=false;
+		this.setPosition(-100, -100);
+	}
 
-	public void fire() {
-		if (this.getY() - imageHeight -55 < dy ) {
+	public void fire(int shipHeight) {
+		if (this.getY()-46- shipHeight< dy ) {
 			this.setPosition(-100, -100);
 			this.isDisplay = false;
 			this.isFire = false;

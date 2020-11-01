@@ -12,51 +12,54 @@ import javax.microedition.lcdui.game.LayerManager;
 import javax.microedition.lcdui.game.Sprite;
 
 import com.game.Constants.KeyCode;
+import com.game.deepwar.MainMidlet;
+
 
 /**
  * @author Administrator
- * 
+ *
  */
-public class MenuCanvas extends GameCanvas implements Runnable {
+public class MenuCanvas extends GameCanvas implements Runnable{
 
 	public MainMidlet midlet;
-
+	
 	private Image bgMainImage;
 	private Image startImage;
-
+	
+	
 	private Sprite bgMainSprite;
 	private Sprite startSprite;
-
+	
 	private final static long DELAY = 300;
 	public Thread mainThread = new Thread(this);
 	public boolean isRunning = false;
 	public boolean isExit = false;
 
 	private LayerManager layerManager = new LayerManager();
-
+	
 	protected MenuCanvas(MainMidlet midlet) {
 		super(false);
-
-		this.midlet = midlet;
+		
+		this.midlet=midlet;
 		this.setFullScreenMode(true);
-
+		
 		try {
 			startImage = Image.createImage("/start.png");
 			bgMainImage = Image.createImage("/bj.jpg");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		
 		bgMainSprite = new Sprite(bgMainImage);
 		startSprite = new Sprite(startImage, 69, 74);
 		startSprite.setPosition(379, 395);
-
+	
 		layerManager.append(startSprite);
 		layerManager.append(bgMainSprite);
 		initMenu();
 	}
-
-	public void initMenu() {
+	
+	public void initMenu(){
 		startSprite.setPosition(379, 395);
 
 		mainThread = new Thread(this);
@@ -64,12 +67,13 @@ public class MenuCanvas extends GameCanvas implements Runnable {
 			mainThread.start();
 		}
 	}
+	
 
 	private void input(int keyCode) {
 		switch (keyCode) {
 		case KeyCode.OK:
 			this.isRunning = false;
-			if (isExit) {
+			if(isExit){
 				midlet.exit();
 			}
 			if (!midlet.gameCanvas.isRunning) {
@@ -83,19 +87,18 @@ public class MenuCanvas extends GameCanvas implements Runnable {
 			break;
 		case KeyCode.UP:
 			startSprite.setPosition(379, 395);
-			isExit = false;
+			isExit=false; 
 			break;
 		case KeyCode.DOWN:
 			startSprite.setPosition(349, 458);
-			isExit = true;
+			isExit=true; 
 			break;
 		}
 	}
-
+	
 	protected void keyPressed(int keyCode) {
 		super.keyPressed(keyCode);
 		input(keyCode);
-		drawScreen(getGraphics());
 	}
 
 	protected void keyRepeated(int keyCode) {
@@ -104,10 +107,13 @@ public class MenuCanvas extends GameCanvas implements Runnable {
 	}
 
 	private void drawScreen(Graphics g) {
+		g.setColor(0xffffff);
+		g.fillRect(0, 0, getWidth(), getHeight());
+		g.setColor(0x0000ff);
 		layerManager.paint(g, 0, 0);
 		flushGraphics();
 	}
-
+	
 	public void run() {
 		isRunning = true;
 		try {
@@ -121,7 +127,7 @@ public class MenuCanvas extends GameCanvas implements Runnable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		
 	}
 
 }

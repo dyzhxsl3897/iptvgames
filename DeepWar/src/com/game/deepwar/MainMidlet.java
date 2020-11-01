@@ -24,7 +24,7 @@ public class MainMidlet extends MIDlet{
 		dis = Display.getDisplay(this);
 		gameCanvas = new MainGameCanvas(this);
 		menuCanvas = new MenuCanvas(this);
-		dis.setCurrent(menuCanvas);// О©╫О©╫о╥О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫й╬О©╫к╣О©╫
+		dis.setCurrent(menuCanvas);// сно╥фТ╤╞йвохотй╬╡к╣╔
 	}
 	
 	protected void destroyApp(boolean arg0) throws MIDletStateChangeException {

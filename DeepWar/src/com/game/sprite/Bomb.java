@@ -7,32 +7,32 @@ import com.game.Constants.Device;
 
 public class Bomb extends Sprite {
 
-	/** Õ¨ï¿½ï¿½Í¼Æ¬ */
+	/** Õ¨µ¯Í¼Æ¬ */
 	private Image bombImage;
-	/** ï¿½Ç·ï¿½É¼ï¿½ */
+	/** ÊÇ·ñ¿É¼û */
 	private boolean isDisplay = false;
 
-	/** Í¼Æ¬ï¿½ß¶ï¿½ */
+	/** Í¼Æ¬¸ß¶È */
 	private int imageHeight;
-	/** Í¼Æ¬ï¿½ï¿½ï¿½ */
+	/** Í¼Æ¬¿í¶È */
 	private int imageWidth;
-	/** ï¿½Æ¶ï¿½ï¿½ï¿½Î» */
+	/** ÒÆ¶¯µ¥Î» */
 	private int dy = 3;
 
 	private int initX;
 
 	private int initY;
 	
-	/** ï¿½Ç·ï¿½ï¿½ï¿½ */
+	/** ÊÇ·ñ·¢Éä */
 	private boolean isFire =false;
 
 	
 
 	/**
-	 * ï¿½ï¿½ï¿½ì·½ï¿½ï¿½
+	 * ¹¹Ôì·½·¨
 	 * 
 	 * @param bombImage
-	 *            Image Õ¨ï¿½ï¿½Í¼Æ¬
+	 *            Image Õ¨µ¯Í¼Æ¬
 	 */
 	public Bomb(Image bombImage, int width, int height, int originX, int originY) {
 		super(bombImage, width, height);
@@ -45,22 +45,22 @@ public class Bomb extends Sprite {
 	}
 
 	/**
-	 * ï¿½Ç·ï¿½ï¿½Ç±Í§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²
+	 * ÊÇ·ñºÍÇ±Í§·¢ÉúÅö×²
 	 * 
 	 * @param submarine
-	 *            Submarine Ç±Í§ï¿½ï¿½ï¿½ï¿½
-	 * @return boolean trueï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²ï¿½ï¿½falseï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²
+	 *            Submarine Ç±Í§¶ÔÏó
+	 * @return boolean true´ú±íÅö×²£¬false´ú±íÎ´·¢ÉúÅö×²
 	 */
 	public boolean collidesWith(Submarine submarine) {
-		// Õ¨ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		// Õ¨µ¯ÖÐÐÄµãµÄ×ø±ê
 		int bx = this.getX() + imageWidth / 2;
 		int by = this.getY() + imageHeight / 2;
 
-		// Ç±Í§ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		// Ç±Í§ÖÐÐÄµãµÄ×ø±ê
 		int sx = submarine.getX() + submarine.getImageWidth() / 2;
 		int sy = submarine.getY() + submarine.getImageHeight() / 2;
 
-		// ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½Äµï¿½Ö®ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½
+		// ÅÐ¶ÏÖÐÐÄµãÖ®¼äµÄ¾àÀë
 		if ((Math.abs(bx - sx) < (imageWidth + submarine.getImageWidth()) / 2)
 				&& (Math.abs(by - sy) < (imageHeight + submarine
 						.getImageHeight()) / 2)) {
@@ -71,17 +71,17 @@ public class Bomb extends Sprite {
 	}
 
 	/**
-	 * ï¿½ï¿½×²ï¿½ï¿½ï¿½ï¿½
+	 * Åö×²´¦Àí
 	 * 
 	 * @param submarine
-	 *            Submarine Ç±Í§ï¿½ï¿½ï¿½ï¿½
+	 *            Submarine Ç±Í§¶ÔÏó
 	 */
 	public void handlecollidesWith(Submarine submarine) {
-		// ï¿½ï¿½ï¿½ï¿½Õ¨ï¿½ï¿½ï¿½ï¿½ï¿½É¼ï¿½
+		// ÉèÖÃÕ¨µ¯²»¿É¼û
 		this.isDisplay = false;
 		this.isFire=false;
 		this.setPosition(initX, initY);
-		// Ç±Í§ï¿½ï¿½Õ¨
+		// Ç±Í§±¬Õ¨
 		submarine.setIsBoom(true);
 	}
 

@@ -1,12 +1,16 @@
 package com.game.deepwar;
 
 import java.util.Random;
+import java.util.Vector;
 
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.GameCanvas;
+import javax.microedition.lcdui.game.Layer;
 import javax.microedition.lcdui.game.LayerManager;
 import javax.microedition.lcdui.game.Sprite;
+
+import com.yunyouhudong.framework.utils.NumberImgUtil;
 
 import com.game.Constants.KeyCode;
 import com.game.sprite.Bomb;
@@ -72,7 +76,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	Sprite s3Sprite;
 	Sprite s4Sprite;
 
-	Sprite topScoreSprite;
+	Sprite[] topScoreSprite;
 
 	Sprite levelSprite;
 
@@ -99,8 +103,9 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	private void initializeLevel(int level) {
 		pausing = false;
 		isleft = true;
+		life=5;
+		score=0;
 		loadwithPosition();
-
 	}
 
 	private void initEnebombs() {
@@ -144,7 +149,8 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 
 			shuziSprites = new Sprite[10];
 			for (int i = 0; i < 10; i++) {
-				shuziSprites[i] = new Sprite(Image.createImage(shuziImage, 13 * i, 0, 13, 19, Sprite.TRANS_NONE));
+				shuziSprites[i] = new Sprite(Image.createImage(shuziImage,
+						13 * i, 0, 13, 19, Sprite.TRANS_NONE));
 			}
 
 			initSumarine(0);
@@ -153,21 +159,28 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			initSumarine(3);
 
 			initEnebombs();
+			topScoreSprite=new Sprite[5];
+			for(int i=0;i<5;i++){
+				topScoreSprite[i]=new Sprite(shuziSprites[0]); 
+				if(i==0)
+					topScoreSprite[i].setPosition(73, 36);
+				else{
+					topScoreSprite[i].setPosition(-50, -50);
+				}
 
-			Sprite topScoreSprite = new Sprite(shuziSprites[0]);
-			topScoreSprite.setPosition(73, 36);
-			layerManager.append(topScoreSprite);
-
+				layerManager.append(topScoreSprite[i]);
+			}
+			
 			Sprite levelSprite = new Sprite(shuziSprites[1]);
 			levelSprite.setPosition(596, 12);
 			layerManager.append(levelSprite);
 
-			updateLife(life);
 
-			ship.setPosition(258, 42);
+			ship.setPosition(258, 48);
 
 			for (int i = 0; i < submarine.length; i++) {
-				submarine[i].setPosition(0 - rdm.nextInt(200), rdm.nextInt(300) + 200);
+				submarine[i].setPosition(0 - rdm.nextInt(200),
+						rdm.nextInt(300) + 200);
 				layerManager.append(submarine[i]);
 			}
 
@@ -182,21 +195,42 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			layerManager.append(ship);
 			layerManager.append(bgGameSprites);
 
+		lifeSprite = new Sprite(shuziSprites[life]);
+		lifeSprite.setPosition(596, 38);
+		layerManager.insert(lifeSprite, 0);
+		
+		
+		scoreSprite = new Sprite(shuziSprites[0]);
+			s1Sprite = new Sprite(shuziSprites[0]);
+			scoreSprite.setPosition(73, 12);
+			s1Sprite.setPosition(-100, -120);
+			layerManager.insert(scoreSprite, 0);
+			layerManager.insert(s1Sprite, 0);
+
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	private void updateSore(int score) {
-		if (score < 9) {
-			scoreSprite = new Sprite(shuziSprites[score]);
-			scoreSprite.setPosition(73, 12);
-			layerManager.insert(scoreSprite, 0);
-		}
+		if(scoreSprite!=null)
+			layerManager.remove(scoreSprite);
+		if(s1Sprite!=null)
+			layerManager.remove(s1Sprite);
+		if(s2Sprite!=null)
+			layerManager.remove(s2Sprite);
+//		if (score < 9) {
+//			scoreSprite = new Sprite(shuziSprites[score]);
+//			scoreSprite.setPosition(73, 12);
+//			layerManager.insert(scoreSprite, 0);
+//		}
 		if (score > 9 && score < 100) {
 			String s = String.valueOf(score);
-			scoreSprite = new Sprite(shuziSprites[Integer.parseInt(s.substring(0, 1))]);
-			s1Sprite = new Sprite(shuziSprites[Integer.parseInt(s.substring(1, 2))]);
+			scoreSprite = new Sprite(shuziSprites[Integer.parseInt(s.substring(
+					0, 1))]);
+			s1Sprite = new Sprite(shuziSprites[Integer.parseInt(s.substring(1,
+					2))]);
 			scoreSprite.setPosition(73, 12);
 			s1Sprite.setPosition(86, 12);
 			layerManager.insert(scoreSprite, 0);
@@ -204,9 +238,12 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		}
 		if (score > 99 && score < 1000) {
 			String s = String.valueOf(score);
-			scoreSprite = new Sprite(shuziSprites[Integer.parseInt(s.substring(0, 1))]);
-			s1Sprite = new Sprite(shuziSprites[Integer.parseInt(s.substring(1, 2))]);
-			s2Sprite = new Sprite(shuziSprites[Integer.parseInt(s.substring(2, 3))]);
+			scoreSprite = new Sprite(shuziSprites[Integer.parseInt(s.substring(
+					0, 1))]);
+			s1Sprite = new Sprite(shuziSprites[Integer.parseInt(s.substring(1,
+					2))]);
+			s2Sprite = new Sprite(shuziSprites[Integer.parseInt(s.substring(2,
+					3))]);
 			scoreSprite.setPosition(73, 12);
 			s1Sprite.setPosition(86, 12);
 			s2Sprite.setPosition(99, 12);
@@ -215,33 +252,93 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			layerManager.insert(s2Sprite, 0);
 		}
 
-		if (score > highestScore)
+		if (score > highestScore){
 			highestScore = score;
+			updateHighScore(highestScore);
+		}
+	}
+	
+	
+	private void updateHighScore(int score){
+			for(int i=0;i<5;i++){
+				layerManager.remove(topScoreSprite[i]);
+			}
+			
+			if (score > 9 && score < 100) {
+			String s = String.valueOf(score);
+			topScoreSprite[0] = new Sprite(shuziSprites[Integer.parseInt(s.substring(
+					0, 1))]);
+			topScoreSprite[1] = new Sprite(shuziSprites[Integer.parseInt(s.substring(1,
+					2))]);
+			topScoreSprite[0].setPosition(73, 36);
+			topScoreSprite[1].setPosition(86, 36);
+		}
+		if (score > 99 && score < 1000) {
+			String s = String.valueOf(score);
+			scoreSprite = new Sprite(shuziSprites[Integer.parseInt(s.substring(
+					0, 1))]);
+			s1Sprite = new Sprite(shuziSprites[Integer.parseInt(s.substring(1,
+					2))]);
+			s2Sprite = new Sprite(shuziSprites[Integer.parseInt(s.substring(2,
+					3))]);
+			scoreSprite.setPosition(73, 12);
+			s1Sprite.setPosition(86, 12);
+			s2Sprite.setPosition(99, 12);
+			
+			
+			topScoreSprite[0] = new Sprite(shuziSprites[Integer.parseInt(s.substring(
+					0, 1))]);
+			topScoreSprite[1] = new Sprite(shuziSprites[Integer.parseInt(s.substring(1,
+					2))]);
+
+			topScoreSprite[2] = new Sprite(shuziSprites[Integer.parseInt(s.substring(2,3))]);
+			topScoreSprite[0].setPosition(73, 36);
+			topScoreSprite[1].setPosition(86, 36);
+			topScoreSprite[2].setPosition(99, 36);
+		}
+		
+		for(int i=0;i<5;i++){
+			layerManager.insert(topScoreSprite[i],0);
+		}
+
 	}
 
 	private void updateLife(int life) {
-		// Vector res=null;
-		// try {
-		// res=NumberImgUtil.updateNumber(life, shuziImage, 596, 38, 1);
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// }
-
-		// layerManager.insert((Sprite) res.firstElement(), 0);
+//		 Vector res=null;
+//		 try {
+//		 res=NumberImgUtil.updateNumber(life, shuziImage, 596, 38, 1);
+//		 } catch (Exception e) {
+//		 e.printStackTrace();
+//		 }
+//
+//		 layerManager.insert((Sprite) res.firstElement(), 0);
+		
+		if(life<=0){
+					try {
+						backMenu();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+		}
+		
+		layerManager.remove(lifeSprite);
+		
 		lifeSprite = new Sprite(shuziSprites[life]);
 		lifeSprite.setPosition(596, 38);
 		layerManager.insert(lifeSprite, 0);
 	}
 
 	private void loadwithPosition() {
-
+		updateLife(life);
+		updateSore(score);
 		for (int i = 0; i < eneBombs.length; i++) {
 			eneBombs[i].setPosition(-100, -100);
 		}
-		ship.setPosition(258, 42);
+		ship.setPosition(258, 48);
 
 		for (int i = 0; i < submarine.length; i++) {
-			submarine[i].setPosition(0 - rdm.nextInt(200), rdm.nextInt(300) + 200);
+			submarine[i].setPosition(0 - rdm.nextInt(200),
+					rdm.nextInt(300) + 200);
 		}
 
 		for (int i = 0; i < 5; i++) {
@@ -307,9 +404,20 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		case KeyCode.MENU:
 			break;
 		case KeyCode.NUM_0:
-			if (pausing)
+			if(pausing)
 				return;
 			pause();
+			break;
+		case KeyCode.BACK:
+		case KeyCode.BACK_1:
+		case KeyCode.BACK_2:
+			if (!pausing) {
+				try {
+					backMenu();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
 			break;
 		}
 
@@ -358,13 +466,16 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 
 				for (int i = 0; i < eneBombs.length; i++) {
 					if (eneBombs[i].isDisplay()) {
-						eneBombs[i].fire();
+
 						if (eneBombs[i].collidesWith(ship)) {
+							eneBombs[i].handlecollidesWith();
 							life--;
 							updateLife(life);
 							Thread.sleep(DELAY * 2);
-							ship.setPosition(258, 42);
+							ship.setPosition(258, 48);
 						}
+
+						eneBombs[i].fire(ship.getHeight());
 					}
 				}
 				int rint = rdm.nextInt(submarine.length);
@@ -378,8 +489,13 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 
 					if (rint == i) {
 						if (!eneBombs[i].isDisplay() && !eneBombs[i].isFire())
-							eneBombs[i].setPosition(submarine[i].getX() + submarine[i].getImageWidth() / 2, submarine[i].getY()
-									+ submarine[i].getImageHeight() / 2);
+							eneBombs[i]
+									.setPosition(submarine[i].getX()
+											+ submarine[i].getImageWidth() / 2,
+											submarine[i].getY()
+													+ submarine[i]
+															.getImageHeight()
+													/ 2);
 						eneBombs[i].setDisplay(true);
 						eneBombs[i].setFire(true);
 					}
