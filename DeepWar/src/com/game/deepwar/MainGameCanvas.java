@@ -130,7 +130,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			pauseImage = Image.createImage("/zt.jpg");
 			startImage = Image.createImage("/start.png");
 			shuziImage = Image.createImage("/sz.png");
-			shuziForWinImage = Image.createImage("/sz.png");
+			shuziForWinImage = Image.createImage("/sz_win.png");
 
 			bombImage = Image.createImage("/zd.png");
 
@@ -424,7 +424,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			}
 			break;
 		}
-
+		drawScreen(getGraphics());
 	}
 
 	private void backMenu() throws InterruptedException {
