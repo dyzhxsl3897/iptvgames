@@ -361,7 +361,8 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		super.keyPressed(keyCode);
 		switch (keyCode) {
 		case KeyCode.LEFT:
-			if (isRunning && !pausing) {
+			if (isWin) {
+			} else if (isRunning && !pausing) {
 				ship.left();
 			} else if (pausing) {
 				startSprite.setPosition(264, 289);
@@ -369,7 +370,8 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			}
 			break;
 		case KeyCode.RIGHT:
-			if (isRunning && !pausing) {
+			if (isWin) {
+			} else if (isRunning && !pausing) {
 				ship.right();
 			} else if (pausing) {
 				startSprite.setPosition(391, 289);
@@ -462,9 +464,10 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			while (isRunning) {
 				long startTime = System.currentTimeMillis();
 				if (pausing) {
+					startSprite.nextFrame();
 					drawScreen(g);
 					Thread.currentThread();
-					Thread.sleep(DELAY);
+					Thread.sleep(300);
 					continue;
 				}
 
