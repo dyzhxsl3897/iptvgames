@@ -78,7 +78,6 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	private int[][] callPos = new int[][] { { GameConst.Position.CALL_X0, GameConst.Position.CALL_Y0 },
 			{ GameConst.Position.CALL_X1, GameConst.Position.CALL_Y1 }, { GameConst.Position.CALL_X2, GameConst.Position.CALL_Y2 } };
 
-	private int timeLeft = 300;// 出牌时间倒计时
 	private TiledLayer bg1Layer;
 	private TiledLayer bg2Layer;
 	private TiledLayer[] playersLayer = new TiledLayer[GameConst.Game.PLAYERACCOUNTS];
@@ -315,8 +314,6 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 					}
 				}
 			}
-
-			timeLeft--;
 
 			long runTime = System.currentTimeMillis() - startTime;
 			if (runTime < GameConst.FPS) {
