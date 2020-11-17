@@ -1,0 +1,7 @@
+MIDlet-1: MainMIDlet,,com.yunyouhudong.games.deepwar.MainMidlet
+MIDlet-Jar-URL: DeepWarTest.jar
+MIDlet-Name: DeepWarTest Midlet Suite
+MIDlet-Vendor: Midlet Suite Vendor
+MIDlet-Version: 1.0.0
+MicroEdition-Configuration: CLDC-1.1
+MicroEdition-Profile: MIDP-2.0
