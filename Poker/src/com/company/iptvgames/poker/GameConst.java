@@ -11,9 +11,10 @@ public class GameConst {
 	}
 
 	public static class GameCanvas {
-		public static final int LAYER_alert = 0;// alert起始图层号
-		public static final int LAYER_player = 2;
-		public static final int LAYER_button = 1;
+		public static final int LAYER_alert = 1;// alert起始图层号
+		public static final int LAYER_alert_select = 0;// alert select起始图层号
+		public static final int LAYER_player = 3;
+		public static final int LAYER_button = 2;
 		public static final int LAYER_card = 15;
 		// public static final int LAYER_button = 9;//按钮起始图层号
 		// public static final int LAYER_player = 23;//角色起始图层号

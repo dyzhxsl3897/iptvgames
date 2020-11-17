@@ -27,6 +27,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	private LayerManager layerManager;
 
 	private Sprite alertPauseSprite;
+	private Sprite alertPauseSelectImgSprite;
 	private Sprite continueSprite;
 	private Sprite overSprite;
 	private Sprite DZWinSprite;
@@ -84,7 +85,8 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	private TiledLayer dizhuLayer;
 
 	private static Random random = new Random();
-	private int gameStatus = 0;// 0：进入游戏界面；1：叫分；2：新开局；3：新局结束
+	private int gameStatus = 0;// 0：进入游戏界面；1：叫分；2：新开局；3：新局结束；4：暂停
+	private int lastGameStatus = 0;
 
 	private Thread gameCanvasThread;
 
@@ -113,6 +115,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		ImageRes.getInstance().loadImage("npc3Img", ImageUtil.createImage("/player/nm3.png"));
 
 		ImageRes.getInstance().loadImage("alertPauseImg", ImageUtil.createImage("/BG/pause.png"));
+		ImageRes.getInstance().loadImage("alertPauseSelectImg", ImageUtil.createImage("/BG/dj.png"));
 		ImageRes.getInstance().loadImage("continueImg", ImageUtil.createImage("/BG/continue.png"));
 		ImageRes.getInstance().loadImage("overImg", ImageUtil.createImage("/BG/over.png"));
 
@@ -172,6 +175,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 
 		// 创建提示信息
 		alertPauseSprite = new Sprite(ImageRes.getInstance().getImage("alertPauseImg"));
+		alertPauseSelectImgSprite = new Sprite(ImageRes.getInstance().getImage("alertPauseSelectImg"));
 		continueSprite = new Sprite(ImageRes.getInstance().getImage("continueImg"));
 		overSprite = new Sprite(ImageRes.getInstance().getImage("overImg"));
 		DZWinSprite = new Sprite(ImageRes.getInstance().getImage("DZWinImg"));
@@ -185,6 +189,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		layerManager.insert(txSprite, GameConst.GameCanvas.LAYER_alert);
 
 		layerManager.insert(alertPauseSprite, GameConst.GameCanvas.LAYER_alert);
+		layerManager.insert(alertPauseSelectImgSprite, GameConst.GameCanvas.LAYER_alert_select);
 		layerManager.insert(continueSprite, GameConst.GameCanvas.LAYER_alert);
 		layerManager.insert(overSprite, GameConst.GameCanvas.LAYER_alert);
 		layerManager.insert(DZWinSprite, GameConst.GameCanvas.LAYER_alert);
@@ -278,6 +283,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 
 		selectButton(startSprite, 0);
 		gameStatus = 0;
+		lastGameStatus = 0;
 	}
 
 	public void run() {
@@ -285,9 +291,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			long startTime = System.currentTimeMillis();
 
 			if (gameStatus == 0) {
-			}
-
-			if (gameStatus == 1) {
+			} else if (gameStatus == 1) {
 				showJiaofenUI();
 				if (currentPlayer == 0) {
 					/*-
@@ -299,9 +303,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 				} else {
 					qiangDiZhu();
 				}
-			}
-
-			if (gameStatus == 2) {
+			} else if (gameStatus == 2) {
 				if (currentPlayer == 0) {
 					showOptionUI(true);
 				} else {
@@ -315,6 +317,9 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 				}
 			}
 
+			layerManager.paint(graphics, 0, 0);
+			this.flushGraphics();
+
 			long runTime = System.currentTimeMillis() - startTime;
 			if (runTime < GameConst.FPS) {
 				try {
@@ -327,7 +332,6 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	}
 
 	public void startNewGame() {
-		System.out.println("startNewGame() start:");
 		clearUI();
 
 		// 触发洗牌、发牌
@@ -344,14 +348,10 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		players[1].updateCards(pl[1]);
 		players[2].updateCards(pl[2]);
 		paintAllCards(false);
-
-		layerManager.paint(graphics, 0, 0);
-		this.flushGraphics();
 	}
 
 	// 洗牌
 	public void resetNewCards() {
-		System.out.println("resetNewCards() start:");
 		for (int i = 0; i < newCardsAll.length; i++) {
 			int ran = random.nextInt(GameConst.Game.PORKERACCOUTS);
 			int temp = newCardsAll[i];
@@ -362,7 +362,6 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 
 	// 发牌
 	public void sendCard() {
-		System.out.println("sendCard() start:");
 		int startNo = 0;
 		// 分牌
 		for (int i = 0; i < GameConst.Game.PORKEREACHPERSON; i++) {
@@ -387,16 +386,6 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		for (int i = 0; i < GameConst.Game.PLAYERACCOUNTS; i++) {
 			players[i].updateCards(pl[i]);
 		}
-
-		/*- This is for test
-		for (int i = 0; i < GameConst.Game.PLAYERACCOUNTS; i++) {
-			System.out.print("NPC cards of " + i + ":");
-			for (int j = 0; j < pl[i].length; j++) {
-				System.out.print(pl[i][j] + ",");
-			}
-			System.out.println("end");
-		}
-		 */
 	}
 
 	// 绘制桌面所有牌(showBottomCards:是否亮底牌)
@@ -432,7 +421,6 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 
 	// 抢地主
 	public void qiangDiZhu() {
-		System.out.println("qiangDiZhu() start:" + currentPlayer);
 		int temp = random.nextInt(4);// 随机叫分
 		boolean finished = true;
 
@@ -479,7 +467,6 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	public void setDiZhu(int playerID, int jiaofenValue) {
 		clearCallMessage();
 
-		System.out.println("setDiZhu:");
 		// showJiaofenUI();
 
 		// 抢地主
@@ -509,9 +496,8 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		// 重新绘制玩家手牌与亮底牌
 		paintAllCards(true);
 		gameStatus = 2;
+		lastGameStatus = 2;
 		option = selectButton(options[3], 3);
-		layerManager.paint(graphics, 0, 0);
-		this.flushGraphics();
 	}
 
 	// 显示叫分选项
@@ -521,8 +507,6 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		if (jiaofenByPlayers[0] == -1 && currentPlayer == 0) {
 			show = true;
 		}
-		//		
-		// System.out.println("showJiaofenUI :" + show);
 		for (int i = 0; i < scoreOptions.length; i++) {
 			scoreOptions[i].setVisible(show);
 		}
@@ -532,9 +516,6 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		if (show) {
 			selectButton(scoreOptions[ScoreOption], ScoreOption);
 		}
-
-		layerManager.paint(graphics, 0, 0);
-		this.flushGraphics();
 	}
 
 	// 显示出牌选项
@@ -552,15 +533,9 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		if (selectedSprite.isVisible()) {
 			selectButton(options[option], option);
 		}
-
-		layerManager.paint(graphics, 0, 0);
-		this.flushGraphics();
 	}
 
 	public void checkResult() {
-
-		gameStatus = 4;
-
 		if (players[currentPlayer].getTagID() == 0) {
 			DZWinSprite.setVisible(true);
 		} else {
@@ -575,13 +550,11 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		showCardsForAllPlayer();
 
 		gameStatus = 0;
+		lastGameStatus = 0;
 
 		startSprite.setVisible(true);
 		selectedSprite.setVisible(true);
 		selectButton(startSprite, 0);
-
-		layerManager.paint(graphics, 0, 0);
-		this.flushGraphics();
 	}
 
 	// 下一个玩家获取出牌token
@@ -593,18 +566,12 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			currentPlayer = 0;
 		}
 
-		System.out.println("in turnToNext(),currentPlayer: " + currentPlayer + ", currentCardsID: " + currentCardsID);
-		if (currentCards != null) {
-			System.out.println(" and type: " + PokerCard.getCardsType(currentCards));
-		}
-
 		callOptions[currentPlayer].setVisible(false);
 		players[currentPlayer].paintSelectedCards(null);
 
 		// 当前桌面最大牌为当前玩家时，下家可任意出牌，所以设置当前桌面最大牌为null
 		if (gameStatus == 2) {
 			if (currentPlayer == currentCardsID) {
-				System.out.println(" clear currentCards to null: ");
 				currentCards = null;
 				for (int i = 0; i < players.length; i++) {
 					callOptions[i].setVisible(false);
@@ -613,9 +580,6 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 				callOptions[currentPlayer].setVisible(false);
 			}
 		}
-
-		layerManager.paint(graphics, 0, 0);
-		this.flushGraphics();
 	}
 
 	// 不出牌
@@ -650,9 +614,6 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		} else {
 			showTexiao(101);// 无建议牌型
 		}
-
-		layerManager.paint(graphics, 0, 0);
-		this.flushGraphics();
 	}
 
 	// 出牌
@@ -665,8 +626,6 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			// 0:出牌成功，1：牌型不存在，2：所出牌型不一致，3：所出牌小于上家牌
 			result = players[currentPlayer].readyForChupai(readyCards, currentCards);
 			if (result == 0) {
-				System.out.println(currentPlayer + " :chupai success");
-
 				// 允许出牌时，玩家更新手牌
 				if (result == 0) {
 					players[currentPlayer].paintSelectedCards(readyCards);
@@ -680,9 +639,6 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 				currentCardsID = currentPlayer;
 				readyCards = null;
 				showTexiao(type);
-
-				layerManager.paint(graphics, 0, 0);
-				this.flushGraphics();
 
 				// 检查玩家手牌是否全部出完
 				if (players[currentPlayer].plCards().length == 0) {
@@ -698,11 +654,9 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 				}
 			} else {// 出牌失败
 				showTexiao(100);
-				System.out.println("message 1 :" + result);
 			}
 		} else {// 未选中牌
 			showTexiao(100);
-			System.out.println("message 2 ");
 		}
 	}
 
@@ -714,7 +668,6 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	}
 
 	private void keyAction(int keyCode) {
-
 		switch (gameStatus) {
 		case 0:
 			if (keyCode == Constants.KeyCode.OK) {
@@ -722,9 +675,8 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 				selectedSprite.setVisible(false);
 				// 开始新一局游戏
 				startNewGame();
-				// System.out.println("in keyAction:");
-				// showJiaofenUI();
 				gameStatus = 1;
+				lastGameStatus = 1;
 			}
 			break;
 
@@ -785,11 +737,10 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 				}
 				if (keyCode == Constants.KeyCode.DOWN) {
 					gameStatus = 3;
+					lastGameStatus = 3;
 					option = 0;
 					selectedSprite.setVisible(false);
 					arrowIconSprite.setVisible(true);
-					layerManager.paint(graphics, 0, 0);
-					this.flushGraphics();
 				}
 			}
 			break;
@@ -822,11 +773,25 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 					arrowIconSprite.setVisible(false);
 					selectedSprite.setVisible(true);
 					gameStatus = 2;
+					lastGameStatus = 2;
 					option = selectButton(options[3], 3);
 				}
 			}
-			layerManager.paint(graphics, 0, 0);
-			this.flushGraphics();
+			break;
+		case 4:
+			if (keyCode == Constants.KeyCode.OK) {
+				if (alertPauseSelectImgSprite.getX() == 264) {
+					alertPauseSprite.setVisible(false);
+					alertPauseSelectImgSprite.setVisible(false);
+					gameStatus = lastGameStatus;
+				} else {
+					this.midlet.notifyDestroyed();
+				}
+			} else if (keyCode == Constants.KeyCode.LEFT) {
+				alertPauseSelectImgSprite.setPosition(GameConst.GameCanvas.CX_PAUSE, GameConst.GameCanvas.CY_PAUSE);
+			} else if (keyCode == Constants.KeyCode.RIGHT) {
+				alertPauseSelectImgSprite.setPosition(GameConst.GameCanvas.OX_PAUSE, GameConst.GameCanvas.OY_PAUSE);
+			}
 			break;
 		}
 	}
@@ -839,9 +804,6 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			selectedSprite.setPosition(tempX, tempY);
 			selectedSprite.setVisible(true);
 		}
-
-		layerManager.paint(graphics, 0, 0);
-		this.flushGraphics();
 
 		return returnValue;
 	}
@@ -869,7 +831,6 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	}
 
 	public void clearUI() {
-		System.out.println("clearUI() start:");
 		DZWinSprite.setVisible(false);
 		NMWinSprite.setVisible(false);
 
@@ -981,9 +942,6 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			Cartoon = true;
 		}
 
-		layerManager.paint(graphics, 0, 0);
-		this.flushGraphics();
-
 		if (Cartoon) {
 			for (int i = 0; i < GameConst.GameCanvas.FRAMEOFTEXIAO; i++) {
 				long cartoonTime = System.currentTimeMillis();
@@ -1068,6 +1026,16 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	}
 
 	protected void keyPressed(int keyCode) {
+		if (keyCode == Constants.KeyCode.NUM_0) {
+			layerManager.insert(alertPauseSprite, 0);
+			layerManager.insert(alertPauseSelectImgSprite, 0);
+			alertPauseSprite.setVisible(true);
+			alertPauseSelectImgSprite.setVisible(true);
+			alertPauseSelectImgSprite.setPosition(GameConst.GameCanvas.CX_PAUSE, GameConst.GameCanvas.CY_PAUSE);
+			gameStatus = 4;
+			return;
+		}
+
 		keyAction(keyCode);
 	}
 }

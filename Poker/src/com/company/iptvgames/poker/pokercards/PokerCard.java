@@ -282,12 +282,10 @@ public class PokerCard {
 		all.AIcards(allCardsOfPlayer);
 
 		for (int i = 0; i < typeSeq.length; i++) {
-			// System.out.println("in bestShow(), check type:"+typeSeq[i]);
 			Vector cardsVector = all.getVectorOfType(typeSeq[i]);
 			for (int j = 0; j < cardsVector.size(); j++) {
 				int[] temp = (int[]) cardsVector.elementAt(j);
 				tempLength = temp.length;
-				System.out.println("in bestShow(), check tempLength:" + tempLength + ",resultLength:" + resultLength);
 				if (tempLength > resultLength) {
 					result = temp;
 					resultLength = result.length;
