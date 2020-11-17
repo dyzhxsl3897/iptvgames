@@ -38,16 +38,110 @@ public class YunyouLayerManager {
 		setViewWindow(0, 0, Integer.MAX_VALUE, Integer.MAX_VALUE);
 	}
 
+	/**
+	 * Put the specified layer on top of all layers
+	 * 
+	 * @param layer
+	 */
+	public void putLayerOnTopOfAll(Layer layer) {
+		append(layer); // This function ensures no duplicate on layers
+	}
+
+	/**
+	 * Put the specified layer on top of all layers within same Lens
+	 * 
+	 * @param layer
+	 */
+	public void putLayerOnTopInLens(Layer layer) {
+		for (int i = 0; i < nLenses; i++) {
+			for (int j = 0; j < nLayersInLens[i]; j++) {
+				if (layerLenses[i][j] == layer) {
+					append(layer, i); // This function ensures no duplicate on layers
+					return;
+				}
+			}
+		}
+	}
+
+	/**
+	 * Switch LensA and LensB if LensA is not on top of LensB, otherwise do nothing
+	 * 
+	 * @param lensAIndex
+	 * @param lensBIndex
+	 */
+	public void switchLensZIndex(int lensAIndex, int lensBIndex) {
+		if (lensAIndex < 0 || lensAIndex >= nLenses || lensBIndex < 0 || lensBIndex >= nLenses) {
+			throw new IndexOutOfBoundsException();
+		}
+
+		if (lensAIndex < lensBIndex) {
+			Layer[] layerTemp = layerLenses[lensAIndex];
+			layerLenses[lensAIndex] = layerLenses[lensBIndex];
+			layerLenses[lensBIndex] = layerTemp;
+		}
+	}
+
+	/**
+	 * Switch layerA and layerB if layerA is not on top of layerB, otherwise do nothing
+	 * 
+	 * @param layerA
+	 * @param layerB
+	 */
+	public void switchLayerZIndex(Layer layerA, Layer layerB) {
+		boolean isLayerAFound = false;
+		boolean isLayerBFound = false;
+		int layerALensIndex = -1;
+		int layerALayerIndex = -1;
+		for (int i = 0; i < nLenses; i++) {
+			for (int j = 0; j < nLayersInLens[i]; j++) {
+				if (!isLayerAFound && layerLenses[i][j] == layerA) {
+					isLayerAFound = true;
+					layerALensIndex = i;
+					layerALayerIndex = j;
+					continue;
+				}
+				if (!isLayerBFound && layerLenses[i][j] == layerB) {
+					isLayerBFound = true;
+					if (isLayerAFound && layerALensIndex >= 0 && layerALayerIndex >= 0) {
+						layerLenses[i][j] = layerA;
+						layerLenses[layerALensIndex][layerALayerIndex] = layerB;
+						return;
+					} else {
+						return;
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * Append new Layer on top of all layers in top lens
+	 * 
+	 * @param layer
+	 */
 	public void append(Layer layer) {
 		removeImpl(layer);
 		addImpl(layer, nLenses - 1, nLayersInLens[nLenses]);
 	}
 
+	/**
+	 * Append new layer on top of the layers in lensIndex'th lens
+	 * 
+	 * @param layer
+	 * @param lensIndex
+	 */
 	public void append(Layer layer, int lensIndex) {
 		removeImpl(layer);
 		addImpl(layer, lensIndex, nLayersInLens[lensIndex]);
 	}
 
+	/**
+	 * Insert new Layer on specified lensIndex and layerIndex
+	 * 
+	 * @param layer
+	 * @param lensIndex
+	 * @param layerIndex
+	 */
 	public void insert(Layer layer, int lensIndex, int layerIndex) {
 		if (lensIndex < 0 || lensIndex >= nLenses || layerIndex < 0 || layerIndex >= nLayersInLens[lensIndex]) {
 			throw new IndexOutOfBoundsException();
@@ -68,6 +162,13 @@ public class YunyouLayerManager {
 		addImpl(layer, lensIndex, layerIndex);
 	}
 
+	/**
+	 * Return the Layer at specified lensIndex and layerIndex
+	 * 
+	 * @param lensIndex
+	 * @param layerIndex
+	 * @return
+	 */
 	public Layer getLayerAt(int lensIndex, int layerIndex) {
 		if (lensIndex < 0 || lensIndex >= nLenses || layerIndex < 0 || layerIndex >= nLayersInLens[lensIndex]) {
 			throw new IndexOutOfBoundsException();
@@ -75,14 +176,30 @@ public class YunyouLayerManager {
 		return layerLenses[lensIndex][layerIndex];
 	}
 
+	/**
+	 * Return total number of Lenses
+	 * 
+	 * @return
+	 */
 	public int getLensSize() {
 		return nLenses;
 	}
 
+	/**
+	 * Return number of layers in Lens of specified lensIndex
+	 * 
+	 * @param lensIndex
+	 * @return
+	 */
 	public int getLayerSizeInLens(int lensIndex) {
 		return nLayersInLens[lensIndex];
 	}
 
+	/**
+	 * Return total number of Layers in all Lenses
+	 * 
+	 * @return
+	 */
 	public int getLayerSize() {
 		int count = 0;
 		for (int i = 0; i < nLenses; i++) {
@@ -91,31 +208,46 @@ public class YunyouLayerManager {
 		return count;
 	}
 
+	/**
+	 * Remove the specified Layer
+	 * 
+	 * @param layer
+	 */
 	public void remove(Layer layer) {
 		removeImpl(layer);
 	}
 
-	public void paint(Graphics g, int x, int y) {
-		int clipX = g.getClipX();
-		int clipY = g.getClipY();
-		int clipW = g.getClipWidth();
-		int clipH = g.getClipHeight();
+	/**
+	 * This function paints all Layers in below order:<br/>
+	 * 1. Paints layers in lower index Lens first<br/>
+	 * 2. Within same Lens, paints lower index layers first<br/>
+	 * The last painted layer will stay on top of all others
+	 * 
+	 * @param graphics
+	 * @param x
+	 * @param y
+	 */
+	public void paint(Graphics graphics, int x, int y) {
+		int clipX = graphics.getClipX();
+		int clipY = graphics.getClipY();
+		int clipW = graphics.getClipWidth();
+		int clipH = graphics.getClipHeight();
 
-		g.translate(x - viewX, y - viewY);
+		graphics.translate(x - viewX, y - viewY);
 
-		g.clipRect(viewX, viewY, viewWidth, viewHeight);
+		graphics.clipRect(viewX, viewY, viewWidth, viewHeight);
 
 		for (int i = 0; i < nLenses; i++) {
 			for (int j = 0; j < nLayersInLens[i]; j++) {
 				Layer comp = layerLenses[i][j];
 				if (comp.isVisible()) {
-					comp.paint(g);
+					comp.paint(graphics);
 				}
 			}
 		}
 
-		g.translate(-x + viewX, -y + viewY);
-		g.setClip(clipX, clipY, clipW, clipH);
+		graphics.translate(-x + viewX, -y + viewY);
+		graphics.setClip(clipX, clipY, clipW, clipH);
 	}
 
 	public void setViewWindow(int x, int y, int width, int height) {
