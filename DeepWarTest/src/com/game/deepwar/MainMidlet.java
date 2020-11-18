@@ -7,10 +7,12 @@ import javax.microedition.midlet.MIDletStateChangeException;
 public class MainMidlet extends MIDlet {
 
 	public Display dis;
+	public MainGameCanvas gameCanvas;
 	public MenuCanvas menuCanvas;
 
 	public MainMidlet() {
 		dis = Display.getDisplay(this);
+		gameCanvas = new MainGameCanvas(this);
 		menuCanvas = new MenuCanvas(this);
 		dis.setCurrent(menuCanvas);
 	}

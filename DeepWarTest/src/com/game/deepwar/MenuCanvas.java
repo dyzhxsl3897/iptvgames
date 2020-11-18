@@ -68,6 +68,15 @@ public class MenuCanvas extends GameCanvas implements Runnable {
 	private void input(int keyCode) {
 		switch (keyCode) {
 		case KeyCode.OK:
+			this.isRunning = false;
+			if(isExit){
+				midlet.exit();
+			}
+			if (!midlet.gameCanvas.isRunning) {
+				midlet.gameCanvas.isRunning = true;
+				midlet.gameCanvas.initializeGame();
+			}
+			midlet.dis.setCurrent(midlet.gameCanvas);
 			break;
 		case KeyCode.BACK:
 			midlet.exit();
