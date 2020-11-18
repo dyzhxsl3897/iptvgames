@@ -1,4 +1,7 @@
-package com.yunyouhudong.games.deepwar;
+/**
+ * 
+ */
+package com.game.deepwar;
 
 import java.io.IOException;
 
@@ -8,13 +11,21 @@ import javax.microedition.lcdui.game.GameCanvas;
 import javax.microedition.lcdui.game.LayerManager;
 import javax.microedition.lcdui.game.Sprite;
 
+import com.game.Constants.KeyCode;
+
+/**
+ * @author Administrator
+ * 
+ */
 public class MenuCanvas extends GameCanvas implements Runnable {
 
 	public MainMidlet midlet;
 
 	private Image bgMainImage;
+	private Image startImage;
 
 	private Sprite bgMainSprite;
+	private Sprite startSprite;
 
 	private final static long DELAY = 300;
 	public Thread mainThread = new Thread(this);
@@ -30,22 +41,57 @@ public class MenuCanvas extends GameCanvas implements Runnable {
 		this.setFullScreenMode(true);
 
 		try {
+			startImage = Image.createImage("/start.png");
 			bgMainImage = Image.createImage("/bj.jpg");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		bgMainSprite = new Sprite(bgMainImage);
+		startSprite = new Sprite(startImage, 69, 74);
+		startSprite.setPosition(379, 395);
 
+		layerManager.append(startSprite);
 		layerManager.append(bgMainSprite);
 		initMenu();
 	}
 
 	public void initMenu() {
+		startSprite.setPosition(379, 395);
+
 		mainThread = new Thread(this);
 		if (!mainThread.isAlive()) {
 			mainThread.start();
 		}
+	}
+
+	private void input(int keyCode) {
+		switch (keyCode) {
+		case KeyCode.OK:
+			break;
+		case KeyCode.BACK:
+			midlet.exit();
+			break;
+		case KeyCode.UP:
+			startSprite.setPosition(379, 395);
+			isExit = false;
+			break;
+		case KeyCode.DOWN:
+			startSprite.setPosition(349, 458);
+			isExit = true;
+			break;
+		}
+		drawScreen(getGraphics());
+	}
+
+	protected void keyPressed(int keyCode) {
+		super.keyPressed(keyCode);
+		input(keyCode);
+	}
+
+	protected void keyRepeated(int keyCode) {
+		super.keyRepeated(keyCode);
+		input(keyCode);
 	}
 
 	private void drawScreen(Graphics g) {
@@ -60,6 +106,7 @@ public class MenuCanvas extends GameCanvas implements Runnable {
 		isRunning = true;
 		try {
 			while (isRunning) {
+				startSprite.nextFrame();
 				Graphics g = getGraphics();
 				drawScreen(g);
 				Thread.currentThread();

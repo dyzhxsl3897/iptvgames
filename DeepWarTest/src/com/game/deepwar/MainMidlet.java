@@ -1,4 +1,4 @@
-package com.yunyouhudong.games.deepwar;
+package com.game.deepwar;
 
 import javax.microedition.lcdui.Display;
 import javax.microedition.midlet.MIDlet;
@@ -28,6 +28,15 @@ public class MainMidlet extends MIDlet {
 	protected void startApp() throws MIDletStateChangeException {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public void exit(){
+		try {
+			this.destroyApp(true);
+			this.notifyDestroyed();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
