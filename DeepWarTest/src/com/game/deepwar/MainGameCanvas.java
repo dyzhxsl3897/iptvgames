@@ -139,7 +139,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			initEnebombs();
 			topScoreSprite = new Sprite[5];
 			for (int i = 0; i < 5; i++) {
-				topScoreSprite[i] = new Sprite(shuziSprites[0]);
+				topScoreSprite[i] = new Sprite(Image.createImage(shuziImage, 0, 0, 13, 19, Sprite.TRANS_NONE));
 				if (i == 0)
 					topScoreSprite[i].setPosition(73, 36);
 				else {
