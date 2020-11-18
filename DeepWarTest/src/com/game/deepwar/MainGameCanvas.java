@@ -124,7 +124,6 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			bgGameSprites = new Sprite(bgImage);
 			bgWinSprite = new Sprite(bgWinImage);
 
-			/*-
 			ship = new Ship(shipImage, 142, 42);
 
 			shuziSprites = new Sprite[10];
@@ -132,6 +131,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 				shuziSprites[i] = new Sprite(Image.createImage(shuziImage, 13 * i, 0, 13, 19, Sprite.TRANS_NONE));
 			}
 
+			/*-
 			initSumarine(0);
 			initSumarine(1);
 			initSumarine(2);
