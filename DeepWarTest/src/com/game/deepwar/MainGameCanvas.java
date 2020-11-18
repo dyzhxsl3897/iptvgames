@@ -131,12 +131,12 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 				shuziSprites[i] = new Sprite(Image.createImage(shuziImage, 13 * i, 0, 13, 19, Sprite.TRANS_NONE));
 			}
 
-			/*-
 			initSumarine(0);
 			initSumarine(1);
 			initSumarine(2);
 			initSumarine(3);
 
+			/*-
 			initEnebombs();
 			topScoreSprite = new Sprite[5];
 			for (int i = 0; i < 5; i++) {
