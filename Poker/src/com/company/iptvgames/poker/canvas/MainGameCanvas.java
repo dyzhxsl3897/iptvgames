@@ -1027,16 +1027,15 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	}
 
 	protected void keyPressed(int keyCode) {
-		if (keyCode == Constants.KeyCode.NUM_0) {
+		if (keyCode == Constants.KeyCode.NUM_2) {
 			layerManager.insert(alertPauseSprite, 0);
 			layerManager.insert(alertPauseSelectImgSprite, 0);
 			alertPauseSprite.setVisible(true);
 			alertPauseSelectImgSprite.setVisible(true);
 			alertPauseSelectImgSprite.setPosition(GameConst.GameCanvas.CX_PAUSE, GameConst.GameCanvas.CY_PAUSE);
 			gameStatus = 4;
-			return;
+		} else {
+			keyAction(keyCode);	
 		}
-
-		keyAction(keyCode);
 	}
 }
