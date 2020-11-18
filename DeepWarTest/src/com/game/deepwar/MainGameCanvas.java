@@ -148,8 +148,8 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 
 				layerManager.append(topScoreSprite[i]);
 			}
-
 			/*-
+
 			Sprite levelSprite = new Sprite(shuziSprites[1]);
 			levelSprite.setPosition(596, 12);
 			layerManager.append(levelSprite);
