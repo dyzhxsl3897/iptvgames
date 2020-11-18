@@ -248,6 +248,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		layerManager.insert(arrowIconSprite, GameConst.GameCanvas.LAYER_button);
 
 		alertPauseSprite.setVisible(false);
+		alertPauseSelectImgSprite.setVisible(false);
 		continueSprite.setVisible(false);
 		overSprite.setVisible(false);
 		DZWinSprite.setVisible(false);
