@@ -136,7 +136,6 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			initSumarine(2);
 			initSumarine(3);
 
-			/*-
 			initEnebombs();
 			topScoreSprite = new Sprite[5];
 			for (int i = 0; i < 5; i++) {
@@ -150,6 +149,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 				layerManager.append(topScoreSprite[i]);
 			}
 
+			/*-
 			Sprite levelSprite = new Sprite(shuziSprites[1]);
 			levelSprite.setPosition(596, 12);
 			layerManager.append(levelSprite);
