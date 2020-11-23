@@ -67,13 +67,13 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 
 	private int life = 5;
 
-	Sprite scoreSprite;
 	Sprite s1Sprite;
 	Sprite s2Sprite;
 	Sprite s3Sprite;
 	Sprite s4Sprite;
 
 	Sprite[] topScoreSprite;
+	Sprite[] scoreSprite;
 
 	Sprite levelSprite;
 
@@ -121,12 +121,12 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	private void loadImage() {
 		try {
 			bgImage = Image.createImage("/back.jpg");
+			
 			shipImage = Image.createImage("/ship.png");
 			pauseImage = Image.createImage("/zt.jpg");
 			startImage = Image.createImage("/start.png");
 			shuziImage = Image.createImage("/sz.png");
 
-			// ը��ͼƬ
 			bombImage = Image.createImage("/zd.png");
 
 			// sumbraineͼƬ
@@ -168,6 +168,18 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 				layerManager.append(topScoreSprite[i]);
 			}
 			
+			scoreSprite=new Sprite[5];
+			for(int i=0;i<5;i++){
+				scoreSprite[i]=new Sprite(shuziImageArray[0]); 
+				if(i==0)
+					scoreSprite[i].setPosition(73, 12);
+				else{
+					scoreSprite[i].setPosition(-50, -50);
+				}
+
+				layerManager.append(scoreSprite[i]);
+			}
+			
 			Sprite levelSprite = new Sprite(shuziImageArray[1]);
 			levelSprite.setPosition(596, 12);
 			layerManager.append(levelSprite);
@@ -195,56 +207,58 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		lifeSprite = new Sprite(shuziImageArray[life]);
 		lifeSprite.setPosition(596, 38);
 		layerManager.insert(lifeSprite, 0);
-		
-		
-		scoreSprite = new Sprite(shuziImageArray[0]);
-			s1Sprite = new Sprite(shuziImageArray[0]);
-			scoreSprite.setPosition(73, 12);
-			s1Sprite.setPosition(-100, -120);
-			layerManager.insert(scoreSprite, 0);
-			layerManager.insert(s1Sprite, 0);
-
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void updateSore(int score) {
-		if(scoreSprite!=null)
-			layerManager.remove(scoreSprite);
-		if(s1Sprite!=null)
-			layerManager.remove(s1Sprite);
-		if(s2Sprite!=null)
-			layerManager.remove(s2Sprite);
+	private void updateSore() {
+			for(int i=0;i<5;i++){
+				layerManager.remove(scoreSprite[i]);
+			}
+		
+			if(score<10){
+				scoreSprite[0] = new Sprite(shuziImageArray[score]);
+				scoreSprite[0].setPosition(73, 12);
 
+			for(int i=1;i<5;i++){
+				scoreSprite[i].setPosition(-100, -100);
+			}
+			}
 		if (score > 9 && score < 100) {
 			String s = String.valueOf(score);
-			scoreSprite = new Sprite(shuziImageArray[Integer.parseInt(s.substring(
+			scoreSprite[0] = new Sprite(shuziImageArray[Integer.parseInt(s.substring(
 					0, 1))]);
-			s1Sprite = new Sprite(shuziImageArray[Integer.parseInt(s.substring(1,
+			scoreSprite[1] = new Sprite(shuziImageArray[Integer.parseInt(s.substring(1,
 					2))]);
-			scoreSprite.setPosition(73, 12);
-			s1Sprite.setPosition(86, 12);
-			layerManager.insert(scoreSprite, 0);
-			layerManager.insert(s1Sprite, 0);
+
+			scoreSprite[0].setPosition(73, 12);
+			scoreSprite[1].setPosition(86, 12);
+			layerManager.insert(scoreSprite[0], 0);
+			layerManager.insert(scoreSprite[1], 0);
 		}
 		if (score > 99 && score < 1000) {
 			String s = String.valueOf(score);
-			scoreSprite = new Sprite(shuziImageArray[Integer.parseInt(s.substring(
+			scoreSprite[0] = new Sprite(shuziImageArray[Integer.parseInt(s.substring(
 					0, 1))]);
-			s1Sprite = new Sprite(shuziImageArray[Integer.parseInt(s.substring(1,
+			scoreSprite[1] = new Sprite(shuziImageArray[Integer.parseInt(s.substring(1,
 					2))]);
-			s2Sprite = new Sprite(shuziImageArray[Integer.parseInt(s.substring(2,
+			scoreSprite[2] = new Sprite(shuziImageArray[Integer.parseInt(s.substring(2,
 					3))]);
-			scoreSprite.setPosition(73, 12);
-			s1Sprite.setPosition(86, 12);
-			s2Sprite.setPosition(99, 12);
-			layerManager.insert(scoreSprite, 0);
-			layerManager.insert(s1Sprite, 0);
-			layerManager.insert(s2Sprite, 0);
+
+			scoreSprite[0].setPosition(73, 12);
+			scoreSprite[1].setPosition(86, 12);
+			scoreSprite[2].setPosition(99, 12);
+
+			layerManager.insert(scoreSprite[0], 0);
+			layerManager.insert(scoreSprite[1], 0);
+			layerManager.insert(scoreSprite[2], 0);
 		}
 
+		for(int i=0;i<5;i++){
+			layerManager.insert(scoreSprite[i],0);
+		}
 		if (score > highestScore){
 			highestScore = score;
 			updateHighScore(highestScore);
@@ -252,13 +266,13 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	}
 	
 	
-	private void updateHighScore(int score){
+	private void updateHighScore(int scor){
 			for(int i=0;i<5;i++){
 				layerManager.remove(topScoreSprite[i]);
 			}
 			
-			if (score > 9 && score < 100) {
-			String s = String.valueOf(score);
+			if (scor > 9 && scor < 100) {
+			String s = String.valueOf(scor);
 			topScoreSprite[0] = new Sprite(shuziImageArray[Integer.parseInt(s.substring(
 					0, 1))]);
 			topScoreSprite[1] = new Sprite(shuziImageArray[Integer.parseInt(s.substring(1,
@@ -266,18 +280,8 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			topScoreSprite[0].setPosition(73, 36);
 			topScoreSprite[1].setPosition(86, 36);
 		}
-		if (score > 99 && score < 1000) {
-			String s = String.valueOf(score);
-			scoreSprite = new Sprite(shuziImageArray[Integer.parseInt(s.substring(
-					0, 1))]);
-			s1Sprite = new Sprite(shuziImageArray[Integer.parseInt(s.substring(1,
-					2))]);
-			s2Sprite = new Sprite(shuziImageArray[Integer.parseInt(s.substring(2,
-					3))]);
-			scoreSprite.setPosition(73, 12);
-			s1Sprite.setPosition(86, 12);
-			s2Sprite.setPosition(99, 12);
-			
+		if (scor > 99 && scor < 1000) {
+			String s = String.valueOf(scor);
 			
 			topScoreSprite[0] = new Sprite(shuziImageArray[Integer.parseInt(s.substring(
 					0, 1))]);
@@ -314,8 +318,8 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	}
 
 	private void loadwithPosition() {
+		updateSore();
 		updateLife(life);
-		updateSore(score);
 		for (int i = 0; i < eneBombs.length; i++) {
 			eneBombs[i].setPosition(-100, -100);
 		}
@@ -448,7 +452,21 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 					Thread.sleep(DELAY);
 					continue;
 				}
+				for (int i = 4; i > -1; i--) {
+					if (bombs[i].isDisplay() && bombs[i].isFire()) {
+						bombs[i].fire();
 
+						for (int j = 0; j < submarine.length; j++) {
+							if (bombs[i].collidesWith(submarine[j])) {
+								bombs[i].handlecollidesWith(submarine[j]);
+
+								score += 10;
+								updateSore();
+
+							}
+						}
+					}
+				}
 				for (int i = 0; i < eneBombs.length; i++) {
 					if (eneBombs[i].isDisplay()) {
 
@@ -486,22 +504,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 					}
 				}
 
-				for (int i = 4; i > -1; i--) {
-					if (bombs[i].isDisplay() && bombs[i].isFire()) {
-						bombs[i].fire();
-
-						// �б��Ƿ���ײ
-						for (int j = 0; j < submarine.length; j++) {
-							if (bombs[i].collidesWith(submarine[j])) {
-								bombs[i].handlecollidesWith(submarine[j]);
-
-								score += 10;
-								updateSore(score);
-
-							}
-						}
-					}
-				}
+				
 
 				drawScreen(g);
 
