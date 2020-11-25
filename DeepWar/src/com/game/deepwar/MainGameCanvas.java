@@ -392,7 +392,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 
 		case KeyCode.MENU:
 			break;
-		case KeyCode.NUM_0:
+		case KeyCode.NUM_1:
 			if(pausing)
 				return;
 			pause();
