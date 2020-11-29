@@ -12,8 +12,10 @@ public class GameConst {
 		public static final int START_BTN_HEIGHT = 74;//开始按钮图片尺寸-高
 		public static final int START_BTN_FRAME = 2;//开始按钮动画帧数
 		
-		public static final int EXIT_BTN_X = 597;//退出按钮位置X
+		public static final int EXIT_BTN_X = 500;//退出按钮位置X
 		public static final int EXIT_BTN_Y = 0;//退出按钮位置Y
+		public static final int START_BTN_ON_EXIT_X = 530;//开始按钮退出位置X
+		public static final int START_BTN_ON_EXIT_Y = 20;//开始按钮退出位置Y
 	}
 
 	public static class GameCanvas {

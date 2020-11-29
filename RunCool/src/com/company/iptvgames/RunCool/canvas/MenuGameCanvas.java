@@ -7,9 +7,10 @@ import javax.microedition.lcdui.game.LayerManager;
 import javax.microedition.lcdui.game.Sprite;
 import javax.microedition.lcdui.game.TiledLayer;
 
-import com.company.iptvgames.RunCool.MainMIDlet;
 import com.company.iptvgames.RunCool.GameConst;
+import com.company.iptvgames.RunCool.MainMIDlet;
 import com.company.iptvgames.framework.utils.ImageUtil;
+import com.company.iptvgames.framework.utils.KeyCode;
 
 public class MenuGameCanvas extends GameCanvas implements Runnable {
 
@@ -41,18 +42,15 @@ public class MenuGameCanvas extends GameCanvas implements Runnable {
 		menuBg = new TiledLayer(1, 1, menuBgImg, GameConst.SCREEN_WIDTH, GameConst.SCREEN_HEIGHT);
 		menuBg.setCell(0, 0, 1);
 		layerManager.append(menuBg);
-		
-		startBtnSprite = new Sprite(startImg,GameConst.Menu.START_BTN_WIDTH/GameConst.Menu.START_BTN_FRAME, GameConst.Menu.START_BTN_HEIGHT);
+
+		exitBtnSprite = new Sprite(exitImg, 43, 42);
+		exitBtnSprite.setPosition(GameConst.Menu.EXIT_BTN_X, GameConst.Menu.EXIT_BTN_Y);
+		exitBtnSprite.setVisible(true);
+		layerManager.insert(exitBtnSprite, 0);
+
+		startBtnSprite = new Sprite(startImg, GameConst.Menu.START_BTN_WIDTH / GameConst.Menu.START_BTN_FRAME, GameConst.Menu.START_BTN_HEIGHT);
 		startBtnSprite.setPosition(GameConst.Menu.START_BTN_X, GameConst.Menu.START_BTN_Y);
 		layerManager.insert(startBtnSprite, 0);
-		
-		exitBtnSprite = new Sprite(exitImg,43,42);
-		exitBtnSprite.setPosition(GameConst.Menu.EXIT_BTN_X, GameConst.Menu.EXIT_BTN_Y);		
-		exitBtnSprite.setVisible(false);
-		layerManager.insert(exitBtnSprite, 0);
-		
-		layerManager.paint(graphics, 0, 0);
-		this.flushGraphics();
 
 	}
 
@@ -76,7 +74,6 @@ public class MenuGameCanvas extends GameCanvas implements Runnable {
 			long startTime = System.currentTimeMillis();
 
 			animateCartoon();
-			keyAction();
 
 			layerManager.paint(graphics, 0, 0);
 			this.flushGraphics();
@@ -92,15 +89,17 @@ public class MenuGameCanvas extends GameCanvas implements Runnable {
 		}
 	}
 
-	private void keyAction() {
-		if (0 != (getKeyStates() & GameCanvas.LEFT_PRESSED) || 0 != (getKeyStates() & GameCanvas.DOWN_PRESSED)) {
-			startBtnSprite.setVisible(true);
-			exitBtnSprite.setVisible(false);
-		} else if (0 != (getKeyStates() & GameCanvas.RIGHT_PRESSED) || 0 != (getKeyStates() & GameCanvas.UP_PRESSED)) {
-			startBtnSprite.setVisible(false);
-			exitBtnSprite.setVisible(true);
-		} else if (0 != (getKeyStates() & GameCanvas.FIRE_PRESSED)) {
-			if (startBtnSprite.isVisible()) {
+	protected void keyPressed(int keyCode) {
+		keyAction(new Integer(keyCode));
+	}
+
+	private void keyAction(Integer keyCode) {
+		if (KeyCode.LEFT.contains(keyCode) || KeyCode.DOWN.contains(keyCode)) {
+			startBtnSprite.setPosition(GameConst.Menu.START_BTN_X, GameConst.Menu.START_BTN_Y);
+		} else if (KeyCode.RIGHT.contains(keyCode) || KeyCode.UP.contains(keyCode)) {
+			startBtnSprite.setPosition(GameConst.Menu.START_BTN_ON_EXIT_X, GameConst.Menu.START_BTN_ON_EXIT_Y);
+		} else if (KeyCode.OK.contains(keyCode)) {
+			if (startBtnSprite.getY() == GameConst.Menu.START_BTN_Y) {
 				turnOffMenuCanvas();
 				this.midlet.getDisplay().setCurrent(this.midlet.getMainGameCanvas());
 				this.midlet.getMainGameCanvas().initalizeGame();
@@ -115,7 +114,7 @@ public class MenuGameCanvas extends GameCanvas implements Runnable {
 	private void turnOffMenuCanvas() {
 		this.isPlayMenuCartoon = false;
 	}
-	
+
 	private void animateCartoon() {
 		startBtnSprite.nextFrame();
 	}
