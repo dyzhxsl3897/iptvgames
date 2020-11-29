@@ -40,7 +40,7 @@ public class Zd extends Sprite{
 
 	public void move(int dx, int dy) {
 		super.move(dx, dy);
-		if(this.getX()<140||this.getY()<14||this.getX()>640-140||this.getY()>360-14){
+		if(this.getX()<140||this.getY()<99||this.getX()>640-140||this.getY()>431){
 			this.fx=5;
 		}
 	}

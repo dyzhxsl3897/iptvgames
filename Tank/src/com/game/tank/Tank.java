@@ -9,11 +9,18 @@ public class Tank extends Sprite{
 	private Image xImage;
 	private Image zImage;
 	private Image yImage;
+	private boolean remove;
 	private int cx;
 	private Sprite bhSprite;
 	private boolean isMe=true;
 	private int bhTime=100;
 	
+	public boolean isRemove() {
+		return remove;
+	}
+	public void setRemove(boolean remove) {
+		this.remove = remove;
+	}
 	private int fx=1;
 	public Tank(Image image) {
 		super(image);
@@ -30,50 +37,56 @@ public class Tank extends Sprite{
 		this.yImage=yImage;
 	}
 	
-	public void up(){
+	public void up(int speed){
 		this.setImage(sImage, 28, 28);
 		this.setPosition(this.getX(), this.getY());
-		this.move(0, -3);
+		this.move(0, -speed);
 		this.setFx(1);
+		this.setRemove(false);
 		if(bhSprite!=null)bhSprite.setPosition(this.getX(),this.getY());
 	}
-	public void down(){
+	public void down(int speed){
 		this.setImage(xImage, 28, 28);
 		this.setPosition(this.getX(), this.getY());
-		this.move(0, 3);
+		this.move(0, speed);
+		this.setRemove(false);
 		if(bhSprite!=null)bhSprite.setPosition(this.getX(),this.getY());
 		this.setFx(2);
 	}
-	public void left(){
+	public void left(int speed){
 		this.setImage(zImage, 28, 28);
 		this.setPosition(this.getX(), this.getY());
-		this.move(-3, 0);
+		this.move(-speed, 0);
+		this.setRemove(false);
 		if(bhSprite!=null)bhSprite.setPosition(this.getX(),this.getY());
 		this.setFx(3);
 	}
-	public void right(){
+	public void right(int speed){
 		this.setImage(yImage, 28, 28);
 		this.setPosition(this.getX(), this.getY());
-		this.move(3, 0);
+		this.move(speed, 0);
+		this.setRemove(false);
 		if(bhSprite!=null)bhSprite.setPosition(this.getX(),this.getY());
 		this.setFx(4);
 	}
-	public void reMove(){
+	public void reMove(int speed){
+		if(remove)return;
+		remove=true;
 		switch (fx) {
 		case 1:
-			this.move(0, 1);
+			this.move(0, speed);
 			if(bhSprite!=null)bhSprite.setPosition(this.getX(),this.getY());
 			break;
 		case 2:
-			this.move(0, -1);
+			this.move(0, -speed);
 			if(bhSprite!=null)bhSprite.setPosition(this.getX(),this.getY());
 			break;
 		case 3:
-			this.move(1, 0);
+			this.move(speed, 0);
 			if(bhSprite!=null)bhSprite.setPosition(this.getX(),this.getY());
 			break;
 		case 4:
-			this.move(-1, 0);
+			this.move(-speed, 0);
 			if(bhSprite!=null)bhSprite.setPosition(this.getX(),this.getY());
 			break;
 		default:
@@ -81,24 +94,25 @@ public class Tank extends Sprite{
 		}
 	}
 	
-	public void autoMove(){
-		if(cx!=24){
+	public void autoMove(int speed){
+		remove=false;
+		if(cx!=20){
 			this.nextFrame();
 			cx++;
 		}else{
 			this.setImage(xImage, 28, 28);
 			switch (fx) {
 			case 1:
-				this.up();
+				this.up(speed);
 				break;
 			case 2:
-				this.down();
+				this.down(speed);
 				break;
 			case 3:
-				this.left();
+				this.left(speed);
 				break;
 			case 4:
-				this.right();
+				this.right(speed);
 				break;
 			default:
 				break;
@@ -112,9 +126,9 @@ public class Tank extends Sprite{
 		bhTime=100;
 		if(bhSprite!=null){
 			bhSprite.setVisible(true);
-			bhSprite.setPosition(140+9*14, 14+22*14);
+			bhSprite.setPosition(140+9*14, 99+22*14);
 		}
-		this.setPosition(138+9*14, 12+22*14);
+		this.setPosition(138+9*14, 97+22*14);
 	}
 	
 	

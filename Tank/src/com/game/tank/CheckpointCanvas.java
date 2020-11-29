@@ -43,15 +43,15 @@ public class CheckpointCanvas extends GameCanvas implements Runnable{
 				Image image=Image.createImage("/xg/"+(i+1)+".png");
 				numSprites[i]=new Sprite(image);
 				int x=153;
-				int y=145;
+				int y=229;
 				if(i<5){
 					x+=i*66;
 				}else if(i>=5&&i<=9){
 					x+=(i-5)*66;
-					y=211;
+					y=295;
 				}else{
 					x+=(i-10)*66;
-					y=277;
+					y=362;
 				}
 				
 				numSprites[i].setPosition(x, y);
@@ -63,7 +63,7 @@ public class CheckpointCanvas extends GameCanvas implements Runnable{
 		}
 		bgMainSprite=new Sprite(bgMainImage);
 		selectedSprite=new Sprite(selectedImage);
-		selectedSprite.setPosition(149, 141);
+		selectedSprite.setPosition(149, 225);
 		layerManager.append(selectedSprite);
 		layerManager.append(bgMainSprite);
 		if(!mainThread.isAlive()){
@@ -77,13 +77,13 @@ public class CheckpointCanvas extends GameCanvas implements Runnable{
 	private void input(int keyCode){
 		switch (keyCode) {
 		case KeyCode.UP:
-			if(selectedSprite.getY()>141){
+			if(selectedSprite.getY()>225){
 				selectedSprite.move(0, -66);
 				h-=1;
 			}
 			break;
 		case KeyCode.DOWN:
-			if(selectedSprite.getY()<273){
+			if(selectedSprite.getY()<339){
 				selectedSprite.move(0, 66);
 				h+=1;
 			}
