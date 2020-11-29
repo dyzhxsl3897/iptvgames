@@ -1,0 +1,7 @@
+MIDlet-Version: 1.0.0
+MIDlet-Vendor: Midlet Suite Vendor
+MIDlet-Jar-URL: Poker.jar
+MicroEdition-Configuration: CLDC-1.1
+MIDlet-1: MainMIDlet,,com.company.iptvgames.poker.MainMIDlet
+MicroEdition-Profile: MIDP-2.0
+MIDlet-Name: Poker Midlet Suite
