@@ -141,7 +141,6 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		once=Position.ONCES[level-1];
 		count=Position.COUNTS[level-1];
 		level_map=Position.LEVELS[level-1];
-		System.out.println(level_map[23][25]);
 		try {
 			//菜单
 
@@ -469,7 +468,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			drawScreen(g,level,myCount);
 			Thread.currentThread();
 			Thread.sleep(3000);
-			midlet.startApp();
+//			midlet.startApp();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -574,9 +573,9 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 					xz1Sprite.setPosition(333, 244);
 					break;
 				case KeyCode.OK:
-					if (xz1Sprite.getX()==238) {
+					if (xz1Sprite.getX()==246) {
 						pause();
-					} else {
+					} else if (xz1Sprite.getX()==333) {
 						isRunning=false;
 						try {
 							midlet.startApp();
@@ -608,7 +607,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 						initializeGame(++level);
 					}
 					pausing=false;
-				} else {
+				} else if (xzSprite.getY()==132) {
 					isRunning=false;
 					try {
 						midlet.startApp();
@@ -632,7 +631,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 					state=0;
 					initializeGame(level);
 					pausing=false;
-				} else {
+				} else if(xzSprite.getY()==132) {
 					isRunning=false;
 					try {
 						midlet.startApp();
@@ -698,5 +697,9 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	
 	private void cleanUpBackground() {
 		layerManager = new LayerManager();
+	}
+	
+	private void gotoMenu(){
+		midlet.dis.setCurrent(midlet.menuCanvas);
 	}
 }
