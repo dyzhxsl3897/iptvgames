@@ -299,7 +299,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			}
 
 			// 背景
-			bgImage = Image.createImage("/game/bg.png");
+			bgImage = Image.createImage("/game/bg.jpg");
 			bgSprite = new Sprite(bgImage);
 			layerManager.append(bgSprite);
 		} catch (IOException e) {
