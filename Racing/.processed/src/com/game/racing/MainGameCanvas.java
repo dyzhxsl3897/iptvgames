@@ -594,7 +594,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 				}else{
 					pause();
 				}
-			}else if(keyCode==KeyCode.NUM_0){
+			}else if(keyCode==KeyCode.NUM_1){
 				pause();
 			}
 		}else if(finish){
@@ -613,7 +613,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 				player.setLine(player.getLine()<3?player.getLine()+1:3);
 			}else if(keyCode==KeyCode.OK){//è·?
 				player.jump();
-			}else if(keyCode==KeyCode.NUM_0){
+			}else if(keyCode==KeyCode.NUM_1){
 				pause();
 			}
 		}
