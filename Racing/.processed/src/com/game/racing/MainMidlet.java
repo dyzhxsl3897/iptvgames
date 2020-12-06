@@ -24,11 +24,11 @@ public class MainMidlet extends MIDlet {
 
 	protected void pauseApp() {
 		// TODO Auto-generated method stub
-		// 因为机顶盒一般不存在被中断暂停，比如�?��释放摄像头等，所以这个函数为空就�?
+		// 因为机顶盒一般不存在被中断暂停，比如�?要释放摄像头等，�?以这个函数为空就�?
 	}
 	protected void startApp() throws MIDletStateChangeException {
 		// TODO Auto-generated method stub
-		// 构�?函数里的部分东西也可以放在这里，也可以全部放在构造函数，顺序是先执行构�?函数
+		// 构�?�函数里的部分东西也可以放在这里，也可以全部放在构�?�函数，顺序是先执行构�?�函�?
 		gameCanvas = new MainGameCanvas(this);
 		menuCanvas = new MenuCanvas(this);
 		dis.setCurrent(menuCanvas);// 游戏启动首先显示菜单
