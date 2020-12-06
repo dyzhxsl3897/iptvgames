@@ -11,7 +11,7 @@ public class Motor extends Sprite{
 	private int interval;
 	private long speedTime=0;
 	private int normalInterval;
-	private static final int[] motorYs={96,126,158,195};
+	private static final int[] motorYs={96+85,126+85,158+85,195+85};
 	public Motor(Image image) {
 		super(image);
 	}

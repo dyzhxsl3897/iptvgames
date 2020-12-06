@@ -19,10 +19,8 @@ public class MenuCanvas extends GameCanvas implements Runnable{
 	public MainMidlet midlet;
 	private Image bgMainImage;
 	private Image startImage;
-	private Image backImage;
 	private Sprite bgMainSprite;
 	private Sprite startSprite;
-	private Sprite backSprite;
 	
 	private LayerManager layerManager=new LayerManager();;
 
@@ -35,18 +33,13 @@ public class MenuCanvas extends GameCanvas implements Runnable{
 		try {
 			bgMainImage=Image.createImage("/menu/bg_main.png");
 			startImage=Image.createImage("/menu/start.png");
-			backImage=Image.createImage("/menu/back.png");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		bgMainSprite=new Sprite(bgMainImage);
 		startSprite=new Sprite(startImage, 133, 84);
-		startSprite.setPosition(90, 215);
-		backSprite=new Sprite(backImage);
-		backSprite.setPosition(586, 3);
-		backSprite.setVisible(false);
+		startSprite.setPosition(90, 300);
 		layerManager.append(startSprite);
-		layerManager.append(backSprite);
 		layerManager.append(bgMainSprite);
 		if(!mainThread.isAlive()){
 			mainThread.start();
@@ -58,17 +51,15 @@ public class MenuCanvas extends GameCanvas implements Runnable{
 	 */
 	private void input(int keyCode){
 		switch (keyCode) {
-		case KeyCode.LEFT:
-			startSprite.setVisible(true);
-			backSprite.setVisible(false);
+		case KeyCode.UP:
+			startSprite.setPosition(90, 300);
 			break;
-		case KeyCode.RIGHT:
-			backSprite.setVisible(true);
-			startSprite.setVisible(false);
+		case KeyCode.DOWN:
+			startSprite.setPosition(90, 387);
 			break;
 		case KeyCode.OK:
 			this.isRunning=false;
-			if(startSprite.isVisible()){
+			if(startSprite.getY()==300){
 				midlet.dis.setCurrent(midlet.gameCanvas);
 				midlet.gameCanvas.initializeGame();
 			}else{
