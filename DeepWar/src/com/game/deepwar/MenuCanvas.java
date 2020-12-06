@@ -94,7 +94,6 @@ public class MenuCanvas extends GameCanvas implements Runnable{
 			isExit=true; 
 			break;
 		}
-		drawScreen(getGraphics());
 	}
 	
 	protected void keyPressed(int keyCode) {
