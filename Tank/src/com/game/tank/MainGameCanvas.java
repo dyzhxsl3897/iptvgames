@@ -13,7 +13,7 @@ import javax.microedition.midlet.MIDletStateChangeException;
 import com.game.Constants.KeyCode;
 
 public class MainGameCanvas extends GameCanvas implements Runnable {
-	private final static long DELAY = 50;
+	private final static long DELAY = 80;
 	public MainMidlet midlet;
 
 	public Thread mainThread = new Thread(this);
@@ -135,6 +135,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 
 	private void reloadImages(int level) {
 		once = Position.ONCES[level - 1];
+
 		count = Position.COUNTS[level - 1];
 		level_map = Position.LEVELS[level - 1];
 		try {
@@ -174,11 +175,11 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			zd_z = Image.createImage("/zd/zd_z.png");
 			zd_y = Image.createImage("/zd/zd_y.png");
 			zdbz = Image.createImage("/zd/zdbz.png");
-			zdSprites = new Zd[150];
+			zdSprites = new Zd[50];
 			for (int i = 0; i < zdSprites.length; i++) {
 				zdSprites[i] = new Zd(zd_s, zd_x, zd_z, zd_y);
 				zdSprites[i].setBzImage(zdbz);
-				zdSprites[i].setPosition(183, 12);
+				zdSprites[i].setPosition(0, 0);
 				layerManager.append(zdSprites[i]);
 			}
 			// 老鹰
@@ -323,7 +324,11 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 					sb();
 				}
 				step++;
+				if(cx>3000){
+					cx=0;
+				}
 				cx++;
+				
 				// 子弹运动
 				for (int i = 0; i < zdSprites.length; i++) {
 					if (zdSprites[i].getFx() == 1) {
@@ -402,7 +407,8 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 						}
 						// 主站坦克与障碍物碰撞
 
-						if (tankSprite.collidesWith(sprite[i][j], false) || bj(tankSprite)) {
+						bj(tankSprite);
+						if (tankSprite.collidesWith(sprite[i][j], false)) {
 							if (sprite[i][j].getType() != 4) {
 								tankSprite.reMove(mySpeed);// 除了草地以外，其他障碍均不允许穿过
 							}
@@ -462,10 +468,6 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 				Thread.currentThread();
 				Thread.sleep(DELAY);
 			}
-			drawScreen(g, level, myCount);
-			Thread.currentThread();
-			Thread.sleep(3000);
-			// midlet.startApp();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -526,25 +528,21 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			case KeyCode.UP:
 				if (isRunning && !pausing) {
 					tankSprite.up(mySpeed);
-				} else if (pausing) {
 				}
 				break;
 			case KeyCode.DOWN:
 				if (isRunning && !pausing) {
 					tankSprite.down(mySpeed);
-				} else if (pausing) {
 				}
 				break;
 			case KeyCode.LEFT:
 				if (isRunning && !pausing) {
 					tankSprite.left(mySpeed);
-				} else if (pausing) {
 				}
 				break;
 			case KeyCode.RIGHT:
 				if (isRunning && !pausing) {
 					tankSprite.right(mySpeed);
-				} else if (pausing) {
 				}
 				break;
 			case KeyCode.NUM_1:
@@ -553,7 +551,6 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			case KeyCode.OK:
 				if (isRunning && !pausing) {
 					fire(tankSprite);
-				} else if (pausing) {
 				}
 				break;
 			}
@@ -667,9 +664,30 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 
 	// 边界
 	private boolean bj(Tank tank) {
+		
+		boolean flag=false;
 		if (tank.getX() < 138 || tank.getX() > 138 + 24 * 14 || tank.getY() < 97 || tank.getY() > 97 + 22 * 14)
-			return true;
-		return false;
+			flag=true;
+		else flag=false;
+		if(tank.isMe()){
+			while(tank.getX() < 138){
+				tank.setPosition(tank.getX()+1, tank.getY());
+			}
+			while(tank.getX() > 138 + 24 * 14){
+				tank.setPosition(tank.getX()-1, tank.getY());
+			}
+			while(tank.getY() < 97){
+				tank.setPosition(tank.getX(), tank.getY()+1);
+			}
+			while(tank.getY() > 97 + 22 * 14){
+				tank.setPosition(tank.getX(), tank.getY()-1);
+			}
+			Sprite bh=tank.getBhSprite();
+			if(bh!=null){
+				bh.setPosition(tank.getX(), tank.getY());
+			}
+		}
+		return flag;
 	}
 
 	private Tank getRandomTk() {

@@ -58,13 +58,7 @@ public class MenuCanvas extends GameCanvas implements Runnable{
 				this.isRunning=false;
 				midlet.dis.setCurrent(midlet.checkpointCanvas);
 			}else{
-					try {
-						System.gc();
-						midlet.destroyApp(true);
-						midlet.notifyDestroyed();
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
+				midlet.exit();
 			}
 			break;
 		case KeyCode.UP:

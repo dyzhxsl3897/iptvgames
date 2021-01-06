@@ -5,6 +5,7 @@ import javax.microedition.lcdui.game.Sprite;
 
 public class Tank extends Sprite{
 
+	private boolean fxLock = false;
 	private Image sImage;
 	private Image xImage;
 	private Image zImage;
@@ -40,7 +41,9 @@ public class Tank extends Sprite{
 	public void up(int speed){
 		this.setImage(sImage, 28, 28);
 		this.setPosition(this.getX(), this.getY());
-		this.move(0, -speed);
+		if(this.fx==1){
+			this.move(0, -speed);
+		}
 		this.setFx(1);
 		this.setRemove(false);
 		if(bhSprite!=null)bhSprite.setPosition(this.getX(),this.getY());
@@ -48,7 +51,9 @@ public class Tank extends Sprite{
 	public void down(int speed){
 		this.setImage(xImage, 28, 28);
 		this.setPosition(this.getX(), this.getY());
-		this.move(0, speed);
+		if(this.fx==2){
+			this.move(0, speed);
+		}
 		this.setRemove(false);
 		if(bhSprite!=null)bhSprite.setPosition(this.getX(),this.getY());
 		this.setFx(2);
@@ -56,7 +61,9 @@ public class Tank extends Sprite{
 	public void left(int speed){
 		this.setImage(zImage, 28, 28);
 		this.setPosition(this.getX(), this.getY());
-		this.move(-speed, 0);
+		if(this.fx==3){
+			this.move(-speed, 0);
+		}
 		this.setRemove(false);
 		if(bhSprite!=null)bhSprite.setPosition(this.getX(),this.getY());
 		this.setFx(3);
@@ -64,7 +71,9 @@ public class Tank extends Sprite{
 	public void right(int speed){
 		this.setImage(yImage, 28, 28);
 		this.setPosition(this.getX(), this.getY());
-		this.move(speed, 0);
+		if(this.fx==4){
+			this.move(speed, 0);
+		}
 		this.setRemove(false);
 		if(bhSprite!=null)bhSprite.setPosition(this.getX(),this.getY());
 		this.setFx(4);
@@ -92,6 +101,7 @@ public class Tank extends Sprite{
 		default:
 			break;
 		}
+		this.fxLock=false;
 	}
 	
 	public void autoMove(int speed){
@@ -136,11 +146,19 @@ public class Tank extends Sprite{
 		return fx;
 	}
 	public void setFx(int fx) {
+		if(fxLock==true&&isMe)return;
 		if(fx>4){
 			this.fx=1;
 		}else{
 			this.fx = fx;
 		}
+	}
+	
+	public boolean isFxLock() {
+		return fxLock;
+	}
+	public void setFxLock(boolean fxLock) {
+		this.fxLock = fxLock;
 	}
 	public Image getsImage() {
 		return sImage;
