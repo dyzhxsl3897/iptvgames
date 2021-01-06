@@ -11,6 +11,7 @@ import javax.microedition.lcdui.game.Sprite;
 import javax.microedition.midlet.MIDletStateChangeException;
 
 import com.game.MyLayerManager;
+import com.game.Constants.KeyCode;
 import com.game.sprite.Map;
 import com.game.sprite.Motor;
 import com.game.sprite.MySprite;
@@ -53,11 +54,11 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	//ÈöúÁ¢ç
 	private Image obstacleImage;
 	private MySprite obstacle;
-	private static final int[] obYs={182,214,248,283};
+	private static final int[] obYs={182+85,214+85,248+85,283+85};
 	//Ê±ΩÊ≤π
 	private Image fuelImage;
 	private MySprite fuel;
-	private static final int[] fuelYs={158,188,220,256};
+	private static final int[] fuelYs={158+85,188+85,220+85,256+85};
 	
 	//ÁÅ?
 	private Image lightImage;
@@ -69,6 +70,9 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 	//ÁªàÁÇπ
 	private Image filishImage;
 	private Sprite filishSprite;
+	
+	private Image ztImage;
+	private Sprite ztSprite;
 	
 	
 	private Image winImage;
@@ -127,13 +131,13 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			goOnImage=Image.createImage("/goon.png");
 			goOnSprite=new Sprite(goOnImage);
 			goOnSprite.setVisible(false);
-			goOnSprite.setPosition(212, 124);
+			goOnSprite.setPosition(212, 209);
 			layerManager.append(goOnSprite);
 			
 			quitImage=Image.createImage("/quit.png");
 			quitSprite=new Sprite(quitImage);
 			quitSprite.setVisible(false);
-			quitSprite.setPosition(315, 124);
+			quitSprite.setPosition(315, 209);
 			layerManager.append(quitSprite);
 			
 			pauseImage=Image.createImage("/pause.png");
@@ -143,12 +147,12 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			
 			lightImage=Image.createImage("/light.png");
 			light=new Sprite(lightImage);
-			light.setPosition(243, 162);
+			light.setPosition(243, 162+85);
 			greenLightImages=new Image[]{Image.createImage("/greenlight_0.png"),Image.createImage("/greenlight_1.png"),Image.createImage("/greenlight_2.png")};
 			greenLights=new Sprite[3];
 			for (int i = 0; i < greenLightImages.length; i++) {
 				greenLights[i]=new Sprite(greenLightImages[i]);
-				greenLights[i].setPosition(243, 162);
+				greenLights[i].setPosition(243, 162+85);
 				greenLights[i].setVisible(false);
 				layerManager.append(greenLights[i]);
 			}
@@ -195,12 +199,12 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			
 			filishImage=Image.createImage("/finish.png");
 			filishSprite=new Sprite(filishImage);
-			filishSprite.setPosition(MILEAGE, 210);
+			filishSprite.setPosition(MILEAGE, 210+85);
 			layerManager.append(filishSprite);
 			
 			winSelBackImage=Image.createImage("/win-return.png");
 			winSelBackSprite=new Sprite(winSelBackImage);
-			winSelBackSprite.setPosition(247, 247);
+			winSelBackSprite.setPosition(247, 331);
 			winSelBackSprite.setVisible(false);
 			layerManager.append(winSelBackSprite);
 			winImage=Image.createImage("/win.png");
@@ -210,7 +214,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			
 			loseSelBackImage=Image.createImage("/lose-return.png");
 			loseSelBackSprite=new Sprite(loseSelBackImage);
-			loseSelBackSprite.setPosition(247, 247);
+			loseSelBackSprite.setPosition(247, 331);
 			loseSelBackSprite.setVisible(false);
 			layerManager.append(loseSelBackSprite);
 			loseImage=Image.createImage("/lose.png");
@@ -261,8 +265,13 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			percent3Sprite.setFrame(0);
 			layerManager.append(percent3Sprite);
 			
+			ztImage=Image.createImage("/zt.png");
+			ztSprite=new Sprite(ztImage);
+			ztSprite.setPosition(251, 497);
+			layerManager.append(ztSprite);
+			
 			maps=new Map[3];
-			mapImage=Image.createImage("/bg.jpg");
+			mapImage=Image.createImage("/bg.png");
 			maps[0]=new Map(mapImage);
 			maps[1]=new Map(mapImage);
 			maps[2]=new Map(mapImage);
@@ -281,7 +290,6 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			Graphics g=getGraphics();
 			while (isRunning) {
 				if(pausing||finish){
-					input();
 					drawScreen(g);
 					System.gc();
 					Thread.currentThread();
@@ -291,7 +299,6 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 				if(light()){
 					mapRolling();
 					motorRun();
-					input();
 				}
 				drawScreen(g);
 				Thread.currentThread();
@@ -305,7 +312,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		g.setColor(0xffffff);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		g.setColor(0x0000ff);
-		layerManager.setViewWindow(0, 0, 640,360);
+		layerManager.setViewWindow(0, 0, 640,530);
 		layerManager.paint(g, 0, 0);
 //		g.drawString(aaa+"",10,10,0);
 		flushGraphics();
@@ -446,7 +453,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 				finish=true;
 				return;
 			}
-			//AIÂº∫Âà∂ÂáèÈ?
+			//AIÂº∫Âà∂ÂáèÈ??
 			if(ais[i].getX()>1280){
 				ais[i].slowDown();
 			}
@@ -464,7 +471,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		}
 	}
 	public void quickSort(Layer array[], int low, int high) {// ‰º†ÂÖ•low=0Ôºåhigh=array.length-1;
-		int pivot, p_pos, i;// pivot->‰ΩçÁ¥¢Âº?p_pos->ËΩ¥Â?„Ä?
+		int pivot, p_pos, i;// pivot->‰ΩçÁ¥¢Âº?;p_pos->ËΩ¥Â?º„??
 		Layer t;
 		if (low < high) {
 			p_pos = low;
@@ -479,7 +486,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			t = array[low];
 			array[low] = array[p_pos];
 			array[p_pos] = t;
-			// ÂàÜË?Ê≤ª‰πã
+			// ÂàÜË?åÊ≤ª‰π?
 			quickSort(array, low, p_pos - 1);// ÊéíÂ∫èÂ∑¶ÂçäÈÉ®ÂàÜ
 			quickSort(array, p_pos + 1, high);// ÊéíÂ∫èÂè≥ÂçäÈÉ®ÂàÜ
 		}
@@ -518,9 +525,9 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		}
 		return flag;
 	}
-	private void input() {
+	private void input1() {
 		int keyStates=getKeyStates();
-		
+		System.out.println(keyStates);
 		if(keyStates==lastKey)return;
 		lastKey=keyStates;
 		if(pausing){
@@ -561,6 +568,52 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 			}else if(keyStates==256){//‰∏?
 				player.jump();
 			}else if(keyStates==512){
+				pause();
+			}else if(keyStates==0){
+				pause();
+			}
+		}
+	}
+	protected void keyPressed(int keyCode) {
+		super.keyPressed(keyCode);
+		if(pausing){
+			if(keyCode==KeyCode.LEFT){//Â∑?
+				goOnSprite.setVisible(true);
+				quitSprite.setVisible(false);
+			}else if(keyCode==KeyCode.RIGHT){//Âè?
+				quitSprite.setVisible(true);
+				goOnSprite.setVisible(false);
+			}else if(keyCode==KeyCode.OK){
+				if(quitSprite.isVisible()){
+					isRunning=false;
+					try {
+						midlet.startApp();
+					} catch (MIDletStateChangeException e) {
+						e.printStackTrace();
+					}
+				}else{
+					pause();
+				}
+			}else if(keyCode==KeyCode.NUM_1){
+				pause();
+			}
+		}else if(finish){
+			if(keyCode==KeyCode.OK){
+				isRunning=false;
+				try {
+					midlet.startApp();
+				} catch (MIDletStateChangeException e) {
+					e.printStackTrace();
+				}
+			}
+		}else{
+			if(keyCode==KeyCode.UP){//‰∏?
+				player.setLine(player.getLine()>0?player.getLine()-1:0);
+			}else if(keyCode==KeyCode.DOWN){//‰∏?
+				player.setLine(player.getLine()<3?player.getLine()+1:3);
+			}else if(keyCode==KeyCode.OK){//Ë∑?
+				player.jump();
+			}else if(keyCode==KeyCode.NUM_1){
 				pause();
 			}
 		}

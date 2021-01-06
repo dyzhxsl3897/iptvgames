@@ -14,12 +14,12 @@ public class Constants {
 		public final static int BACK_2 = -9;// HUAWEI_EC6108V9
 		public final static int DEL = -8;// 删除
 		public final static int FAST_FORWARD = -21;// 快进/下页
-		public final static int REWIND = -20;// 快�?/上页
+		public final static int REWIND = -20;// 快�??/上页
 		public final static int INPUT = -30;// 输入�?
-		public final static int RED = 42;// 直播/�?F1
-		public final static int GREEN = 42;// 回看/�?F2
-		public final static int YELLOW = 42;// 点播/�?F3
-		public final static int BLUE = 42;// 咨询/�?F4
+		public final static int RED = 42;// 直播/�?/F1
+		public final static int GREEN = 42;// 回看/�?/F2
+		public final static int YELLOW = 42;// 点播/�?/F3
+		public final static int BLUE = 42;// 咨询/�?/F4
 		public final static int VOLUMN_DEC = 35;// 音量�?
 		public final static int NUM_0 = 48;// 数字0
 		public final static int NUM_1 = 49;// 数字1
