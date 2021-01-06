@@ -18,6 +18,7 @@ public class MenuCanvas extends GameCanvas implements Runnable{
 	public Thread mainThread = new Thread(this);
 	public boolean isRunning = false;
 	public MainMidlet midlet;
+	private int selected=0;
 //	private Image bgMainImage;
 //	private Image selectedImage;
 	private Sprite bgMainSprite;
@@ -36,7 +37,7 @@ public class MenuCanvas extends GameCanvas implements Runnable{
 			Image selectedImage=Image.createImage("/menu/selected.png");
 			bgMainSprite=new Sprite(bgMainImage);
 			selectedSprite=new Sprite(selectedImage, 147, 48);
-			selectedSprite.setPosition(246, 300);
+			selectedSprite.setPosition(248, 424);
 			layerManager.append(selectedSprite);
 			layerManager.append(bgMainSprite);
 			if(!mainThread.isAlive()){
@@ -53,8 +54,27 @@ public class MenuCanvas extends GameCanvas implements Runnable{
 	private void input(int keyCode){
 		switch (keyCode) {
 		case KeyCode.OK:
-			this.isRunning=false;
-			midlet.dis.setCurrent(midlet.checkpointCanvas);
+			if(selected==0){
+				this.isRunning=false;
+				midlet.dis.setCurrent(midlet.checkpointCanvas);
+			}else{
+				midlet.exit();
+			}
+			break;
+		case KeyCode.UP:
+			if(selected==0){
+				selected=1;
+			}else{
+				selected=0;
+			}
+			break;
+		case KeyCode.DOWN:
+			if(selected==0){
+				selected=1;
+			}else{
+				selected=0;
+			}
+			break;
 		}
 	}
 	
@@ -77,6 +97,11 @@ public class MenuCanvas extends GameCanvas implements Runnable{
 		isRunning=true;
 		try {
 			while (isRunning) {
+				if(selected==0){
+					selectedSprite.setPosition(248, 424);
+				}else{
+					selectedSprite.setPosition(248, 473);
+				}
 				selectedSprite.nextFrame();
 				Graphics g=getGraphics();
 				drawScreen(g);

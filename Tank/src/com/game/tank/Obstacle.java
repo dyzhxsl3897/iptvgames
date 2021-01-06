@@ -10,7 +10,7 @@ import javax.microedition.lcdui.game.Sprite;
  */
 public class Obstacle extends Sprite{
 
-	/**障碍物分类，1墙,2石头，3水，4草*/
+	/** 障碍物分类，1墙,2石头，3水，4草 */
 	private int type=1;
 	public Obstacle(Image image) {
 		super(image);

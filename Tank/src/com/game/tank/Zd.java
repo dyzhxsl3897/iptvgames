@@ -32,7 +32,7 @@ public class Zd extends Sprite{
 	}
 	public void setFx(int fx) {
 		this.fx = fx;
-		if(fx==1) this.setImage(image_s, 2, 3);
+		if(fx==1) this.setImage(image_s, 4, 5);
 		if(fx==2) this.setImage(image_x, 4, 5);
 		if(fx==3) this.setImage(image_z, 5, 4);
 		if(fx==4) this.setImage(image_y, 5, 4);
@@ -40,7 +40,7 @@ public class Zd extends Sprite{
 
 	public void move(int dx, int dy) {
 		super.move(dx, dy);
-		if(this.getX()<140||this.getY()<14||this.getX()>640-140||this.getY()>360-14){
+		if(this.getX()<140||this.getY()<99||this.getX()>640-140||this.getY()>431){
 			this.fx=5;
 		}
 	}
