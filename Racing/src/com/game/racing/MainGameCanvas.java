@@ -121,11 +121,6 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		// new func 2
 	}
 
-	private void reloadMusics() {
-		// TODO Auto-generated method stub
-
-	}
-
 	private void reloadImages() {
 		try {
 			goOnImage=Image.createImage("/goon.png");
@@ -525,55 +520,6 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 		}
 		return flag;
 	}
-	private void input1() {
-		int keyStates=getKeyStates();
-		System.out.println(keyStates);
-		if(keyStates==lastKey)return;
-		lastKey=keyStates;
-		if(pausing){
-			if(keyStates==4){//左
-				goOnSprite.setVisible(true);
-				quitSprite.setVisible(false);
-			}else if(keyStates==32){//右
-				quitSprite.setVisible(true);
-				goOnSprite.setVisible(false);
-			}else if(keyStates==256){
-				if(quitSprite.isVisible()){
-					isRunning=false;
-					try {
-						midlet.startApp();
-					} catch (MIDletStateChangeException e) {
-						e.printStackTrace();
-					}
-				}else{
-					pause();
-				}
-			}else if(keyStates==512){
-				pause();
-			}
-		}else if(finish){
-			if(keyStates==256){
-				isRunning=false;
-				try {
-					midlet.startApp();
-				} catch (MIDletStateChangeException e) {
-					e.printStackTrace();
-				}
-			}
-		}else{
-			if(keyStates==2){//上
-				player.setLine(player.getLine()>0?player.getLine()-1:0);
-			}else if(keyStates==64){//下
-				player.setLine(player.getLine()<3?player.getLine()+1:3);
-			}else if(keyStates==256){//下
-				player.jump();
-			}else if(keyStates==512){
-				pause();
-			}else if(keyStates==0){
-				pause();
-			}
-		}
-	}
 	protected void keyPressed(int keyCode) {
 		super.keyPressed(keyCode);
 		if(pausing){
@@ -594,7 +540,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 				}else{
 					pause();
 				}
-			}else if(keyCode==KeyCode.NUM_1){
+			}else if(keyCode==KeyCode.NUM_0){
 				pause();
 			}
 		}else if(finish){
@@ -613,7 +559,7 @@ public class MainGameCanvas extends GameCanvas implements Runnable {
 				player.setLine(player.getLine()<3?player.getLine()+1:3);
 			}else if(keyCode==KeyCode.OK){//跳
 				player.jump();
-			}else if(keyCode==KeyCode.NUM_1){
+			}else if(keyCode==KeyCode.NUM_0){
 				pause();
 			}
 		}
